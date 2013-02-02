@@ -1,0 +1,42 @@
+#!/bin/sh
+
+. config/options
+
+get_meta $1
+
+ENABLED_PLUGINS="cardclient conax constcw cryptoworks irdeto nagra nds sc-conax sc-cryptoworks sc-irdeto sc-nagra sc-seca sc-viaccess sc-videoguard2 seca shl viaccess"
+
+mkdir -p $INSTALL/usr/lib/vdr
+cp -a $PKG_BUILD_DIR/lib*.so.* $INSTALL/usr/lib/vdr
+
+for plugin in $ENABLED_PLUGINS; do
+  cp $BUILD/${PKG_NAME}-${PKG_VERSION}/systems/$plugin/libsc-*.so.* $INSTALL/usr/lib/vdr/plugins
+done
+
+for loc in $INCLUDED_LOCALES; do
+  LOCALE=`echo $loc|cut -f1 -d.`
+  if [ -d $BUILD/${PKG_NAME}-${PKG_VERSION}/locale/$LOCALE ]; then
+    mkdir -p $INSTALL/usr/share/locale/$LOCALE
+    cp -a $BUILD/${PKG_NAME}-${PKG_VERSION}/locale/$LOCALE/* $INSTALL/usr/share/locale/$LOCALE/
+  fi
+done
+
+NAME=`echo ${PKG_NAME}| sed s/vdr-//`
+
+mkdir -p $INSTALL/etc/vdr/plugins/$NAME
+touch $INSTALL/etc/vdr/plugins/$NAME/cardslot.conf
+touch $INSTALL/etc/vdr/plugins/$NAME/smartcard.conf
+touch $INSTALL/etc/vdr/plugins/$NAME/override.conf
+touch $INSTALL/etc/vdr/plugins/$NAME/SoftCam.Key
+touch $INSTALL/etc/vdr/plugins/$NAME/cardclient.conf
+
+mkdir -p $INSTALL/etc/vdr/plugins.d
+echo "PLUGIN=${NAME}" > $INSTALL/etc/vdr/plugins.d/02_$NAME
+echo "OPTIONS=\"-B0 -B1\"" >> $INSTALL/etc/vdr/plugins.d/02_$NAME
+echo "ENABLED=yes" >> $INSTALL/etc/vdr/plugins.d/02_$NAME
+
+#echo "PLUGIN=${NAME}" > $INSTALL/etc/vdr/plugins.d/50_$NAME
+
+cp $ROOT/$PACKAGES/$1/config/cardclient.conf $INSTALL/etc/vdr/plugins/$NAME
+
+

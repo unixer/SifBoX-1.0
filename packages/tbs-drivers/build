@@ -1,0 +1,36 @@
+#!/bin/sh
+
+. config/options
+
+get_meta linux
+verlte 3.6.11 $PKG_VERSION && INSDVB="yes" || INSDVB="no"
+
+moddir="v4l"
+get_meta $1
+
+cd $PKG_BUILD_DIR
+
+tar xjvf linux-tbs-drivers.tar.bz2
+
+if [ $INSDVB = "no" ]; then
+   patch -p1 < $ROOT/$PACKAGES/$1/patches/linux-tbs-drivers-121119-kernel-3.7.patch.3.7.3
+   #patch -p1 < $ROOT/$PACKAGES/$1/patches/01_kernel.patch.3.7.1
+   #patch -p1 < $ROOT/$PACKAGES/$1/patches/02_kernel.patch.3.7.1
+   #patch -p1 < $ROOT/$PACKAGES/$1/patches/03_kernel.patch.3.7.1
+   #patch -p1 < $ROOT/$PACKAGES/$1/patches/04_kernel.patch.3.7.1
+   #patch -p1 < $ROOT/$PACKAGES/$1/patches/05_kernel.patch.3.7.1
+   #patch -p1 < $ROOT/$PACKAGES/$1/patches/06_kernel.patch.3.7.1
+   #patch -p1 < $ROOT/$PACKAGES/$1/patches/07_kernel.patch.3.7.1
+   #patch -p1 < $ROOT/$PACKAGES/$1/patches/08_kernel.patch.3.7.1
+
+
+fi
+
+cd linux-tbs-drivers
+
+chmod -R +x linux v4l
+[ "$TARGET_ARCH" = "i386" ] && sh ./v4l/tbs-x86_r3.sh
+[ "$TARGET_ARCH" = "x86_64" ] && sh ./v4l/tbs-x86_64.sh
+
+make DIR=$(kernel_path) 
+strip_kmods "$moddir"

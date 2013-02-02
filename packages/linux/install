@@ -1,0 +1,23 @@
+#!/bin/sh
+
+. config/options
+get_meta $1
+
+#cd $BUILD/${PKG_NAME}-${PKG_VERSION}
+cd $PKG_BUILD_DIR
+
+do_install lib/modules
+do_install firmware
+do_install boot
+
+#Firmware
+mkdir -p $INSTALL/firmware
+cp -r $ROOT/$PACKAGES/$1/firmware/* $INSTALL/firmware/
+
+#PROVA CPUPOWER
+mkdir -p $INSTALL/usr/lib
+  cp -P tools/power/cpupower/libcpupower.so* $INSTALL/usr/lib
+
+mkdir -p $INSTALL/usr/bin
+  cp -P tools/power/cpupower/cpupower $INSTALL/usr/bin
+#FINE

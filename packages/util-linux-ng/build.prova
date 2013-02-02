@@ -1,0 +1,66 @@
+#!/bin/sh
+
+. config/options
+get_meta $1
+
+export gt_cv_func_gnugettext1_libintl=no
+
+TLS_CONFIG="--enable-tls"
+[ $TARGET_LIBC = "uclibc" ] && TLS_CONFIG="--disable-tls"
+
+cd $PKG_BUILD_DIR
+
+mkdir -p objdir-host 
+cd objdir-host
+setup_toolchain host
+do_configure host \
+            --without-ncurses \
+            --without-selinux \
+            --disable-tls \
+            --disable-wall \
+            --disable-login \
+            --disable-sulogin \
+            --disable-su \
+
+
+make
+make_install toolchain
+rm -f .install/usr/lib/lib*.so
+cd ..
+
+mkdir -p objdir-target
+cd objdir-target
+setup_toolchain target
+do_configure target \
+ --prefix=/usr \
+ --sysconfdir=/etc \
+ --localstatedir=/var \
+ --mandir=/usr/man \
+ --infodir=/usr/info \
+ --docdir=/usr/doc/util-linux-ng-$VERSION \
+ --enable-arch \
+ --enable-agetty \
+ --disable-init \
+ --enable-kill \
+ --enable-rdev \
+ --disable-last \
+ --enable-mesg \
+ --enable-raw \
+ --enable-rename \
+ --enable-reset \
+ --disable-login-utils \
+ --enable-schedutils \
+ --enable-wall \
+ --enable-write \
+ --enable-setterm \
+ --enable-use-tty-group \
+ --build=$HOST_NAME \
+ --host=$TARGET_NAME \
+ --disable-login \
+ --disable-sulogin \
+ --disable-su \
+ $TLS_CONFIG \
+
+make
+read enterKey
+make_install

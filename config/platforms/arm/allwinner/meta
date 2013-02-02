@@ -1,0 +1,5 @@
+PLATFORM_NAME=allwinner
+PLATFORM_DESC="allwinner"
+PLATFORM_HELP="A generic allwinner-a10 system"
+PLATFORM_SUBARCH=armv7
+PLATFORM_CPU=cortex-a8

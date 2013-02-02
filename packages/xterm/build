@@ -1,0 +1,14 @@
+#!/bin/sh
+
+. config/options
+
+get_meta $1
+cd $PKG_BUILD_DIR
+
+do_configure \
+	--disable-imake \
+	--disable-narrowproto
+
+make
+do_strip bin libxterm.so.*
+make_install

@@ -1,0 +1,14 @@
+--- linux-3.6.11/drivers/media/dvb/dvb-usb/af9035.c.org	2013-01-14 15:07:55.405517498 +0100
++++ linux-3.6.11/drivers/media/dvb/dvb-usb/af9035.c	2013-01-14 15:14:16.777524043 +0100
+@@ -862,8 +862,11 @@
+ 	.if_freq_hz = MxL_IF_4_57_MHZ,
+ 	.invert_if = 0,
+ 	.loop_thru_enable = 0,
++	.loop_thru_enable = 3,
+ 	.clk_out_enable = 0,
+ 	.clk_out_amp = MxL_CLKOUT_AMP_0_94V,
++        .no_probe = 1,
++        .no_reset = 1,
+ };
+ 
+ static struct tda18218_config af9035_tda18218_config = {

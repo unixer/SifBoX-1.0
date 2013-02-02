@@ -1,0 +1,153 @@
+﻿10:13:28 T:3047823104  NOTICE: -----------------------------------------------------------------------
+10:13:28 T:3047823104  NOTICE: Starting XBMC (12.0-ALPHA7 Git:3d20e6de-SifBoX), Platform: Linux (SifBoX RC2-20121114-r15516, 3.6.6 i686). Built on Nov 14 2012
+10:13:28 T:3047823104  NOTICE: special://xbmc/ is mapped to: /usr/share/xbmc
+10:13:28 T:3047823104  NOTICE: special://xbmcbin/ is mapped to: /usr/lib/xbmc
+10:13:28 T:3047823104  NOTICE: special://masterprofile/ is mapped to: /root/.xbmc/userdata
+10:13:28 T:3047823104  NOTICE: special://home/ is mapped to: /root/.xbmc
+10:13:28 T:3047823104  NOTICE: special://temp/ is mapped to: /root/.xbmc/temp
+10:13:28 T:3047823104  NOTICE: The executable running is: /usr/lib/xbmc/xbmc.bin
+10:13:28 T:3047823104  NOTICE: Local hostname: sifbox
+10:13:28 T:3047823104  NOTICE: Log File is located: /root/.xbmc/temp/xbmc.log
+10:13:28 T:3047823104  NOTICE: -----------------------------------------------------------------------
+10:13:28 T:3047823104   ERROR: CAESinkOSS::EnumerateDevicesEx - Failed to open mixer: /dev/mixer
+10:13:28 T:3047823104  NOTICE: Enumerated ALSA devices:
+10:13:28 T:3047823104  NOTICE:     Device 1
+10:13:28 T:3047823104  NOTICE:         m_deviceName      : default
+10:13:28 T:3047823104  NOTICE:         m_displayName     : Default (HDA Intel HDMI 0)
+10:13:28 T:3047823104  NOTICE:         m_displayNameExtra:
+10:13:28 T:3047823104  NOTICE:         m_deviceType      : AE_DEVTYPE_PCM
+10:13:28 T:3047823104  NOTICE:         m_channels        : FL,FR,BL,BR,FC,LFE,SL,SR
+10:13:28 T:3047823104  NOTICE:         m_sampleRates     : 32000,44100,48000,88200,96000,176400,192000
+10:13:28 T:3047823104  NOTICE:         m_dataFormats     : AE_FMT_S32NE,AE_FMT_S16NE,AE_FMT_S16LE
+10:13:28 T:3047823104  NOTICE:     Device 2
+10:13:28 T:3047823104  NOTICE:         m_deviceName      : @:CARD=Intel,DEV=0
+10:13:28 T:3047823104  NOTICE:         m_displayName     : HDA Intel
+10:13:28 T:3047823104  NOTICE:         m_displayNameExtra: ALC269VB Analog
+10:13:28 T:3047823104  NOTICE:         m_deviceType      : AE_DEVTYPE_PCM
+10:13:28 T:3047823104  NOTICE:         m_channels        : FL,FR
+10:13:28 T:3047823104  NOTICE:         m_sampleRates     : 44100,48000,96000,192000
+10:13:28 T:3047823104  NOTICE:         m_dataFormats     : AE_FMT_S32NE,AE_FMT_S16NE,AE_FMT_S16LE
+10:13:28 T:3047823104  NOTICE: load settings...
+10:13:28 T:3047823104  NOTICE: special://profile/ is mapped to: special://masterprofile/
+10:13:28 T:3047823104  NOTICE: loading special://masterprofile/guisettings.xml
+10:13:28 T:3047823104   ERROR: special://masterprofile/guisettings.xml Doesn't contain <resolutions>
+10:13:28 T:3047823104  NOTICE: Getting hardware information now...
+10:13:28 T:3047823104  NOTICE: Loading player core factory settings from special://xbmc/system/playercorefactory.xml.
+10:13:28 T:3047823104  NOTICE: Loaded playercorefactory configuration
+10:13:28 T:3047823104  NOTICE: Loading player core factory settings from special://masterprofile/playercorefactory.xml.
+10:13:28 T:3047823104  NOTICE: special://masterprofile/playercorefactory.xml does not exist. Skipping.
+10:13:28 T:3047823104  NOTICE: Loaded settings file from special://xbmc/system/advancedsettings.xml
+10:13:28 T:3047823104  NOTICE: Contents of special://xbmc/system/advancedsettings.xml are...
+                                            <?xml version="1.0" encoding="UTF-8" ?>
+                                            <advancedsettings>
+                                              <splash>false</splash>
+                                              <showexitbutton>false</showexitbutton>
+                                              <cputempcommand>cputemp</cputempcommand>
+                                              <gputempcommand>gputemp</gputempcommand>
+                                              <video>
+                                                <latency>
+                                                  <delay>0</delay>
+                                                  <refresh>
+                                                    <min>20</min>
+                                                    <max>24</max>
+                                                    <delay>175</delay>
+                                                  </refresh>
+                                                </latency>
+                                              </video>
+                                              <samba>
+                                                <clienttimeout>30</clienttimeout>
+                                              </samba>
+                                            </advancedsettings>
+10:13:28 T:3047823104  NOTICE: Getting hardware information now...
+10:13:28 T:3047823104  NOTICE: Loaded settings file from special://profile/advancedsettings.xml
+10:13:28 T:3047823104  NOTICE: Contents of special://profile/advancedsettings.xml are...
+                                            <advancedsettings>
+                                              <useddsfanart>true</useddsfanart>
+                                              <cputempcommand>sed -e &apos;s/\([0-9]*\)[0-9]\{3\}.*/\1 C/&apos; /sys/class/thermal/thermal_zone0/temp</cputempcommand>
+                                              <samba>
+                                                <clienttimeout>10</clienttimeout>
+                                              </samba>
+                                              <fullscreen>true</fullscreen>
+                                            </advancedsettings>
+10:13:28 T:3047823104  NOTICE: Getting hardware information now...
+10:13:28 T:3047823104  NOTICE: Default DVD Player: dvdplayer
+10:13:28 T:3047823104  NOTICE: Default Video Player: dvdplayer
+10:13:28 T:3047823104  NOTICE: Default Audio Player: paplayer
+10:13:28 T:3047823104  NOTICE: Disabled debug logging due to GUI setting. Level 0.
+10:13:28 T:3047823104  NOTICE: Log level changed to 0
+10:13:28 T:3047823104  NOTICE: Loading media sources from special://masterprofile/sources.xml
+10:13:28 T:3046075200  NOTICE: Thread CSoftAE start, auto delete: false
+10:13:29 T:3035626304  NOTICE: Thread XBMC Peripherals start, auto delete: false
+10:13:29 T:3047823104  NOTICE: Setup SDL
+10:13:30 T:3047823104  NOTICE: Checking resolution 16
+10:13:30 T:3047823104  NOTICE: Using visual 0xfa
+10:13:30 T:3047823104  NOTICE: GL_VENDOR = Mesa Project
+10:13:30 T:3047823104  NOTICE: GL_RENDERER = Software Rasterizer
+10:13:30 T:3047823104  NOTICE: GL_VERSION = 2.1 Mesa 9.0
+10:13:30 T:3047823104  NOTICE: GL_SHADING_LANGUAGE_VERSION = 1.20
+10:13:30 T:3047823104  NOTICE: GL_EXTENSIONS = GL_ARB_multisample GL_EXT_abgr GL_EXT_bgra GL_EXT_blend_color GL_EXT_blend_minmax GL_EXT_blend_subtract GL_EXT_copy_texture GL_EXT_polygon_offset GL_EXT_subtexture GL_EXT_texture_object GL_EXT_vertex_array GL_EXT_compiled_vertex_array GL_EXT_texture GL_EXT_texture3D GL_IBM_rasterpos_clip GL_ARB_point_parameters GL_EXT_draw_range_elements GL_EXT_packed_pixels GL_EXT_point_parameters GL_EXT_rescale_normal GL_EXT_separate_specular_color GL_EXT_texture_edge_clamp GL_SGIS_generate_mipmap GL_SGIS_texture_border_clamp GL_SGIS_texture_edge_clamp GL_SGIS_texture_lod GL_ARB_multitexture GL_IBM_multimode_draw_arrays GL_IBM_texture_mirrored_repeat GL_3DFX_texture_compression_FXT1 GL_ARB_texture_cube_map GL_ARB_texture_env_add GL_ARB_transpose_matrix GL_EXT_blend_func_separate GL_EXT_fog_coord GL_EXT_multi_draw_arrays GL_EXT_secondary_color GL_EXT_texture_env_add GL_EXT_texture_filter_anisotropic GL_EXT_texture_lod_bias GL_INGR_blend_func_separate GL_MESA_resize_buffers GL_NV_blend_square GL_NV_light_max_exponent GL_NV_texgen_reflection GL_NV_texture_env_combine4 GL_SUN_multi_draw_arrays GL_ARB_texture_border_clamp GL_ARB_texture_compression GL_EXT_framebuffer_object GL_EXT_texture_env_combine GL_EXT_texture_env_dot3 GL_MESA_window_pos GL_NV_packed_depth_stencil GL_NV_texture_rectangle GL_NV_vertex_program GL_ARB_depth_texture GL_ARB_occlusion_query GL_ARB_shadow GL_ARB_texture_env_combine GL_ARB_texture_env_crossbar GL_ARB_texture_env_dot3 GL_ARB_texture_mirrored_repeat GL_ARB_window_pos GL_ATI_envmap_bumpmap GL_ATI_fragment_shader GL_EXT_stencil_two_side GL_EXT_texture_cube_map GL_NV_depth_clamp GL_NV_fragment_program GL_NV_point_sprite GL_NV_vertex_program1_1 GL_APPLE_packed_pixels GL_APPLE_vertex_array_object GL_ARB_draw_buffers GL_ARB_fragment_program GL_ARB_fragment_shader GL_ARB_shader_objects GL_ARB_vertex_program GL_ARB_vertex_shader GL_ATI_draw_buffers GL_ATI_texture_env_combine3 GL_EXT_depth_bounds_test GL_EXT_shadow_funcs GL_EXT_stencil_wrap GL_MESA_pack_invert GL_MESA_ycbcr_texture GL_ARB_depth_clamp GL_ARB_fragment_program_shadow GL_ARB_half_float_pixel GL_ARB_occlusion_query2 GL_ARB_point_sprite GL_ARB_shading_language_100 GL_ARB_sync GL_ARB_texture_non_power_of_two GL_ARB_vertex_buffer_object GL_ATI_blend_equation_separate GL_EXT_blend_equation_separate GL_OES_read_format GL_ARB_pixel_buffer_object GL_ARB_texture_compression_rgtc GL_ARB_texture_rectangle GL_ATI_texture_compression_3dc GL_EXT_pixel_buffer_object GL_EXT_texture_compression_rgtc GL_EXT_texture_mirror_clamp GL_EXT_texture_rectangle GL_EXT_texture_sRGB GL_EXT_texture_shared_exponent GL_ARB_framebuffer_object GL_EXT_framebuffer_blit GL_EXT_framebuffer_multisample GL_EXT_packed_depth_stencil GL_NV_fragment_program_option GL_APPLE_object_purgeable GL_ARB_vertex_array_object GL_ATI_separate_stencil GL_ATI_texture_mirror_once GL_EXT_draw_buffers2 GL_EXT_draw_instanced GL_EXT_gpu_program_parameters GL_EXT_texture_array GL_EXT_texture_compression_latc GL_EXT_texture_sRGB_decode GL_MESA_texture_array GL_ARB_copy_buffer GL_ARB_draw_instanced GL_ARB_half_float_vertex GL_ARB_map_buffer_range GL_ARB_texture_rg GL_ARB_texture_swizzle GL_ARB_vertex_array_bgra GL_EXT_separate_shader_objects GL_EXT_texture_swizzle GL_EXT_vertex_array_bgra GL_NV_conditional_render GL_ARB_debug_output GL_ARB_draw_elements_base_vertex GL_ARB_explicit_attrib_location GL_ARB_fragment_coord_conventions GL_ARB_provoking_vertex GL_ARB_sampler_objects GL_EXT_provoking_vertex GL_ARB_robustness GL_ARB_texture_storage GL_ARB_invalidate_subdata
+10:13:30 T:3047823104   ERROR: GLX: Same window as before, refreshing context
+10:13:30 T:3047823104  NOTICE: Running database version Addons15
+10:13:32 T:3047823104  NOTICE: start dvd mediatype detection
+10:13:32 T:3047823104  NOTICE: initializing playlistplayer
+10:13:32 T:3047823104  NOTICE: DONE initializing playlistplayer
+10:13:32 T:2988567360  NOTICE: Thread CDetectDVDMedia start, auto delete: false
+10:13:33 T:3047823104  NOTICE: initialize done
+10:13:33 T:3047823104  NOTICE: Running the application...
+10:13:33 T:3047823104   ERROR: CheckDisplayEvents - no display event after 3 seconds
+10:13:33 T:2983177024  NOTICE: Thread Jobworker start, auto delete: true
+10:13:33 T:3047823104  NOTICE: Webserver: Starting...
+10:13:33 T:3047823104  NOTICE: WebServer: Started the webserver
+10:13:33 T:3047823104  NOTICE: starting upnp renderer
+10:13:33 T:3047823104  NOTICE: ES: Starting event server
+10:13:33 T:3047823104  NOTICE: starting zeroconf publishing
+10:13:33 T:2903501632  NOTICE: Thread CEventServer start, auto delete: false
+10:13:33 T:2903501632  NOTICE: ES: Starting UDP Event server on 0.0.0.0:9777
+10:13:33 T:2903501632  NOTICE: UDP: Listening on port 9777
+10:13:33 T:2895108928  NOTICE: Thread CTCPServer start, auto delete: false
+10:13:33 T:2886716224  NOTICE: Thread Jobworker start, auto delete: true
+10:13:34 T:2822937408  NOTICE: Previous line repeats 1 times.
+10:13:34 T:2822937408  NOTICE: Thread CFileCache start, auto delete: false
+10:13:34 T:2988567360  NOTICE: Thread CRssReader start, auto delete: false
+10:13:36 T:2822937408  NOTICE: Thread CFileCache start, auto delete: false
+10:13:41 T:2814544704  NOTICE: Previous line repeats 11 times.
+10:13:41 T:2814544704  NOTICE: Thread Jobworker start, auto delete: true
+10:13:47 T:2779933504  NOTICE: Thread CFileCache start, auto delete: false
+10:13:56 T:2814544704  NOTICE: Previous line repeats 1 times.
+10:13:56 T:2814544704   ERROR: Repository bluecop Add-on Repository returned no add-ons, listing may have failed
+10:16:18 T:2983177024  NOTICE: Thread Jobworker start, auto delete: true
+10:17:06 T:3047823104  NOTICE: Previous line repeats 1 times.
+10:17:06 T:3047823104  NOTICE: Storing total System Uptime
+10:17:06 T:3047823104  NOTICE: Saving settings
+10:17:06 T:3047823104  NOTICE: stop all
+10:17:06 T:3047823104  NOTICE: ES: Stopping event server
+10:17:06 T:3047823104  NOTICE: stopping upnp
+10:17:06 T:3047823104  NOTICE: stopping zeroconf publishing
+10:17:06 T:3047823104  NOTICE: Webserver: Stopping...
+10:17:06 T:3047823104  NOTICE: WebServer: Stopped the webserver
+10:17:06 T:3047823104  NOTICE: Webserver: Stopped...
+10:17:07 T:2903501632  NOTICE: ES: UDP Event server stopped
+10:17:07 T:3047823104  NOTICE: stop dvd detect media
+10:17:07 T:3047823104  NOTICE: stop sap announcement listener
+10:17:07 T:3047823104  NOTICE: clean cached files!
+10:17:07 T:3047823104  NOTICE: unload skin
+10:17:07 T:3047823104  NOTICE: stop python
+10:17:07 T:3047823104  NOTICE: stopped
+10:17:07 T:3047823104  NOTICE: destroy
+10:17:07 T:3047823104  NOTICE: closing down remote control service
+10:17:07 T:3047823104  NOTICE: unload sections
+10:17:07 T:3047823104  NOTICE: destroy
+10:17:07 T:3047823104 WARNING: Attempted to remove window 10013 from the window manager when it didn't exist
+10:17:07 T:3047823104 WARNING: Attempted to remove window 10014 from the window manager when it didn't exist
+10:17:07 T:3047823104 WARNING: Attempted to remove window 10015 from the window manager when it didn't exist
+10:17:07 T:3047823104 WARNING: Attempted to remove window 10016 from the window manager when it didn't exist
+10:17:07 T:3047823104 WARNING: Attempted to remove window 10017 from the window manager when it didn't exist
+10:17:07 T:3047823104 WARNING: Attempted to remove window 10018 from the window manager when it didn't exist
+10:17:07 T:3047823104 WARNING: Attempted to remove window 10019 from the window manager when it didn't exist
+10:17:07 T:3047823104 WARNING: Attempted to remove window 10021 from the window manager when it didn't exist
+10:17:07 T:3047823104 WARNING: Attempted to remove window 10107 from the window manager when it didn't exist
+10:17:07 T:3047823104 WARNING: Attempted to remove window 10115 from the window manager when it didn't exist
+10:17:07 T:3047823104 WARNING: Attempted to remove window 10104 from the window manager when it didn't exist
+10:17:07 T:3047823104  NOTICE: closing down remote control service
+10:17:07 T:3047823104  NOTICE: unload sections
+10:17:07 T:3047823104  NOTICE: application stopped...

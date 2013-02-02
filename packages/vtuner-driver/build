@@ -1,0 +1,12 @@
+#!/bin/sh
+
+. config/options
+get_meta linux
+verlte 3.6.11 $PKG_VERSION && INSDVB="yes" || INSDVB="no"
+
+cd $BUILD/$1*
+if [ $INSDVB = "no" ]; then
+   patch -p1 < $ROOT/$PACKAGES/$1/patches/01_kernel_3.7.x.patch.3.7.1
+fi
+make KDIR=$(kernel_path) CC=$CC
+

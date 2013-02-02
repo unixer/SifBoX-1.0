@@ -1,0 +1,11 @@
+--- vompclient-2012.10.14/osdopenvg.cc.orig	2012-10-14 12:32:40.000000000 +0200
++++ vompclient-2012.10.14/osdopenvg.cc	2012-10-14 14:05:34.000000000 +0200
+@@ -393,7 +393,7 @@
+ 
+ void OsdOpenVG::InternalRendering(){
+ 	vgmutex.Lock();
+-    float colclear[]={1.f,1.0f,1.f,1.f};
++    float colclear[]={0.f,0.f,0.f,0.f};
+     vgSetfv(VG_CLEAR_COLOR,4,colclear);
+ 	vgClear(0,0,BACKBUFFER_WIDTH,BACKBUFFER_HEIGHT);
+ 	vgSeti(VG_BLEND_MODE, VG_BLEND_SRC);

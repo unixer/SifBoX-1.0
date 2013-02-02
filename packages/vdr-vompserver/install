@@ -1,0 +1,28 @@
+#!/bin/sh
+
+. config/options
+
+get_meta $1
+
+mkdir -p $INSTALL/usr/lib/vdr/plugins
+cp -a $PKG_BUILD_DIR/lib*.so.* $INSTALL/usr/lib/vdr/plugins
+
+for loc in $INCLUDED_LOCALES; do
+  LOCALE=`echo $loc|cut -f1 -d.`
+  if [ -d $PKG_BUILD_DIR/locale/$LOCALE ]; then
+    mkdir -p $INSTALL/usr/share/locale/$LOCALE
+    cp -a $PKG_BUILD_DIR/locale/$LOCALE/* $INSTALL/usr/share/locale/$LOCALE/
+  fi
+done
+
+NAME=`echo $1 | sed s/vdr-//`
+mkdir -p $INSTALL/etc/vdr/plugins.d
+echo "PLUGIN=${NAME}" > $INSTALL/etc/vdr/plugins.d/50_$NAME
+echo "ENABLED=yes" >> $INSTALL/etc/vdr/plugins.d/50_$NAME
+
+
+mkdir -p $INSTALL/etc/vdr/plugins/vompserver
+cp $PACKAGES/$1/config/vomp.conf $INSTALL/etc/vdr/plugins/vompserver
+cp $PKG_BUILD_DIR/vomp-00-00-00-00-00-00.conf.sample \
+  $INSTALL/etc/vdr/plugins/vompserver
+cp -r $PKG_BUILD_DIR/l10n $INSTALL/etc/vdr/plugins/vompserver

@@ -1,0 +1,7 @@
+PKG_NAME=eglibc-localedef
+#PKG_VERSION=2.15-r15409
+PKG_VERSION=2.17-r22106
+#PKG_URL="$DISTRO_SRCS/eglibc-localedef-${PKG_VERSION}.tar.xz"
+PKG_URL="http://sources.openbricks.org/devel/eglibc-localedef-${PKG_VERSION}.tar.xz"
+PKG_REV=1
+PKG_BUILD_DEPENDS="toolchain"

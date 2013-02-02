@@ -1,0 +1,59 @@
+--- vdr-dvbapi-1.02+2060f53120/device-tmpl.cpp	2012-09-28 07:59:24.000000000 +0200
++++ vdr-dvbapi-1.02+2060f53120/device-tmpl.cpp.ion	2013-01-14 11:37:38.725300924 +0100
+@@ -1,6 +1,9 @@
+ /*
+  *  vdr-plugin-dvbapi - softcam dvbapi plugin for VDR
+  *
++/*
++ *  vdr-plugin-dvbapi - softcam dvbapi plugin for VDR
++ *
+  *  This program is free software; you can redistribute it and/or modify
+  *  it under the terms of the GNU General Public License as published by
+  *  the Free Software Foundation; either version 2 of the License, or
+@@ -63,11 +66,15 @@
+   tsBuffer = 0;
+   hwciadapter = 0;
+   devplugin = DevPlugin;
+-  softcsa = fullts = false;
++  fullts = false;
++  softcsa = (cafd < 0);
++  if (softcsa)
++    fullts = CheckFullTs();
+   fd_ca = cafd;
+   fd_ca2 = dup(fd_ca);
+   fd_dvr = -1;
+   snprintf(devId, sizeof(devId), "%d/%d", Adapter, Frontend);
++  sCCIAdapter = new SCCIAdapter(this, Adapter, cafd, softcsa, fullts);
+   DEBUGLOG("%s: done", __FUNCTION__);
+ }
+ 
+@@ -107,7 +114,6 @@
+   int n = CardIndex();
+   if (DeviceNumber() != n)
+     ERRORLOG("CardIndex - DeviceNumber mismatch! Put DVBAPI plugin first on VDR commandline!");
+-  softcsa = (fd_ca < 0);
+   if (softcsa)
+   {
+     if (HasDecoder())
+@@ -120,7 +126,6 @@
+   }
+   if (softcsa)
+   {
+-    fullts = CheckFullTs();
+     if (fullts)
+       INFOLOG("Enabling hybrid full-ts mode on card %s", devId);
+     else
+@@ -128,7 +133,6 @@
+   }
+   if (fd_ca2 >= 0)
+     hwciadapter = cDvbCiAdapter::CreateCiAdapter(this, fd_ca2);
+-  sCCIAdapter = new SCCIAdapter(this, n, fd_ca, softcsa, fullts);
+ }
+ 
+ bool SCDEVICE::HasCi(void)
+@@ -214,3 +218,5 @@
+ #undef DVBDEVICE
+ #undef OWN_FULLTS
+ #undef OWN_DEVPARAMS
++
++

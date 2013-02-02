@@ -1,0 +1,22 @@
+--- lm-sensors-3.3.2/prog/sensors/Module.mk.ok	2012-09-28 07:55:23.812936742 +0200
++++ lm-sensors-3.3.2/prog/sensors/Module.mk	2012-09-28 07:55:36.040936955 +0200
+@@ -37,8 +37,6 @@
+ REMOVESENSORSBIN := $(patsubst $(MODULE_DIR)/%,$(DESTDIR)$(BINDIR)/%,$(PROGSENSORSTARGETS))
+ REMOVESENSORSMAN := $(patsubst $(MODULE_DIR)/%,$(DESTDIR)$(PROGSENSORSMAN1DIR)/%,$(PROGSENSORSMAN1FILES))
+ 
+-LIBICONV := $(shell if /sbin/ldconfig -p | grep -q libiconv\\.so ; then echo \-liconv; else echo; fi)
+-
+ $(PROGSENSORSTARGETS): $(PROGSENSORSSOURCES:.c=.ro) lib/$(LIBSHBASENAME)
+ 	$(CC) $(EXLDFLAGS) -o $@ $(PROGSENSORSSOURCES:.c=.ro) $(LIBICONV) -Llib -lsensors
+ 
+--- lm-sensors-3.3.2/prog/sensors/Module.mk.ok	2012-09-28 08:26:09.152968418 +0200
++++ lm-sensors-3.3.2/prog/sensors/Module.mk	2012-09-28 08:26:20.216968610 +0200
+@@ -38,7 +38,7 @@
+ REMOVESENSORSMAN := $(patsubst $(MODULE_DIR)/%,$(DESTDIR)$(PROGSENSORSMAN1DIR)/%,$(PROGSENSORSMAN1FILES))
+ 
+ $(PROGSENSORSTARGETS): $(PROGSENSORSSOURCES:.c=.ro) lib/$(LIBSHBASENAME)
+-	$(CC) $(EXLDFLAGS) -o $@ $(PROGSENSORSSOURCES:.c=.ro) $(LIBICONV) -Llib -lsensors
++	$(CC) $(EXLDFLAGS) -o $@ $(PROGSENSORSSOURCES:.c=.ro) -Llib -lsensors
+ 
+ all-prog-sensors: $(PROGSENSORSTARGETS)
+ user :: all-prog-sensors

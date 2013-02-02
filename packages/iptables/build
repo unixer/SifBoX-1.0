@@ -1,0 +1,26 @@
+#!/bin/sh
+
+. config/options
+
+get_meta linux
+verlte 3.6.11 $PKG_VERSION && INSDVB="yes" || INSDVB="no"
+if [ $INSDVB = "no" ]; then
+   DVB_DIR=""
+else
+   DVB_DIR="--with-kernel=$(kernel_path)"
+fi
+
+$SCRIPTS/build linux
+
+cd $BUILD/$1*
+
+
+do_configure \
+            --enable-devel \
+            --disable-ipv6 \
+	    $DVB_DIR \
+
+#            --with-kernel=$(kernel_path) \
+
+make
+make_install

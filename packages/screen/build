@@ -1,0 +1,15 @@
+#!/bin/sh
+
+. config/options
+
+export MAKEFLAGS=-j1
+
+cd $BUILD/$1*
+
+do_configure \
+  --disable-pam \
+  --with-sys-screenrc=/etc/screenrc \
+
+export MAKEFLAGS=-j1
+make
+make_install

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+. config/options
+
+export MAKEFLAGS=-j1
+
+get_meta $1
+cd $PKG_BUILD_DIR
+#do_configure
+make ffmpeg
+read enterKey
+make_install

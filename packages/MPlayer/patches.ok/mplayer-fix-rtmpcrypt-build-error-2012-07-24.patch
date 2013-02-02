@@ -1,0 +1,12 @@
+Index: configure
+===================================================================
+--- configure	(revision 35047)
++++ configure	(working copy)
+@@ -8812,6 +8813,7 @@
+ #define CONFIG_DCT 1
+ #define CONFIG_DWT 1
+ #define CONFIG_FFT 1
++#define CONFIG_GCRYPT 1
+ #define CONFIG_GOLOMB 1
+ #define CONFIG_H264CHROMA 1
+ #define CONFIG_H264DSP 1

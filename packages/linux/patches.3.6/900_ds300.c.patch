@@ -1,0 +1,11 @@
+--- linux-3.6.3/drivers/media/dvb/frontends/ds3000.c.org	2012-10-29 19:37:08.771137644 +0100
++++ linux-3.6.3/drivers/media/dvb/frontends/ds3000.c	2012-10-29 19:37:25.251137155 +0100
+@@ -1114,7 +1114,7 @@
+ 			ds3000_writereg(state,
+ 				ds3000_dvbs2_init_tab[i],
+ 				ds3000_dvbs2_init_tab[i + 1]);
+-		if (c->symbol_rate >= 30000000)
++		if (c->symbol_rate >= 29900000)
+ 			ds3000_writereg(state, 0xfe, 0x54);
+ 		else
+ 			ds3000_writereg(state, 0xfe, 0x98);

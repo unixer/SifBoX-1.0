@@ -1,0 +1,11 @@
+#!/bin/sh
+
+. config/options
+
+get_meta $1 
+cd $PKG_BUILD_DIR
+
+cp libcedarv/linux-armhf/libcedarv/libcedarv.h $SYSROOT_PREFIX/usr/local/include
+cp libcedarv/linux-armhf/libvecore/libve_typedef.h $SYSROOT_PREFIX/usr/local/include
+cp libcedarv/linux-armhf/adapter/os_adapter.h $SYSROOT_PREFIX/usr/local/include
+cp libcedarv/linux-armhf/drv_display_sun4i.h $SYSROOT_PREFIX/usr/local/include

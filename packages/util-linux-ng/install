@@ -1,0 +1,26 @@
+#!/bin/sh
+
+. config/options
+get_meta $1
+
+cd $PKG_BUILD_DIR/objdir-target
+
+do_install lib
+do_install usr/lib/libblkid.so
+do_install usr/lib/libuuid.so
+do_install usr/bin/setterm
+
+do_install bin/mount
+do_install bin/umount
+
+do_install sbin/blkid
+do_install sbin/fsck
+do_install sbin/agetty
+do_install sbin/sfdisk
+do_install sbin/fstrim
+do_install sbin/swapon
+do_install sbin/swapoff
+mkdir -p $INSTALL/etc
+cp $ROOT/$PACKAGES/$1/config/swap.conf $INSTALL/etc
+mkdir -p $INSTALL/usr/bin
+cp $ROOT/$PACKAGES/$1/scripts/swapfile.sh $INSTALL/usr/bin

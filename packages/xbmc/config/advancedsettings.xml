@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<advancedsettings>
+  <splash>true</splash>
+  <showexitbutton>true</showexitbutton>
+  <cputempcommand>cputemp</cputempcommand>
+  <gputempcommand>gputemp</gputempcommand>
+  <video>
+    <latency>
+      <delay>0</delay>
+      <refresh>
+        <min>20</min>
+        <max>24</max>
+        <delay>175</delay>
+      </refresh>
+    </latency>
+  </video>
+  <samba>
+    <clienttimeout>30</clienttimeout>
+  </samba>
+</advancedsettings>

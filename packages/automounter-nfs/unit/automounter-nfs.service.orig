@@ -1,0 +1,14 @@
+[Unit]
+Description=Mount NFS resources
+ConditionPathExists=/etc/nfs
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/automount_nfs
+RemainAfterExit=yes
+#Wants=network.target
+#After=network.target
+
+[Install]
+#WantedBy=multi-user.target
+WantedBy=network.target

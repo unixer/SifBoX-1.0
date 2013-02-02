@@ -1,0 +1,22 @@
+#!/bin/sh
+
+. config/options
+export MAKEFLAGS=-j1
+
+$SCRIPTS/build vdr
+
+VDR_DIR=`basename $BUILD/vdr-1*`
+
+cd $BUILD/$1*
+
+
+#make STRIP=/bin/true 
+#read enterKey
+make all \
+  VDRDIR="../$VDR_DIR" \
+  LIBDIR="." \
+  LOCALEDIR="./locale" \
+  FFMDIR="../ffmpeg"
+
+do_strip bin lib$1.so.*
+

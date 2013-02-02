@@ -1,0 +1,194 @@
+From: Lucas De Marchi <lucas.demarchi@profusion.mobi>
+Date: Fri, 16 Nov 2012 13:35:30 +0000 (-0200)
+Subject: depmod: fix hash lookup by relpath instead of uncrelpath
+X-Git-Url: http://git.kernel.org/?p=utils%2Fkernel%2Fkmod%2Fkmod.git;a=commitdiff_plain;h=06294621a944e4611e15ce8201df80870e052e7d
+
+depmod: fix hash lookup by relpath instead of uncrelpath
+
+We index modules in depmod by it's uncompressed relative path, not
+relative path. We didn't notice this bug before since this function is
+only triggered if we release a module to be replaced by one of higher
+priority.
+
+Also fix a leftover log message referring to relpath instead of
+uncrelpath.
+---
+
+diff --git a/tools/depmod.c b/tools/depmod.c
+index cc9346f..aafe66b 100644
+--- a/tools/depmod.c
++++ b/tools/depmod.c
+@@ -1114,7 +1114,7 @@ static int depmod_module_add(struct depmod *depmod, struct kmod_module *kmod)
+ 				      mod->uncrelpath, mod);
+ 		if (err < 0) {
+ 			ERR("hash_add_unique %s: %s\n",
+-			    mod->relpath, strerror(-err));
++			    mod->uncrelpath, strerror(-err));
+ 			hash_del(depmod->modules_by_name, mod->modname);
+ 			goto fail;
+ 		}
+@@ -1134,8 +1134,8 @@ static int depmod_module_del(struct depmod *depmod, struct mod *mod)
+ {
+ 	DBG("del %p kmod=%p, path=%s\n", mod, mod->kmod, mod->path);
+ 
+-	if (mod->relpath != NULL)
+-		hash_del(depmod->modules_by_uncrelpath, mod->relpath);
++	if (mod->uncrelpath != NULL)
++		hash_del(depmod->modules_by_uncrelpath, mod->uncrelpath);
+ 
+ 	hash_del(depmod->modules_by_name, mod->modname);
+ 
+
+From: Lucas De Marchi <lucas.demarchi@profusion.mobi>
+Date: Fri, 16 Nov 2012 14:05:42 +0000 (-0200)
+Subject: depmod: fix asserting mod->kmod == NULL
+X-Git-Url: http://git.kernel.org/?p=utils%2Fkernel%2Fkmod%2Fkmod.git;a=commitdiff_plain;h=02c64df3c2b33880b18d3f4aba9fa8e48e5ca904
+
+depmod: fix asserting mod->kmod == NULL
+
+If we are replacing a lower priority module (due to its location), we
+already created a kmod_module, but didn't open the file for reading its
+symbols. This means mod->kmod won't be NULL, and this is just ok. Since
+all the functions freeing stuff below the previous assert already takes
+NULL into consideration, it's safe to just unref mod->kmod and let the
+right thing happens.
+---
+
+diff --git a/tools/depmod.c b/tools/depmod.c
+index aafe66b..7bbdcd3 100644
+--- a/tools/depmod.c
++++ b/tools/depmod.c
+@@ -977,7 +977,7 @@ static void mod_free(struct mod *mod)
+ {
+ 	DBG("free %p kmod=%p, path=%s\n", mod, mod->kmod, mod->path);
+ 	array_free_array(&mod->deps);
+-	assert(mod->kmod == NULL);
++	kmod_module_unref(mod->kmod);
+ 	kmod_module_info_free_list(mod->info_list);
+ 	kmod_module_dependency_symbols_free_list(mod->dep_sym_list);
+ 	free(mod->uncrelpath);
+
+From: Lucas De Marchi <lucas.demarchi@profusion.mobi>
+Date: Wed, 21 Nov 2012 20:34:50 +0000 (-0200)
+Subject: libkmod-module: Remove key+value vermagic from .modinfo section
+X-Git-Url: http://git.kernel.org/?p=utils%2Fkernel%2Fkmod%2Fkmod.git;a=commitdiff_plain;h=d196b8d99f0a46d5e96678daabe74fda94875886
+
+libkmod-module: Remove key+value vermagic from .modinfo section
+
+When told to force load a module, we were removing only the value of
+vermagic instead of the complete entry.
+
+Philippe De Swert (philippe.deswert@jollamobile.com) sent a patch that
+was additionally mangling also the last two chars of the key
+("vermagic="). Instead of creating an invalid entry in .modinfo section
+like this, this patch removes the complete entry, key + value, by
+zeroing the entire string.
+
+Much thanks to Philippe who found the issue and pointed to the fix.
+---
+
+diff --git a/libkmod/libkmod-elf.c b/libkmod/libkmod-elf.c
+index 38e83c1..dc5a83e 100644
+--- a/libkmod/libkmod-elf.c
++++ b/libkmod/libkmod-elf.c
+@@ -611,7 +611,6 @@ int kmod_elf_strip_vermagic(struct kmod_elf *elf)
+ 			i += strlen(s);
+ 			continue;
+ 		}
+-		s += len;
+ 		off = (const uint8_t *)s - elf->memory;
+ 
+ 		if (elf->changed == NULL) {
+
+From: Lucas De Marchi <lucas.demarchi@profusion.mobi>
+Date: Wed, 21 Nov 2012 22:17:25 +0000 (-0200)
+Subject: libkmod-module: mangle the section header, not the section
+X-Git-Url: http://git.kernel.org/?p=utils%2Fkernel%2Fkmod%2Fkmod.git;a=commitdiff_plain;h=a4578669ca25ef6ede96bf4262821bcb07c8065c
+
+libkmod-module: mangle the section header, not the section
+
+When we are told to remove the "__versions" section we were mangling
+that section instead of tweaking the SHF_ALLOC flag in its header.
+---
+
+diff --git a/libkmod/libkmod-elf.c b/libkmod/libkmod-elf.c
+index dc5a83e..ef6bd2a 100644
+--- a/libkmod/libkmod-elf.c
++++ b/libkmod/libkmod-elf.c
+@@ -375,6 +375,31 @@ const void *kmod_elf_get_memory(const struct kmod_elf *elf)
+ 	return elf->memory;
+ }
+ 
++static int elf_find_section(const struct kmod_elf *elf, const char *section)
++{
++	uint64_t nameslen;
++	const char *names = elf_get_strings_section(elf, &nameslen);
++	uint16_t i;
++
++	for (i = 1; i < elf->header.section.count; i++) {
++		uint64_t off, size;
++		uint32_t nameoff;
++		const char *n;
++		int err = elf_get_section_info(elf, i, &off, &size, &nameoff);
++		if (err < 0)
++			continue;
++		if (nameoff >= nameslen)
++			continue;
++		n = names + nameoff;
++		if (!streq(section, n))
++			continue;
++
++		return i;
++	}
++
++	return -ENOENT;
++}
++
+ int kmod_elf_get_section(const struct kmod_elf *elf, const char *section, const void **buf, uint64_t *buf_size)
+ {
+ 	uint64_t nameslen;
+@@ -550,26 +575,29 @@ int kmod_elf_get_modversions(const struct kmod_elf *elf, struct kmod_modversion
+ 
+ int kmod_elf_strip_section(struct kmod_elf *elf, const char *section)
+ {
+-	uint64_t size, off;
++	uint64_t off, size;
+ 	const void *buf;
+-	int err = kmod_elf_get_section(elf, section, &buf, &size);
+-	if (err < 0)
+-		return err;
++	int idx = elf_find_section(elf, section);
++	uint64_t val;
+ 
++	if (idx < 0)
++		return idx;
++
++	buf = elf_get_section_header(elf, idx);
+ 	off = (const uint8_t *)buf - elf->memory;
+ 
+-#define WRITEV(field, value)			\
+-	elf_set_uint(elf, off + offsetof(typeof(*hdr), field), sizeof(hdr->field), value)
+ 	if (elf->class & KMOD_ELF_32) {
+-		const Elf32_Shdr *hdr _unused_ = buf;
+-		uint32_t val = ~(uint32_t)SHF_ALLOC;
+-		return WRITEV(sh_flags, val);
++		off += offsetof(Elf32_Shdr, sh_flags);
++		size = sizeof(((Elf32_Shdr *)buf)->sh_flags);
+ 	} else {
+-		const Elf64_Shdr *hdr _unused_ = buf;
+-		uint64_t val = ~(uint64_t)SHF_ALLOC;
+-		return WRITEV(sh_flags, val);
++		off += offsetof(Elf64_Shdr, sh_flags);
++		size = sizeof(((Elf64_Shdr *)buf)->sh_flags);
+ 	}
+-#undef WRITEV
++
++	val = elf_get_uint(elf, off, size);
++	val &= ~(uint64_t)SHF_ALLOC;
++
++	return elf_set_uint(elf, off, size, val);
+ }
+ 
+ int kmod_elf_strip_vermagic(struct kmod_elf *elf)
+
+

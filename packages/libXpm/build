@@ -1,0 +1,19 @@
+#!/bin/sh
+
+. config/options
+
+#export LD_LIBRARY_PATH=$SYSROOT_PREFIX/lib:$SYSROOT_PREFIX/usr/local/lib:$LD_LIBRARY_PATH
+export LIBS="$LIBS -lintl" 
+get_meta $1
+cd $PKG_BUILD_DIR
+do_autoreconf -fvi
+
+do_configure \
+        --host=$HOST_NAME \
+        --build=$TARGET_NAME \
+        --target=$TARGET_NAME \
+
+
+make
+do_strip bin liblibXpm.so.*
+make_install

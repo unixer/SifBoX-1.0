@@ -1,0 +1,13 @@
+PKG_NAME=vdr-vompclient
+PKG_URL_PROTO=git
+#PKG_URL_REV=1baf015a8f92024cfb65ba4d8169570290087d56
+PKG_URL_REV=57b0b5ddbd66ce9028dbc5ac56cc15773dbe70c4
+PKG_VERSION=0.3.1-$PKG_URL_REV
+PKG_URL="http://git.vomp.tv/vompclient-raspi.git"
+PKG_REV=1
+PKG_BUILD_DEPENDS="toolchain libcec"
+PKG_RUN_DEPENDS="$TARGET_LIBC vdr"
+PKG_PRIORITY=optional
+PKG_SECTION=multimedia
+PKG_SHORTDESC="VDR -- vompclient Raspberry Pi plugin"
+PKG_LONGDESC="vdr-vompclient is a plugin for VDR, the Video Disk Recorder."

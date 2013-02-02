@@ -1,0 +1,20 @@
+--- vompclient-2012.10.04/GNUmakefile.orig	2012-10-03 22:09:04.000000000 +0200
++++ vompclient-2012.10.04/GNUmakefile	2012-10-04 10:47:52.000000000 +0200
+@@ -55,13 +55,15 @@
+ 
+ ifeq ($(vomp_platform),raspberry)
+ $(info Raspberry pi flags)
++VCDIR ?= /root/openbricks/build/build.raspberrypi.eglibc/toolchain/armv6-openbricks-linux-gnueabihf/sysroot/usr/local
++CECDIR ?= /usr
+ LDFLAGS = -Wall -Wl,--format=binary -Wl,fonts/sourcesans.ttf -Wl,other/vdrhires.jpg -Wl,other/wallpaper720p.jpg -Wl,--format=default 
+-LIBS = -L/opt/vc/lib -lpthread -lrt -lEGL -lOpenVG -lopenmaxil -lbcm_host   -lavformat -lavcodec -lavutil
++LIBS = -L$(VCDIR)/lib -L$(CECDIR)/lib -lpthread -lrt -lEGL -lGLESv2 -lOpenVG -lopenmaxil -lbcm_host -lvcos -lvchiq_arm -lavformat -lavcodec -lavutil
+ 
+ OBJECTS += main.o threadp.o  osdvector.o surfacevector.o osdopenvg.o ledraspberry.o mtdraspberry.o videoomx.o audioomx.o wjpegsimple.o remotelinux.o  
+ LIBS+=  -lfreetype -lMagick++ -lMagickCore
+ CROSSLIBS = 
+-INCLUDES = -DVOMP_PLATTFORM_RASPBERRY   -I/opt/vc/include -I/opt/vc/include/interface/vcos/pthreads  -I/usr/include/freetype2 -I/usr/include/ImageMagick
++INCLUDES = -DVOMP_PLATTFORM_RASPBERRY -I$(VCDIR)/include -I$(VCDIR)/include/interface/vcos/pthreads -I$(CECDIR)/include -I/usr/include/freetype2 -I/usr/include/ImageMagick
+ CXXFLAGS_DEV += -D__STDC_CONSTANT_MACROS
+ CXXFLAGS_REL += -D__STDC_CONSTANT_MACROS
+ 

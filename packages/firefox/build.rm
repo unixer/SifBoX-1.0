@@ -1,0 +1,134 @@
+#!/bin/sh
+
+. config/options
+
+LD_LIBRARY_PATH=$SYSROOT_PREFIX/lib:$SYSROOT_PREFIX/usr/lib:$SYSROOT_PREFIX/usr/local/lib:$LD_LIBRARY_PATH
+
+CFLAGS="$CFLAGS -I$SYSROOT_PREFIX/usr/include"
+LDFLAGS="$LDFLAGS -L$SYSROOT_PREFIX/lib -L$SYSROOT_PREFIX/usr/lib -L$SYSROOT_PREFIX/usr/local/lib"
+CFLAGS=`echo $CFLAGS | sed -e "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS==64||"`
+CFLAGS=`echo $CFLAGS | sed -e "s|-D_FILE_OFFSET_BITS=64||"`
+CFLAGS=`echo $CFLAGS | sed -e "s|-D_LARGEFILE_SOURCE||"`
+CFLAGS=`echo $CFLAGS | sed -e "s|-D_FILE_OFFSET_BITS==64||"`
+CXXFLAGS=`echo $CXXFLAGS | sed -e "s|-D_FILE_OFFSET_BITS==64||"`
+export PKG_CONFIG_LIBDIR=$SYSROOT_PREFIX/usr/local/lib/pkgconfig:$SYSROOT_PREFIX/usr/local/share/pkgconfig
+get_meta $1
+cd $PKG_BUILD_DIR
+
+rm mozconfig || true
+cat > mozconfig << EOF
+export CROSS_COMPILE=1
+
+# If you have a multicore machine you can speed up the build by running
+# several jobs at once, but if you have a single core, delete this line:
+mk_add_options MOZ_MAKE_FLAGS="-j1"
+
+# If you have not installed Yasm, uncomment this option:
+# ac_add_options --disable-webm
+
+# If you have installed DBus-Glib delete this option:
+# ac_add_options --disable-dbus
+
+# If you have installed wireless-tools delete this option:
+ac_add_options --disable-necko-wifi
+
+# If you have installed libnotify delete this option:
+ac_add_options --disable-libnotify
+
+# If you have installed xulrunner uncomment these two lines:
+# ac_add_options --with-system-libxul
+# ac_add_options --with-libxul-sdk=\$(pkg-config --variable=sdkdir libxul)
+
+# Uncomment these if you have installed them:
+# ac_add_options --enable-startup-notification
+# ac_add_options --enable-system-hunspell
+# ac_add_options --enable-system-sqlite
+# ac_add_options --with-system-libevent
+# ac_add_options --with-system-libvpx
+# ac_add_options --with-system-nspr
+# ac_add_options --with-system-nss
+
+mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/firefox-build-dir
+ac_add_options --enable-official-branding
+ac_add_options --prefix=/usr
+
+# The rest of these options have no effect if you're
+# building against an already installed xulrunner:
+ac_add_options --disable-crashreporter
+ac_add_options --disable-debug
+ac_add_options --disable-installer
+ac_add_options --disable-static
+ac_add_options --disable-tests
+ac_add_options --enable-shared
+# ac_add_options --enable-system-cairo
+ac_add_options --enable-system-ffi
+ac_add_options --with-pthreads
+ac_add_options --with-system-jpeg
+# ac_add_options --with-system-png
+ac_add_options --with-system-zlib
+ac_add_options --enable-application=browser
+
+CC="/usr/local/src/openbricks.beta7/build/build.i386.eglibc/toolchain/bin/i686-openbricks-linux-gnu-gcc"
+CXX="/usr/local/src/openbricks.beta7/build/build.i386.eglibc/toolchain/bin/i686-openbricks-linux-gnu-g++"
+AR=ar
+ac_add_options --x-libraries=/usr/lib32
+#ac_add_options --target=i686-pc-linux
+ac_add_options --target=i686-openbricks-linux-gnu
+
+#ac_add_options --host=i686-pc-linux-gnu
+#ac_add_options --target=i686-pc-linux-gnu
+
+ac_add_options --disable-crashreporter # needed because I couldn't find a 32-bit curl-dev lib
+ac_add_options --disable-libnotify     # needed because I couldn't find a 32-bit libinotify-dev
+ac_add_options --disable-gnomevfs      # needed because I couldn't find a 32-bit libgnomevfs-dev
+
+
+EOF
+
+sed -i 's/\(MOZ_PKG_FATAL_WARNINGS =\).*/\1 0/' \
+  browser/installer/Makefile.in &&
+
+sed -i 's# ""##' browser/base/Makefile.in && 
+sed -i "s|-D_FILE_OFFSET_BITS=64||" modules/libbz2/src/Makefile.in
+sed -i "s|-D_FILE_OFFSET_BITS=64||" toolkit/crashreporter/google-breakpad/src/client/windows/build/common.gypi
+
+#make CROSS="$TARGET_PREFIX" -f client.mk
+#do_configure host
+make -f client.mk
+sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config/autoconf.mk
+sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config/autoconf.mk
+sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config.log
+sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/nsprpub/config/autoconf.mk
+sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/nsprpub/config.status
+sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/js/src/config/autoconf.mk
+sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config.status
+sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/js/src/config.log
+sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/js/src/config.status
+
+#make CROSS="$TARGET_PREFIX" -f client.mk
+
+make CROSS="$TARGET_PREFIX" -C firefox-build-dir/browser/installer
+
+
+mkdir -p .install/usr/lib/firefox-14.0.1 
+tar -xvf firefox-build-dir/dist/firefox-14.0.1.en-US.linux-$TARGET_ARCH.tar.bz2 -C .install/usr/lib/firefox-14.0.1 --strip-components=1 
+
+do_strip bin lib*.so.*
+
+cd .install
+mkdir -p usr/bin
+ln -sfv ../lib/firefox-14.0.1/firefox usr/bin
+
+mkdir -pv usr/lib/mozilla/plugins
+ln -sfv ../mozilla/plugins usr/lib/firefox-14.0.1
+
+
+
+
+
+
+
+#do_configure
+#make
+#do_strip bin libfirefox.so.*
+#make_install

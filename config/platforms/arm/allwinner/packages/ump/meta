@@ -1,0 +1,15 @@
+PKG_NAME=ump
+PKG_URL_REV=r3p1-01rel1
+PKG_VERSION=${PKG_URL_REV}
+PKG_URL_PROTO=
+#PKG_URL="git://igloocommunity.org/git/bsp/xorg-x11-drv-ste.git"
+PKG_URL="http://blssrl.no-ip.biz/sifbox/${PKG_NAME}-${PKG_VERSION}.tar.bz2"
+PKG_REV=1
+PKG_ARCH=arm
+PKG_BUILD_DEPENDS="toolchain "
+PKG_RUN_DEPENDS="$TARGET_LIBC hdmiservice"
+PKG_DEPENDS="xorg-server"
+PKG_PRIORITY=optional
+PKG_SECTION=x11
+PKG_SHORTDESC="X.Org X server -- ST-E Mali display driver"
+PKG_LONGDESC="This driver for the X.Org X server provides support for the ST-E Mali device."

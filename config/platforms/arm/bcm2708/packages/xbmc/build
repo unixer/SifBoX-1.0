@@ -1,0 +1,243 @@
+#!/bin/sh
+#-mfloat-abi=softfp
+. config/options
+
+#export CFLAGS="-Wno-abi -Wno-psabi -mtune=arm1176jzf-s -mfpu=vfp -mfloat-abi=hard"
+
+
+get_meta swig
+SWIG_VER=$PKG_VERSION
+XBMC_VIS_GOOM="no"
+
+get_meta $1
+
+export MAKEFLAGS=-j1
+
+echo $CXXFLAGS
+echo $TARGET_SUBARCH
+#read enterKey
+xbmc_set_option() {
+  PKG="$1"
+  OPT="$2"
+  CFG_LIST="$3"
+  pkg_uses $PKG $OPT && CFG=enable || CFG=disable
+  for CFG_NAME in $CFG_LIST; do
+    EXTRA_CONFIG="$EXTRA_CONFIG --$CFG-$CFG_NAME"
+  done
+  return 0
+}
+
+xbmc_set_option $1 "opengl"            "gl"
+xbmc_set_option $1 "opengles"          "gles"
+xbmc_set_option $1 "openmax"           "openmax"
+xbmc_set_option $1 "joystick"          "joystick"
+xbmc_set_option $1 "zeroconf"          "avahi"
+xbmc_set_option $1 "webserver"         "webserver"
+xbmc_set_option $1 "vdpau"             "vdpau"
+xbmc_set_option $1 "xvba"              "xvba"
+xbmc_set_option $1 "vaapi"             "vaapi"
+xbmc_set_option $1 "crystalhd"         "crystalhd"
+xbmc_set_option $1 "pulse"             "pulse"
+xbmc_set_option $1 "dvdcss"            "dvdcss"
+xbmc_set_option $1 "bluray"            "libbluray"
+xbmc_set_option $1 "rtmp"              "rtmp"
+xbmc_set_option $1 "nonfree"           "non-free"
+xbmc_set_option $1 "externalffmpeg"    "ffmpeg-libvorbis"
+xbmc_set_option $1 "externalffmpeglibav"    "ffmpeg-libvorbis"
+xbmc_set_option $1 "libcec"            "libcec"
+xbmc_set_option $1 "libnfs"            "nfs"
+xbmc_set_option $1 "afpclient"         "afpclient"
+xbmc_set_option $1 "airtunes"          "airtunes"
+xbmc_set_option $1 "screensavers"      "rsxs"
+xbmc_set_option $1 "gstreamer"         "gstreamer"
+xbmc_set_option $1 "xorg"              "x11 xrandr"
+xbmc_set_option $1 "sdl"               "sdl"
+xbmc_set_option $1 "alsa"               "alsa"
+
+pkg_uses $1 externalffmpeg && ! pkg_uses $1 externalffmpeglibav && xbmc_set_option $1 "externalffmpeg" "external-ffmpeg"
+pkg_uses $1 externalffmpeglibav && ! pkg_uses $1 externalffmpeg && xbmc_set_option $1 "externalffmpeglibav"    "external-ffmpeg"
+
+# check for nVidia ARM Tegra2 optimizations
+CFG_TEGRA="--disable-tegra"
+[ "$TARGET_PLATFORM" = tegra2 ] && CFG_TEGRA="--enable-tegra"
+[ "$TARGET_MACHINE" = cubox ] && EXTRA_CONFIG="$EXTRA_CONFIG --with-platform=marvell-dove"
+if [ "$TARGET_MACHINE" = raspberrypi ]; then
+  EXTRA_CONFIG="$EXTRA_CONFIG --with-platform=raspberry-pi"
+    XBMC_PLAYER="--enable-player=omxplayer"
+    CFLAGS="$CFLAGS -I$SYSROOT_PREFIX/usr/include/interface/vcos/pthreads/"
+    CXXFLAGS="$CXXFLAGS -I$SYSROOT_PREFIX/usr/include/interface/vcos/pthreads/"
+#  if pkg_uses $1 openmax; then
+    local_cflags="-I$LIB_PREFIX/include/interface/vcos/pthreads/"
+    local_cxxflags="-I$LIB_PREFIX/include/interface/vcos/pthreads/"
+#  fi
+fi
+
+if [ "$FPU_OPTIMIZATIONS" = neon ]; then
+  EXTRA_CONFIG="$EXTRA_CONFIG --enable-neon"
+fi
+
+export LIBS="$LIBS -lstdc++"
+#export LIBS="$LIBS"
+export LIB_P=$LIB_PREFIX
+#Openelec
+# xbmc fails to build with LTO optimization
+#  strip_lto
+  # strip out LTO optimization from *FLAGS
+  CFLAGS=`echo $CFLAGS | sed -e "s|-flto||g"`
+  CXXFLAGS=`echo $CXXFLAGS | sed -e "s|-flto||g"`
+  LDFLAGS=`echo $LDFLAGS | sed -e "s|-flto||g"`
+
+
+# dont use some optimizations because of build problems
+  LDFLAGS=`echo $LDFLAGS | sed -e "s|-Wl,--as-needed||"`
+  CFLAGS=`echo $CFLAGS | sed -e "s|-O2||"`
+#Fine
+
+
+export PYTHON_VERSION=2.7
+export PYTHON_CPPFLAGS=-I$LIB_PREFIX/include/python2.7
+export PYTHON_LDFLAGS="-L$LIB_PREFIX/lib/python2.7 -lpython2.7"
+export PYTHON_SITE_PKG=$LIB_PREFIX/lib/python2.7/site-packages
+export PYTHON_EXTRA_LIBS="-lpthread -ldl -lutil"
+export PYTHON_EXTRA_LDFLAGS="-Xlinker -export-dynamic"
+
+#export ac_cv_path_JAVA_EXE="/usr/bin/java"
+export TAGLIB_CFLAGS="$CFLAGS"
+export SWIG_LIB=$ROOT/$TOOLCHAIN/share/swig/$SWIG_VER
+
+cd $PKG_BUILD_DIR
+
+touch .dummy.in
+echo "$PKG_URL_REV-SifBoX" > git.version
+export TEXTUREPACKER_NATIVE_ROOT=$ROOT/$TOOLCHAIN
+
+#unset CXXFLAGS
+#export CXXFLAGS="-march=armv6zk -mcpu=arm1176jzf-s -mabi=aapcs-linux -Wno-psabi -Wa,-mno-warn-deprecated -mfloat-abi=soft -mfpu=vfp -fomit-frame-pointer -Wall -pipe -O3 -fexcess-precision=fast -ffast-math -I/usr/local/src/openbricks.beta7/build/build.raspberrypi.eglibc/toolchain/armv6-openbricks-linux-gnueabi/sysroot/usr/local/include/interface/vcos/pthreads/ -fPIC -DPIC -D_REENTRANT -D_LARGEFILE64_SOURCE -D_FILE_OFF SET_BITS=64 -DNDEBUG=1"
+
+# prevent internal error in gcc
+if [ ! -f configure ] ; then
+  do_autoconf || true
+  cd lib/libid3tag/libid3tag && do_autoconf && cd -
+  cd xbmc/screensavers/rsxs-0.9 && do_autoconf && cd -
+  cd xbmc/visualizations/Goom/goom2k4-0 && do_autoconf && cd -
+  cd lib/libapetag && do_autoconf && cd -
+  cd lib/cpluff && do_autoconf  && cd -
+  # order matters with libdvd and friends
+  cd lib/libdvd/libdvdcss && do_autoconf  && cd -
+  cd lib/libdvd/libdvdread && do_autoconf  && cd -
+  cd lib/libdvd/libdvdnav && do_autoconf  && cd -
+fi
+
+#sed -i 's%PYTHON_VERSION=$ac_python_version%PYTHON_VERSION=2.7%' configure
+#GCC_NO_LTO=1 GCC_NO_GOLD=1 GCC_NO_GRAPHITE=1 GCC_NO_LOOP_TREE=1 \
+#BOOTSTRAP_STANDALONE=1 make -f bootstrap.mk
+sed -i 's%PYTHON_VERSION=$ac_python_version%PYTHON_VERSION=2.7%' configure
+
+#--host=armv6zk-openelec-linux-gnueabi
+#--with-cpu=arm1176jzf-s
+#export CFLAGS="-Wno-abi -Wno-psabi"
+
+echo $SYSROOT_PREFIX
+#read enterKey
+
+GCC_NO_LTO=1 GCC_NO_GOLD=1 GCC_NO_GRAPHITE=1 GCC_NO_LOOP_TREE=1 \
+do_configure \
+	--host=$TARGET_NAME \
+	--build=$HOST_NAME \
+	--with-arch=$TARGET_ARCH \
+	--with-cpu=$TARGET_CPU \
+	GIT_REV=`cat git.version` \
+	--disable-gil \
+	--enable-gles \
+	--disable-sdl \
+	--enable-openmax \
+	--disable-vdpau \
+	--disable-vaapi \
+	--disable-crystalhd \
+	--disable-xvba \
+	--disable-joystick \
+	--enable-libcec \
+	--disable-goom \
+	--disable-rsxs \
+	--disable-projectm \
+	--disable-x11 --disable-xrandr \
+	--disable-alsa \
+	--disable-pulse \
+	--enable-samba \
+	--enable-nfs \
+	--enable-afpclient \
+	--enable-libvorbisenc \
+	--enable-libmp3lame \
+	--enable-dvdcss \
+	--enable-avahi \
+	--enable-airplay \
+	--enable-non-free \
+	--enable-webserver \
+	--enable-libbluray \
+	--with-platform=raspberry-pi \
+	--disable-debug \
+	--disable-optimizations \
+	--disable-vdadecoder \
+	--disable-vtbdecoder \
+	--disable-tegra \
+	--disable-profiling \
+	--enable-udev \
+	--disable-libusb \
+	--disable-ccache \
+	--enable-rtmp \
+	--enable-ffmpeg-libvorbis \
+	--disable-mid \
+	--disable-hal \
+	--disable-mid \
+	--disable-asap-codec \
+	--enable-optical-drive \
+	--enable-texturepacker --with-texturepacker-root="$SYSROOT_PREFIX/usr/local/include/" \
+	--disable-external-libraries \
+	--enable-external-ffmpeg \
+        --enable-player=omxplayer \
+
+
+
+
+
+echo $CFLAGS
+#read enterKey
+# leaked host includes break the Python components build
+sed -i Makefile.include -e "s:-I$ROOT/$TOOLCHAIN/include::"
+
+# leaked host includes also break libdvdnav
+sed -i lib/libdvd/libdvdnav/config.mak \
+    -e "s:^DVDREAD_CFLAGS=.*$:DVDREAD_CFLAGS=-I$LIB_PREFIX/include:" \
+    -e "s:^DVDREAD_LIBS=.*$:DVDREAD_LIBS=-L$LIB_PREFIX/lib -ldvdread:" \
+
+#cp $ROOT/$PACKAGES/$1/config/AEConvert.o xbmc/cores/AudioEngine/Utils/
+make externals
+make xbmc.bin
+if [ "$DISPLAYSERVER" = "xorg-server" ]; then
+  make xbmc-xrandr
+fi
+
+
+#CONTROLLARE
+make -C tools/TexturePacker
+cp -PR tools/TexturePacker/TexturePacker $ROOT/$TOOLCHAIN/bin
+#FINE
+make skins
+make_install
+
+if [ "$TARGET_ARCH" = arm ]; then
+  # workaround to make the addons run
+  ln -sf /usr/lib/xbmc/addons/library.xbmc.addon/libXBMC_addon-arm.so .install/usr/lib/xbmc/addons/library.xbmc.addon/libXBMC_addon-arm-linux.so || true
+  ln -sf /usr/lib/xbmc/addons/library.xbmc.gui/libXBMC_gui-arm.so .install/usr/lib/xbmc/addons/library.xbmc.gui/libXBMC_gui-arm-linux.so || true
+  ln -sf /usr/lib/xbmc/addons/library.xbmc.pvr/libXBMC_pvr-arm.so .install/usr/lib/xbmc/addons/library.xbmc.pvr/libXBMC_pvr-arm-linux.so || true
+fi
+
+for i in .install/usr/lib/xbmc/system/players/dvdplayer/*; do
+  lib=$(basename $i)
+  ln -s /usr/lib/xbmc/system/players/dvdplayer/$lib .install/usr/lib/$lib;
+done
+
+cp -P $ROOT/$PACKAGES/$1/scripts/xbmc-default-settings.sh \
+  .install/usr/lib/xbmc/
+
+exit 0

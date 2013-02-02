@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. config/options
+
+$SCRIPTS/build vdr
+
+cd $BUILD/$1*
+
+export MALLOC_CHECK_=0
+make ECPPC=$ROOT/$TOOLCHAIN/bin/ecppc \
+	LIBDIR="." \
+
+do_strip bin lib$1.so.*

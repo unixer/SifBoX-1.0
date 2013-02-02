@@ -1,0 +1,12 @@
+[Unit]
+Description=Network backend
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/network
+ExecStartPre=/bin/mkdir -p /run/sifbox/network
+ExecStart=/bin/touch /run/sifbox/network/${NETWORK_BACKEND}
+RemainAfterExit=yes
+
+[Install]
+WantedBy=network.target

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+. config/options
+
+get_meta $1
+
+cd $PKG_BUILD_DIR
+
+cp -P $ROOT/$PACKAGES/$1/scripts/silent.sh .install/usr/bin
+cp -P $ROOT/$PACKAGES/$1/scripts/runxbmc .install/usr/bin
+cp -P $ROOT/$PACKAGES/$1/scripts/setwakeup.sh .install/usr/bin
+cp -P $ROOT/$PACKAGES/$1/scripts/menuorg-appswitcher .install/usr/bin
+#cp -P $ROOT/$PACKAGES/$1/config/RssFeeds.xml .install/usr/share/xbmc/userdata
+cp -P $ROOT/$PACKAGES/$1/scripts/xbmc .install/usr/bin
+cp -P $ROOT/$PACKAGES/$1/scripts/cputemp .install/usr/bin
+cp -P $ROOT/$PACKAGES/$1/scripts/gputemp .install/usr/bin
+mkdir -p .install/usr/share/xbmc/system/
+cp -P $ROOT/$PACKAGES/$1/config/advancedsettings.xml .install/usr/share/xbmc/system/
+
+#Prova copia configurazione di default
+mkdir -p $INSTALL/root
+cp -r $ROOT/$PACKAGES/$1/defconfig/.xbmc $INSTALL/root/
+#Fine
+
+do_install usr/bin
+do_install usr/lib
+do_install usr/share

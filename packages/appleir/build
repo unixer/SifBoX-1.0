@@ -1,0 +1,10 @@
+#!/bin/sh
+
+. config/options
+
+export MAKEFLAGS=-j1
+
+$SCRIPTS/build linux
+
+cd $BUILD/$1*
+make KDIR=$(kernel_path)

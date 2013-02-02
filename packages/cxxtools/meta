@@ -1,0 +1,12 @@
+PKG_NAME=cxxtools
+PKG_VERSION=2.1.1
+#PKG_URL="http://www.tntnet.org/download/cxxtools-${PKG_VERSION}.tar.gz"
+PKG_URL="http://pkgs.fedoraproject.org/repo/pkgs/cxxtools/cxxtools-2.1.1.tar.gz/2026a2bb23b966f13893167b4dbc5d70/cxxtools-${PKG_VERSION}.tar.gz"
+PKG_REV=1
+PKG_RUN_DEPENDS="$TARGET_LIBC"
+PKG_BUILD_DEPENDS="toolchain"
+PKG_USE="cxx"
+PKG_PRIORITY=optional
+PKG_SECTION=libs
+PKG_SHORTDESC="collection of general-purpose C++ classes"
+PKG_LONGDESC="Cxxtools is a collection of general-purpose C++ classes."

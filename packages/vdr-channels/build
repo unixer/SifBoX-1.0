@@ -1,0 +1,8 @@
+#!/bin/sh
+
+. config/options
+
+mkdir -p $BUILD/vdr-channels
+cd $BUILD/$1*
+mkdir -p .install/etc/vdr
+cp $ROOT/$PACKAGES/$1/config/channels.conf .install/etc/vdr

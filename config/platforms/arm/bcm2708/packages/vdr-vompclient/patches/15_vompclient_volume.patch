@@ -1,0 +1,74 @@
+--- vompclient/audioomx.cc.orig	2012-10-25 00:26:12.000000000 +0200
++++ vompclient/audioomx.cc	2012-10-25 12:34:11.000000000 +0200
+@@ -30,7 +30,8 @@
+ {
+   initted = 0;
+   streamType = 0;
+   volume = 20;
++  defaultVolume = 20;
+   muted = 0;
+   lastAType = MPTYPE_MPEG_AUDIO;
+ 
+@@ -83,8 +84,6 @@
+ 	decompress_buffer=(UCHAR*)malloc(decompress_buffer_size);
+ 	decompress_buffer_filled=0;
+ 
+-
+-
+ 	av_register_all();
+ 	av_log_set_flags(AV_LOG_SKIP_REPEATED);
+ 
+@@ -200,6 +199,12 @@
+ 		}
+ 	}
+ 
++	name = vdr->configLoad("AudioOMX", "DefaultVolume");
++
++	if (name != NULL) {
++		defaultVolume = atoi(name);
++		volume = defaultVolume;
++	}
+ 
+    return true;
+ 
+@@ -220,6 +225,10 @@
+ 		return true;
+ 	}
+ 		break;
++	case 6: {
++		defaultVolume = option->userSetChoice;
++	}
++		break;
+ 	case 1: {
+ 		if (STRCASECMP(option->options[option->userSetChoice], "PCM") == 0) {
+ 			prefered_ac3 = 0;
+@@ -311,6 +320,9 @@
+ 	else
+ 		VDR::getInstance()->configSave("AudioOMX", "AudioOutput", "HDMI");
+ 
++	char buffer[20];
++	sprintf(buffer, "%i", defaultVolume);
++	VDR::getInstance()->configSave("AudioOMX", "DefaultVolume", buffer);
+ 
+     return true;
+ }
+@@ -333,6 +345,9 @@
+     	options->push_back(option);
+     	pane->addOptionLine(option);
+ 
++        option = new Option(6,"Default Volume", "AudioOMX","DefaultVolume",Option::TYPE_INT,21,20,0,NULL);
++    	options->push_back(option);
++    	pane->addOptionLine(option);
+ 
+         char **ac3opts=new char *[3];
+         int i=0;
+--- vompclient/audioomx.h.orig	2012-10-21 20:05:21.000000000 +0200
++++ vompclient/audioomx.h	2012-10-25 12:16:04.000000000 +0200
+@@ -97,6 +97,7 @@
+ 
+ 	bool paused;
+ 
++    int defaultVolume;
+     bool hdmi; // use hdmi as audio output
+     bool passthrough; // use audio passthrough for the current audio type
+ 

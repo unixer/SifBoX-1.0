@@ -1,0 +1,37 @@
+#!/bin/sh
+
+. config/options
+get_meta vdr
+VDR_VERSION=$PKG_VERSION
+
+get_meta $1
+
+VDR_DIR=`basename $BUILD/vdr-1*`
+
+cd $PKG_BUILD_DIR
+
+mkdir -p .install/etc/vdr/plugins/skinnopacity/icons/ || true
+#ln -s ../picon .install/etc/vdr/plugins/skinnopacity/logos || true
+mkdir -p .install/etc/vdr/plugins/skinnopacity/logos/ || true
+mkdir -p .install/var/cache/vdr/epgimages || true
+mkdir -p .install/etc/vdr/themes || true
+mkdir -p .install/etc/vdr/symbols || true
+cp -r icons/* .install/etc/vdr/plugins/skinnopacity/icons/
+cp -r $ROOT/$PACKAGES/$1/icons .install/etc/vdr/plugins/skinnopacity/
+#cp -r $ROOT/$PACKAGES/$1/logos .install/etc/vdr/plugins/skinnopacity/
+#wget http://www.dvbviewer.tv/download/markus/Logopack/Logopack.zip
+#unzip Logopack.zip -d .install/etc/vdr/plugins/skinnopacity/logos
+cp -r themes/* .install/etc/vdr/themes/
+cp -r $ROOT/$PACKAGES/$1/themes/* .install/etc/vdr/themes/
+cp -r symbols/* .install/etc/vdr/symbols/
+
+sed -i "s|/usr/include/ImageMagick|$SYSROOT_PREFIX/usr/local/include/ImageMagick|" Makefile
+
+make \
+  VDRDIR="$ROOT/$BUILD/vdr-${VDR_VERSION}" \
+  LIBDIR="." \
+  LOCALEDIR="./locale"
+
+
+make
+do_strip bin lib$1.so.*

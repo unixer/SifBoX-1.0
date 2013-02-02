@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. config/options
+
+get_meta xterm
+cd $PKG_BUILD_DIR
+
+do_install usr/bin
+do_install usr/lib
+do_install usr/share/pixmaps
+
+mkdir -p $INSTALL/usr/bin
+cp $ROOT/$PACKAGES/$1/script/xterm.sh $INSTALL/usr/bin

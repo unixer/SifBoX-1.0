@@ -1,0 +1,62 @@
+--- linux-3.2.16/drivers/media/video/cx23885/cx23885-cards.org	2012-05-21 06:57:10.875884922 +0200
++++ linux-3.2.16/drivers/media/video/cx23885/cx23885-cards.c	2012-05-21 07:00:38.415885028 +0200
+@@ -451,7 +451,10 @@
+ 		.portb		= CX23885_MPEG_DVB,
+ 		.portc		= CX23885_MPEG_DVB,
+ 	},		
+-
++       [CX23885_BOARD_TEVII_S471] = {
++               .name           = "TeVii S471",
++               .portb          = CX23885_MPEG_DVB,
++       },
+ };
+ const unsigned int cx23885_bcount = ARRAY_SIZE(cx23885_boards);
+ 
+@@ -663,7 +666,11 @@
+ 		.subvendor = 0x4254,
+ 		.subdevice = 0x0952,
+ 		.card      = CX23885_BOARD_DVBSKY_S952,
+-	},
++	}, {
++               .subvendor = 0xd471,
++               .subdevice = 0x9022,
++               .card      = CX23885_BOARD_TEVII_S471,
++        },
+ };
+ const unsigned int cx23885_idcount = ARRAY_SIZE(cx23885_subids);
+ 
+@@ -1485,6 +1492,7 @@
+ 	case CX23885_BOARD_BST_PS8512:
+ 	case CX23885_BOARD_DVBSKY_S950:
+ 	case CX23885_BOARD_TEVII_S470:
++        case CX23885_BOARD_TEVII_S471:
+ 	case CX23885_BOARD_DVBWORLD_2005:
+ 		ts1->gen_ctrl_val  = 0x5; /* Parallel */
+ 		ts1->ts_clk_en_val = 0x1; /* Enable TS_CLK */
+--- linux-3.2.16/drivers/media/video/cx23885/cx23885-dvb.c.org	2012-05-21 07:01:02.075885040 +0200
++++ linux-3.2.16/drivers/media/video/cx23885/cx23885-dvb.c	2012-05-21 07:02:08.085885074 +0200
+@@ -1174,6 +1174,14 @@
+ 			break;
+ 		}
+ 		break;
++       case CX23885_BOARD_TEVII_S471:
++               i2c_bus = &dev->i2c_bus[1];
++
++               fe0->dvb.frontend = dvb_attach(ds3000_attach,
++                                       &tevii_ds3000_config,
++                                       &i2c_bus->i2c_adap);
++               break;
++
+ 	default:
+ 		printk(KERN_INFO "%s: The frontend of your DVB/ATSC card "
+ 			" isn't supported yet\n",
+--- linux-3.2.16/drivers/media/video/cx23885/cx23885.h.org	2012-05-21 07:02:29.095885084 +0200
++++ linux-3.2.16/drivers/media/video/cx23885/cx23885.h	2012-05-21 07:03:03.005885102 +0200
+@@ -90,6 +90,7 @@
+ #define CX23885_BOARD_BST_PS8512               (CX23885_BOARD_MPX885+1)
+ #define CX23885_BOARD_DVBSKY_S952              (CX23885_BOARD_BST_PS8512+1)
+ #define CX23885_BOARD_DVBSKY_S950              (CX23885_BOARD_DVBSKY_S952+1)
++#define CX23885_BOARD_TEVII_S471               (CX23885_BOARD_DVBSKY_S950+1)
+ 
+ #define GPIO_0 0x00000001
+ #define GPIO_1 0x00000002

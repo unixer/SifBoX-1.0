@@ -1,0 +1,27 @@
+#!/bin/sh
+
+. config/options
+
+$SCRIPTS/build linux
+
+cd $BUILD/$1*
+
+#export local_cflags="-I$(kernel_path)/include -I$(kernel_path)/include/drm"
+export LIBDRM_CFLAGS="${SYSROOT_PREFIX}/usr/include"
+export local_cflags="-I${SYSROOT_PREFIX}/usr/include"
+export LDFLAGS="$LDFLAGS -L${SYSROOT_PREFIX}/usr/local/lib/xorg"
+export LDFLAGS="$LDFLAGS -L/lib -lMali -lUMP -lpthread"  
+#export XORG_PATH_MODULES="$SYSROOT_PREFIX/usr/local/lib/xorg/modules"
+#export LIBS="$LIBS -lstdc++"
+
+echo "XORG_PATH_MODULES" $XORG_PATH_MODULES
+
+autoreconf -vif
+
+do_configure \
+  --with-xorg-module-dir=$XORG_PATH_MODULES \
+
+#export LIBDRM_CFLAGS="${SYSROOT_PREFIX}/usr/include"
+
+make
+make_install

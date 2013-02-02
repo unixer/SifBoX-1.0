@@ -1,0 +1,29 @@
+#!/bin/sh
+
+. config/options
+
+$SCRIPTS/build vdr
+
+VDR_DIR=`basename $BUILD/vdr-1*`
+
+get_meta $1
+
+cd $PKG_BUILD_DIR
+
+make all \
+  VDRDIR="../../$VDR_DIR" \
+  LIBDIR="." \
+  LOCALEDIR="./locale" \
+
+make_install
+
+cp plugin/dist/markad.sh .install/usr/bin
+cd plugin
+make all \
+  VDRDIR="../../$VDR_DIR" \
+  LIBDIR="." \
+  LOCALEDIR="./locale" \
+
+do_strip bin libvdr-markad.so.*
+#make_install
+strip_bins .install

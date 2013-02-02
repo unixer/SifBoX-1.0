@@ -1,0 +1,9 @@
+[Unit]
+Description=Create and Active Swap File
+
+[Service]
+ExecStart=/usr/bin/swapfile.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

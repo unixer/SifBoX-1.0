@@ -1,0 +1,72 @@
+--- /usr/local/src/openbricks.beta5/build/build.i386.eglibc/linux-3.4.10/drivers/media/dvb/dvb-usb/af9015.c	2012-08-27 00:02:10.000000000 +0200
++++ linux-3.4.10/drivers/media/dvb/dvb-usb/af9015.c	2012-10-03 11:22:00.060633610 +0200
+@@ -34,7 +34,7 @@
+ #include "tda18218.h"
+ #include "mxl5007t.h"
+ 
+-static int dvb_usb_af9015_debug;
++static int dvb_usb_af9015_debug = 5;
+ module_param_named(debug, dvb_usb_af9015_debug, int, 0644);
+ MODULE_PARM_DESC(debug, "set debugging level" DVB_USB_DEBUG_STATUS);
+ static int dvb_usb_af9015_remote;
+@@ -74,6 +74,7 @@
+ 	u8 write = 1;
+ 	u8 msg_len = REQ_HDR_LEN;
+ 	static u8 seq; /* packet sequence number */
++	u8 i2c = 0;
+ 
+ 	if (mutex_lock_interruptible(&af9015_usb_mutex) < 0)
+ 		return -EAGAIN;
+@@ -87,6 +88,15 @@
+ 	buf[6] = req->addr_len;
+ 	buf[7] = req->data_len;
+ 
++/* 001281:  OUT: 000001 ms 073403 ms BULK[00002] >>> 22 13 c0 00 05 e0 01 10 00 00 d0 00 40 00 00 07 ff 84 09 00 13 00 00 01
++22 cmd
++13 seq
++c0 i2c_addr
++00 05 addr
++e0 mbox (dont care?)
++01 addr_len
++10 data_len
++*/
+ 	switch (req->cmd) {
+ 	case GET_CONFIG:
+ 	case READ_MEMORY:
+@@ -128,8 +138,13 @@
+ 		msg_len += req->data_len;
+ 	}
+ 
+-	deb_xfer(">>> ");
+-	debug_dump(buf, msg_len, deb_xfer);
++	if (buf[0] == READ_WRITE_I2C)
++		i2c = 1;
++
++	if (i2c) {
++		deb_xfer(">>> ");
++		debug_dump(buf, msg_len, deb_xfer);
++	}
+ 
+ 	/* send req */
+ 	ret = usb_bulk_msg(udev, usb_sndbulkpipe(udev, 0x02), buf, msg_len,
+@@ -160,8 +175,10 @@
+ 		goto error_unlock;
+ 	}
+ 
+-	deb_xfer("<<< ");
+-	debug_dump(buf, act_len, deb_xfer);
++	if (i2c) {
++		deb_xfer("<<< ");
++		debug_dump(buf, act_len, deb_xfer);
++	}
+ 
+ 	/* check status */
+ 	if (buf[1]) {
+@@ -328,6 +345,7 @@
+ 				req.cmd = WRITE_MEMORY;
+ 			else
+ 				req.cmd = WRITE_I2C;
++//001281:  OUT: 000001 ms 073403 ms BULK[00002] >>> 22 13 c0 00 05 e0 01 10 00 00 d0 00 40 00 00 07 ff 84 09 00 13 00 00 01
+ 			req.i2c_addr = msg[i].addr;
+ 			req.addr = addr;
+ 			req.mbox = mbox;

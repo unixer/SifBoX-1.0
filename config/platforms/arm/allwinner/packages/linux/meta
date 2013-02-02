@@ -1,0 +1,6 @@
+#PKG_URL_REV=994bec8034
+PKG_URL_REV=75d3c43f78
+PKG_VERSION=3.0.42+${PKG_URL_REV}
+PKG_URL_PROTO=
+#PKG_URL="https://github.com/linux-sunxi/linux-sunxi.git"
+PKG_URL="https://github.com/linux-sunxi/linux-sunxi/archive/sunxi-3.0.tar.gz"

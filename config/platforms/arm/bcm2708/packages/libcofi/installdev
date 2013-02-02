@@ -1,0 +1,14 @@
+#!/bin/sh
+
+. config/options
+
+cd $BUILD/$1*
+
+mkdir -p .install/lib
+  cp -P *.s* .install/lib
+
+mkdir -p .install/etc
+  echo "/lib/libcofi_rpi.so" >> .install/etc/ld.so.preload
+
+do_install lib
+do_install etc

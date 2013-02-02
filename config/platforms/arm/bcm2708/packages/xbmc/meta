@@ -1,0 +1,12 @@
+PKG_NAME=xbmc
+PKG_URL_PROTO=git
+#PKG_VERSION=bb6d1c7
+#PKG_URL_REV=9777cc07e3
+#PKG_URL_REV=bb6d1c7477
+PKG_URL_REV=8885f2f2
+PKG_URL="https://github.com/xbmc/xbmc.git"
+#PKG_URL="http://dl.dropbox.com/u/23897246/sifbox/xbmc-bb6d1c7.tar.xz"
+PKG_VERSION=r${PKG_URL_REV}
+PKG_DEPENDS="$PKG_DEPENDS lame"
+PKG_DEPENDS_opengl="mesa libglu"
+

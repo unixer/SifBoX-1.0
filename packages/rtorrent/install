@@ -1,0 +1,12 @@
+#!/bin/sh
+
+. config/options
+
+cd $BUILD/$1*
+
+mkdir -p .install/etc
+cp -P $ROOT/$PACKAGES/$1/config/* .install/etc
+cp -P $ROOT/$PACKAGES/$1/script/* .install/usr/bin
+
+do_install usr/bin
+do_install etc

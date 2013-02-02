@@ -1,0 +1,35 @@
+#!/bin/sh
+
+. config/options
+
+require_glibc $1
+
+if [ "$TARGET_ARCH" = x86_64 ]; then
+  NV_ARCH=x86_64
+  NV_SUFFIX=-pkg2
+else
+  NV_ARCH=x86
+  NV_SUFFIX=-pkg1
+fi
+
+get_meta $1
+
+#NV_PKG="NVIDIA-Linux-${NV_ARCH}-${PKG_VERSION}${NV_SUFFIX}.run"
+NV_PKG="NVIDIA-Linux-${NV_ARCH}-${PKG_VERSION}.run"
+[ -d $PKG_BUILD_DIR ] && rm -rf $PKG_BUILD_DIR
+
+sh $SOURCES/$1/$NV_PKG --extract-only --target $PKG_BUILD_DIR
+
+if [ -d "$PACKAGES/$1/patches.upstream/" ]; then
+  for i in $PACKAGES/$1/patches.upstream/*.patch*; do
+    apply_patch $1 $i
+  done
+fi
+#verlte 3.6.11 $PKG_VERSION && INSDVB="yes" || INSDVB="no"
+#if [ $INSDVB = "no" ]; then
+#   patch -p1 < $ROOT/$PACKAGES/$1/patches.nvidia/make-use-of-the-new-uapi-framework.patch
+#   patch -p1 < $ROOT/$PACKAGES/$1/patches.nvidia/replace-VM_RESERVED-with-VM_DONTEXPAND-and-VM_DONTDU.patch
+#else
+#   patch -p1 < $ROOT/$PACKAGES/$1/patches.nvidia/3.6_kernel.diff
+#fi
+

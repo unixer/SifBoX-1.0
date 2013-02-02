@@ -1,0 +1,45 @@
+--- a/drivers/media/dvb/frontends/stb0899_drv.c	2012-04-23 15:10:35.994008188 +0200
++++ a/drivers/media/dvb/frontends/stb0899_drv.c	2012-04-23 15:29:40.544837905 +0200
+@@ -1135,7 +1135,6 @@
+ 	struct stb0899_internal *internal	= &state->internal;
+ 
+ 	u8  lsb, msb;
+-	u32 i;
+ 
+ 	*ber = 0;
+ 
+@@ -1143,14 +1142,9 @@
+ 	case SYS_DVBS:
+ 	case SYS_DSS:
+ 		if (internal->lock) {
+-			/* average 5 BER values	*/
+-			for (i = 0; i < 5; i++) {
+-				msleep(100);
+-				lsb = stb0899_read_reg(state, STB0899_ECNT1L);
+-				msb = stb0899_read_reg(state, STB0899_ECNT1M);
+-				*ber += MAKEWORD16(msb, lsb);
+-			}
+-			*ber /= 5;
++			lsb = stb0899_read_reg(state, STB0899_ECNT1L);
++			msb = stb0899_read_reg(state, STB0899_ECNT1M);
++			*ber = MAKEWORD16(msb, lsb);
+ 			/* Viterbi Check	*/
+ 			if (STB0899_GETFIELD(VSTATUS_PRFVIT, internal->v_status)) {
+ 				/* Error Rate		*/
+@@ -1163,13 +1157,9 @@
+ 		break;
+ 	case SYS_DVBS2:
+ 		if (internal->lock) {
+-			/* Average 5 PER values	*/
+-			for (i = 0; i < 5; i++) {
+-				msleep(100);
+-				lsb = stb0899_read_reg(state, STB0899_ECNT1L);
+-				msb = stb0899_read_reg(state, STB0899_ECNT1M);
+-				*ber += MAKEWORD16(msb, lsb);
+-			}
++			lsb = stb0899_read_reg(state, STB0899_ECNT1L);
++			msb = stb0899_read_reg(state, STB0899_ECNT1M);
++			*ber = MAKEWORD16(msb, lsb);
+ 			/* ber = ber * 10 ^ 7	*/
+ 			*ber *= 10000000;
+ 			*ber /= (-1 + (1 << (4 + 2 * STB0899_GETFIELD(NOE, internal->err_ctrl))));

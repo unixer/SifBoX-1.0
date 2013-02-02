@@ -1,0 +1,10 @@
+--- xbmc-frodo-r9777cc07e3/xbmc/FileItem.cpp.org	2012-10-19 17:45:15.424723050 +0200
++++ xbmc-frodo-r9777cc07e3/xbmc/FileItem.cpp	2012-10-19 17:45:33.760722503 +0200
+@@ -218,6 +218,7 @@
+ 
+   SetProperty("channelid", channel.ChannelID());
+   SetProperty("path", channel.Path());
++  SetArt("thumb", channel.IconPath());
+ }
+ 
+ CFileItem::CFileItem(const CPVRRecording& record)

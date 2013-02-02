@@ -1,0 +1,78 @@
+#!/bin/sh
+
+. config/options
+
+get_meta $1
+
+export LDFLAGS="$LDFLAGS -lrt -lm"
+
+if ! pkg_uses $1 xorg && ! pkg_uses $1 fb; then
+  echo "xine-ui needs either xorg or fb support: please enable one of them."
+  exit 1
+fi
+
+if [ "$DEBUG" = yes ]; then
+  DEBUG_CONFIG="--enable-debug"
+else
+  DEBUG_CONFIG="--disable-debug"
+fi
+
+if pkg_uses $1 xorg; then
+  XORG_CONFIG="--with-x"
+else
+  XORG_CONFIG="--without-x"
+fi
+
+if pkg_uses $1 vdr; then
+  VDR_CONFIG="--enable-vdr-keys"
+else
+  VDR_CONFIG="--disable-vdr-keys"
+fi
+
+if pkg_uses $1 fb; then
+  FB_CONFIG="--with-fb"
+else
+  FB_CONFIG="--without-fb"
+fi
+
+cd $BUILD/$1*
+
+#do_autoconf
+do_autoreconf -fvi
+
+do_configure \
+            --disable-xinerama \
+            --disable-xft \
+            --disable-aalibtest \
+            --without-aalib \
+            --without-curl \
+            --disable-lirc \
+            --without-readline \
+	    --without-gtk \
+            $DEBUG_CONFIG \
+            $XORG_CONFIG \
+            $VDR_CONFIG \
+            $FB_CONFIG \
+	    --without-libintl-prefix \
+
+#[ "$TARGET_ARCH" = i386 ] && \
+#  patch -p1 < /$ROOT/$PACKAGES/$1/Makefile.patch
+#[ "$TARGET_ARCH" = x86_64 ] && \
+#  patch -p1 < /$ROOT/$PACKAGES/$1/Makefile.x64.x64.patch
+#read enterKey
+#patch -p1 < /$ROOT/$PACKAGES/$1/Makefile.x64.x64.patch 
+if [ "$TARGET_ARCH" = x86_64 ]; then
+	sed -i "s|-R/root/openbricks/build/build.x86_64.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/openbricks/build/build.x86_64.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
+fi
+
+if [ "$TARGET_ARCH" = i386 ]; then
+	sed -i "s|-R/root/openbricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/openbricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
+fi
+
+if [ "$TARGET_MACHINE" = kbb ]; then
+	sed -i "s|-R/root/openbricks/build/build.kbb.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/openbricks/build/build.kbb.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
+fi
+
+make 
+do_strip bin
+make_install

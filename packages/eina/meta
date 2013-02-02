@@ -1,0 +1,12 @@
+PKG_NAME=eina
+PKG_URL_REV=`( get_meta EFL; echo $PKG_URL_REV )`
+PKG_VERSION=1.2+${PKG_URL_REV}
+PKG_URL_PROTO=svn
+PKG_URL="http://svn.enlightenment.org/svn/e/trunk/${PKG_NAME}"
+PKG_REV=1
+PKG_BUILD_DEPENDS="toolchain"
+PKG_RUN_DEPENDS="$TARGET_LIBC"
+PKG_PRIORITY=optional
+PKG_SECTION=libs
+PKG_SHORTDESC="Enlightenment Foundation Library providing optimized data types"
+PKG_LONGDESC="Eina is a multi-platform library that provides optimized data types and a few tools."

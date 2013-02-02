@@ -1,0 +1,23 @@
+#!/bin/sh
+
+. config/options
+
+get_meta $1
+
+cd $PKG_BUILD_DIR
+
+do_install etc/eventlircd.d
+do_install lib/udev
+do_install usr/sbin
+echo $INSTALL
+
+cp $ROOT/$PACKAGES/$1/config/eventlircd.conf $INSTALL/etc
+cp $ROOT/$PACKAGES/$1/config/evmap/* $INSTALL/etc/eventlircd.d
+mkdir -p $INSTALL/etc/lirc
+cp $ROOT/$PACKAGES/$1/config/lircrc $INSTALL/etc/lirc
+cp $ROOT/$PACKAGES/$1/config/irexec $INSTALL/etc/lirc
+cp $ROOT/$PACKAGES/$1/config/98-eventlircd.rules $INSTALL/lib/udev/rules.d/
+#mkdir -p $INSTALL/etc/rc_keymaps
+#cp $ROOT/$PACKAGES/$1/remotes/imon* $INSTALL/etc/rc_keymaps
+mkdir -p $INSTALL/usr/bin
+cp $ROOT/$PACKAGES/$1/scripts/* $INSTALL/usr/bin

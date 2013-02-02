@@ -1,0 +1,11 @@
+--- xf86-video-mali-0.0.1/src/Makefile.am.org	2012-11-06 20:08:59.310481341 +0100
++++ xf86-video-mali-0.0.1/src/Makefile.am	2012-11-06 20:09:39.274480146 +0100
+@@ -301,7 +301,7 @@
+ mali_drv_la_LDFLAGS = -module -avoid-version -L$(MALI_DDK)/lib -lMali -lUMP -lpthread
+ mali_drv_ladir = @moduledir@/drivers
+ AM_CFLAGS = @XORG_CFLAGS@ \
+-	-I/usr/include/libdrm \
++	-I/root/openbricks/build/build.allwinner.eglibc/toolchain/armv7-openbricks-linux-gnueabihf/sysroot/usr/local/include/libdrm \
+ 	-I$(MALI_DDK)/include \
+ 	-I$(MALI_DDK)/internal/include/khronos \
+ 	-I$(MALI_DDK)/src/ump/include \

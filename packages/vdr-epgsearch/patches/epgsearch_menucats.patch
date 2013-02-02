@@ -1,0 +1,126 @@
+diff -upr vdr-plugin-epgsearch_orig/changrp.c vdr-plugin-epgsearch/changrp.c
+--- vdr-plugin-epgsearch_orig/changrp.c	2012-12-29 08:11:25.000000000 +0100
++++ vdr-plugin-epgsearch/changrp.c	2012-12-27 14:46:38.000000000 +0100
+@@ -306,7 +306,7 @@ cMenuChannelGroups::cMenuChannelGroups(c
+ :cOsdMenu(tr("Channel groups"),20)
+ {
+ #if VDRVERSNUM >= 10728
+-  SetMenuCategory(mcSetup);
++  //SetMenuCategory(mcSetup);
+ #endif
+     groupSel = -1;
+     groupName = GroupName;
+@@ -411,7 +411,7 @@ cMenuEditChannelGroup::cMenuEditChannelG
+ :cOsdMenu(tr("Edit channel group"),30)
+ {
+ #if VDRVERSNUM >= 10728
+-  SetMenuCategory(mcSetup);
++  //SetMenuCategory(mcSetup);
+ #endif
+     group = Group;
+     channelSel = group->CreateChannelSel();
+diff -upr vdr-plugin-epgsearch_orig/epgsearchsetup.c vdr-plugin-epgsearch/epgsearchsetup.c
+--- vdr-plugin-epgsearch_orig/epgsearchsetup.c	2012-12-29 08:11:25.000000000 +0100
++++ vdr-plugin-epgsearch/epgsearchsetup.c	2012-12-27 14:46:38.000000000 +0100
+@@ -55,7 +55,7 @@ cMenuSetupSubMenu::cMenuSetupSubMenu(con
+     : cOsdMenu(Title, 33)
+ {
+ #if VDRVERSNUM >= 10728
+-  SetMenuCategory(mcSetup);
++  //SetMenuCategory(mcSetup);
+ #endif
+     data = Data;
+ }
+diff -upr vdr-plugin-epgsearch_orig/menu_blacklistedit.c vdr-plugin-epgsearch/menu_blacklistedit.c
+--- vdr-plugin-epgsearch_orig/menu_blacklistedit.c	2012-12-29 08:11:25.000000000 +0100
++++ vdr-plugin-epgsearch/menu_blacklistedit.c	2012-12-27 14:46:38.000000000 +0100
+@@ -43,7 +43,7 @@ cMenuBlacklistEdit::cMenuBlacklistEdit(c
+ :cOsdMenu(tr("Edit blacklist"),32)
+ {
+ #if VDRVERSNUM >= 10728
+-  SetMenuCategory(mcSetup);
++  //SetMenuCategory(mcSetup);
+ #endif
+     SearchModes[0] = strdup(tr("phrase"));
+     SearchModes[1] = strdup(tr("all words"));
+diff -upr vdr-plugin-epgsearch_orig/menu_blacklists.c vdr-plugin-epgsearch/menu_blacklists.c
+--- vdr-plugin-epgsearch_orig/menu_blacklists.c	2012-12-29 08:11:25.000000000 +0100
++++ vdr-plugin-epgsearch/menu_blacklists.c	2012-12-27 14:46:38.000000000 +0100
+@@ -100,7 +100,7 @@ cMenuBlacklists::cMenuBlacklists()
+ :cOsdMenu(tr("Blacklists"), 3, 20, 11, 6, 5)
+ {
+ #if VDRVERSNUM >= 10728
+-  SetMenuCategory(mcSetup);
++  //SetMenuCategory(mcSetup);
+ #endif
+     cMutexLock BlacklistLock(&Blacklists);
+     cBlacklist *Blacklist = Blacklists.First();
+diff -upr vdr-plugin-epgsearch_orig/menu_conflictcheck.c vdr-plugin-epgsearch/menu_conflictcheck.c
+--- vdr-plugin-epgsearch_orig/menu_conflictcheck.c	2012-12-29 08:11:25.000000000 +0100
++++ vdr-plugin-epgsearch/menu_conflictcheck.c	2012-12-27 14:46:38.000000000 +0100
+@@ -63,7 +63,7 @@ cMenuConflictCheck::cMenuConflictCheck()
+ :cOsdMenu("", 4, 12, 4, 5, 30)
+ {
+ #if VDRVERSNUM >= 10728
+-  SetMenuCategory(mcSchedule);
++  //SetMenuCategory(mcSchedule);
+ #endif
+     showAll = false;
+     lastSel = -1;
+@@ -198,7 +198,7 @@ cMenuConflictCheckDetails::cMenuConflict
+ :cOsdMenu(tr("Timer conflicts"), 2, 4, 13, 3, 2)
+ {
+ #if VDRVERSNUM >= 10728
+-  SetMenuCategory(mcSchedule);
++  //SetMenuCategory(mcSchedule);
+ #endif
+     timerObj = TimerObj;
+     checktime = timerObj->conflCheckTime;
+diff -upr vdr-plugin-epgsearch_orig/menu_deftimercheckmethod.c vdr-plugin-epgsearch/menu_deftimercheckmethod.c
+--- vdr-plugin-epgsearch_orig/menu_deftimercheckmethod.c	2012-12-29 08:11:25.000000000 +0100
++++ vdr-plugin-epgsearch/menu_deftimercheckmethod.c	2012-12-27 14:46:39.000000000 +0100
+@@ -121,7 +121,7 @@ cMenuDefTimerCheckMethod::cMenuDefTimerC
+     :cOsdMenu(tr("Default timer check method"), 20)
+ {
+ #if VDRVERSNUM >= 10728
+-  SetMenuCategory(mcSetup);
++  //SetMenuCategory(mcSetup);
+ #endif
+     CheckModes[0] = tr("no check");
+     CheckModes[UPD_CHDUR] = tr("by channel and time");
+diff -upr vdr-plugin-epgsearch_orig/menu_main.c vdr-plugin-epgsearch/menu_main.c
+--- vdr-plugin-epgsearch_orig/menu_main.c	2012-12-29 08:11:25.000000000 +0100
++++ vdr-plugin-epgsearch/menu_main.c	2012-12-27 14:46:38.000000000 +0100
+@@ -50,7 +50,7 @@ cMenuSearchMain::cMenuSearchMain(void)
+ :cOsdMenu("", GetTab(1), GetTab(2), GetTab(3), GetTab(4), GetTab(5))
+ {
+ #if VDRVERSNUM >= 10728
+-  SetMenuCategory(mcSchedule);
++  //SetMenuCategory(mcSchedule);
+ #endif
+   helpKeys = -1;
+   otherChannel = 0;
+diff -upr vdr-plugin-epgsearch_orig/menu_searchresults.c vdr-plugin-epgsearch/menu_searchresults.c
+--- vdr-plugin-epgsearch_orig/menu_searchresults.c	2012-12-29 08:11:25.000000000 +0100
++++ vdr-plugin-epgsearch/menu_searchresults.c	2012-12-27 14:46:38.000000000 +0100
+@@ -192,7 +192,7 @@ cMenuSearchResults::cMenuSearchResults(c
+    :cOsdMenu("", MenuTemplate->Tab(0), MenuTemplate->Tab(1), MenuTemplate->Tab(2), MenuTemplate->Tab(3), MenuTemplate->Tab(4))
+ {
+ #if VDRVERSNUM >= 10728
+-  SetMenuCategory(mcSchedule);
++  //SetMenuCategory(mcSchedule);
+ #endif
+ 
+   helpKeys = -1;
+diff -upr vdr-plugin-epgsearch_orig/menu_whatson.c vdr-plugin-epgsearch/menu_whatson.c
+--- vdr-plugin-epgsearch_orig/menu_whatson.c	2012-12-29 08:11:25.000000000 +0100
++++ vdr-plugin-epgsearch/menu_whatson.c	2012-12-27 14:46:38.000000000 +0100
+@@ -260,7 +260,7 @@ cMenuWhatsOnSearch::cMenuWhatsOnSearch(c
+    :cOsdMenu("", GetTab(1), GetTab(2), GetTab(3), GetTab(4), GetTab(5))
+ {
+ #if VDRVERSNUM >= 10728
+-  SetMenuCategory(mcSchedule);
++  //SetMenuCategory(mcSchedule);
+ #endif
+ 
+   helpKeys = -1;
