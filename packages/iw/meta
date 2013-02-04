@@ -1,8 +1,7 @@
 PKG_NAME=iw
-#PKG_VERSION=0.9.22
-#PKG_VERSION=3.2
-PKG_VERSION=3.4
-PKG_URL="http://wireless.kernel.org/download/iw/iw-${PKG_VERSION}.tar.bz2"
+PKG_VERSION=3.8
+PKG_URL="http://pkgs.fedoraproject.org/repo/pkgs/iw/iw-3.8.tar.bz2/618ad1106a196fb1c3d827de96da437c/iw-${PKG_VERSION}.tar.bz2"
+#PKG_URL="http://wireless.kernel.org/download/iw/iw-${PKG_VERSION}.tar.bz2"
 PKG_REV=1
 PKG_DEPENDS="libnl"
 PKG_RUN_DEPENDS="$TARGET_LIBC"
