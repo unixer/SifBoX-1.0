@@ -1,0 +1,17 @@
+#!/bin/sh
+
+. config/options
+
+export MAKEFLAGS=-j1
+get_meta $1
+
+cd $PKG_BUILD_DIR
+LIBS="-lgmodule-2.0" \
+do_configure \
+	--prefix=/usr \
+	--sysconfdir=/etc \
+	--disable-perl \
+	--enable-shm
+make
+do_strip bin libxchat.so.*
+make_install
