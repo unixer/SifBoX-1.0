@@ -6,8 +6,8 @@ get_meta $1
 
 ENABLED_PLUGINS="cardclient conax constcw cryptoworks irdeto nagra nds sc-conax sc-cryptoworks sc-irdeto sc-nagra sc-seca sc-viaccess sc-videoguard2 seca shl viaccess"
 
-mkdir -p $INSTALL/usr/lib/vdr
-cp -a $PKG_BUILD_DIR/lib*.so.* $INSTALL/usr/lib/vdr
+mkdir -p $INSTALL/usr/lib/vdr/plugins
+cp -a $PKG_BUILD_DIR/lib*.so.* $INSTALL/usr/lib/vdr/plugins
 
 for plugin in $ENABLED_PLUGINS; do
   cp $BUILD/${PKG_NAME}-${PKG_VERSION}/systems/$plugin/libsc-*.so.* $INSTALL/usr/lib/vdr/plugins

@@ -21,8 +21,3 @@ make \
   LOCALEDIR="./locale"
 
 do_strip bin lib$1.so.*
-ENABLED_PLUGINS="cardclient conax constcw cryptoworks irdeto nagra nds sc-conax sc-cryptoworks sc-irdeto sc-nagra sc-seca sc-viaccess sc-videoguard2 seca shl viaccess"
-
-for plugin in $ENABLED_PLUGINS; do
-  do_strip systems/$plugin/libsc-*.so.*
-done

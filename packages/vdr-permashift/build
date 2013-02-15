@@ -5,7 +5,7 @@
 get_meta linux
 verlte 3.6.11 $PKG_VERSION && INSDVB="yes" || INSDVB="no"
 if [ $INSDVB = "no" ]; then
-   DVB_DIR=""
+   DVB_DIR="$SYSROOT_PREFIX/usr/include"
 else
    DVB_DIR="../linux"
 fi
