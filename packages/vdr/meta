@@ -1,5 +1,5 @@
 PKG_NAME=vdr
-PKG_VERSION=1.7.36
+PKG_VERSION=1.7.37
 #PKG_VERSION=1.7.27
 PKG_URL="ftp://ftp.tvdr.de/vdr/Developer/vdr-${PKG_VERSION}.tar.bz2"
 #PKG_URL="http://95.225.138.70/vdr-${PKG_VERSION}.tar.bz2"

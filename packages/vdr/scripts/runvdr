@@ -11,8 +11,8 @@ export LC_ALL="it_IT.UTF8"
 [ "$BACKEND" != vdr ] && exit 0
 
 [ ! -d /media/video ] && mkdir -p /media/video
-[ ! -d /media/shares ] && mkdir -p /media/shares
-[ ! -d /media/video/shares ] && ln -s /media/shares /media/video/shares
+[ ! -d /media/shares ] && mkdir -p /external
+#[ ! -d /media/video/shares ] && ln -s /external /media/video/shares
 
 PLUGINS=""
 for file in /etc/vdr/plugins.d/*; do
@@ -41,7 +41,7 @@ if dmesg | tail -n 50 | grep -i "error while loading driver" > /dev/null; then
    sleep 1                
 fi
 
-eval vdr -g /tmp -L /usr/lib/vdr/plugins --log=3 -p 6419 --vfat --no-kbd $PLUGINS -v /media/video -c /etc/vdr -w 0 --lirc -s /usr/bin/vdrshutdown
+#eval vdr -g /tmp -L /usr/lib/vdr/plugins --log=3 -p 6419 --vfat --no-kbd $PLUGINS -v /media/video -c /etc/vdr -w 0 --lirc -s /usr/bin/vdrshutdown
  
-#eval vdr -g /tmp -L /usr/lib/vdr/plugins --buffer=/media/video --log=3 -p 6419 --vfat --no-kbd $PLUGINS -v /media/video -c /etc/vdr -w 0 --lirc -s /usr/bin/vdrshutdown
+eval vdr -g /tmp -L /usr/lib/vdr/plugins --buffer=/media/video --log=3 -p 6419 --vfat --no-kbd $PLUGINS -v /media/video -c /etc/vdr -w 0 --lirc -s /usr/bin/vdrshutdown
 
