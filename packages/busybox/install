@@ -15,6 +15,7 @@ cp $PACKAGES/$1/config/httpd.conf $INSTALL/etc
 cp $PACKAGES/$1/config/inputrc $INSTALL/etc
 cp $PACKAGES/$1/config/syslog.conf $INSTALL/etc
 cp $PACKAGES/$1/config/shells $INSTALL/etc
+cp $PACKAGES/$1/config/adjtime $INSTALL/etc
 cp $PACKAGES/$1/scripts/assign-ip $INSTALL/bin
 #cp $PACKAGES/$1/scripts/pre-umount-* $INSTALL/bin
 #ln -s ../bin/pre-umount-poweroff $INSTALL/sbin/poweroff
