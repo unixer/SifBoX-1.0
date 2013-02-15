@@ -6,12 +6,12 @@
 
 . /etc/funcs
 
-MOUNT_POINT=/media/shares
+MOUNT_POINT=/external
 
 clean_up () {
   echo "Trap : exiting ..."
   while read i ; do 
-  a=`echo $i | grep "/media/shares/"| cut -d" " -f2`
+  a=`echo $i | grep "/external/"| cut -d" " -f2`
   if [ -n "$a" ] ; then
     echo " Found $a , trying to umount ..."
     if umount $a ; then 
