@@ -1,0 +1,22 @@
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   locale/de_DE/LC_MESSAGES/vdr-markad.mo
+#	modified:   locale/de_DE/LC_MESSAGES/vdr-skinnopacity.mo
+#	modified:   locale/es_ES/LC_MESSAGES/vdr-markad.mo
+#	modified:   locale/fi_FI/LC_MESSAGES/vdr-markad.mo
+#	modified:   locale/it_IT/LC_MESSAGES/vdr-markad.mo
+#	modified:   locale/sk_SK/LC_MESSAGES/vdr-markad.mo
+#	modified:   packages/busybox/config/busybox.conf
+#	modified:   packages/busybox/config/inputrc
+#	modified:   packages/busybox/install
+#	modified:   packages/busybox/profile.d/system.sh
+#	modified:   packages/opkg-utils/meta
+#	modified:   packages/vdr-plugin-xvdr/meta
+#	modified:   packages/vdr-sc/install
+#	modified:   packages/xdialog/build
+#	modified:   packages/xdialog/meta
+#
+no changes added to commit (use "git add" and/or "git commit -a")
