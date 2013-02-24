@@ -1,6 +1,7 @@
 #!/bin/sh
 
 . config/options
+
 get_meta $1
 export MAKEFLAGS=-j1
 require_cxx $1
@@ -20,6 +21,8 @@ cd $PKG_BUILD_DIR
 #cp svdrpsend.pl svdrpsend
 #cp $ROOT/$PACKAGES/$1/config/Make.config.$PKG_VERSION.bis Make.config
 cp $ROOT/$PACKAGES/$1/config/Make.config.$PKG_VERSION Make.config
+#cp $ROOT/$PACKAGES/$1/config/Make.config.genn Make.config
+#cp $ROOT/$PACKAGES/$1/config/Makefile .
 
 #sed -i "s|#DVBDIR   =|DVBDIR=$SYSROOT_PREFIX/usr|" Make.config
 #sed -i "s|#INCDIR       =|INCDIR=$SYSROOT_PREFIX/usr/include|" Make.config
@@ -37,7 +40,8 @@ done
 
 export MAKEFLAGS=-j1
 
-make LCLBLD=1 && make include-dir # latter one to build extra plugins
+#make USEFHS=1 && make USEFHS=1 include-dir # latter one to build extra plugins
+make LCLBLD=1 && make LCLBLD=1 include-dir # latter one to build extra plugins 
 
 do_strip bin lib$1.so.*
 

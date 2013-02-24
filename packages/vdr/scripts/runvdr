@@ -35,7 +35,7 @@ export DISPLAY=":0.0"
 [ "$LANG" = de_DE.UTF-8 ] && export VDR_CHARSET_OVERRIDE=”ISO-8859-15″
 
 #sleep 10
-if dmesg | tail -n 50 | grep -i "error while loading driver" > /dev/null; then 
+if dmesg | tail -n 250 | grep -i "error while loading driver" > /dev/null; then 
    rmmod dvb-usb-af9035         
    modprobe dvb-usb-af9035          
    sleep 1                

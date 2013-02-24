@@ -2,7 +2,6 @@
 
 . config/options
 get_meta $1
-
 # remove skincurses plugin to prevent build failure
 cd $PKG_BUILD_DIR
 rm -rf PLUGINS/src/skincurses

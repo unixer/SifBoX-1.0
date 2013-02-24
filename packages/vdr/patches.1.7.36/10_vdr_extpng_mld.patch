@@ -634,9 +634,9 @@ diff -Naur vdr-1.7.36.orig/config.h vdr-1.7.36/config.h
 +#define JUMPPLAYVERSNUM 100
 +#endif /* JUMPPLAY */
 +
-+//#ifdef USE_VASARAJANAULOJA
-+//#define LIEMIKUUTIO  134
-+//#endif /* VASARAJANAULOJA */
++#ifdef USE_VASARAJANAULOJA
++#define LIEMIKUUTIO  134
++#endif /* VASARAJANAULOJA */
 +
  #define MAXPRIORITY       99
  #define MINPRIORITY       (-MAXPRIORITY)

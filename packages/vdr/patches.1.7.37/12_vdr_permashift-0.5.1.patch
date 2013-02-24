@@ -1,6 +1,6 @@
---- vdr-1.7.35-original/menu.h	2012-12-30 13:47:23.020563696 +0100
-+++ vdr-1.7.35/menu.h	2013-01-19 16:34:06.195145382 +0100
-@@ -240,8 +240,11 @@ class cRecordControls {
+--- vdr-1.7.36-original/menu.h	2012-12-30 13:47:23.020563696 +0100
++++ vdr-1.7.36/menu.h	2013-01-19 16:34:06.195145382 +0100
+@@ -272,8 +272,11 @@ class cRecordControls {
  private:
    static cRecordControl *RecordControls[];
    static int state;
@@ -13,7 +13,7 @@
    static void Stop(const char *InstantId);
    static bool PauseLiveVideo(void);
    static const char *GetInstantId(const char *LastInstantId);
-@@ -249,6 +252,9 @@ public:
+@@ -281,6 +284,9 @@ public:
    static cRecordControl *GetRecordControl(const cTimer *Timer);
           ///< Returns the cRecordControl for the given Timer.
           ///< If there is no cRecordControl for Timer, NULL is returned.
@@ -23,7 +23,7 @@
    static void Process(time_t t);
    static void ChannelDataModified(cChannel *Channel);
    static bool Active(void);
-@@ -286,7 +292,7 @@ private:
+@@ -320,7 +326,7 @@ private:
    void EditCut(void);
    void EditTest(void);
  public:
@@ -32,9 +32,9 @@
    virtual ~cReplayControl();
    void Stop(void);
    virtual cOsdObject *GetInfo(void);
---- vdr-1.7.35-original/menu.c	2012-12-30 13:47:23.032564091 +0100
-+++ vdr-1.7.35/menu.c	2013-01-19 16:34:06.199145491 +0100
-@@ -4499,7 +4499,7 @@ bool cRecordControl::Process(time_t t)
+--- vdr-1.7.36-original/menu.c	2012-12-30 13:47:23.032564091 +0100
++++ vdr-1.7.36/menu.c	2013-01-19 16:34:06.199145491 +0100
+@@ -5163,7 +5163,7 @@ bool cRecordControl::Process(time_t t)
  cRecordControl *cRecordControls::RecordControls[MAXRECORDCONTROLS] = { NULL };
  int cRecordControls::state = 0;
  
@@ -43,7 +43,7 @@
  {
    static time_t LastNoDiskSpaceMessage = 0;
    int FreeMB = 0;
-@@ -4518,6 +4518,13 @@ bool cRecordControls::Start(cTimer *Time
+@@ -5182,6 +5182,13 @@ bool cRecordControls::Start(cTimer *Time
       }
    LastNoDiskSpaceMessage = 0;
  
@@ -57,7 +57,7 @@
    ChangeState();
    int ch = Timer ? Timer->Channel()->Number() : cDevice::CurrentChannel();
    cChannel *channel = Channels.GetByNumber(ch);
-@@ -4570,12 +4577,53 @@ void cRecordControls::Stop(const char *I
+@@ -5252,12 +5259,53 @@ void cRecordControls::Stop(const char *I
        }
  }
  
@@ -113,7 +113,7 @@
       cControl::Launch(rc);
       cControl::Attach();
       Skins.Message(mtStatus, NULL);
-@@ -4618,6 +4666,23 @@ cRecordControl *cRecordControls::GetReco
+@@ -5300,6 +5348,23 @@ cRecordControl *cRecordControls::GetReco
    return NULL;
  }
  
@@ -137,7 +137,7 @@
  void cRecordControls::Process(time_t t)
  {
    for (int i = 0; i < MAXRECORDCONTROLS; i++) {
-@@ -4680,8 +4745,8 @@ bool cRecordControls::StateChanged(int &
+@@ -5364,8 +5429,8 @@ bool cRecordControls::StateChanged(int &
  cReplayControl *cReplayControl::currentReplayControl = NULL;
  cString cReplayControl::fileName;
  
@@ -148,8 +148,8 @@
  {
    currentReplayControl = this;
    displayReplay = NULL;
---- vdr-1.7.35-original/dvbplayer.h	2012-12-30 13:47:23.024563828 +0100
-+++ vdr-1.7.35/dvbplayer.h	2013-01-19 16:34:06.199145491 +0100
+--- vdr-1.7.36-original/dvbplayer.h	2012-12-30 13:47:23.024563828 +0100
++++ vdr-1.7.36/dvbplayer.h	2013-01-19 16:34:06.199145491 +0100
 @@ -19,7 +19,7 @@ class cDvbPlayerControl : public cContro
  private:
    cDvbPlayer *player;
@@ -159,9 +159,9 @@
         // Sets up a player for the given file.
         // If PauseLive is true, special care is taken to make sure the index
         // file of the recording is long enough to allow the player to display
---- vdr-1.7.35-original/dvbplayer.c	2012-12-30 13:47:23.024563828 +0100
-+++ vdr-1.7.35/dvbplayer.c	2013-01-19 16:34:06.199145491 +0100
-@@ -210,6 +210,7 @@ private:
+--- vdr-1.7.36-original/dvbplayer.c	2012-12-30 13:47:23.024563828 +0100
++++ vdr-1.7.36/dvbplayer.c	2013-01-19 16:34:06.199145491 +0100
+@@ -213,6 +213,7 @@ private:
    double framesPerSecond;
    bool isPesRecording;
    bool pauseLive;
@@ -169,7 +169,7 @@
    bool eof;
    bool firstPacket;
    ePlayModes playMode;
-@@ -229,7 +230,7 @@ protected:
+@@ -232,7 +233,7 @@ protected:
    virtual void Activate(bool On);
    virtual void Action(void);
  public:
@@ -178,7 +178,7 @@
    virtual ~cDvbPlayer();
    bool Active(void) { return cThread::Running(); }
    void Pause(void);
-@@ -250,7 +251,7 @@ public:
+@@ -253,7 +254,7 @@ public:
  #define SPEED_MULT   12 // the speed multiplier
  int cDvbPlayer::Speeds[] = { 0, -2, -4, -8, 1, 2, 4, 12, 0 };
  
@@ -187,7 +187,7 @@
  :cThread("dvbplayer")
  {
    nonBlockingFileReader = NULL;
-@@ -260,6 +261,7 @@ cDvbPlayer::cDvbPlayer(const char *FileN
+@@ -263,6 +264,7 @@ cDvbPlayer::cDvbPlayer(const char *FileN
    framesPerSecond = Recording.FramesPerSecond();
    isPesRecording = Recording.IsPesRecording();
    pauseLive = PauseLive;
@@ -195,7 +195,7 @@
    eof = false;
    firstPacket = true;
    playMode = pmPlay;
-@@ -409,8 +411,17 @@ void cDvbPlayer::Action(void)
+@@ -449,8 +451,17 @@ void cDvbPlayer::Action(void)
    int LastReadIFrame = -1;
    int SwitchToPlayFrame = 0;
  
@@ -215,7 +215,7 @@
    while (Running()) {
          if (WaitingForData)
             WaitingForData = !nonBlockingFileReader->WaitForDataMs(3); // this keeps the CPU load low, but reacts immediately on new data
-@@ -833,8 +844,8 @@ bool cDvbPlayer::GetReplayMode(bool &Pla
+@@ -936,8 +947,8 @@ bool cDvbPlayer::GetReplayMode(bool &Pla
  
  // --- cDvbPlayerControl -----------------------------------------------------
  
@@ -226,3 +226,4 @@
  {
  }
  
+
