@@ -3,7 +3,7 @@
 . config/options
 
 cd $BUILD/$1*
-ln -s $SYSROOT_PREFIX/usr/local/lib/libusb-1.0.so.0.1.0 $SYSROOT_PREFIX/usr/local/lib/libusb-1.0.a
+ln -s $SYSROOT_PREFIX/usr/local/lib/libusb-1.0.so.0.1.0 $SYSROOT_PREFIX/usr/local/lib/libusb-1.0.a || true
 mkdir -p build && cd build
 
 cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
@@ -20,7 +20,5 @@ cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
       -DOPTIONAL_INCLUDE_DIR=$SYSROOT_PREFIX/usr/local/include \
       ..
 
-echo " ENTER "
-read enterKey
 make
 make_install
