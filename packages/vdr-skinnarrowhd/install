@@ -8,5 +8,9 @@ rm -rf logos
 ln -s ../../picon logos
 cd ../../../../../../
 do_install etc/vdr/plugins 
-mkdir -p $INSTALL/etc/vdr/themes
-cp themes/* $INSTALL/etc/vdr/themes/
+rm .install/etc/vdr/themes || true
+mkdir -p .install/etc/vdr/themes
+cp themes/* .install/etc/vdr/themes/
+do_install etc
+#mkdir -p $INSTALL/etc/vdr/themes
+#cp themes/NarrowHD-default.theme $INSTALL/etc/vdr/themes/

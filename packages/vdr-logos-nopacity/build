@@ -9,7 +9,8 @@ cd $PKG_BUILD_DIR
 if [ -f Logopack_Update.zip ]; then
   echo "OK"
 else
-  wget http://www.dvbviewer.tv/download/markus/Logopack/Logopack_Update.zip
+  #wget http://www.dvbviewer.tv/download/markus/Logopack/Logopack_Update.zip
+  wget http://dl.dropbox.com/u/23897246/Logopack_Update.zip
 fi
 unzip -o Logopack_Update.zip
 mkdir -p .install/etc/vdr/plugins/skinnopacity/logos/ || true

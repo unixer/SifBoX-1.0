@@ -26,4 +26,5 @@ make all \
 
 do_strip bin libvdr-markad.so.*
 #make_install
-strip_bins .install
+#strip_bins .install
+do_strip bin .install
