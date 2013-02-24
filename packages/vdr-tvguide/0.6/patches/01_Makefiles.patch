@@ -1,0 +1,105 @@
+--- vdr-tvguide-0.0.2-r063094f442c/Makefile	2013-02-07 14:25:09.000000000 +0100
++++ vdr-tvguide-0.0.2-r063094f442c/Makefile.tvguide	2013-02-12 17:44:57.510732382 +0100
+@@ -17,12 +17,14 @@
+ 
+ # Use package data if installed...otherwise assume we're under the VDR source directory:
+ PKGCFG = $(if $(VDRDIR),$(shell pkg-config --variable=$(1) $(VDRDIR)/vdr.pc),$(shell pkg-config --variable=$(1) vdr || pkg-config --variable=$(1) ../../../vdr.pc))
+-LIBDIR = $(call PKGCFG,libdir)
+-LOCDIR = $(call PKGCFG,locdir)
+-PLGCFG = $(call PKGCFG,plgcfg)
+-VDRCONFDIR= $(call PKGCFG,configdir)
++LIBDIR = $(DESTDIR)$(call PKGCFG,libdir)
++LOCDIR = $(DESTDIR)$(call PKGCFG,locdir)
++PLGCFG  = $(call PKGCFG,plgcfg)
++CONFDIR= $(DESTDIR)$(call PKGCFG,configdir)
+ TMPDIR ?= /tmp
+ 
++include $(VDRDIR)/Make.config
++
+ ### The compiler options:
+ export CFLAGS   = $(call PKGCFG,cflags)
+ export CXXFLAGS = $(call PKGCFG,cxxflags)
+@@ -34,22 +36,22 @@
+ 
+ ### The name of the distribution archive:
+ 
+-ARCHIVE = $(PLUGIN)-$(VERSION)
++ARCHIVE = $(APIVERSION)
+ PACKAGE = vdr-$(ARCHIVE)
+ 
+ ### The name of the shared object file:
+ 
+-SOFILE = libvdr-$(PLUGIN).so
++SOFILE = libvdr-$(PLUGIN).so.$(ARCHIVE)
+ 
+ ### Includes and Defines (add further entries here):
+ 
+-INCLUDES += $(shell pkg-config --cflags-only-I Magick++)
++#INCLUDES +=
++INCLUDES += -I$(VDRDIR)/include -I$(DVBDIR)/include -I$(VDRDIR) -I./src -I.
++INCLUDES += $(shell pkg-config --cflags ImageMagick++)
+ 
+-DEFINES += -DPLUGIN_NAME_I18N='"$(PLUGIN)"'
+-DEFINES += -DMAGICKCORE_HDRI_ENABLE=0
+-DEFINES += -DMAGICKCORE_QUANTUM_DEPTH=16
++#INCLUDES += -I/usr/include/ImageMagick
+ 
+-LIBS += $(shell pkg-config --libs Magick++)
++DEFINES += -DPLUGIN_NAME_I18N='"$(PLUGIN)"'
+ 
+ ### The object files (add further files here):
+ 
+@@ -62,14 +64,14 @@
+ ### Implicit rules:
+ 
+ %.o: %.c
+-	$(CXX) $(CXXFLAGS) -c $(DEFINES) $(INCLUDES) -o $@ $<
++	$(CXX) $(CXXFLAGS) -c $(DEFINES) $(INCLUDES) $<
+ 
+ ### Dependencies:
+ 
+ MAKEDEP = $(CXX) -MM -MG
+ DEPFILE = .dependencies
+ $(DEPFILE): Makefile
+-	@$(MAKEDEP) $(CXXFLAGS) $(DEFINES) $(INCLUDES) $(OBJS:%.o=%.c) > $@
++	@$(MAKEDEP) $(DEFINES) $(INCLUDES) $(OBJS:%.o=%.c) > $@
+ 
+ -include $(DEPFILE)
+ 
+@@ -78,7 +80,7 @@
+ PODIR     = po
+ I18Npo    = $(wildcard $(PODIR)/*.po)
+ I18Nmo    = $(addsuffix .mo, $(foreach file, $(I18Npo), $(basename $(file))))
+-I18Nmsgs  = $(addprefix $(DESTDIR)$(LOCDIR)/, $(addsuffix /LC_MESSAGES/vdr-$(PLUGIN).mo, $(notdir $(foreach file, $(I18Npo), $(basename $(file))))))
++I18Nmsgs  = $(addprefix $(LOCDIR)/, $(addsuffix /LC_MESSAGES/vdr-$(PLUGIN).mo, $(notdir $(foreach file, $(I18Npo), $(basename $(file))))))
+ I18Npot   = $(PODIR)/$(PLUGIN).pot
+ 
+ %.mo: %.po
+@@ -91,7 +93,7 @@
+ 	msgmerge -U --no-wrap --no-location --backup=none -q -N $@ $<
+ 	@touch $@
+ 
+-$(I18Nmsgs): $(DESTDIR)$(LOCDIR)/%/LC_MESSAGES/vdr-$(PLUGIN).mo: $(PODIR)/%.mo
++$(I18Nmsgs): $(LOCDIR)/%/LC_MESSAGES/vdr-$(PLUGIN).mo: $(PODIR)/%.mo
+ 	install -D -m644 $< $@
+ 
+ .PHONY: i18n
+@@ -101,14 +103,14 @@
+ 
+ ### Targets:
+ $(SOFILE): $(OBJS)
+-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -shared $(OBJS) $(LIBS) -o $@
++	$(CXX) $(CXXFLAGS) $(LDFLAGS) -shared $(OBJS) -lMagick++ -o $@
+ 
+ install-lib: $(SOFILE)
+-	install -D $^ $(DESTDIR)$(LIBDIR)/$^.$(APIVERSION)
++	install -D $^ $(LIBDIR)/$^.$(APIVERSION)
+ 
+ install-themes:
+-	@mkdir -p $(DESTDIR)$(VDRCONFDIR)/themes
+-	cp themes/* $(DESTDIR)$(VDRCONFDIR)/themes
++	@mkdir -p $(CONFDIR)/themes
++	cp themes/* $(CONFDIR)/themes
+ 
+ install: install-lib install-i18n install-themes
+ 
