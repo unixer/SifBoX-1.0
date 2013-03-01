@@ -2,6 +2,9 @@
 
 . config/options
 
+get_meta ffmpeg
+FFMPEG_VERSION=$PKG_VERSION
+get_meta $1
 export MAKEFLAGS=-j1
 
 setup_toolchain target
@@ -78,7 +81,12 @@ fi
 export CFLAGS="$CFLAGS -ffast-math -DFIXED_POINT"
 
 cd $BUILD/$1*
-#rm -rf libavcodec # ensure we check for headers in external ffmpeg
+rm -rf libavcodec # ensure we check for headers in external ffmpeg
+rm -rf ffmpeg/libavresample # ensure we check for headers in external ffmpeg
+rm -rf ffmpeg/libswresample 
+
+ln -s ../../ffmpeg-$FFMPEG_VERSION/libavresample ffmpeg/libavresample
+ln -s ../../ffmpeg-$FFMPEG_VERSION/libswresample ffmpeg/libswresample
 
 LIBAV="--enable-libavformat_so --enable-libavutil_so --enable-libpostproc_so --enable-libswscale_so"
 
@@ -200,6 +208,8 @@ fi
             --disable-shm \
             --disable-dynamic-plugins \
             --extra-libs="$EXTRA_LIBS" \
-            $DEBUG_CONFIG
+            $DEBUG_CONFIG \
+	    --disable-ffmpeg_a
+
 make
 make_install

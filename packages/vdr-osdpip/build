@@ -16,7 +16,7 @@ make all \
   VDRDIR="../$VDR_DIR" \
   LIBDIR="." \
   LOCALEDIR="./locale" \
-  FFMDIR="../ffmpeg-1.0"
+  FFMDIR="../ffmpeg-1.1.3"
 
 do_strip bin lib$1.so.*
 

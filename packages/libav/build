@@ -39,8 +39,6 @@ do_gcc_strip_gold
             --disable-static \
             --enable-shared \
             --enable-gpl \
-            --disable-ffmpeg \
-            --enable-postproc \
             --enable-avfilter \
             --enable-pthreads \
             --disable-x11grab \

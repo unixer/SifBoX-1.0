@@ -17,7 +17,7 @@ do_symlink() {
 }
 
 cd $(kernel_path)/arch/x86/include
-cp generated/asm/unistd*.h ./asm
+cp generated/uapi/asm/unistd*.h ./asm
 cd -
 
 cd $BUILD/$1*

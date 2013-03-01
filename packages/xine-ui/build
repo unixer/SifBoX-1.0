@@ -67,10 +67,12 @@ fi
 
 if [ "$TARGET_ARCH" = i386 ]; then
 	sed -i "s|-R/root/openbricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/openbricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
+	sed -i "s|-R/root/opebricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/opebricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
 fi
 
 if [ "$TARGET_MACHINE" = kbb ]; then
 	sed -i "s|-R/root/openbricks/build/build.kbb.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/openbricks/build/build.kbb.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
+	sed -i "s|-R/root/opebricks/build/build.kbb.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/opebricks/build/build.kbb.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
 fi
 
 make 

@@ -1,8 +1,7 @@
 PKG_NAME=vdr-skinnopacity
-#PKG_URL_REV=478029d0e159
-#PKG_URL_REV=498c2ad6c
+PKG_URL_REV=d099b5d5
 ##PKG_URL_REV=b62548f9d # crash con tasto 9
-PKG_URL_REV=6b08851e #versione 0.6
+##PKG_URL_REV=6b08851e #versione 0.6
 PKG_VERSION=0.0.6+${PKG_URL_REV}
 PKG_URL_PROTO=git
 PKG_URL="git://projects.vdr-developer.org/skin-nopacity.git"
