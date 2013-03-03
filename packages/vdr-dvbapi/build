@@ -20,9 +20,9 @@ LDFLAGS="$LDFLAGS -fPIC"
 
 cd $PKG_BUILD_DIR
 
-if [ $TARGET_PLATFORM = "ion" ]; then
-  patch -p1 < $ROOT/$PACKAGES/$1/patches/02_machines.patch.ion
-fi
+#if [ $TARGET_PLATFORM = "ion" ]; then
+#  patch -p1 < $ROOT/$PACKAGES/$1/patches/02_machines.patch.ion
+#fi
 
 make \
   VDRDIR="../$VDR_DIR" \
@@ -30,4 +30,11 @@ make \
   DVBDIR=$DVB_DIR \
   LOCALEDIR="./locale"
 
-do_strip bin lib$1.so.*
+get_meta vdr
+verlte 1.7.36 $PKG_VERSION && VDRINS="no" || VDRINS="yes"
+if [ $VDRINS = "yes" ]; then
+  make_install
+else
+  do_strip bin lib$1.so.*
+fi
+
