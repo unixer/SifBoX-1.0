@@ -59,4 +59,7 @@ sed -i -e "s/#LogLevel=info/LogLevel=notice/" $INSTALL/etc/systemd/system.conf
 mkdir -p $INSTALL/etc/systemd/
 cp $ROOT/$PACKAGES/$1/config/journald.conf $INSTALL/etc/systemd/
 
+# we don't use display-manager ...
+sed -i -e "s/Wants=display-manager.service/#Wants=display-manager.service/" $INSTALL/lib/systemd/system/graphical.target
+
 exit 0
