@@ -14,6 +14,7 @@ make all \
   VDRDIR="../../$VDR_DIR" \
   LIBDIR="." \
   LOCALEDIR="./locale" \
+  DESTDIR="./.istall"  \
 
 make_install
 
