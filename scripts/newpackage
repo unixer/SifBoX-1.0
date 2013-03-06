@@ -27,7 +27,7 @@ cat > packages/$PACKAGE/build <<EOF
 
 . config/options
 
-get_meta $1
+get_meta \$1
 cd \$PKG_BUILD_DIR
 do_configure
 make
@@ -41,7 +41,7 @@ cat > packages/$PACKAGE/install <<EOF
 
 . config/options
 
-get_meta $1
+get_meta \$1
 cd \$PKG_BUILD_DIR
 
 do_install usr/bin
@@ -53,7 +53,7 @@ cat > packages/$PACKAGE/installdev <<EOF
 
 . config/options
 
-get_meta $1
+get_meta \$1
 cd \$PKG_BUILD_DIR
 
 do_installdev usr/include
