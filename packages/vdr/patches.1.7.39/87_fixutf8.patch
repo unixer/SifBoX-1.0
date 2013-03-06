@@ -1,0 +1,11 @@
+--- po/cs_CZ.po	2013/02/18 10:51:25	2.41
++++ po/cs_CZ.po	2013/03/04 11:13:22	2.42
+@@ -12,7 +12,7 @@
+ "Report-Msgid-Bugs-To: <vdr-bugs@tvdr.de>\n"
+ "POT-Creation-Date: 2013-02-03 16:46+0100\n"
+ "PO-Revision-Date: 2010-05-06 11:00+0200\n"
+-"Last-Translator: Aleš Ju�~Yík <ajurik@quick.cz>\n"
++"Last-Translator: Aleš Juřík <ajurik@quick.cz>\n"
+ "Language-Team: Czech <vdr@linuxtv.org>\n"
+ "Language: cs\n"
+ "MIME-Version: 1.0\n"
