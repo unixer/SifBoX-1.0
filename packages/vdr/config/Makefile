@@ -29,11 +29,11 @@ LSIDIR    ?= $(CWD)/libsi
 PLUGINDIR ?= $(CWD)/PLUGINS
 
 DESTDIR   ?=
-VIDEODIR  ?= /srv/vdr/video
-CONFDIR   ?= /var/lib/vdr
+VIDEODIR  ?= /data/tv/tv0
+CONFDIR   ?= /etc/vdr
 CACHEDIR  ?= /var/cache/vdr
 
-PREFIX    ?= /usr/local
+PREFIX    ?= /usr
 BINDIR    ?= $(PREFIX)/bin
 INCDIR    ?= $(PREFIX)/include
 LIBDIR    ?= $(PREFIX)/lib/vdr
@@ -49,7 +49,7 @@ DOXYFILE  = Doxyfile
 
 # User configuration
 
-include Make.config
+-include Make.config
 
 # Mandatory compiler flags:
 
@@ -67,11 +67,15 @@ endif
 SILIB    = $(LSIDIR)/libsi.a
 
 OBJS = audio.o channels.o ci.o config.o cutter.o device.o diseqc.o dvbdevice.o dvbci.o\
-       dvbplayer.o dvbspu.o dvbsubtitle.o eit.o eitscan.o epg.o filter.o font.o i18n.o interface.o keys.o\
+       dvbplayer.o dvbspu.o dvbsubtitle.o eit.o eitscan.o epg.o filetransfer.o filter.o font.o i18n.o interface.o keys.o\
        lirc.o menu.o menuitems.o nit.o osdbase.o osd.o pat.o player.o plugin.o\
        receiver.o recorder.o recording.o remote.o remux.o ringbuffer.o sdt.o sections.o shutdown.o\
        skinclassic.o skinlcars.o skins.o skinsttng.o sourceparams.o sources.o spu.o status.o svdrp.o themes.o thread.o\
        timers.o tools.o transfer.o vdr.o videodir.o
+
+OBJS += iconpatch.o
+
+OBJS += vdrttxtsubshooks.o
 
 DEFINES  += $(CDEFINES)
 INCLUDES += $(CINCLUDES)
@@ -92,6 +96,11 @@ ifdef BIDI
 INCLUDES += $(shell pkg-config --cflags fribidi)
 DEFINES += -DBIDI
 LIBS += $(shell pkg-config --libs fribidi)
+endif
+
+ifdef LIVEBUFFER
+DEFINES += -DUSE_LIVEBUFFER
+OBJS += livebuffer.o
 endif
 
 LIRC_DEVICE ?= /var/run/lirc/lircd
@@ -147,6 +156,7 @@ vdr.pc:
 	@echo "resdir=$(RESDIR)" >> $@
 	@echo "libdir=$(LIBDIR)" >> $@
 	@echo "locdir=$(LOCDIR)" >> $@
+	@echo "incdir=$(INCDIR)" >> $@
 	@echo "plgcfg=$(PLGCFG)" >> $@
 	@echo "apiversion=$(APIVERSION)" >> $@
 	@echo "cflags=$(CFLAGS) $(CDEFINES) $(CINCLUDES) $(HDRDIR)" >> $@

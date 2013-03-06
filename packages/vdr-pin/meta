@@ -1,7 +1,9 @@
 PKG_NAME=vdr-pin
-PKG_VERSION=0.1.10
-PKG_URL="http://www.jwendel.de/vdr/vdr-pin-$PKG_VERSION.tgz"
-#PKG_URL="http://www.minidvblinux.de/svn-3/pin/trunk/src/vdr-pin-0.1.10.tgz"
+#PKG_VERSION=0.1.10
+#PKG_URL="http://www.jwendel.de/vdr/vdr-pin-$PKG_VERSION.tgz"
+PKG_VERSION=0.1.13
+PKG_URL_PROTO=svn
+PKG_URL="http://www.minidvblinux.de/svn-3/pin/trunk/src/pin-0.1.13/"
 PKG_REV=1
 PKG_DEPENDS="$TARGET_LIBC vdr"
 PKG_BUILD_DEPENDS="toolchain vdr"

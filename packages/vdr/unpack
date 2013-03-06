@@ -8,3 +8,6 @@ rm -rf PLUGINS/src/skincurses
 
 # remove useless plugins
 rm -rf PLUGINS/src/hello PLUGINS/src/osddemo PLUGINS/src/servicedemo PLUGINS/src/svdrpdemo
+
+# remove all plugins 
+rm -rf PLUGINS/src/*

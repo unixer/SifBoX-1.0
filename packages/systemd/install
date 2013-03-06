@@ -53,6 +53,9 @@ if [ -n "$DEFAULT_SYSTEMD_TARGET" ]; then
     $INSTALL/etc/systemd/system/default.target
 fi
 
+# reduce verbosity a bit
+sed -i -e "s/#LogLevel=info/LogLevel=notice/" $INSTALL/etc/systemd/system.conf
+
 mkdir -p $INSTALL/etc/systemd/
 cp $ROOT/$PACKAGES/$1/config/journald.conf $INSTALL/etc/systemd/
 

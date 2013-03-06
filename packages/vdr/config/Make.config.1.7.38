@@ -6,7 +6,7 @@
 # See the main source file 'vdr.c' for copyright information and
 # how to reach the author.
 #
-# $Id: Make.config.template 2.16 2013/01/12 13:50:17 kls Exp $
+# $Id: Make.config.template 2.18 2013/02/08 10:31:38 kls Exp $
 
 ### The C compiler and options:
 
@@ -24,38 +24,26 @@ endif
 
 ### The directory environment:
 
+# MLD directory:
+
+MLDDIR   = $(abspath $(shell path=$$(pwd)/../../..; if [ -e $$path/vdr/src ]; then echo $$path; else echo $$path/../../..; fi))
+
 # Default directories (adjust as necessary or desired):
 
 PREFIX    = /usr
-BINDIR    = $(PREFIX)/bin
-INCDIR    = $(PREFIX)/include
-LIBDIR    = $(PREFIX)/lib/vdr
-LOCDIR    = $(PREFIX)/share/locale
-MANDIR    = $(PREFIX)/share/man
-PCDIR     = $(PREFIX)/lib/pkgconfig
-RESDIR    = $(PREFIX)/share/vdr
-VIDEODIR   = /data/tv/tv0
-CONFDIR   = /etc/vdr
-CACHEDIR  = /var/cache/vdr
-#BINDIR	  = /usr/bin
-LIBS += -lintl
+#BINDIR    = $(PREFIX)/bin
+#INCDIR    = $(PREFIX)/include
+#LIBDIR    = $(PREFIX)/lib/vdr
+#LOCDIR    = $(PREFIX)/share/locale
+#MANDIR    = $(PREFIX)/share/man
+#PCDIR     = $(PREFIX)/lib/pkgconfig
+RESDIR    = /etc/vdr
+#DVBDIR   =
 
-### The directory environment:
 
-MLDDIR   = $(abspath $(shell path=$$(pwd)/../../..; if [ -e $$path/vdr/src ]; then echo $$path; else echo $$path/../../..; fi))
-#VDRDIR   = $(MLDDIR)
-#VDRDIR = "../vdr-1.7.37"
-#MLDDIR = "../"
-DVBDIR   = AGGIUNGERELAPATCH
-MANDIR   = $(PREFIX)/man
-BINDIR   = $(PREFIX)/bin
-
-# By default locale and plugin files are built under the source directory:
-LOCDIR       = /usr/share/locale
-#PLUGINDIR   = ./PLUGINS
-PLUGINLIBDIR = /usr/lib/vdr
-# By default VDR requires only one single directory to operate:
-
+VIDEODIR  = /data/tv/tv0
+#CONFDIR   = /var/lib/vdr
+#CACHEDIR  = /var/cache/vdr
 
 # Overrides for preset/legacy configurations:
 
@@ -73,7 +61,7 @@ RESDIR       = $(PREFIX)/share/vdr
 LOCDIR       = $(PREFIX)/share/locale
 PLUGINLIBDIR = $(PREFIX)/lib/vdr/plugins
 LIBDIR    = $(PREFIX)/lib/vdr/plugins
-DVBDIR   = AGGIUNGERELAPATCH
+#DVBDIR   =
 LIBS += -lintl
 BIDI = 1
 LIBDIR       = $(PREFIX)/lib/vdr/plugins
@@ -85,7 +73,7 @@ endif
 
 # Use 'make ONEDIR=1' to have all data in one single directory:
 ifdef ONEDIR
-VIDEODIR     = /video
+VIDEODIR     = /data/tv/tv0
 CACHEDIR     = $(VIDEODIR)
 CONFDIR      = $(VIDEODIR)
 RESDIR       = $(VIDEODIR)
@@ -110,18 +98,15 @@ endif
 
 ### VDR-Extensions:
 
-ALTERNATECHANNEL = 1
+#ALTERNATECHANNEL = 1
 #CHANNELBIND = 1
 DDEPGENTRY = 1
-DVLVIDPREFER = 1
+#DVLVIDPREFER = 1
 GRAPHTFT = 1
 JUMPINGSECONDS = 1
 JUMPPLAY = 1
-NOEPG = 1
 VASARAJANAULOJA = 1
-LIRCSETTINGS = 1
 MAINMENUHOOKS = 1
-MCLI = 1
 MENUORG = 1
 NALUDUMP = 1
 PINPLUGIN = 1
@@ -133,18 +118,8 @@ VOLCTRL = 1
 WAREAGLEICON = 1
 YAEPG = 1
 LIVEBUFFER = 1
-LIEMIKUUTIO = 1
-LIRCSETTINGS = 1
-TIMERINFO = 1
-LIEMIEXT=1
-
-
 
 ### You don't need to touch the following:
-
-ifdef DVBDIR
-INCLUDES += -I$(DVBDIR)/include
-endif
 
 ifdef ALTERNATECHANNEL
 DEFINES += -DUSE_ALTERNATECHANNEL
@@ -153,11 +128,6 @@ endif
 ifdef CHANNELBIND
 DEFINES += -DUSE_CHANNELBIND
 endif
-
-ifdef CUTTERLIMIT
-DEFINES += -DUSE_CUTTERLIMIT
-endif
-
 
 ifdef DDEPGENTRY
 DEFINES += -DUSE_DDEPGENTRY
@@ -171,24 +141,12 @@ ifdef GRAPHTFT
 DEFINES += -DUSE_GRAPHTFT
 endif
 
-ifdef HARDLINKCUTTER
-DEFINES += -DUSE_HARDLINKCUTTER
-endif
-
 ifdef JUMPINGSECONDS
 DEFINES += -DUSE_JUMPINGSECONDS
 endif
 
 ifdef JUMPPLAY
 DEFINES += -DUSE_JUMPPLAY
-endif
-
-ifdef LIEMIKUUTIO
-DEFINES += -DUSE_LIEMIKUUTIO
-endif
-
-ifdef LIRCSETTINGS
-DEFINES += -DUSE_LIRCSETTINGS
 endif
 
 ifdef VASARAJANAULOJA
@@ -199,10 +157,6 @@ ifdef MAINMENUHOOKS
 DEFINES += -DUSE_MAINMENUHOOKS
 endif
 
-ifdef MCLI
-DEFINES += -DUSE_MCLI
-endif
-
 ifdef MENUORG
 DEFINES += -DUSE_MENUORG
 endif
@@ -211,11 +165,6 @@ ifdef NALUDUMP
 DEFINES += -DUSE_NALUDUMP
 endif
 
-ifdef NOEPG
-DEFINES += -DUSE_NOEPG
-endif
-
-# temp disabled
 ifdef PINPLUGIN
 DEFINES += -DUSE_PINPLUGIN
 endif

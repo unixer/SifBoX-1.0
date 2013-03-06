@@ -1,12 +1,11 @@
 PKG_NAME=vdr-vdrmanager
-#PKG_VERSION=0.6
-#PKG_URL="http://projects.vdr-developer.org/attachments/download/828/vdr-vdrmanager-${PKG_VERSION}.tar.gz"
-PKG_VERSION=0.8
-PKG_URL="http://projects.vdr-developer.org/attachments/download/1130/vdr-vdrmanager-${PKG_VERSION}.tar.gz"
-PKG_URL_REV=c1397b21b
-#PKG_VERSION=0.9+${PKG_URL_REV}
+#PKG_VERSION=0.8
+#PKG_URL="http://projects.vdr-developer.org/attachments/download/1130/vdr-vdrmanager-${PKG_VERSION}.tar.gz"
+PKG_URL_REV=cde07f1914
+PKG_VERSION=0.9+${PKG_URL_REV}
 #PKG_URL_PROTO=git
 #PKG_URL="git://projects.vdr-developer.org/vdr-manager.git"
+PKG_URL="http://dl.dropbox.com/u/23897246/vdr-vdrmanager.tar.xz"
 PKG_REV=1
 PKG_DEPENDS="$TARGET_LIBC vdr"
 PKG_BUILD_DEPENDS="toolchain vdr"

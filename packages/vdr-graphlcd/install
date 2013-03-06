@@ -18,10 +18,10 @@ done
 NAME=`echo $1 | sed s/vdr-//`
 mkdir -p $INSTALL/etc/vdr/plugins.d
 echo "PLUGIN=${NAME}" > $INSTALL/etc/vdr/plugins.d/50_$NAME
-echo "OPTIONS=\"-c /etc/graphlcd.conf\"" >> $INSTALL/etc/vdr/plugins.d/50_$NAME
-echo "ENABLED=no" >> $INSTALL/etc/vdr/plugins.d/50_$NAME
+echo "OPTIONS=\"-c /etc/graphlcd.conf -d serdisp\"" >> $INSTALL/etc/vdr/plugins.d/50_$NAME
+echo "ENABLED=yes" >> $INSTALL/etc/vdr/plugins.d/50_$NAME
 
 mkdir -p $INSTALL/etc/vdr/plugins/graphlcd
 #cp -a $BUILD/$1*/graphlcd/* $INSTALL/etc/vdr/plugins/graphlcd
 cp -a $BUILD/${PKG_NAME}-${PKG_VERSION}/graphlcd/* $INSTALL/etc/vdr/plugins/graphlcd
-
+cp -r $ROOT/$PACKAGES/$1/config/* $INSTALL/etc/vdr/plugins/graphlcd

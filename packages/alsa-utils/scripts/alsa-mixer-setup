@@ -193,10 +193,10 @@ fi
 
 # Required for ASUS
 if dmesg | grep "HDA NVidia HDMI" ; then
-  amixer set -c 1 IEC958,1 unmute
-  amixer set -c 1 IEC958,2 unmute
-  amixer set -c 1 IEC958,3 unmute
-  amixer set -c 1 IEC958,4 unmute
+  amixer set -c $ALSA_CARD IEC958,1 unmute
+  amixer set -c $ALSA_CARD IEC958,2 unmute
+  amixer set -c $ALSA_CARD IEC958,3 unmute
+  amixer set -c $ALSA_CARD IEC958,4 unmute
 fi
 
 echo "Config :" >> /tmp/debug-sound

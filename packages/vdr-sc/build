@@ -14,6 +14,8 @@ CXXFLAGS="$CXXFLAGS -fPIC"
 LDFLAGS="$LDFLAGS -fPIC"
 MAKEFLAGS=-j1
 
+echo "ENTER"
+read enterKey
 cd $PKG_BUILD_DIR
 make \
   VDRDIR="$ROOT/$BUILD/vdr-${VDR_VERSION}" \
