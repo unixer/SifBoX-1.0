@@ -13,7 +13,9 @@ XX=`xdpyinfo | grep dimensions | awk '{print $2}' | awk 'BEGIN { FS = "x" }; {pr
 	800)  RIS=3 ;; # VIRTUAL MACHINE
 	1024) RIS=4 ;; # XGA
 	1280) RIS=5 ;; # HD READY
+	1440) RIS=5 ;; # ??
 	1920) RIS=6 ;; # HD
+	*) RIS=3 ;; # ALTRI CASI
 	esac
 
 # RIS e’ il fattore moltiplicativo per le dimensioni delle finestre
