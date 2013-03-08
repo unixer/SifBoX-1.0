@@ -108,7 +108,6 @@ description of the config file format.
          <plugin name="ffnetdev" />
          <plugin name="sleeptimer" />
          <plugin name="wirbelscancontrol" />
-  	 <command name="Configurator" execute="/usr/bin/xterm.sh /usr/bin/configurator.sh" />
          <menu name="Remote wakeup">
          </menu>
 
