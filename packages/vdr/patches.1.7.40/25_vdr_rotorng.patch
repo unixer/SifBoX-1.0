@@ -1,6 +1,6 @@
-diff -ubw vdr-1.7.27.orig/device.h vdr-1.7.27/device.h
---- vdr-1.7.27.orig/device.h	2012-03-13 10:17:16.000000000 +0000
-+++ vdr-1.7.27/device.h	2012-10-21 20:12:44.875603719 +0100
+diff -urN vdr-1.7.40.orig/device.h vdr-1.7.40/device.h
+--- vdr-1.7.40.orig/device.h	2013-03-10 21:07:50.312172456 +0100
++++ vdr-1.7.40/device.h	2013-03-10 21:08:22.296173004 +0100
 @@ -24,6 +24,7 @@
  #include "spu.h"
  #include "thread.h"
@@ -17,10 +17,10 @@ diff -ubw vdr-1.7.27.orig/device.h vdr-1.7.27/device.h
  // PID handle facilities
  
  private:
-diff -ubw vdr-1.7.27.orig/dvbdevice.c vdr-1.7.27/dvbdevice.c
---- vdr-1.7.27.orig/dvbdevice.c	2012-03-25 11:41:45.000000000 +0100
-+++ vdr-1.7.27/dvbdevice.c	2012-10-21 20:27:36.752391308 +0100
-@@ -287,6 +287,7 @@
+diff -urN vdr-1.7.40.orig/dvbdevice.c vdr-1.7.40/dvbdevice.c
+--- vdr-1.7.40.orig/dvbdevice.c	2013-03-10 21:07:50.292172456 +0100
++++ vdr-1.7.40/dvbdevice.c	2013-03-10 21:08:22.300173005 +0100
+@@ -288,6 +288,7 @@
  private:
    static cMutex bondMutex;
    enum eTunerStatus { tsIdle, tsSet, tsTuned, tsLocked };
@@ -28,15 +28,15 @@ diff -ubw vdr-1.7.27.orig/dvbdevice.c vdr-1.7.27/dvbdevice.c
    int frontendType;
    const cDvbDevice *device;
    mutable int fd_frontend;
-@@ -308,6 +309,7 @@
-   bool SetFrontendType(const cChannel *Channel);
-   cString GetBondingParams(const cChannel *Channel = NULL) const;
+@@ -311,6 +312,7 @@
+   cDvbTuner *GetBondedMaster(void);
+   bool IsBondedMaster(void) const { return !bondedTuner || bondedMaster; }
    void ClearEventQueue(void) const;
 +  dvb_diseqc_master_cmd diseqc_cmd;
    bool GetFrontendStatus(fe_status_t &Status) const;
    void ExecuteDiseqc(const cDiseqc *Diseqc, unsigned int *Frequency);
    void ResetToneAndVoltage(void);
-@@ -329,6 +331,7 @@
+@@ -331,6 +333,7 @@
    uint32_t SubsystemId(void) const { return subsystemId; }
    bool IsTunedTo(const cChannel *Channel) const;
    void SetChannel(const cChannel *Channel);
@@ -44,15 +44,15 @@ diff -ubw vdr-1.7.27.orig/dvbdevice.c vdr-1.7.27/dvbdevice.c
    bool Locked(int TimeoutMs = 0);
    int GetSignalStrength(void) const;
    int GetSignalQuality(void) const;
-@@ -344,6 +347,7 @@
- {
+@@ -346,6 +349,7 @@
+   frontendType = SYS_UNDEFINED;
    device = Device;
    fd_frontend = Fd_Frontend;
 +  SendDiseqc=false;
    adapter = Adapter;
    frontend = Frontend;
    subsystemId = cDvbDeviceProbe::GetSubsystemId(adapter, frontend);
-@@ -530,6 +534,7 @@
+@@ -532,6 +536,7 @@
       }
  }
  
@@ -60,7 +60,7 @@ diff -ubw vdr-1.7.27.orig/dvbdevice.c vdr-1.7.27/dvbdevice.c
  bool cDvbTuner::GetFrontendStatus(fe_status_t &Status) const
  {
    ClearEventQueue();
-@@ -718,6 +723,22 @@
+@@ -727,6 +732,22 @@
    return ds;
  }
  
@@ -82,10 +82,10 @@ diff -ubw vdr-1.7.27.orig/dvbdevice.c vdr-1.7.27/dvbdevice.c
 +
  bool cDvbTuner::SetFrontend(void)
  {
- #define MAXFRONTENDCMDS 16
-@@ -873,6 +894,10 @@
-         if (GetFrontendStatus(NewStatus))
-            Status = NewStatus;
+   if (!OpenFrontend())
+@@ -883,6 +904,10 @@
+               Status = NewStatus;
+            }
          cMutexLock MutexLock(&mutex);
 +        if (SendDiseqc) {
 +           CHECK(ioctl(fd_frontend, FE_DISEQC_SEND_MASTER_CMD, &diseqc_cmd));
@@ -94,7 +94,7 @@ diff -ubw vdr-1.7.27.orig/dvbdevice.c vdr-1.7.27/dvbdevice.c
          int WaitTime = 1000;
          switch (tunerStatus) {
            case tsIdle:
-@@ -1621,6 +1646,11 @@
+@@ -1632,6 +1657,11 @@
    return dvbTuner ? dvbTuner->Locked(TimeoutMs) : false;
  }
  
@@ -106,13 +106,14 @@ diff -ubw vdr-1.7.27.orig/dvbdevice.c vdr-1.7.27/dvbdevice.c
  void cDvbDevice::SetTransferModeForDolbyDigital(int Mode)
  {
    setTransferModeForDolbyDigital = Mode;
-diff -ubw vdr-1.7.27.orig/dvbdevice.h vdr-1.7.27/dvbdevice.h
---- vdr-1.7.27.orig/dvbdevice.h	2012-03-13 10:11:15.000000000 +0000
-+++ vdr-1.7.27/dvbdevice.h	2012-10-21 20:19:16.310682713 +0100
+diff -urN vdr-1.7.40.orig/dvbdevice.h vdr-1.7.40/dvbdevice.h
+--- vdr-1.7.40.orig/dvbdevice.h	2013-03-10 21:07:50.296172455 +0100
++++ vdr-1.7.40/dvbdevice.h	2013-03-10 21:08:22.300173005 +0100
 @@ -194,6 +194,7 @@
    virtual bool SetChannelDevice(const cChannel *Channel, bool LiveView);
  public:
    virtual bool HasLock(int TimeoutMs = 0) const;
 +  virtual bool SendDiseqcCmd(dvb_diseqc_master_cmd cmd);
-
+ 
  // PID handle facilities
+ 

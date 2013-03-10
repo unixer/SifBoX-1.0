@@ -1,6 +1,6 @@
-diff -ruN vdr-1/config.c vdr-2/config.c
---- vdr-1/config.c	2012-09-10 22:31:51.000000000 +0200
-+++ vdr-2/config.c	2012-09-10 22:33:34.000000000 +0200
+diff -urN vdr-1.7.40.orig/config.c vdr-1.7.40/config.c
+--- vdr-1.7.40.orig/config.c	2013-03-10 21:05:21.944169909 +0100
++++ vdr-1.7.40/config.c	2013-03-10 21:05:46.848170336 +0100
 @@ -392,6 +392,7 @@
    DiSEqC = 0;
    SetSystemTime = 0;
@@ -9,7 +9,7 @@ diff -ruN vdr-1/config.c vdr-2/config.c
    TimeTransponder = 0;
    StandardCompliance = STANDARD_DVB;
    MarginStart = 2;
-@@ -598,6 +599,7 @@
+@@ -599,6 +600,7 @@
    else if (!strcasecmp(Name, "SetSystemTime"))       SetSystemTime      = atoi(Value);
    else if (!strcasecmp(Name, "TimeSource"))          TimeSource         = cSource::FromString(Value);
    else if (!strcasecmp(Name, "TimeTransponder"))     TimeTransponder    = atoi(Value);
@@ -17,7 +17,7 @@ diff -ruN vdr-1/config.c vdr-2/config.c
    else if (!strcasecmp(Name, "StandardCompliance"))  StandardCompliance = atoi(Value);
    else if (!strcasecmp(Name, "MarginStart"))         MarginStart        = atoi(Value);
    else if (!strcasecmp(Name, "MarginStop"))          MarginStop         = atoi(Value);
-@@ -707,6 +709,7 @@
+@@ -709,6 +711,7 @@
    Store("SetSystemTime",      SetSystemTime);
    Store("TimeSource",         cSource::ToString(TimeSource));
    Store("TimeTransponder",    TimeTransponder);
@@ -25,9 +25,9 @@ diff -ruN vdr-1/config.c vdr-2/config.c
    Store("StandardCompliance", StandardCompliance);
    Store("MarginStart",        MarginStart);
    Store("MarginStop",         MarginStop);
-diff -ruN vdr-1/config.h vdr-2/config.h
---- vdr-1/config.h	2012-09-10 22:31:51.000000000 +0200
-+++ vdr-2/config.h	2012-09-10 22:33:34.000000000 +0200
+diff -urN vdr-1.7.40.orig/config.h vdr-1.7.40/config.h
+--- vdr-1.7.40.orig/config.h	2013-03-10 21:05:21.948169909 +0100
++++ vdr-1.7.40/config.h	2013-03-10 21:05:46.848170336 +0100
 @@ -272,6 +272,7 @@
    int SetSystemTime;
    int TimeSource;
@@ -36,10 +36,10 @@ diff -ruN vdr-1/config.h vdr-2/config.h
    int StandardCompliance;
    int MarginStart, MarginStop;
    int AudioLanguages[I18N_MAX_LANGUAGES + 1];
-diff -ruN vdr-1/dvbdevice.c vdr-2/dvbdevice.c
---- vdr-1/dvbdevice.c	2012-09-10 22:31:50.000000000 +0200
-+++ vdr-2/dvbdevice.c	2012-09-10 22:33:34.000000000 +0200
-@@ -1414,6 +1414,10 @@
+diff -urN vdr-1.7.40.orig/dvbdevice.c vdr-1.7.40/dvbdevice.c
+--- vdr-1.7.40.orig/dvbdevice.c	2013-03-10 21:05:21.944169909 +0100
++++ vdr-1.7.40/dvbdevice.c	2013-03-10 21:05:46.852170335 +0100
+@@ -1424,6 +1424,10 @@
  
  bool cDvbDevice::ProvidesSource(int Source) const
  {
@@ -50,10 +50,10 @@ diff -ruN vdr-1/dvbdevice.c vdr-2/dvbdevice.c
    int type = Source & cSource::st_Mask;
    return type == cSource::stNone
        || type == cSource::stAtsc  && ProvidesDeliverySystem(SYS_ATSC)
-diff -Naur vdr-1.7.37.orig/menu.c vdr-1.7.37/menu.c
---- vdr-1.7.37.orig/menu.c	2013-01-26 15:55:49.000000000 +0100
-+++ vdr-1.7.37/menu.c	2013-01-26 16:42:49.000000000 +0100
-@@ -3157,6 +3157,8 @@
+diff -urN vdr-1.7.40.orig/menu.c vdr-1.7.40/menu.c
+--- vdr-1.7.40.orig/menu.c	2013-03-10 21:05:21.944169909 +0100
++++ vdr-1.7.40/menu.c	2013-03-10 21:05:46.856170336 +0100
+@@ -3162,6 +3162,8 @@
           }
       }
  
@@ -62,10 +62,10 @@ diff -Naur vdr-1.7.37.orig/menu.c vdr-1.7.37/menu.c
    SetCurrent(Get(current));
    Display();
  }
-diff -ruN vdr-1/po/de_DE.po vdr-2/po/de_DE.po
---- vdr-1/po/de_DE.po	2012-09-10 22:31:51.000000000 +0200
-+++ vdr-2/po/de_DE.po	2012-09-10 22:33:34.000000000 +0200
-@@ -890,6 +890,9 @@
+diff -urN vdr-1.7.40.orig/po/de_DE.po vdr-1.7.40/po/de_DE.po
+--- vdr-1.7.40.orig/po/de_DE.po	2013-03-10 21:05:21.952169909 +0100
++++ vdr-1.7.40/po/de_DE.po	2013-03-10 21:05:46.856170336 +0100
+@@ -893,6 +893,9 @@
  msgid "Setup.EPG$Preferred language"
  msgstr "Bevorzugte Sprache"
  

@@ -1,8 +1,8 @@
-diff -ruN vdr-1/config.c vdr-2/config.c
---- vdr-1/config.c	2012-09-10 22:20:39.000000000 +0200
-+++ vdr-2/config.c	2012-09-10 22:21:28.000000000 +0200
-@@ -471,6 +471,8 @@
- #endif /* JUMPPLAY */
+diff -urN vdr-1.7.40.orig/config.c vdr-1.7.40/config.c
+--- vdr-1.7.40.orig/config.c	2013-03-10 21:11:49.504176560 +0100
++++ vdr-1.7.40/config.c	2013-03-10 21:11:57.792176704 +0100
+@@ -472,6 +472,8 @@
+   ResumeID = 0;
    CurrentChannel = -1;
    CurrentVolume = MAXVOLUME;
 +  VolumeSteps = 51;
@@ -10,7 +10,7 @@ diff -ruN vdr-1/config.c vdr-2/config.c
    CurrentDolby = 0;
    InitialChannel = "";
    DeviceBondings = "";
-@@ -683,6 +685,8 @@
+@@ -685,6 +687,8 @@
    else if (!strcasecmp(Name, "CurrentDolby"))        CurrentDolby       = atoi(Value);
    else if (!strcasecmp(Name, "InitialChannel"))      InitialChannel     = Value;
    else if (!strcasecmp(Name, "InitialVolume"))       InitialVolume      = atoi(Value);
@@ -19,7 +19,7 @@ diff -ruN vdr-1/config.c vdr-2/config.c
    else if (!strcasecmp(Name, "DeviceBondings"))      DeviceBondings     = Value;
    else if (!strcasecmp(Name, "ChannelsWrap"))        ChannelsWrap       = atoi(Value);
    else if (!strcasecmp(Name, "ShowChannelNamesWithSource")) ShowChannelNamesWithSource = atoi(Value);
-@@ -796,6 +800,8 @@
+@@ -799,6 +803,8 @@
    Store("CurrentDolby",       CurrentDolby);
    Store("InitialChannel",     InitialChannel);
    Store("InitialVolume",      InitialVolume);
@@ -28,21 +28,21 @@ diff -ruN vdr-1/config.c vdr-2/config.c
    Store("DeviceBondings",     DeviceBondings);
    Store("ChannelsWrap",       ChannelsWrap);
    Store("ShowChannelNamesWithSource", ShowChannelNamesWithSource);
-diff -ruN vdr-1/config.h vdr-2/config.h
---- vdr-1/config.h	2012-09-10 22:20:39.000000000 +0200
-+++ vdr-2/config.h	2012-09-10 22:21:28.000000000 +0200
-@@ -334,6 +334,8 @@
-   int PauseLastMark;
- #endif /* JUMPPLAY */
+diff -urN vdr-1.7.40.orig/config.h vdr-1.7.40/config.h
+--- vdr-1.7.40.orig/config.h	2013-03-10 21:11:49.508176561 +0100
++++ vdr-1.7.40/config.h	2013-03-10 21:11:57.796176704 +0100
+@@ -335,6 +335,8 @@
+   int ResumeID;
+   int CurrentChannel;
    int CurrentVolume;
 +  int VolumeSteps;
 +  int VolumeLinearize;
    int CurrentDolby;
    int InitialVolume;
- #ifdef USE_VOLCTRL
-diff -ruN vdr-1/device.c vdr-2/device.c
---- vdr-1/device.c	2012-09-10 22:20:39.000000000 +0200
-+++ vdr-2/device.c	2012-09-10 22:21:28.000000000 +0200
+   int ChannelsWrap;
+diff -urN vdr-1.7.40.orig/device.c vdr-1.7.40/device.c
+--- vdr-1.7.40.orig/device.c	2013-03-10 21:11:49.504176560 +0100
++++ vdr-1.7.40/device.c	2013-03-10 21:11:57.796176704 +0100
 @@ -11,6 +11,7 @@
  #include <errno.h>
  #include <sys/ioctl.h>
@@ -63,9 +63,9 @@ diff -ruN vdr-1/device.c vdr-2/device.c
    Absolute |= mute;
    cStatus::MsgSetVolume(Absolute ? volume : volume - OldVolume, Absolute);
    if (volume > 0) {
-diff -ruN vdr-1/device.h vdr-2/device.h
---- vdr-1/device.h	2012-09-10 22:20:39.000000000 +0200
-+++ vdr-2/device.h	2012-09-10 22:21:28.000000000 +0200
+diff -urN vdr-1.7.40.orig/device.h vdr-1.7.40/device.h
+--- vdr-1.7.40.orig/device.h	2013-03-10 21:11:49.512176562 +0100
++++ vdr-1.7.40/device.h	2013-03-10 21:11:57.796176704 +0100
 @@ -30,7 +30,7 @@
  #define MAXPIDHANDLES      64 // the maximum number of different PIDs per device
  #define MAXRECEIVERS       16 // the maximum number of receivers per device
@@ -74,11 +74,11 @@ diff -ruN vdr-1/device.h vdr-2/device.h
 +#define VOLUMEDELTA       (MAXVOLUME/Setup.VolumeSteps) // used to increase/decrease the volume
  #define MAXOCCUPIEDTIMEOUT 99 // max. time (in seconds) a device may be occupied
  
- #ifdef USE_LIVEBUFFER
-diff -ruN vdr-1/menu.c vdr-2/menu.c
---- vdr-1/menu.c        2012-09-10 22:20:39.000000000 +0200
-+++ vdr-2/menu.c        2012-09-10 22:21:28.000000000 +0200
-@@ -3440,6 +3440,8 @@
+ enum eSetChannelResult { scrOk, scrNotAvailable, scrNoTransfer, scrFailed };
+diff -urN vdr-1.7.40.orig/menu.c vdr-1.7.40/menu.c
+--- vdr-1.7.40.orig/menu.c	2013-03-10 21:11:49.504176560 +0100
++++ vdr-1.7.40/menu.c	2013-03-10 21:11:57.804176704 +0100
+@@ -3445,6 +3445,8 @@
    Add(new cMenuEditIntItem( tr("Setup.Miscellaneous$Remote control repeat delta (ms)"), &data.RcRepeatDelta, 0));
    Add(new cMenuEditChanItem(tr("Setup.Miscellaneous$Initial channel"),            &data.InitialChannel, tr("Setup.Miscellaneous$as before")));
    Add(new cMenuEditIntItem( tr("Setup.Miscellaneous$Initial volume"),             &data.InitialVolume, -1, 255, tr("Setup.Miscellaneous$as before")));
@@ -87,10 +87,10 @@ diff -ruN vdr-1/menu.c vdr-2/menu.c
    Add(new cMenuEditBoolItem(tr("Setup.Miscellaneous$Channels wrap"),              &data.ChannelsWrap));
    Add(new cMenuEditBoolItem(tr("Setup.Miscellaneous$Show channel names with source"), &data.ShowChannelNamesWithSource));
    Add(new cMenuEditBoolItem(tr("Setup.Miscellaneous$Emergency exit"),             &data.EmergencyExit));
-diff -ruN vdr-1/po/de_DE.po vdr-2/po/de_DE.po
---- vdr-1/po/de_DE.po	2012-09-10 22:20:39.000000000 +0200
-+++ vdr-2/po/de_DE.po	2012-09-10 22:21:28.000000000 +0200
-@@ -1134,6 +1134,12 @@
+diff -urN vdr-1.7.40.orig/po/de_DE.po vdr-1.7.40/po/de_DE.po
+--- vdr-1.7.40.orig/po/de_DE.po	2013-03-10 21:11:49.516176562 +0100
++++ vdr-1.7.40/po/de_DE.po	2013-03-10 21:11:57.804176704 +0100
+@@ -1137,6 +1137,12 @@
  msgid "Setup.Miscellaneous$SVDRP timeout (s)"
  msgstr "SVDRP trennen bei Inaktivität (s)"
  

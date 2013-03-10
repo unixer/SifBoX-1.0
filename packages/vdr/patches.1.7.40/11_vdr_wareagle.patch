@@ -1,6 +1,6 @@
-diff -ruN vdr-1.7.37.orig/config.c vdr-1.7.37/config.c
---- vdr-1.7.37.orig/config.c	2013-01-27 12:54:57.743017655 +0100
-+++ vdr-1.7.37/config.c	2013-01-27 12:56:24.230017960 +0100
+diff -urN vdr-1.7.40.orig/config.c vdr-1.7.40/config.c
+--- vdr-1.7.40.orig/config.c	2013-03-10 21:01:02.260165451 +0100
++++ vdr-1.7.40/config.c	2013-03-10 21:01:56.420166380 +0100
 @@ -376,6 +376,7 @@
    strcpy(OSDLanguage, ""); // default is taken from environment
    strcpy(OSDSkin, "lcars");
@@ -9,7 +9,7 @@ diff -ruN vdr-1.7.37.orig/config.c vdr-1.7.37/config.c
    PrimaryDVB = 1;
    ShowInfoOnChSwitch = 1;
    TimeoutRequChInfo = 1;
-@@ -580,6 +581,7 @@
+@@ -581,6 +582,7 @@
    if      (!strcasecmp(Name, "OSDLanguage"))       { strn0cpy(OSDLanguage, Value, sizeof(OSDLanguage)); I18nSetLocale(OSDLanguage); }
    else if (!strcasecmp(Name, "OSDSkin"))             Utf8Strn0Cpy(OSDSkin, Value, MaxSkinName);
    else if (!strcasecmp(Name, "OSDTheme"))            Utf8Strn0Cpy(OSDTheme, Value, MaxThemeName);
@@ -17,7 +17,7 @@ diff -ruN vdr-1.7.37.orig/config.c vdr-1.7.37/config.c
    else if (!strcasecmp(Name, "PrimaryDVB"))          PrimaryDVB         = atoi(Value);
    else if (!strcasecmp(Name, "ShowInfoOnChSwitch"))  ShowInfoOnChSwitch = atoi(Value);
    else if (!strcasecmp(Name, "TimeoutRequChInfo"))   TimeoutRequChInfo  = atoi(Value);
-@@ -688,6 +690,7 @@
+@@ -690,6 +692,7 @@
    Store("OSDLanguage",        OSDLanguage);
    Store("OSDSkin",            OSDSkin);
    Store("OSDTheme",           OSDTheme);
@@ -25,9 +25,9 @@ diff -ruN vdr-1.7.37.orig/config.c vdr-1.7.37/config.c
    Store("PrimaryDVB",         PrimaryDVB);
    Store("ShowInfoOnChSwitch", ShowInfoOnChSwitch);
    Store("TimeoutRequChInfo",  TimeoutRequChInfo);
-diff -ruN vdr-1.7.37.orig/config.h vdr-1.7.37/config.h
---- vdr-1.7.37.orig/config.h	2013-01-27 12:54:57.743017655 +0100
-+++ vdr-1.7.37/config.h	2013-01-27 12:56:24.230017960 +0100
+diff -urN vdr-1.7.40.orig/config.h vdr-1.7.40/config.h
+--- vdr-1.7.40.orig/config.h	2013-03-10 21:01:02.264165451 +0100
++++ vdr-1.7.40/config.h	2013-03-10 21:01:56.420166380 +0100
 @@ -253,6 +253,7 @@
    char OSDLanguage[I18N_MAX_LOCALE_LEN];
    char OSDSkin[MaxSkinName];
@@ -36,9 +36,9 @@ diff -ruN vdr-1.7.37.orig/config.h vdr-1.7.37/config.h
    int PrimaryDVB;
    int ShowInfoOnChSwitch;
    int TimeoutRequChInfo;
-diff -ruN vdr-1.7.37.orig/iconpatch.c vdr-1.7.37/iconpatch.c
---- vdr-1.7.37.orig/iconpatch.c	1970-01-01 01:00:00.000000000 +0100
-+++ vdr-1.7.37/iconpatch.c	2013-01-27 12:56:24.231017960 +0100
+diff -urN vdr-1.7.40.orig/iconpatch.c vdr-1.7.40/iconpatch.c
+--- vdr-1.7.40.orig/iconpatch.c	1970-01-01 01:00:00.000000000 +0100
++++ vdr-1.7.40/iconpatch.c	2013-03-10 21:01:56.420166380 +0100
 @@ -0,0 +1,27 @@
 +#include "iconpatch.h"
 +
@@ -67,9 +67,9 @@ diff -ruN vdr-1.7.37.orig/iconpatch.c vdr-1.7.37/iconpatch.c
 +
 +  return false;
 +}
-diff -ruN vdr-1.7.37.orig/iconpatch.h vdr-1.7.37/iconpatch.h
---- vdr-1.7.37.orig/iconpatch.h	1970-01-01 01:00:00.000000000 +0100
-+++ vdr-1.7.37/iconpatch.h	2013-01-27 12:56:24.231017960 +0100
+diff -urN vdr-1.7.40.orig/iconpatch.h vdr-1.7.40/iconpatch.h
+--- vdr-1.7.40.orig/iconpatch.h	1970-01-01 01:00:00.000000000 +0100
++++ vdr-1.7.40/iconpatch.h	2013-03-10 21:01:56.420166380 +0100
 @@ -0,0 +1,70 @@
 +/*
 + * iconpatch.h: Information of iconpatch
@@ -141,9 +141,9 @@ diff -ruN vdr-1.7.37.orig/iconpatch.h vdr-1.7.37/iconpatch.h
 +// Iconpatch-Variablen - Ende
 +
 +bool IsLangUtf8(void);
-diff -ruN vdr-1.7.37.orig/Makefile vdr-1.7.37/Makefile
---- vdr-1.7.37.orig/Makefile	2013-01-27 12:54:57.743017655 +0100
-+++ vdr-1.7.37/Makefile	2013-01-27 12:57:43.570018239 +0100
+diff -urN vdr-1.7.40.orig/Makefile vdr-1.7.40/Makefile
+--- vdr-1.7.40.orig/Makefile	2013-03-10 21:01:02.268165451 +0100
++++ vdr-1.7.40/Makefile	2013-03-10 21:01:56.420166380 +0100
 @@ -73,6 +73,8 @@
         skinclassic.o skinlcars.o skins.o skinsttng.o sourceparams.o sources.o spu.o status.o svdrp.o themes.o thread.o\
         timers.o tools.o transfer.o vdr.o videodir.o
@@ -153,9 +153,9 @@ diff -ruN vdr-1.7.37.orig/Makefile vdr-1.7.37/Makefile
  DEFINES  += $(CDEFINES)
  INCLUDES += $(CINCLUDES)
  
-diff -ruN vdr-1.7.37.orig/menu.c vdr-1.7.37/menu.c
---- vdr-1.7.36.orig/menu.c	2013-01-27 12:54:57.741017655 +0100
-+++ vdr-1.7.36/menu.c	2013-01-27 12:56:24.235017960 +0100
+diff -urN vdr-1.7.40.orig/menu.c vdr-1.7.40/menu.c
+--- vdr-1.7.40.orig/menu.c	2013-03-10 21:01:02.260165451 +0100
++++ vdr-1.7.40/menu.c	2013-03-10 21:01:56.424166379 +0100
 @@ -8,6 +8,7 @@
   */
  
@@ -236,9 +236,9 @@ diff -ruN vdr-1.7.37.orig/menu.c vdr-1.7.37/menu.c
    Add(new cMenuEditPrcItem( tr("Setup.OSD$Left (%)"),               &data.OSDLeftP, 0.0, 0.5));
    Add(new cMenuEditPrcItem( tr("Setup.OSD$Top (%)"),                &data.OSDTopP, 0.0, 0.5));
    Add(new cMenuEditPrcItem( tr("Setup.OSD$Width (%)"),              &data.OSDWidthP, 0.5, 1.0));
-diff -ruN vdr-1.7.37.orig/recording.c vdr-1.7.37/recording.c
---- vdr-1.7.37.orig/recording.c	2013-01-27 12:54:57.740017655 +0100
-+++ vdr-1.7.37/recording.c	2013-01-27 12:56:24.236017960 +0100
+diff -urN vdr-1.7.40.orig/recording.c vdr-1.7.40/recording.c
+--- vdr-1.7.40.orig/recording.c	2013-03-10 21:01:02.272165450 +0100
++++ vdr-1.7.40/recording.c	2013-03-10 21:01:56.428166379 +0100
 @@ -8,6 +8,7 @@
   */
  
@@ -247,7 +247,7 @@ diff -ruN vdr-1.7.37.orig/recording.c vdr-1.7.37/recording.c
  #include <ctype.h>
  #include <dirent.h>
  #include <errno.h>
-@@ -987,7 +988,7 @@
+@@ -996,7 +997,7 @@
  
  const char *cRecording::Title(char Delimiter, bool NewIndicator, int Level) const
  {

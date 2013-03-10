@@ -1,6 +1,6 @@
-diff -urN vdr-1.7.38-org/channels.h vdr-1.7.38/channels.h
---- vdr-1.7.38-org/channels.h	2013-02-21 17:45:26.518486750 +0100
-+++ vdr-1.7.38/channels.h	2013-02-21 17:58:25.222500117 +0100
+diff -urN vdr-1.7.40.orig/channels.h vdr-1.7.40/channels.h
+--- vdr-1.7.40.orig/channels.h	2013-03-10 21:15:30.680180359 +0100
++++ vdr-1.7.40/channels.h	2013-03-10 21:15:56.460180803 +0100
 @@ -14,6 +14,7 @@
  #include "sources.h"
  #include "thread.h"
@@ -35,10 +35,10 @@ diff -urN vdr-1.7.38-org/channels.h vdr-1.7.38/channels.h
    void HashChannel(cChannel *Channel);
    void UnhashChannel(cChannel *Channel);
    int GetNextGroup(int Idx);   // Get next channel group
-diff -urN vdr-1.7.38-org/config.c vdr-1.7.38/config.c
---- vdr-1.7.38-org/config.c	2013-02-21 17:45:26.518486750 +0100
-+++ vdr-1.7.38/config.c	2013-02-21 17:59:18.778501037 +0100
-@@ -481,6 +481,16 @@
+diff -urN vdr-1.7.40.orig/config.c vdr-1.7.40/config.c
+--- vdr-1.7.40.orig/config.c	2013-03-10 21:15:30.680180359 +0100
++++ vdr-1.7.40/config.c	2013-03-10 21:15:56.460180803 +0100
+@@ -482,6 +482,16 @@
    ChannelsWrap = 0;
    ShowChannelNamesWithSource = 0;
    EmergencyExit = 1;
@@ -55,7 +55,7 @@ diff -urN vdr-1.7.38-org/config.c vdr-1.7.38/config.c
  }
  
  cSetup& cSetup::operator= (const cSetup &s)
-@@ -586,6 +596,15 @@
+@@ -587,6 +597,15 @@
  bool cSetup::Parse(const char *Name, const char *Value)
  {
    if      (!strcasecmp(Name, "OSDLanguage"))       { strn0cpy(OSDLanguage, Value, sizeof(OSDLanguage)); I18nSetLocale(OSDLanguage); }
@@ -71,7 +71,7 @@ diff -urN vdr-1.7.38-org/config.c vdr-1.7.38/config.c
    else if (!strcasecmp(Name, "OSDSkin"))             Utf8Strn0Cpy(OSDSkin, Value, MaxSkinName);
    else if (!strcasecmp(Name, "OSDTheme"))            Utf8Strn0Cpy(OSDTheme, Value, MaxThemeName);
    else if (!strcasecmp(Name, "WarEagleIcons"))       WarEagleIcons      = atoi(Value);
-@@ -809,6 +828,15 @@
+@@ -812,6 +831,15 @@
    Store("ChannelsWrap",       ChannelsWrap);
    Store("ShowChannelNamesWithSource", ShowChannelNamesWithSource);
    Store("EmergencyExit",      EmergencyExit);
@@ -87,9 +87,9 @@ diff -urN vdr-1.7.38-org/config.c vdr-1.7.38/config.c
    Store("LastReplayed",       cReplayControl::LastReplayed());
  
    Sort();
-diff -urN vdr-1.7.38-org/config.h vdr-1.7.38/config.h
---- vdr-1.7.38-org/config.h	2013-02-21 17:45:26.526486750 +0100
-+++ vdr-1.7.38/config.h	2013-02-21 17:59:52.062501608 +0100
+diff -urN vdr-1.7.40.orig/config.h vdr-1.7.40/config.h
+--- vdr-1.7.40.orig/config.h	2013-03-10 21:15:30.692180357 +0100
++++ vdr-1.7.40/config.h	2013-03-10 21:15:56.464180803 +0100
 @@ -14,6 +14,7 @@
  #include <stdio.h>
  #include <stdlib.h>
@@ -98,7 +98,7 @@ diff -urN vdr-1.7.38-org/config.h vdr-1.7.38/config.h
  #include <time.h>
  #include <unistd.h>
  #include "i18n.h"
-@@ -346,6 +347,17 @@
+@@ -347,6 +348,17 @@
    int ChannelsWrap;
    int ShowChannelNamesWithSource;
    int EmergencyExit;
@@ -116,9 +116,9 @@ diff -urN vdr-1.7.38-org/config.h vdr-1.7.38/config.h
    int __EndData__;
    cString InitialChannel;
    cString DeviceBondings;
-diff -urN vdr-1.7.38-org/debug.h vdr-1.7.38/debug.h
---- vdr-1.7.38-org/debug.h	1970-01-01 01:00:00.000000000 +0100
-+++ vdr-1.7.38/debug.h	2013-02-21 17:57:55.234499602 +0100
+diff -urN vdr-1.7.40.orig/debug.h vdr-1.7.40/debug.h
+--- vdr-1.7.40.orig/debug.h	1970-01-01 01:00:00.000000000 +0100
++++ vdr-1.7.40/debug.h	2013-03-10 21:15:56.464180803 +0100
 @@ -0,0 +1,44 @@
 +
 +#ifndef DEBUG_H
@@ -164,9 +164,9 @@ diff -urN vdr-1.7.38-org/debug.h vdr-1.7.38/debug.h
 +#define DBG(x...)
 +
 +#endif /* DEBUG_H */
-diff -urN vdr-1.7.38-org/keys.c vdr-1.7.38/keys.c
---- vdr-1.7.38-org/keys.c	2013-02-21 17:45:26.534486751 +0100
-+++ vdr-1.7.38/keys.c	2013-02-21 17:57:55.238499603 +0100
+diff -urN vdr-1.7.40.orig/keys.c vdr-1.7.40/keys.c
+--- vdr-1.7.40.orig/keys.c	2013-03-10 21:15:30.696180358 +0100
++++ vdr-1.7.40/keys.c	2013-03-10 21:15:56.464180803 +0100
 @@ -57,6 +57,9 @@
                      { kRecordings,    trNOOP("Key$Recordings")  },
                      { kSetup,         trNOOP("Key$Setup")       },
@@ -177,9 +177,9 @@ diff -urN vdr-1.7.38-org/keys.c vdr-1.7.38/keys.c
                      { kUser0,         trNOOP("Key$User0")       },
                      { kUser1,         trNOOP("Key$User1")       },
                      { kUser2,         trNOOP("Key$User2")       },
-diff -urN vdr-1.7.38-org/keys.h vdr-1.7.38/keys.h
---- vdr-1.7.38-org/keys.h	2013-02-21 17:45:26.526486750 +0100
-+++ vdr-1.7.38/keys.h	2013-02-21 17:57:55.234499602 +0100
+diff -urN vdr-1.7.40.orig/keys.h vdr-1.7.40/keys.h
+--- vdr-1.7.40.orig/keys.h	2013-03-10 21:15:30.692180357 +0100
++++ vdr-1.7.40/keys.h	2013-03-10 21:15:56.464180803 +0100
 @@ -51,6 +51,7 @@
               kRecordings,
               kSetup,
@@ -188,9 +188,9 @@ diff -urN vdr-1.7.38-org/keys.h vdr-1.7.38/keys.h
               kUser0, kUser1, kUser2, kUser3, kUser4, kUser5, kUser6, kUser7, kUser8, kUser9,
               kNone,
               kKbd,
-diff -urN vdr-1.7.38-org/Make.common vdr-1.7.38/Make.common
---- vdr-1.7.38-org/Make.common	1970-01-01 01:00:00.000000000 +0100
-+++ vdr-1.7.38/Make.common	2013-02-21 17:57:55.238499603 +0100
+diff -urN vdr-1.7.40.orig/Make.common vdr-1.7.40/Make.common
+--- vdr-1.7.40.orig/Make.common	1970-01-01 01:00:00.000000000 +0100
++++ vdr-1.7.40/Make.common	2013-03-10 21:15:56.464180803 +0100
 @@ -0,0 +1,156 @@
 +
 +
@@ -348,9 +348,9 @@ diff -urN vdr-1.7.38-org/Make.common vdr-1.7.38/Make.common
 +	@-rm -f $(PODIR)/*.pot
 +
 +MAKECOMMON_IS_SOURCED = 1
-diff -urN vdr-1.7.38-org/menu.c vdr-1.7.38/menu.c
---- vdr-1.7.38-org/menu.c	2013-02-21 17:45:26.518486750 +0100
-+++ vdr-1.7.38/menu.c	2013-02-21 17:57:55.238499603 +0100
+diff -urN vdr-1.7.40.orig/menu.c vdr-1.7.40/menu.c
+--- vdr-1.7.40.orig/menu.c	2013-03-10 21:15:30.684180359 +0100
++++ vdr-1.7.40/menu.c	2013-03-10 21:15:56.468180801 +0100
 @@ -99,15 +99,6 @@
  
  // --- cMenuEditSrcItem ------------------------------------------------------
@@ -367,7 +367,7 @@ diff -urN vdr-1.7.38-org/menu.c vdr-1.7.38/menu.c
  
  cMenuEditSrcItem::cMenuEditSrcItem(const char *Name, int *Value)
  :cMenuEditIntItem(Name, Value, 0)
-@@ -4358,6 +4349,7 @@
+@@ -4244,6 +4235,7 @@
           else
              return osEnd;
           break;
@@ -375,12 +375,12 @@ diff -urN vdr-1.7.38-org/menu.c vdr-1.7.38/menu.c
      default:
           if ((Key & (k_Repeat | k_Release)) == 0) {
              cRemote::Put(Key);
-diff -urN vdr-1.7.38-org/menu.h vdr-1.7.38/menu.h
---- vdr-1.7.38-org/menu.h	2013-02-21 17:45:26.526486750 +0100
-+++ vdr-1.7.38/menu.h	2013-02-21 18:00:25.306502179 +0100
-@@ -20,6 +20,17 @@
+diff -urN vdr-1.7.40.orig/menu.h vdr-1.7.40/menu.h
+--- vdr-1.7.40.orig/menu.h	2013-03-10 21:15:30.692180357 +0100
++++ vdr-1.7.40/menu.h	2013-03-10 21:15:56.468180801 +0100
+@@ -19,6 +19,17 @@
+ #include "recorder.h"
  #include "skins.h"
- #include "submenu.h"
  
 +class cMenuEditSrcItem : public cMenuEditIntItem {
 +private:
@@ -396,7 +396,7 @@ diff -urN vdr-1.7.38-org/menu.h vdr-1.7.38/menu.h
  class cMenuText : public cOsdMenu {
  private:
    char *text;
-@@ -99,8 +110,24 @@
+@@ -98,8 +109,24 @@
    virtual eOSState ProcessKey(eKeys Key);
    virtual const char* MenuKind() { return "MenuEvent"; }
    };
@@ -419,12 +419,12 @@ diff -urN vdr-1.7.38-org/menu.h vdr-1.7.38/menu.h
 +protected:
 +  cMenuMain(const char *Title):cOsdMenu(Title){}; // Allow custom constructor
  private:
-   int    nrDynamicMenuEntries;
    bool replaying;
-diff -urN vdr-1.7.38-org/osdbase.h vdr-1.7.38/osdbase.h
---- vdr-1.7.38-org/osdbase.h	2013-02-21 17:45:26.526486750 +0100
-+++ vdr-1.7.38/osdbase.h	2013-02-21 18:00:51.734502632 +0100
-@@ -35,6 +35,10 @@
+   cOsdItem *stopReplayItem;
+diff -urN vdr-1.7.40.orig/osdbase.h vdr-1.7.40/osdbase.h
+--- vdr-1.7.40.orig/osdbase.h	2013-03-10 21:15:30.692180357 +0100
++++ vdr-1.7.40/osdbase.h	2013-03-10 21:15:56.472180800 +0100
+@@ -34,6 +34,10 @@
                  osSwitchDvb,
                  osBack,
                  osEnd,
@@ -435,9 +435,9 @@ diff -urN vdr-1.7.38-org/osdbase.h vdr-1.7.38/osdbase.h
                  os_User, // the following values can be used locally
                  osUser1,
                  osUser2,
-diff -urN vdr-1.7.38-org/po/it_IT.po vdr-1.7.38/po/it_IT.po
---- vdr-1.7.38-org/po/it_IT.po	2013-02-21 17:45:26.530486750 +0100
-+++ vdr-1.7.38/po/it_IT.po	2013-02-21 17:57:55.234499602 +0100
+diff -urN vdr-1.7.40.orig/po/it_IT.po vdr-1.7.40/po/it_IT.po
+--- vdr-1.7.40.orig/po/it_IT.po	2013-03-10 21:15:30.696180358 +0100
++++ vdr-1.7.40/po/it_IT.po	2013-03-10 21:15:56.472180800 +0100
 @@ -25,6 +25,9 @@
  
  msgid "*** Invalid Channel ***"
@@ -474,7 +474,7 @@ diff -urN vdr-1.7.38-org/po/it_IT.po vdr-1.7.38/po/it_IT.po
  
  msgid "Recordings"
  msgstr "Registrazioni"
-@@ -1201,6 +1216,10 @@
+@@ -1204,6 +1219,10 @@
  msgid " Cancel editing"
  msgstr " Annulla modifiche"
  
@@ -485,7 +485,7 @@ diff -urN vdr-1.7.38-org/po/it_IT.po vdr-1.7.38/po/it_IT.po
  msgid "Stop recording?"
  msgstr "Fermare la registrazione?"
  
-@@ -1289,6 +1308,9 @@
+@@ -1292,6 +1311,9 @@
  msgid "Editing - shut down anyway?"
  msgstr "Modifica in corso - spegnere comunque?"
  
@@ -495,7 +495,7 @@ diff -urN vdr-1.7.38-org/po/it_IT.po vdr-1.7.38/po/it_IT.po
  msgid "Recording - shut down anyway?"
  msgstr "Registrazione in corso - spegnere comunque?"
  
-@@ -1393,6 +1415,12 @@
+@@ -1396,6 +1418,12 @@
  msgid "Editing process finished"
  msgstr "Processo di modifica terminato"
  
@@ -508,9 +508,9 @@ diff -urN vdr-1.7.38-org/po/it_IT.po vdr-1.7.38/po/it_IT.po
  msgid "Press any key to cancel restart"
  msgstr "Premi un tasto per annullare il riavvio"
  
-diff -urN vdr-1.7.38-org/vdr.c vdr-1.7.38/vdr.c
---- vdr-1.7.38-org/vdr.c	2013-02-21 17:45:26.534486751 +0100
-+++ vdr-1.7.38/vdr.c	2013-02-21 17:57:55.238499603 +0100
+diff -urN vdr-1.7.40.orig/vdr.c vdr-1.7.40/vdr.c
+--- vdr-1.7.40.orig/vdr.c	2013-03-10 21:15:30.700180359 +0100
++++ vdr-1.7.40/vdr.c	2013-03-10 21:15:56.472180800 +0100
 @@ -1091,6 +1091,28 @@
            case kChanUp:
            case kChanDn|k_Repeat:

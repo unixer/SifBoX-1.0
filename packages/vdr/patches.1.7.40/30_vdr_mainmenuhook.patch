@@ -1,7 +1,21 @@
-diff -ru vdr-1.6.0.orig/menu.c vdr-1.6.0/menu.c
---- vdr-1.6.0.orig/menu.c	2008-03-16 12:15:28.000000000 +0100
-+++ vdr-1.6.0/menu.c	2010-10-11 20:32:25.000000000 +0200
-@@ -3633,15 +3633,31 @@
+diff -urN vdr-1.7.40.orig/config.h vdr-1.7.40/config.h
+--- vdr-1.7.40.orig/config.h	2013-03-10 21:12:36.540177370 +0100
++++ vdr-1.7.40/config.h	2013-03-10 21:12:45.832177529 +0100
+@@ -38,6 +38,10 @@
+ // plugins to work with newer versions of the core VDR as long as no
+ // VDR header files have changed.
+ 
++// The MainMenuHook Patch's version number:
++#define MAINMENUHOOKSVERSION "1.0.1"
++#define MAINMENUHOOKSVERSNUM 10001  // Version * 10000 + Major * 100 + Minor
++
+ #define MAXPRIORITY       99
+ #define MINPRIORITY       (-MAXPRIORITY)
+ #define LIVEPRIORITY      0                  // priority used when selecting a device for live viewing
+diff -urN vdr-1.7.40.orig/menu.c vdr-1.7.40/menu.c
+--- vdr-1.7.40.orig/menu.c	2013-03-10 21:12:36.532177366 +0100
++++ vdr-1.7.40/menu.c	2013-03-10 21:12:45.828177528 +0100
+@@ -3632,15 +3632,31 @@
  
    // Initial submenus:
  
@@ -39,9 +53,9 @@ diff -ru vdr-1.6.0.orig/menu.c vdr-1.6.0/menu.c
  }
  
  cOsdObject *cMenuMain::PluginOsdObject(void)
-@@ -3834,13 +3850,34 @@
-   eOSState state = cOsdMenu::ProcessKey(Key);
-   HadSubMenu |= HasSubMenu();
+@@ -3773,13 +3789,34 @@
+         return osContinue;
+   // PIN PATCH <
  
 +  cOsdObject *menu = NULL;
    switch (state) {
@@ -80,7 +94,7 @@ diff -ru vdr-1.6.0.orig/menu.c vdr-1.6.0/menu.c
      case osStopRecord: if (Interface->Confirm(tr("Stop recording?"))) {
                            cOsdItem *item = Get(Current());
                            if (item) {
-@@ -3954,6 +3991,12 @@
+@@ -3839,6 +3876,12 @@
                 default:      break;
                 }
      }
@@ -93,13 +107,3 @@ diff -ru vdr-1.6.0.orig/menu.c vdr-1.6.0/menu.c
    if (!HasSubMenu() && Update(HadSubMenu))
       Display();
    if (Key != kNone) {
-diff -ru vdr-1.6.0.orig/config.h vdr-1.6.0/config.h
---- vdr-1.6.0.orig/config.h	2008-03-23 11:26:10.000000000 +0100
-+++ vdr-1.6.0/config.h	2010-10-11 20:32:25.000000000 +0200
-@@ -38,3 +38,7 @@
- // plugins to work with newer versions of the core VDR as long as no
- // VDR header files have changed.
-+
-+// The MainMenuHook Patch's version number:
-+#define MAINMENUHOOKSVERSION "1.0.1"
-+#define MAINMENUHOOKSVERSNUM 10001  // Version * 10000 + Major * 100 + Minor
