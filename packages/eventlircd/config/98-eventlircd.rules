@@ -109,4 +109,19 @@ ENV{eventlircd_enable}=="true", RUN+="wakeup_enable"
 
 LABEL="end-usb"
 
+#-------------------------------------------------------------------------------
+# Ask eventlircd to handle Bluetooth HID devices that show up as event devices
+# and are known to be remote controls. For simplicity, the event map file names
+# have the format <BUSTYPE>_<VENDOR>_<PRODUCT>.evmap.
+#-------------------------------------------------------------------------------
+SUBSYSTEMS=="bluetooth", GOTO="begin-bluetooth"
+GOTO="end-bluetooth"
+LABEL="begin-bluetooth"
+
+ATTRS{name}=="Nintendo Wii Remote", \
+  ENV{eventlircd_enable}="true", \
+  ENV{eventlircd_evmap}="wiimote.evmap"
+
+LABEL="end-bluetooth"
+
 LABEL="end"

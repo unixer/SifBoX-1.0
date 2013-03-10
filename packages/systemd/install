@@ -27,8 +27,6 @@ mkdir -p $INSTALL/etc/udev/rules.d
 mkdir -p $INSTALL/etc/systemd
 cp $ROOT/$PACKAGES/$1/config/system.conf $INSTALL/etc/systemd
 cp $ROOT/$PACKAGES/$1/config/* $INSTALL/etc/udev/rules.d
-#Necessario per System 197 per la gestione delle periferiche di rete 
-#ln -s /dev/null $INSTALL/etc/udev/rules.d/80-net-name-slot.rules
 
 
 # add symlinks for legacy SystemV utils
@@ -63,6 +61,15 @@ mkdir -p $INSTALL/etc/systemd/
 cp $ROOT/$PACKAGES/$1/config/journald.conf $INSTALL/etc/systemd/
 
 # we don't use display-manager ...
-sed -i -e "s/Wants=display-manager.service/#Wants=display-manager.service/" $INSTALL/lib/systemd/system/graphical.target
+#sed -i -e "s/Wants=display-manager.service/#Wants=display-manager.service/" $INSTALL/lib/systemd/system/graphical.target
+ln -s /dev/null $INSTALL/etc/systemd/system/display-manager.service
+
+# on RaspberryPi we doesn't use X
+if [ "$TARGET_MACHINE" = raspberrypi ]; then
+  ln -s /dev/null $INSTALL/etc/systemd/system/xorg.service
+fi
+
+# disable "Predictable Network Interface Names"
+ln -s /dev/null $INSTALL/etc/udev/rules.d/80-net-name-slot.rules
 
 exit 0

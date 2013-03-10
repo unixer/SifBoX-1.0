@@ -29,6 +29,10 @@ if [ -f  /etc/vdr/plugins.d/50_imonlcd ]; then
 	/usr/bin/svdrpsend PLUG imonlcd off
 fi
 
+if [ -f  /etc/vdr/plugins.d/50_graphlcd ]; then
+        /usr/bin/svdrpsend PLUG graphlcd off
+fi
+
 if [ -f /usr/sbin/LCDd ]; then
 	/usr/sbin/LCDd -c /etc/LCDd.conf
 fi
@@ -161,6 +165,9 @@ fi
 /usr/bin/svdrpsend REMO on
 if [ -f  /etc/vdr/plugins.d/50_imonlcd ]; then
 	/usr/bin/svdrpsend PLUG imonlcd on
+fi
+if [ -f  /etc/vdr/plugins.d/50_graphlcd ]; then
+        /usr/bin/svdrpsend PLUG graphlcd on 
 fi
 if [ -f /etc/vdr/plugins.d/50_xineliboutput ]; then
 	systemctl start vdr-sxfe.service

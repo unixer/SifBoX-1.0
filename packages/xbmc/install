@@ -23,6 +23,7 @@ cp -P $ROOT/$PACKAGES/$1/config/advancedsettings.xml .install/usr/share/xbmc/sys
 mkdir -p $INSTALL/root
 cp -r $ROOT/$PACKAGES/$1/defconfig/.xbmc $INSTALL/root/
 #Fine
+cp -P $ROOT/$PACKAGES/$1/config/advancedsettings.xml $INSTALL/root/.xbmc/userdata/
 cp -P $ROOT/$PACKAGES/$1/config/*.xml .install/etc/xbmc
 
 do_install usr/bin

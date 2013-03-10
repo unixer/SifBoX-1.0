@@ -3,9 +3,12 @@
 . config/options
 
 cd $BUILD/$1*
+do_autoreconf -fvi
 do_configure \
 	--enable-drivers=all \
 	--prefix=/usr \
+	--enable-libusb \
+	--enable-libhid \
 
 make
 

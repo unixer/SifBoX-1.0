@@ -23,22 +23,65 @@ else
 fi
 
 do_configure \
+            --prefix=/usr \
+            --sysconfdir=/etc \
+            --libexecdir=/usr/lib \
+            --localstatedir=/var \
             --disable-dependency-tracking \
-            --disable-network \
+            --disable-silent-rules \
+            --enable-shared \
+            --disable-static \
+            --enable-optimization \
+            --enable-fortify \
+            --disable-pie \
+            --enable-network \
+            --disable-sap \
+            --disable-proximity \
             --disable-serial \
-            --disable-input \
-            --disable-audio \
-            --disable-service \
+            --enable-input \
+            --enable-service \
+            --enable-health \
+            --disable-pnat \
             --disable-gstreamer \
-            $ALSA_CONFIG \
-            --disable-usb \
+            $BLUEZ_ALSA \
+            --enable-usb \
+            --enable-datafiles \
+            --enable-pcmcia \
+            --enable-hid2hci \
+            --enable-dfutool \
             --disable-hidd \
             --disable-pand \
             --disable-dund \
-            --disable-configfiles \
-            --disable-udevrules \
+            --disable-cups \
+            --enable-wiimote \
+            --disable-maemo6 \
+            --disable-dbusoob \
+            --enable-thermometer \
+            --disable-hal \
+            --disable-capng \
+            --with-gnu-ld \
             $DEBUG_CONFIG \
             $DEVTOOLS_CONFIG \
+            --disable-test
+
+
+#do_configure \
+#            --disable-dependency-tracking \
+#            --disable-network \
+#            --disable-serial \
+#            --disable-input \
+#            --disable-audio \
+#            --disable-service \
+#            --disable-gstreamer \
+#            $ALSA_CONFIG \
+#            --disable-usb \
+#            --disable-hidd \
+#            --disable-pand \
+#            --disable-dund \
+#            --disable-configfiles \
+#            --disable-udevrules \
+#            $DEBUG_CONFIG \
+#            $DEVTOOLS_CONFIG \
 
 make
 make_install
