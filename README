@@ -17,4 +17,4 @@ GRAZIE
 Unixer
 
 
-apt-get install docbook-xsl autoconf mercurial patchutils libdigest-sha1-perl libproc-processtable-perl libnl-dev libmagick++-dev subversion  
+apt-get install docbook-xsl autoconf mercurial patchutils libdigest-sha1-perl libproc-processtable-perl libnl-dev libmagick++-dev subversion openjdk-6-jre openjdk-6-jre-headless openjdk-6-jre-lib 
