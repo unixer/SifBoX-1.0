@@ -62,17 +62,21 @@ do_configure \
 #read enterKey
 #patch -p1 < /$ROOT/$PACKAGES/$1/Makefile.x64.x64.patch 
 if [ "$TARGET_ARCH" = x86_64 ]; then
-	sed -i "s|-R/root/openbricks/build/build.x86_64.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/openbricks/build/build.x86_64.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
+#	sed -i "s|-R/root/openbricks/build/build.x86_64.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/openbricks/build/build.x86_64.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
+	sed -i "s|-R${SYSROOT_PREFIX}/usr/local/lib -R${SYSROOT_PREFIX}/usr/lib||" src/xitk/Makefile
 fi
 
 if [ "$TARGET_ARCH" = i386 ]; then
-	sed -i "s|-R/root/openbricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/openbricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
-	sed -i "s|-R/root/opebricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/opebricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
+#	sed -i "s|-R/root/openbricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/openbricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
+#	sed -i "s|-R/root/opebricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/opebricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
+	sed -i "s|-R${SYSROOT_PREFIX}/usr/local/lib -R${SYSROOT_PREFIX}/usr/lib||" src/xitk/Makefile
 fi
 
 if [ "$TARGET_MACHINE" = kbb ]; then
-	sed -i "s|-R/root/openbricks/build/build.kbb.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/openbricks/build/build.kbb.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
-	sed -i "s|-R/root/opebricks/build/build.kbb.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/opebricks/build/build.kbb.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
+#	sed -i "s|-R/root/openbricks/build/build.kbb.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/openbricks/build/build.kbb.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
+#	sed -i "s|-R/root/opebricks/build/build.kbb.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/local/lib -R/root/opebricks/build/build.kbb.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/lib||" src/xitk/Makefile
+	sed -i "s|-R${SYSROOT_PREFIX}/usr/local/lib -R${SYSROOT_PREFIX}/usr/lib||" src/xitk/Makefile
+	sed -i "s|-R${SYSROOT_PREFIX}/usr/local/lib -R${SYSROOT_PREFIX}/usr/lib||" src/xitk/Makefile
 fi
 
 make 
