@@ -1,5 +1,5 @@
---- vdr-vdrmanager-0.9+cde07f1914/Makefile.org	2013-03-04 21:58:33.033715384 +0100
-+++ vdr-vdrmanager-0.9+cde07f1914/Makefile	2013-03-04 21:58:44.261715577 +0100
+--- vdr-vdrmanager-0.9+2a307c36a2/vdr-vdrmanager/Makefile.org	2013-03-14 15:52:08.868992781 +0100
++++ vdr-vdrmanager-0.9+2a307c36a2/vdr-vdrmanager/Makefile	2013-03-14 15:52:17.700992933 +0100
 @@ -1,64 +1,59 @@
  #
 -# Makefile for a Video Disk Recorder plugin vdrmanager

@@ -5,11 +5,17 @@
 get_meta vdr
 VDR_VERSION=$PKG_VERSION
 
+get_meta $1
+
 $SCRIPTS/build vdr
 
 VDR_DIR=`basename $BUILD/vdr-1*`
 
-cd $BUILD/$1*
+cd $PKG_BUILD_DIR
+if [ $PKG_URL_PROTO = "git" ]; then
+  mv vdr-vdrmanager/* . || true
+fi
+
 make all \
   VDRDIR="../$VDR_DIR" \
   LIBDIR="." \
