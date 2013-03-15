@@ -25,3 +25,6 @@ mkdir -p $INSTALL/etc/vdr/plugins/graphlcd
 #cp -a $BUILD/$1*/graphlcd/* $INSTALL/etc/vdr/plugins/graphlcd
 cp -a $BUILD/${PKG_NAME}-${PKG_VERSION}/graphlcd/* $INSTALL/etc/vdr/plugins/graphlcd
 cp -r $ROOT/$PACKAGES/$1/config/* $INSTALL/etc/vdr/plugins/graphlcd
+mkdir -p $INSTALL/usr/share/fonts
+cp -r $ROOT/$PACKAGES/$1/fonts/* $INSTALL/usr/share/fonts
+
