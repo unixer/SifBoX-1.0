@@ -20,81 +20,37 @@ echo $HOST
 echo $HOST_NAME
 #read enterKey
 rm mozconfig || true
-cat > mozconfig << EOF
-#export CROSS_COMPILE=1
 
-# If you have a multicore machine you can speed up the build by running
-# several jobs at once, but if you have a single core, delete this line:
-mk_add_options MOZ_MAKE_FLAGS="-j3"
+cat > mozconfig << "EOF"
+# See http://www.mozilla.org/build/unix.html for build instructions.
+#
+CROSS_COMPILE=1
+HOST_LIBIDL_CONFIG='/usr/bin/libIDL-config-2 --prefix=/usr'
+HOST_LIBIDL_CFLAGS='-I/usr/include/libIDL-2.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include'
+HOST_LIBIDL_LIBS='-L/usr/lib -lIDL-2 -lglib-2.0'
+LIBIDL_CONFIG='/usr/bin/libIDL-config-2 --prefix=/usr/mipsEEel-linux'
+export PKG_CONFIG_PATH=/usr/mipsEEel-linux/lib/pkgconfig
 
-# If you have not installed Yasm, uncomment this option:
-# ac_add_options --disable-webm
+# don't use pkg-config for host libIDL
+ac_add_options --without-libIDL
+ac_add_options --prefix=/usr/mipsEEel-linux
+ac_add_options --target=mipsEEel-linux
 
-# If you have installed DBus-Glib delete this option:
-ac_add_options --disable-dbus
+# Options for 'configure' (same as command-line options). 
+# all are listed so that one can manually tweak this config file.
+ac_add_options --enable-application=browser
+ac_add_options --enable-mathml
+ac_add_options --enable-extensions
+#ac_add_options --enable-crypto
+ac_add_options --enable-logrefcnt
 
-# If you have installed wireless-tools delete this option:
-ac_add_options --disable-necko-wifi
-
-# If you have installed libnotify delete this option:
-ac_add_options --disable-libnotify
-
-# If you have installed xulrunner uncomment these two lines:
-# ac_add_options --with-system-libxul
-# ac_add_options --with-libxul-sdk=\$(pkg-config --variable=sdkdir libxul)
-
-# Note: The backslash above is to facilitate a paste operation.  It
-# should not appear in the mozconfig file.
-
-# Uncomment these if you have installed them:
-# ac_add_options --enable-startup-notification
-# ac_add_options --enable-system-hunspell
-# ac_add_options --enable-system-sqlite
-# ac_add_options --with-system-libevent
-# ac_add_options --with-system-libvpx
-# ac_add_options --with-system-nspr
-# ac_add_options --with-system-nss
+ac_add_options --without-system-nspr
+ac_add_options --without-system-zlib
+ac_add_options --without-system-jpeg
+ac_add_options --without-system-png
 
 mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/firefox-build-dir
-ac_add_options --enable-official-branding
-# ac_add_options --prefix=/usr
-
-# The rest of these options have no effect if you're
-# building against an already installed xulrunner:
-ac_add_options --disable-crashreporter
-ac_add_options --disable-debug
-# ac_add_options --disable-installer
-ac_add_options --disable-static
-ac_add_options --disable-tests
-ac_add_options --disable-updater
-ac_add_options --enable-shared
-ac_add_options --enable-system-ffi
-ac_add_options --with-pthreads
-ac_add_options --with-system-jpeg
-#ac_add_options --with-system-png
-ac_add_options --with-system-zlib
-
-
-
-PKG_CONFIG_LIBDIR=$SYSROOT_PREFIX/usr/local/lib/pkgconfig:$SYSROOT_PREFIX/usr/local/share/pkgconfig
-LD_LIBRARY_PATH=$SYSROOT_PREFIX/lib:$SYSROOT_PREFIX/usr/lib:$SYSROOT_PREFIX/usr/local/lib:$LD_LIBRARY_PATH
-
-
-CC="gcc -m32"
-CXX="g++ -m32"
-AR=ar
-ac_add_options --x-libraries=/usr/lib
-# ac_add_options --target=i686-openbricks-linux-gnu
-# ac_add_options --host=x86_64-unknown-linux-gnu
 EOF
-
-#sed -i 's/\(MOZ_PKG_FATAL_WARNINGS =\).*/\1 0/' \
-#  browser/installer/Makefile.in &&
-
-sed -i 's# ""##' browser/base/Makefile.in &&
-sed -i "s|-D_FILE_OFFSET_BITS=64||" modules/libbz2/src/Makefile.in
-sed -i "s|-D_FILE_OFFSET_BITS=64||" toolkit/crashreporter/google-breakpad/src/client/windows/build/common.gypi
-
 sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config/autoconf.mk || true
 sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config/autoconf.mk || true
 sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config.log || true
@@ -105,17 +61,8 @@ sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config
 sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/js/src/config.log || true
 sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/js/src/config.status || true
 
-# strip out LTO optimization from *FLAGS
-#CFLAGS=`echo $CFLAGS | sed -e "s|-mtune=atom||g"`
-#CXXFLAGS=`echo $CXXFLAGS | sed -e "s|-mtune=atom||g"`
-#LDFLAGS=`echo $LDFLAGS | sed -e "s|-mtune=atom||g"`
-#GCC_FLAGS=`echo $GCC_FLAGS | sed -e "s|-mtune=atom||g"`
-
-sed -i 's/\(MOZ_PKG_FATAL_WARNINGS =\).*/\1 0/' \
-  browser/installer/Makefile.in &&
-make CROSS="$TARGET_PREFIX" -f client.mk
-make CROSS="$TARGET_PREFIX" -C firefox-build-dir/browser/installer
-#make -C firefox-build-dir/browser/installer
+sed -i 's# ""##' browser/base/Makefile.in &&
+make -f client.mk
 
 
 do_strip bin lib*.so.*
