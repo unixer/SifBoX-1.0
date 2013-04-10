@@ -9,12 +9,14 @@ mkdir linux-media-LATEST
 cd linux-media-2013-02-09
 tar jxvf ../linux-media-2013-02-09.tar.bz2
 rm drivers/media/rc/lirc_dev.c
+rm drivers/media/v4l2-core/v4l2-dev.c
 rm git_log
 rm kernel_version.h
 cd ..
 cd linux-media-LATEST
 tar jxvf ../linux-media-LATEST.tar.bz2
 rm drivers/media/rc/lirc_dev.c
+rm drivers/media/v4l2-core/v4l2-dev.c
 rm git_log
 rm kernel_version.h
 cd ..

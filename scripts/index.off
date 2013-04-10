@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. config/options
+
+$SCRIPTS/installdev opkg-utils
+
+if [ "$TARGET_MACHINE" = kbb ]; then
+  TARGET_ARCH="kbb"
+fi
+
+[ "$VERBOSE" = yes ] && V="-v"
+
+opkg-make-index $V -l /home/unixer/Dropbox/Public/1.1/binaries/$TARGET_ARCH/latest/packages/Packages.filelist -p /home/unixer/Dropbox/Public/1.1/binaries/$TARGET_ARCH/latest/packages/Packages /home/unixer/Dropbox/Public/1.1/binaries/$TARGET_ARCH/latest/packages
