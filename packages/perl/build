@@ -35,6 +35,7 @@ export CFLAGS="${CFLAGS} -DDEBIAN"
 
 # Do our work in the cross subdir
 cd Cross
+
 # Generate configuration
 rm -f config.sh-${TARGET_ARCH}-${TARGET_OS}
 
@@ -51,7 +52,7 @@ else
       SELECTED_CONF=`cat $TARGET_INFO | grep "${TARGET_ARCH}-linux-uclibc "`
       ;;
 
-    eglibc|eglibc)
+    glibc|eglibc)
       ARCH_T=$TARGET_SUBARCH
       OS_T="openbricks-linux-gnu${TARGET_ABI}"
       SELECTED_CONF=`cat $TARGET_INFO | grep "${TARGET_SUBARCH}-linux "`

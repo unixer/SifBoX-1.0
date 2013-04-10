@@ -5,7 +5,7 @@
  
  # backwards compatibility version < 1.7.34
 -API1733 := $(shell if [ "$(APIVERSION)" \< "1.7.34" ]; then echo true; fi; )
-+API1733 := $(shell if [ "$(APIVERSION)" \< "1735" ]; then echo true; fi; )
++API1733 := $(shell if [ "$(APIVERSION)" \< "200" ]; then echo true; fi; )
  
  ifdef API1733
  

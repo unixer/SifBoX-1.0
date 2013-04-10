@@ -1,0 +1,10 @@
+--- connman-1.10/src/tethering.c.org	2013-03-30 08:34:00.868271419 +0100
++++ connman-1.10/src/tethering.c	2013-03-30 08:34:24.924271831 +0100
+@@ -35,6 +35,7 @@
+ #include <string.h>
+ #include <fcntl.h>
+ #include <linux/if_tun.h>
++#include <netinet/in.h>         /* To define `struct in6_addr' in if_bridge.h */
+ #include <linux/if_bridge.h>
+ 
+ #include "connman.h"

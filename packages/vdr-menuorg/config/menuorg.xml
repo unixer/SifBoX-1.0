@@ -108,6 +108,7 @@ description of the config file format.
          <plugin name="ffnetdev" />
          <plugin name="sleeptimer" />
          <plugin name="wirbelscancontrol" />
+	 <command name="SifBoxConfig" execute="/usr/bin/menuorg-appswitcher standalone=yes app=SifBoxConfigurator &amp;> /dev/null " />
          <menu name="Remote wakeup">
          </menu>
 

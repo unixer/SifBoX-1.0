@@ -15,6 +15,7 @@ mkdir -p .install/etc/vdr/themes || true
 mkdir -p .install/etc/vdr/symbols || true
 cp -r icons/* .install/etc/vdr/plugins/skinnopacity/icons/
 cp -r $ROOT/$PACKAGES/$1/icons .install/etc/vdr/plugins/skinnopacity/
+cp $ROOT/$PACKAGES/$1/config/rssfeeds.conf .install/etc/vdr/plugins/skinnopacity/
 cp -r $ROOT/$PACKAGES/$1/themes/* .install/etc/vdr/themes/
 cp -r themes/* .install/etc/vdr/themes/
 cp -r symbols/* .install/etc/vdr/symbols/

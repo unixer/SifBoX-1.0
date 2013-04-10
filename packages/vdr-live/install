@@ -20,7 +20,7 @@ done
 NAME=`echo $1 | sed s/vdr-//`
 mkdir -p $INSTALL/etc/vdr/plugins.d
 echo "PLUGIN=${NAME}" > $INSTALL/etc/vdr/plugins.d/50_$NAME
-echo "OPTIONS=\"--port=8008 --ip=0.0.0.0 --epgimages=/var/cache/vdr/epgimages/\"" >> $INSTALL/etc/vdr/plugins.d/50_$NAME
+echo "OPTIONS=\"--port=8008 --ip=0.0.0.0 --epgimages=/var/cache/vdr/epgimages/ --recimagetype=jpg\"" >> $INSTALL/etc/vdr/plugins.d/50_$NAME
 echo "ENABLED=yes" >> $INSTALL/etc/vdr/plugins.d/50_$NAME
 
 mkdir -p $INSTALL/etc/vdr/plugins

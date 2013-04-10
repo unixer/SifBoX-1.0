@@ -1,8 +1,7 @@
 #!/bin/sh
 
 . config/options
-
-get_meta linux
+get_meta $1
 
 $SCRIPTS/installdev make
 $SCRIPTS/installdev sed
@@ -16,7 +15,9 @@ do_unselect () {
     sed -i "s%^CONFIG_$3=.*%# CONFIG_$3 is not set%" $LINUX/.config
 }
 
-LINUX=`ls -d $ROOT/$BUILD/$1-[0-9]*`
+#LINUX=`ls -d $ROOT/$BUILD/$1-[0-9]*`
+LINUX=`ls -d $ROOT/$BUILD/${PKG_NAME}-${PKG_VERSION}`
+CONF_VERSION=`echo $PKG_VERSION | cut -c 1-3`
 
 case $TARGET_ARCH in
   i386|x86_64)
@@ -57,11 +58,22 @@ sed -i -e "s|^HOSTCC[[:space:]]*=.*$|HOSTCC = $HOST_CC|" \
 
 if [ -f "$KERNEL_CFG_FILE.$PKG_VERSION" ]; then
   KERNEL_CFG_FILE=$KERNEL_CFG_FILE.$PKG_VERSION
+else
+   KERNEL_CFG_FILE=$KERNEL_CFG_FILE.$CONF_VERSION
 fi
 
 echo "Using kernel config from: $KERNEL_CFG_FILE"
 
 cp $KERNEL_CFG_FILE $LINUX/.config
+
+#if [ -f "$KERNEL_CFG_FILE.$CONF_VERSION" ]; then
+#  KERNEL_CFG_FILE=$KERNEL_CFG_FILE.$CONF_VERSION
+#fi
+
+echo "Using kernel config from: $KERNEL_CFG_FILE"
+
+#cp $KERNEL_CFG_FILE $LINUX/.config
+
 
 # copy some extra firmware to linux tree
   cp -R $ROOT/$PACKAGES/$1/firmware/* $LINUX/firmware

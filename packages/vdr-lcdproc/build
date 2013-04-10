@@ -2,9 +2,12 @@
 
 . config/options
 
+get_meta vdr
+VDR_VERSION=$PKG_VERSION
+
 $SCRIPTS/build vdr
 
-VDR_DIR=`basename $BUILD/vdr-1*`
+VDR_DIR=`basename $BUILD/vdr-$VDR_VERSION`
 
 get_meta $1
 
@@ -15,4 +18,13 @@ make all \
   LIBDIR="." \
   LOCALEDIR="./locale"
 
-do_strip bin lib$1.so.*
+#do_strip bin lib$1.so.*
+get_meta vdr
+verlte 1.7.36 $PKG_VERSION && VDRINS="no" || VDRINS="yes"
+if [ $VDRINS = "yes" ]; then
+  make_install
+  rm -rf .install-debuginfo || true
+else
+  do_strip bin lib$1.so.*
+fi
+

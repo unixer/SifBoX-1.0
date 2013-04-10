@@ -6,10 +6,9 @@ get_meta vdr
 verlte 1.7.36 $PKG_VERSION && VDRINS="no" || VDRINS="yes"
 get_meta $1
 
-cd $PKG_BUILD_DIR
+cd $PKG_BUILD_DIR/vdr-vdrmanager
 #mkdir -p $INSTALL/usr/lib/vdr/plugins
 #cp -a $BUILD/$1*/lib$1*.so.* $INSTALL/usr/lib/vdr/plugins
-VDRINS="no"
 if [ $VDRINS = "no" ]; then
   mkdir -p $INSTALL/usr/lib/vdr/plugins
   cp -a lib$1*.so.* $INSTALL/usr/lib/vdr/plugins

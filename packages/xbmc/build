@@ -63,13 +63,16 @@ if [ "$TARGET_MACHINE" = raspberrypi ]; then
   fi
 fi
 
-#if [ "$TARGET_MACHINE" = "allwinner" ]; then
-#    XBMC_PLAYER="--enable-player=omxplayer" 
-#fi
+if [ "$TARGET_MACHINE" = pandaboard ]; then
+  EXTRA_CONFIG="$EXTRA_CONFIG --enable-player=gstplayer"
+fi
 
-if [ "$FPU_OPTIMIZATIONS" = neon ]; then
+if [ "$FPU_OPTIMIZATIONS" = "neon" -o  "$FPU_OPTIMIZATIONS" = "neon-vfp4" ]; then
   EXTRA_CONFIG="$EXTRA_CONFIG --enable-neon"
 fi
+
+[ "$FPU_OPTIMIZATIONS" = "neon-vfp4" ] && CFLAGS="$CFLAGS -mfpu=vfpv4"
+[ "$FPU_OPTIMIZATIONS" = "neon-vfp4" ] && CXXFLAGS="$CXXFLAGS -mfpu=vfpv4"
 
 export LIBS="$LIBS -lstdc++"
 export LIB_P=$LIB_PREFIX
@@ -153,8 +156,10 @@ do_configure \
   $CFG_TEGRA \
   $EXTRA_CONFIG \
   $XBMC_PLAYER \
-  --enable-external-ffmpeg \
-  --enable-ffmpeg-libvorbis \
+
+
+#  --enable-external-ffmpeg \
+#  --enable-ffmpeg-libvorbis \
 
 
 # leaked host includes break the Python components build

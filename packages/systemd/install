@@ -28,7 +28,6 @@ mkdir -p $INSTALL/etc/systemd
 cp $ROOT/$PACKAGES/$1/config/system.conf $INSTALL/etc/systemd
 cp $ROOT/$PACKAGES/$1/config/* $INSTALL/etc/udev/rules.d
 
-
 # add symlinks for legacy SystemV utils
 mkdir -p $INSTALL/sbin
 ln -s ../bin/systemctl $INSTALL/sbin/halt
@@ -38,7 +37,7 @@ ln -s ../bin/systemctl $INSTALL/sbin/reboot
 ln -s ../lib/systemd/systemd $INSTALL/sbin/init
 
 # add more gettys
-for TTY in 2 4 3 5 6; do
+for TTY in 2 3 4 5 6; do
   ln -s /lib/systemd/system/getty/getty@service $INSTALL/etc/systemd/system/getty.target.wants/getty@tty$TTY.service
 done
 
@@ -61,7 +60,6 @@ mkdir -p $INSTALL/etc/systemd/
 cp $ROOT/$PACKAGES/$1/config/journald.conf $INSTALL/etc/systemd/
 
 # we don't use display-manager ...
-#sed -i -e "s/Wants=display-manager.service/#Wants=display-manager.service/" $INSTALL/lib/systemd/system/graphical.target
 ln -s /dev/null $INSTALL/etc/systemd/system/display-manager.service
 
 # on RaspberryPi we doesn't use X

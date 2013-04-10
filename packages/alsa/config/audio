@@ -34,3 +34,8 @@ CHANNELS="2"
 # 0: Suitable for some older SB Live! cards
 # 1: Suitable for newer SB Live! and all Audigy cards
 SBL_AUDIGY="1"
+
+# HAVE Amply
+# 0: If i do not have the amply
+# 1: If i have the amply
+HAVE_AMPLY="0"

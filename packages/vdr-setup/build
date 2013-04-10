@@ -2,6 +2,9 @@
 
 . config/options
 
+get_meta vdr
+VDR_VERSION=$PKG_VERSION
+
 get_meta linux
 verlte 3.6.11 $PKG_VERSION && INSDVB="yes" || INSDVB="no"
 if [ $INSDVB = "no" ]; then
@@ -12,7 +15,7 @@ fi
 
 $SCRIPTS/build vdr
 
-VDR_DIR=`basename $BUILD/vdr-1*`
+VDR_DIR=`basename $BUILD/vdr-$VDR_VERSION`
 
 cd $BUILD/$1*
 

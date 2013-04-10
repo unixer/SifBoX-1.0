@@ -190,7 +190,7 @@ index b009eab..2d0cd06 100644
 +		<info>KEY_INFO</info>
 +		<display>KEY_ZOOM</display>
 +		<mute>KEY_MUTE</mute>
-+		<power>KEY_POWER2</power>
++		<power>KEY_POWER</power>
 +		<eject>KEY_EJECT</eject>
 +		<menu>KEY_DVD</menu>
 +		<menu>KEY_MENU</menu>
@@ -199,18 +199,18 @@ index b009eab..2d0cd06 100644
 +		<mypictures>KEY_CAMERA</mypictures>
 +		<mytv>KEY_TUNER</mytv>
 +		<teletext>KEY_TEXT</teletext>
-+		<one>KEY_1</one>
-+		<two>KEY_2</two>
-+		<three>KEY_3</three>
-+		<four>KEY_4</four>
-+		<five>KEY_5</five>
-+		<six>KEY_6</six>
-+		<seven>KEY_7</seven>
-+		<eight>KEY_8</eight>
-+		<nine>KEY_9</nine>
-+		<zero>KEY_0</zero>
-+		<star>KEY_STAR</star>
-+		<hash>KEY_POUND</hash>
++		<one>KEY_NUMERIC_1</one>
++		<two>KEY_NUMERIC_2</two>
++		<three>KEY_NUMERIC_3</three>
++		<four>KEY_NUMERIC_4</four>
++		<five>KEY_NUMERIC_5</five>
++		<six>KEY_NUMERIC_6</six>
++		<seven>KEY_NUMERIC_7</seven>
++		<eight>KEY_NUMERIC_8</eight>
++		<nine>KEY_NUMERIC_9</nine>
++		<zero>KEY_NUMERIC_0</zero>
++		<star>KEY_NUMERIC_STAR</star>
++		<hash>KEY_NUMERIC_POUND</hash>
 +		<red>KEY_RED</red>
 +		<green>KEY_GREEN</green>
 +		<yellow>KEY_YELLOW</yellow>
@@ -238,8 +238,8 @@ index c74d461..e8f1674 100644
    <!-- RSS feeds. To have multiple feeds, just add a feed to the set. You can also have multiple sets. 	!-->
    <!-- To use different sets in your skin, each must be called from skin with a unique id.             	!-->
    <set id="1">
-+    <feed updateinterval="30">http://www.sifteam.eu/rss_news.xml</feed>
-     <feed updateinterval="30">http://feeds.feedburner.com/xbmc</feed>
++    <feed updateinterval="30">http://www.geexbox.org/feed/</feed>
+     <feed updateinterval="30">http://feeds.xbmc.org/xbmc</feed>
    </set>
  </rssfeeds>
 

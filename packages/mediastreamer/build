@@ -4,6 +4,9 @@
 
 cd $BUILD/$1*
 
+./autogen.sh
+intltoolize
+
 if pkg_uses $1 alsa; then
 	ALSA=--enable-alsa
 else

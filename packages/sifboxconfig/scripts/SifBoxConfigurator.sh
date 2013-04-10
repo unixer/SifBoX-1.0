@@ -5,6 +5,19 @@ shopt -s expand_aliases
 liv0=`mktemp -t liv0.XXXXXX`
 
 cd /usr/bin
+/usr/bin/svdrpsend REMO off
+if [ -f /etc/vdr/plugins.d/50_softhddevice ]; then
+        /usr/bin/svdrpsend PLUG softhddevice SUSP
+fi
+
+if [ -f /etc/vdr/plugins.d/50_xineliboutput ]; then
+        systemctl stop vdr-sxfe.service
+fi
+
+if [ -f /etc/vdr/plugins.d/50_xine ]; then
+        systemctl stop vdr-xine.service
+fi
+
 
 XX=`xdpyinfo | grep dimensions | awk '{print $2}' | awk 'BEGIN { FS = "x" }; {print $1}'`
 	case $XX in
@@ -47,3 +60,13 @@ case $selection in
 esac
 done
 rm -f liv0
+/usr/bin/svdrpsend REMO on
+if [ -f /etc/vdr/plugins.d/50_xineliboutput ]; then
+        systemctl start vdr-sxfe.service
+fi
+if [ -f /etc/vdr/plugins.d/50_xine ]; then
+        systemctl start vdr-xine.service
+fi
+if [ -f /etc/vdr/plugins.d/50_softhddevice ]; then
+        /usr/bin/svdrpsend PLUG softhddevice RESU
+fi

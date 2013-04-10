@@ -5,6 +5,6 @@
 cd $BUILD/$1*
 
 do_autoconf
-do_configure --prefix=/usr/share/xbmc
+do_configure --prefix=/usr/lib/xbmc
 make
 make_install

@@ -3,7 +3,7 @@
 . config/options
 
 get_meta vdr
-VERSION=$PKG_VERSION
+VDR_VERSION=$PKG_VERSION
 
 get_meta linux
 verlte 3.6.11 $PKG_VERSION && INSDVB="yes" || INSDVB="no"
@@ -15,7 +15,7 @@ fi
 
 $SCRIPTS/build vdr
 
-VDR_DIR=`basename $BUILD/vdr-1*`
+VDR_DIR=`basename $BUILD/vdr-$VDR_VERSION`
 
 cd $BUILD/$1*
 export MALLOC_CHECK_=0
@@ -24,7 +24,7 @@ make ECPPC=$ROOT/$TOOLCHAIN/bin/ecppc \
   LIBDIR="." \
   DVBDIR=$DVB_DIR \
   LOCALEDIR="./locale" \
-  APIVERSION="$VERSION" \
+  APIVERSION="$VDR_VERSION" \
 
 do_strip bin lib$1.so.*
 do_strip bin plugins/profiler/vdrDVBProfiler/lib*.so.*

@@ -11,6 +11,8 @@ SOUNDCARD_PT_MODE=`cat /etc/audio | grep SOUNDCARD_PT_MODE | cut -d'"' -f2`
 AC97_SPSA=`cat /etc/audio | grep AC97_SPSA | cut -d'"' -f2`
 CHANNELS=`cat /etc/audio | grep CHANNELS | cut -d'"' -f2`
 SBL_AUDIGY=`cat /etc/audio | grep SBL_AUDIGY | cut -d'"' -f2`
+HAVE_AMPLY=`cat /etc/audio | grep HAVE_AMPLY | cut -d'"' -f2`
+
 
 alias XDIALOG='Xdialog --rc-file SifBox.rc --buttons-style text --left --backtitle "SifBox Audio Configurator"'
 
@@ -64,6 +66,12 @@ case $? in
 	SBL_AUDIGY = $SBL_AUDIGY" $AA $DD "0" "1" 2>temp
 	SBL_AUDIGY=$(cat temp)
 
+	XDIALOG --no-cancel --ok-label "Next" --combobox "Specify if you have an amplifier
+	0 --> No
+	1 --> YES\n\n
+	HAVE_AMPLY = $HAVE_AMPLY" $AA $DD "0" "1" 2>temp
+	HAVE_AMPLY=$(cat temp)
+	                                        
 	XDIALOG --yesno "Do you want to save the configuration 
 	with the following values?\n\n
 	ALSA_CARD = $ALSA_CARD
@@ -71,7 +79,8 @@ case $? in
 	SOUNDCARD_PT_MODE = $SOUNDCARD_PT_MODE
 	AC97_SPSA = $AC97_SPSA
 	CHANNELS = $CHANNELS
-	SBL_AUDIGY = $SBL_AUDIGY" $AA $DD
+	SBL_AUDIGY = $SBL_AUDIGY
+	HAVE_AMPLY =$HAVE_AMPLY" $AA $DD
 
 	case $? in
 		0) 
@@ -81,6 +90,7 @@ case $? in
 		sed -i 's/AC97_SPSA="[^"]*"/AC97_SPSA="'$AC97_SPSA'"/' /etc/audio
 		sed -i 's/CHANNELS="[^"]*"/CHANNELS="'$CHANNELS'"/' /etc/audio
 		sed -i 's/SBL_AUDIGY="[^"]*"/SBL_AUDIGY="'$SBL_AUDIGY'"/' /etc/audio
+		sed -i 's/HAVE_AMPLY="[^"]*"/HAVE_AMPLY="'$HAVE_AMPLY'"/' /etc/audio
 		systemctl restart mixer
 		XDIALOG --msgbox "Configuration Saved !\n\nServices restarted!" $AA $DD ;;
 		1) 

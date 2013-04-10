@@ -44,6 +44,11 @@ fi
 if [ -f /etc/vdr/plugins.d/50_xine ]; then
 	systemctl stop vdr-xine.service
 fi
+
+if [ -f /lib/systemd/system/libcec-daemon.service ]; then
+	systemctl stop libcec-daemon.service
+fi
+
 exec_prefix="${prefix}"
 datarootdir="${prefix}/share"
 LIBDIR="${exec_prefix}/lib"
@@ -177,6 +182,12 @@ if [ -f /etc/vdr/plugins.d/50_xine ]; then
 fi
 if [ -f /etc/vdr/plugins.d/50_softhddevice ]; then
         /usr/bin/svdrpsend PLUG softhddevice RESU
+fi
+if [ -f /lib/systemd/system/libcec-daemon.service ]; then
+        systemctl start libcec-daemon.service
+	if [ -f /etc/vdr/plugins.d/50_remote ]; then
+		systemctl restart vdr.service
+	fi
 fi
 systemctl stop xbmc.service --force
 exit $RET

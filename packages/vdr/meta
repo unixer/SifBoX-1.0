@@ -1,8 +1,9 @@
 PKG_NAME=vdr
-PKG_VERSION=1.7.41
-PKG_URL="ftp://ftp.tvdr.de/vdr/Developer/vdr-${PKG_VERSION}.tar.bz2"
-#PKG_URL="http://95.225.138.70/vdr-${PKG_VERSION}.tar.bz2"
-PKG_REV=2
+#PKG_VERSION=1.7.42
+#PKG_URL="ftp://ftp.tvdr.de/vdr/Developer/vdr-${PKG_VERSION}.tar.bz2"
+PKG_VERSION=2.0.0
+PKG_URL="ftp://ftp.tvdr.de/vdr/vdr-${PKG_VERSION}.tar.bz2"
+PKG_REV=1
 PKG_BUILD_DEPENDS="toolchain linux-headers"
 PKG_RUN_DEPENDS="$TARGET_LIBC nvram-wakeup linux"
 PKG_USE="uclibc cxx"

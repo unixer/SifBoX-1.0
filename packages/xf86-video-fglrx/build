@@ -31,6 +31,7 @@ sh $ATI_PKG --extract .
 
 if [ $INSDVB = "no" ]; then
    patch -p1 < $ROOT/$PACKAGES/$1/patches/01_patches_kernel.patch.3.7.1
+   patch -p1 < $ROOT/$PACKAGES/$1/patches/01_patches_kernel.patch.3.8
 fi
 
 sed -i -e 's/-DPAGE_ATTR_FIX=/-DCOMPAT_ALLOC_USER_SPACE=arch_compat_alloc_user_space -DPAGE_ATTR_FIX=/' common/lib/modules/fglrx/build_mod/2.6.x/Makefile

@@ -18,6 +18,7 @@ cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
       -DUSE_PCSC=1 \
       -DWEBIF=1 \
       -DOPTIONAL_INCLUDE_DIR=$SYSROOT_PREFIX/usr/local/include \
+      -DSTATIC_LIBUSB=1 \
       ..
 
 make

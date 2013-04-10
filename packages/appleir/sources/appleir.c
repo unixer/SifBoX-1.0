@@ -13,11 +13,7 @@
  *
  */
 
-#if 0
-#define DUMP_PACKETS
-#else
-#undef DUMP_PACKETS
-#endif
+//#define DUMP_PACKETS
 
 #define DRIVER_VERSION "v1.1"
 #define DRIVER_AUTHOR "James McKenzie"
@@ -28,15 +24,9 @@ MODULE_AUTHOR (DRIVER_AUTHOR);
 MODULE_DESCRIPTION (DRIVER_DESC);
 MODULE_LICENSE (DRIVER_LICENSE);
 
-#ifndef USB_VENDOR_ID_APPLE
 #define USB_VENDOR_ID_APPLE	0x05ac
-#endif
-#ifndef USB_DEVICE_ID_APPLE_IR
 #define USB_DEVICE_ID_APPLE_IR  0x8240
-#endif
-#ifndef USB_DEVICE_ID_APPLE_IR2
 #define USB_DEVICE_ID_APPLE_IR2 0x8242
-#endif
 
 #define URB_SIZE 32
 
@@ -88,20 +78,11 @@ MODULE_DEVICE_TABLE (usb, appleir_ids);
 /* as a flat battery message */
 /* 25 87 e0 ca 06	flat battery */
 
-/* Alexandre Karpenko reports the following responses for Device ID 0x8242 */
-/* 25 87 ee 47 0b	+  */
-/* 25 87 ee 47 0d	-  */
-/* 25 87 ee 47 08	<< */
-/* 25 87 ee 47 07	>> */
-/* 25 87 ee 47 04	>" */
-/* 25 87 ee 47 02 	menu */
-/* 26 87 ee 47 ** 	for key repeat (** is the code of the key being held) */
-
 
 static int keymap[MAX_KEYS] = {
   KEY_RESERVED, KEY_MENU,
-  KEY_PLAYPAUSE, KEY_FORWARD,
-  KEY_BACK, KEY_VOLUMEUP,
+  KEY_PLAYPAUSE, KEY_NEXTSONG,
+  KEY_PREVIOUSSONG, KEY_VOLUMEUP,
   KEY_VOLUMEDOWN, KEY_RESERVED
 };
 
@@ -159,7 +140,7 @@ static void
 new_data (struct appleir *appleir, uint8_t * data, int len)
 {
   static const uint8_t keydown[] = { 0x25, 0x87, 0xee };
-  static const uint8_t keyrepeat[] = { 0x26 };
+  static const uint8_t keyrepeat[] = { 0x26, 0x00, 0x00, 0x00, 0x00 };
   static const uint8_t flatbattery[] = { 0x25, 0x87, 0xe0 };
 
 #ifdef DUMP_PACKETS
@@ -234,7 +215,9 @@ appleir_urb (struct urb *urb)
 static int
 appleir_open (struct input_dev *dev)
 {
-  struct appleir *appleir = (struct appleir *)input_get_drvdata(dev);
+  struct appleir *appleir = input_get_drvdata(dev);
+
+  //appleir->urb->dev = appleir->usbdev;
 
   if (usb_submit_urb (appleir->urb, GFP_KERNEL))
     return -EIO;
@@ -245,7 +228,7 @@ appleir_open (struct input_dev *dev)
 static void
 appleir_close (struct input_dev *dev)
 {
-  struct appleir *appleir = (struct appleir *)input_get_drvdata(dev);
+  struct appleir *appleir = input_get_drvdata(dev);
   usb_kill_urb (appleir->urb);
   del_timer_sync (&appleir->key_up_timer);
 }
@@ -270,7 +253,7 @@ appleir_probe (struct usb_interface *intf, const struct usb_device_id *id)
 
 
   appleir->data =
-    usb_buffer_alloc (dev, URB_SIZE, GFP_KERNEL, &appleir->dma_buf);
+    usb_alloc_coherent (dev, URB_SIZE, GFP_KERNEL, &appleir->dma_buf);
   if (!appleir->data)
     goto fail;
 
@@ -339,7 +322,7 @@ fail:
 
 
       if (appleir->data)
-        usb_buffer_free (dev, URB_SIZE, appleir->data, appleir->dma_buf);
+        usb_free_coherent (dev, URB_SIZE, appleir->data, appleir->dma_buf);
 
       if (appleir->timer_initted)
         del_timer_sync (&appleir->key_up_timer);
@@ -366,7 +349,7 @@ appleir_disconnect (struct usb_interface *intf)
         del_timer_sync (&appleir->key_up_timer);
       usb_kill_urb (appleir->urb);
       usb_free_urb (appleir->urb);
-      usb_buffer_free (interface_to_usbdev (intf), URB_SIZE, appleir->data,
+      usb_free_coherent (interface_to_usbdev (intf), URB_SIZE, appleir->data,
                        appleir->dma_buf);
       kfree (appleir);
     }
@@ -386,7 +369,7 @@ appleir_init (void)
   retval = usb_register (&appleir_driver);
   if (retval)
     goto out;
-  info (DRIVER_VERSION ":" DRIVER_DESC);
+  printk (DRIVER_VERSION ":" DRIVER_DESC);
 out:
   return retval;
 }

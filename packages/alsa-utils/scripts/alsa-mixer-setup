@@ -211,4 +211,14 @@ amixer -i >> /tmp/debug-sound
 [ -f /usr/bin/aplay ] && aplay -l >>/tmp/debug-sound
 echo "Sound setup : stop" >> /tmp/debug-sound
 
+if [ "$HAVE_AMPLY" = 1 ]; then
+  cat > /etc/asound.conf << EOF
+ pcm.!default {
+	type hw
+	card $ALSA_CARD
+	$DEVICE_HDMI
+}
+EOF
+fi
+
 exit 0

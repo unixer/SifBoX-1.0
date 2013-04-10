@@ -1,11 +1,10 @@
 PKG_NAME=systemd
-#PKG_VERSION=196
-PKG_VERSION=197
+PKG_VERSION=200
 PKG_URL="http://www.freedesktop.org/software/${PKG_NAME}/${PKG_NAME}-${PKG_VERSION}.tar.xz"
 PKG_REV=1
 PKG_RUN_DEPENDS="$TARGET_LIBC pciids"
 PKG_DEPENDS="dbus libcap pciutils kmod util-linux-ng GLib usbutils libffi gettext"
-PKG_BUILD_DEPENDS="toolchain linux-headers intltool gperf libcap dbus kmod util-linux-ng GLib usbutils libffi gettext"
+PKG_BUILD_DEPENDS="toolchain linux-headers intltool gperf"
 PKG_USE="devtools"
 
 # flag option checked by scripts/package

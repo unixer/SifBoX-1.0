@@ -19,7 +19,7 @@
  
  ### The directory environment:
  
-+DVBDIR = ../media-experimental-media_build_experimental/linux
++#DVBDIR   =
  VDRDIR = ../../..
  LIBDIR = ../../lib
  TMPDIR = /tmp

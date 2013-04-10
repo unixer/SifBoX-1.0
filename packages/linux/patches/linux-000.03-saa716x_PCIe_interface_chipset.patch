@@ -1,21 +1,28 @@
-diff -Naur linux-3.7.2/drivers/media/common/Kconfig linux-3.7.2.patch/drivers/media/common/Kconfig
---- linux-3.7.2/drivers/media/common/Kconfig	2013-01-11 18:19:28.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/Kconfig	2013-01-16 10:52:04.586923233 +0100
-@@ -1,3 +1,4 @@
- source "drivers/media/common/b2c2/Kconfig"
- source "drivers/media/common/saa7146/Kconfig"
-+source "drivers/media/common/saa716x/Kconfig"
- source "drivers/media/common/siano/Kconfig"
-diff -Naur linux-3.7.2/drivers/media/common/Makefile linux-3.7.2.patch/drivers/media/common/Makefile
---- linux-3.7.2/drivers/media/common/Makefile	2013-01-11 18:19:28.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/Makefile	2013-01-16 10:52:15.443844483 +0100
-@@ -1 +1 @@
--obj-y += b2c2/ saa7146/ siano/
-+obj-y += b2c2/ saa7146/ saa716x/ siano/
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/Kconfig linux-3.7.2.patch/drivers/media/common/saa716x/Kconfig
---- linux-3.7.2/drivers/media/common/saa716x/Kconfig	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/Kconfig	2013-01-16 10:41:10.906798319 +0100
-@@ -0,0 +1,67 @@
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/Kconfig linux-3.8.2/drivers/media/pci/Kconfig
+--- linux-3.8.2.mediabuild/drivers/media/pci/Kconfig	2012-08-22 05:45:23.000000000 +0200
++++ linux-3.8.2/drivers/media/pci/Kconfig	2013-03-07 17:56:25.507588929 +0100
+@@ -44,4 +44,6 @@
+ source "drivers/media/pci/ddbridge/Kconfig"
+ endif
+ 
++source "drivers/media/pci/saa716x/Kconfig"
++
+ endif #MEDIA_PCI_SUPPORT
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/Makefile linux-3.8.2/drivers/media/pci/Makefile
+--- linux-3.8.2.mediabuild/drivers/media/pci/Makefile	2012-08-17 05:45:27.000000000 +0200
++++ linux-3.8.2/drivers/media/pci/Makefile	2013-03-07 17:58:41.591591266 +0100
+@@ -11,6 +11,7 @@
+ 		ngene/		\
+ 		ddbridge/	\
+ 		b2c2/		\
++		saa716x/	\
+ 		saa7146/
+ 
+ obj-$(CONFIG_VIDEO_IVTV) += ivtv/
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/Kconfig linux-3.8.2/drivers/media/pci/saa716x/Kconfig
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/Kconfig	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/Kconfig	2013-03-07 17:55:53.755588384 +0100
+@@ -0,0 +1,63 @@
 +menuconfig SAA716X_SUPPORT
 +	bool "Support for SAA716x family from NXP/Philips"
 +	depends on PCI && I2C
@@ -35,9 +42,6 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/Kconfig linux-3.7.2.patch/dr
 +config DVB_SAA716X_BUDGET
 +	tristate "SAA7160/1/2 based Budget PCIe cards (DVB only)"
 +	depends on SAA716X_CORE && DVB_CORE
-+	select DVB_DS3000 if !DVB_FE_CUSTOMISE
-+	select DVB_DS3103 if !DVB_FE_CUSTOMISE
-+	select DVB_TS2022 if !DVB_FE_CUSTOMISE
 +
 +	help
 +	  Support for the SAA7160/1/2 based Budget PCIe DVB cards
@@ -66,26 +70,25 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/Kconfig linux-3.7.2.patch/dr
 +
 +	  Say Y if you own such a device and want to use it.
 +
-+#config DVB_SAA716X_FF
-+#	tristate "SAA7160/1/2 based Full Fledged PCIe cards"
-+#	depends on SAA716X_CORE && DVB_CORE
-+#	depends on INPUT # IR
-+#	default n
++config DVB_SAA716X_FF
++	tristate "SAA7160/1/2 based Full Fledged PCIe cards"
++	depends on SAA716X_CORE && DVB_CORE
++	depends on INPUT # IR
 +
-+#	help
-+#	  Support for the SAA7160/1/2 based  Full fledged PCIe DVB cards
-+#	  These cards do feature a hardware MPEG decoder and other
-+#	  peripherals. Also known as Premium cards.
-+#	  Currently supported devices are:
++	help
++	  Support for the SAA7160/1/2 based  Full fledged PCIe DVB cards
++	  These cards do feature a hardware MPEG decoder and other
++	  peripherals. Also known as Premium cards.
++	  Currently supported devices are:
 +
-+#	  * Technotrend S2 6400 Dual S2 HD (DVB-S/S2 x2)
++	  * Technotrend S2 6400 Dual S2 HD (DVB-S/S2 x2)
 +
-+#	  Say Y if you own such a device and want to use it.
++	  Say Y if you own such a device and want to use it.
 +
 +endif # SAA716X_SUPPORT
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/Makefile linux-3.7.2.patch/drivers/media/common/saa716x/Makefile
---- linux-3.7.2/drivers/media/common/saa716x/Makefile	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/Makefile	2013-01-16 10:54:20.634929700 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/Makefile linux-3.8.2/drivers/media/pci/saa716x/Makefile
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/Makefile	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/Makefile	2013-03-07 18:22:52.083616164 +0100
 @@ -0,0 +1,26 @@
 +saa716x_core-objs	:= saa716x_pci.o	\
 +			   saa716x_i2c.o	\
@@ -103,20 +106,20 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/Makefile linux-3.7.2.patch/d
 +			   saa716x_rom.o	\
 +			   saa716x_spi.o
 +
-+#saa716x_ff-objs		:= saa716x_ff_main.o	\
-+#                           saa716x_ff_cmd.o	\
-+#			   saa716x_ff_ir.o
++saa716x_ff-objs		:= saa716x_ff_main.o	\
++                           saa716x_ff_cmd.o	\
++			   saa716x_ff_ir.o
 +
 +obj-$(CONFIG_SAA716X_CORE)	  += saa716x_core.o
 +obj-$(CONFIG_DVB_SAA716X_BUDGET)  += saa716x_budget.o
 +obj-$(CONFIG_DVB_SAA716X_HYBRID)  += saa716x_hybrid.o
-+#obj-$(CONFIG_DVB_SAA716X_FF)	  += saa716x_ff.o
++obj-$(CONFIG_DVB_SAA716X_FF)	  += saa716x_ff.o
 +
-+EXTRA_CFLAGS = -Idrivers/media/dvb-core/ -Idrivers/media/dvb-frontends/ -Idrivers/media/tuners/
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_adap.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_adap.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_adap.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_adap.c	2013-01-16 10:41:10.907798312 +0100
-@@ -0,0 +1,274 @@
++EXTRA_CFLAGS = -Idrivers/media/dvb-core/ -Idrivers/media/dvb-frontends/ -Idrivers/media/dvb-core/ -Idrivers/media/dvb-frontends/ -Idrivers/media/tuners/
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_adap.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_adap.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_adap.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_adap.c	2013-03-07 17:55:53.751588385 +0100
+@@ -0,0 +1,251 @@
 +#include <linux/bitops.h>
 +
 +#include "dmxdev.h"
@@ -130,8 +133,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_adap.c linux-3.7.2.p
 +#include "saa716x_i2c.h"
 +#include "saa716x_gpio.h"
 +#include "saa716x_priv.h"
-+#include "saa716x_budget.h"
 +
++
++#define SAA716X_TS_DMA_BUF_SIZE		(16 * SAA716x_PAGE_SIZE)
 +
 +DVB_DEFINE_MOD_OPT_ADAPTER_NR(adapter_nr);
 +
@@ -144,7 +148,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_adap.c linux-3.7.2.p
 +
 +	params.bits		= 8;
 +	params.samples		= 188;
-+	params.lines		= 348;
++	params.lines		= SAA716X_TS_DMA_BUF_SIZE / 188;
 +	params.pitch		= 188;
 +	params.offset		= 0;
 +	params.page_tables	= 0;
@@ -204,7 +208,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_adap.c linux-3.7.2.p
 +	return 0;
 +}
 +
-+int __devinit saa716x_dvb_init(struct saa716x_dev *saa716x)
++int saa716x_dvb_init(struct saa716x_dev *saa716x)
 +{
 +	struct saa716x_adapter *saa716x_adap = saa716x->saa716x_adap;
 +	struct saa716x_config *config = saa716x->config;
@@ -238,31 +242,6 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_adap.c linux-3.7.2.p
 +		saa716x_adap->demux.start_feed		= saa716x_dvb_start_feed;
 +		saa716x_adap->demux.stop_feed		= saa716x_dvb_stop_feed;
 +		saa716x_adap->demux.write_to_decoder	= NULL;
-+		switch (saa716x->pdev->subsystem_device) {
-+		case TEVII_S472: {
-+			struct saa716x_i2c *i2c		= saa716x->i2c;
-+			struct i2c_adapter *adapter	= &i2c[SAA716x_I2C_BUS_B].i2c_adapter;
-+			u8 mac[6];
-+			u8 b0[] = { 0, 9 };
-+			struct i2c_msg msg[] = {
-+				{
-+					.addr = 0x50,
-+					.flags = 0,
-+					.buf = b0,
-+					.len = 2
-+				}, {
-+					.addr = 0x50,
-+					.flags = I2C_M_RD,
-+					.buf = mac,
-+					.len = 6
-+				}
-+			};
-+
-+			i2c_transfer(adapter, msg, 2);
-+			dprintk(SAA716x_INFO, 1, "TeVii S472 MAC= %pM\n", mac);
-+			memcpy(saa716x_adap->dvb_adapter.proposed_mac, mac, 6);
-+		}
-+		}
 +
 +		dprintk(SAA716x_DEBUG, 1, "dvb_dmx_init");
 +		if ((result = dvb_dmx_init(&saa716x_adap->demux)) < 0) {
@@ -335,6 +314,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_adap.c linux-3.7.2.p
 +		}
 +
 +		saa716x_fgpi_init(saa716x, config->adap_config[i].ts_port,
++				  SAA716X_TS_DMA_BUF_SIZE,
 +				  config->adap_config[i].worker);
 +
 +		saa716x_adap++;
@@ -361,7 +341,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_adap.c linux-3.7.2.p
 +}
 +EXPORT_SYMBOL(saa716x_dvb_init);
 +
-+void __devexit saa716x_dvb_exit(struct saa716x_dev *saa716x)
++void saa716x_dvb_exit(struct saa716x_dev *saa716x)
 +{
 +	struct saa716x_adapter *saa716x_adap = saa716x->saa716x_adap;
 +	int i;
@@ -391,9 +371,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_adap.c linux-3.7.2.p
 +	return;
 +}
 +EXPORT_SYMBOL(saa716x_dvb_exit);
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_adap.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_adap.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_adap.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_adap.h	2013-01-16 10:41:10.907798312 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_adap.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_adap.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_adap.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_adap.h	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,9 @@
 +#ifndef __SAA716x_ADAP_H
 +#define __SAA716x_ADAP_H
@@ -404,9 +384,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_adap.h linux-3.7.2.p
 +extern void saa716x_dvb_exit(struct saa716x_dev *saa716x);
 +
 +#endif /* __SAA716x_ADAP_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_aip.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_aip.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_aip.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_aip.c	2013-01-16 10:41:10.907798312 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_aip.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_aip.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_aip.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_aip.c	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,20 @@
 +#include <linux/kernel.h>
 +
@@ -428,9 +408,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_aip.c linux-3.7.2.pa
 +	SAA716x_EPWR(AI1, AI_CTL, 0x00);
 +}
 +EXPORT_SYMBOL_GPL(saa716x_aip_disable);
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_aip.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_aip.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_aip.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_aip.h	2013-01-16 10:41:10.907798312 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_aip.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_aip.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_aip.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_aip.h	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,9 @@
 +#ifndef __SAA716x_AIP_H
 +#define __SAA716x_AIP_H
@@ -441,9 +421,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_aip.h linux-3.7.2.pa
 +extern void saa716x_aip_disable(struct saa716x_dev *saa716x);
 +
 +#endif /* __SAA716x_AIP_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_aip_reg.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_aip_reg.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_aip_reg.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_aip_reg.h	2013-01-16 10:41:10.908798304 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_aip_reg.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_aip_reg.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_aip_reg.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_aip_reg.h	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,62 @@
 +#ifndef __SAA716x_AIP_REG_H
 +#define __SAA716x_AIP_REG_H
@@ -507,9 +487,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_aip_reg.h linux-3.7.
 +#define AI_PWR_DWN			(0x00000001 <<  0)
 +
 +#endif /* __SAA716x_AIP_REG_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_boot.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_boot.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_boot.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_boot.c	2013-01-16 10:41:10.908798304 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_boot.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_boot.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_boot.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_boot.c	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,319 @@
 +#include <linux/delay.h>
 +
@@ -830,9 +810,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_boot.c linux-3.7.2.p
 +	SAA716x_EPWR(MSI, MSI_SW_RST, MSI_SW_RESET);
 +}
 +EXPORT_SYMBOL_GPL(saa716x_core_reset);
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_boot.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_boot.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_boot.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_boot.h	2013-01-16 10:41:10.908798304 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_boot.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_boot.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_boot.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_boot.h	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,18 @@
 +#ifndef __SAA716x_BOOT_H
 +#define __SAA716x_BOOT_H
@@ -852,10 +832,10 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_boot.h linux-3.7.2.p
 +extern void saa716x_core_reset(struct saa716x_dev *saa716x);
 +
 +#endif /* __SAA716x_BOOT_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_budget.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_budget.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_budget.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_budget.c	2013-01-16 10:41:10.909798296 +0100
-@@ -0,0 +1,717 @@
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_budget.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_budget.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_budget.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_budget.c	2013-03-07 17:55:53.759588384 +0100
+@@ -0,0 +1,664 @@
 +#include <linux/module.h>
 +#include <linux/moduleparam.h>
 +#include <linux/kernel.h>
@@ -894,8 +874,6 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_budget.c linux-3.7.2
 +#include "mb86a16.h"
 +#include "stv6110x.h"
 +#include "stv090x.h"
-+#include "ds3103.h"
-+#include "ts2022.h"
 +
 +unsigned int verbose;
 +module_param(verbose, int, 0644);
@@ -907,7 +885,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_budget.c linux-3.7.2
 +
 +#define DRIVER_NAME	"SAA716x Budget"
 +
-+static int __devinit saa716x_budget_pci_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
++static int saa716x_budget_pci_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
 +{
 +	struct saa716x_dev *saa716x;
 +	int err = 0;
@@ -998,7 +976,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_budget.c linux-3.7.2
 +	return err;
 +}
 +
-+static void __devexit saa716x_budget_pci_remove(struct pci_dev *pdev)
++static void saa716x_budget_pci_remove(struct pci_dev *pdev)
 +{
 +	struct saa716x_dev *saa716x = pci_get_drvdata(pdev);
 +
@@ -1487,56 +1465,6 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_budget.c linux-3.7.2
 +	}
 +};
 +
-+static struct ds3103_config s472_ds3103_config = {
-+	.demod_address = 0x68,
-+	.ci_mode = 1,
-+};
-+
-+static int saa716x_s472_frontend_attach(struct saa716x_adapter *adapter, int count)
-+{
-+	struct saa716x_dev *saa716x = adapter->saa716x;
-+	struct saa716x_i2c *i2c = &saa716x->i2c[1];
-+
-+	if (count != 0)
-+		return 0;
-+
-+	dprintk(SAA716x_ERROR, 1, "Probing for DS3103 (DVB-S/S2)");
-+	adapter->fe = dvb_attach(ds3103_attach, &s472_ds3103_config,
-+				 &i2c->i2c_adapter);
-+
-+	if (adapter->fe == NULL) {
-+		dprintk(SAA716x_ERROR, 1, "Frontend attach failed");
-+		return -ENODEV;
-+	}
-+
-+	dprintk(SAA716x_ERROR, 1, "found DS3103 DVB-S/S2 frontend @0x%02x",
-+		s472_ds3103_config.demod_address);
-+	if (NULL == dvb_attach(ts2022_attach, adapter->fe, 0x60, &i2c->i2c_adapter))
-+		dprintk(SAA716x_ERROR, 1, "ts2022 attach failed");
-+	else
-+		dprintk(SAA716x_ERROR, 1, "ts2022 attached!");
-+
-+	dprintk(SAA716x_ERROR, 1, "Done!");
-+	return 0;
-+
-+}
-+
-+static struct saa716x_config tevii_s472_config = {
-+	.model_name		= "TeVii S472 DVB-S2",
-+	.dev_type		= "DVB-S/S2",
-+	.boot_mode		= SAA716x_EXT_BOOT,
-+	.adapters		= 1,
-+	.frontend_attach	= saa716x_s472_frontend_attach,
-+	.irq_handler		= saa716x_budget_pci_irq,
-+	.i2c_rate		= SAA716x_I2C_RATE_100,
-+	.adap_config		= {
-+		{
-+			/* Adapter 0 */
-+			.ts_port = 1, /* using FGPI 1 */
-+			.worker = demux_worker
-+		}
-+	}
-+};
 +
 +static struct pci_device_id saa716x_budget_pci_table[] = {
 +
@@ -1545,7 +1473,6 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_budget.c linux-3.7.2
 +	MAKE_ENTRY(TWINHAN_TECHNOLOGIES, TWINHAN_VP_6002, SAA7160, &saa716x_vp6002_config), /* VP-6002 */
 +	MAKE_ENTRY(KNC_One, KNC_Dual_S2, SAA7160, &saa716x_knc1_duals2_config),
 +	MAKE_ENTRY(TECHNISAT, SKYSTAR2_EXPRESS_HD, SAA7160, &skystar2_express_hd_config),
-+	MAKE_ENTRY(TEVII, TEVII_S472, SAA7160, &tevii_s472_config),
 +	{ }
 +};
 +MODULE_DEVICE_TABLE(pci, saa716x_budget_pci_table);
@@ -1557,12 +1484,12 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_budget.c linux-3.7.2
 +	.remove			= saa716x_budget_pci_remove,
 +};
 +
-+static int __devinit saa716x_budget_init(void)
++static int __init saa716x_budget_init(void)
 +{
 +	return pci_register_driver(&saa716x_budget_pci_driver);
 +}
 +
-+static void __devexit saa716x_budget_exit(void)
++static void __exit saa716x_budget_exit(void)
 +{
 +	return pci_unregister_driver(&saa716x_budget_pci_driver);
 +}
@@ -1573,10 +1500,10 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_budget.c linux-3.7.2
 +MODULE_DESCRIPTION("SAA716x Budget driver");
 +MODULE_AUTHOR("Manu Abraham");
 +MODULE_LICENSE("GPL");
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_budget.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_budget.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_budget.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_budget.h	2013-01-16 10:41:10.910798289 +0100
-@@ -0,0 +1,17 @@
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_budget.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_budget.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_budget.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_budget.h	2013-03-07 17:55:53.759588384 +0100
+@@ -0,0 +1,15 @@
 +#ifndef __SAA716x_BUDGET_H
 +#define __SAA716x_BUDGET_H
 +
@@ -1590,13 +1517,11 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_budget.h linux-3.7.2
 +
 +#define TECHNISAT		0x1AE4
 +#define SKYSTAR2_EXPRESS_HD	0x0700
-+#define TEVII			0x9022
-+#define TEVII_S472		0xd472
 +
 +#endif /* __SAA716x_BUDGET_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_cgu.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_cgu.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_cgu.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_cgu.c	2013-01-16 10:41:10.910798289 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_cgu.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_cgu.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_cgu.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_cgu.c	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,539 @@
 +#include <linux/delay.h>
 +
@@ -2137,9 +2062,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_cgu.c linux-3.7.2.pa
 +	return 0;
 +}
 +EXPORT_SYMBOL(saa716x_cgu_init);
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_cgu.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_cgu.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_cgu.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_cgu.h	2013-01-16 10:41:10.911798282 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_cgu.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_cgu.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_cgu.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_cgu.h	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,61 @@
 +#ifndef __SAA716x_CGU_H
 +#define __SAA716x_CGU_H
@@ -2202,9 +2127,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_cgu.h linux-3.7.2.pa
 +extern int saa716x_set_clk_external(struct saa716x_dev *saa716x, u32 port);
 +
 +#endif /* __SAA716x_CGU_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_cgu_reg.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_cgu_reg.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_cgu_reg.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_cgu_reg.h	2013-01-16 10:41:10.911798282 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_cgu_reg.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_cgu_reg.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_cgu_reg.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_cgu_reg.h	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,178 @@
 +#ifndef __SAA716x_CGU_REG_H
 +#define __SAA716x_CGU_REG_H
@@ -2384,9 +2309,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_cgu_reg.h linux-3.7.
 +#define CGU_FDC_MSUB			(0x000000ff << 11)
 +
 +#endif /* __SAA716x_CGU_REG_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_dcs_reg.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_dcs_reg.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_dcs_reg.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_dcs_reg.h	2013-01-16 10:41:10.912798275 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_dcs_reg.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_dcs_reg.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_dcs_reg.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_dcs_reg.h	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,56 @@
 +#ifndef __SAA716x_DCS_REG_H
 +#define __SAA716x_DCS_REG_H
@@ -2444,13 +2369,14 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_dcs_reg.h linux-3.7.
 +
 +
 +#endif /* __SAA716x_DCS_REG_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_dma.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_dma.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_dma.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_dma.c	2013-01-16 10:41:10.912798275 +0100
-@@ -0,0 +1,306 @@
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_dma.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_dma.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_dma.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_dma.c	2013-03-07 17:55:53.755588384 +0100
+@@ -0,0 +1,308 @@
 +#include <linux/kernel.h>
 +#include <linux/pci.h>
 +#include <linux/scatterlist.h>
++#include <linux/vmalloc.h>
 +#include <asm/page.h>
 +#include <asm/pgtable.h>
 +
@@ -2575,6 +2501,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_dma.c linux-3.7.2.pa
 +			dprintk(SAA716x_ERROR, 1, "Failed to allocate memory for buffer");
 +			return -ENOMEM;
 +		}
++		memset(dmabuf->mem_virt_noalign, 0, (pages + 1) * SAA716x_PAGE_SIZE);
 +
 +		/* align memory to page */
 +		dmabuf->mem_virt = (void *) PAGE_ALIGN (((unsigned long) dmabuf->mem_virt_noalign));
@@ -2754,14 +2681,37 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_dma.c linux-3.7.2.pa
 +	saa716x_dmabuf_sgfree(dmabuf);
 +	saa716x_free_ptable(dmabuf);
 +}
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_dma.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_dma.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_dma.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_dma.h	2013-01-16 10:41:10.913798268 +0100
-@@ -0,0 +1,38 @@
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_dma.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_dma.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_dma.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_dma.h	2013-03-07 17:55:53.755588384 +0100
+@@ -0,0 +1,61 @@
 +#ifndef __SAA716x_DMA_H
 +#define __SAA716x_DMA_H
 +
 +#define SAA716x_PAGE_SIZE	4096
++
++#define PTA_LSB(__mem)		((u32 ) (__mem))
++#define PTA_MSB(__mem)		((u32 ) ((u64)(__mem) >> 32))
++
++#define BAM_DMA_BUF_MODE_BASE		0x00
++#define BAM_DMA_BUF_MODE_OFFSET		0x24
++
++#define BAM_DMA_BUF_MODE(__ch)		(BAM_DMA_BUF_MODE_BASE + (BAM_DMA_BUF_MODE_OFFSET * __ch))
++
++#define BAM_ADDR_OFFSET_BASE		0x04
++#define BAM_ADDR_OFFSET_OFFSET		0x24
++
++#define BAM_ADDR_OFFSET(__ch)		(BAM_ADDR_OFFSET_BASE + (BAM_ADDR_OFFSET_OFFSET * __ch))
++
++#define BAM_ADDR_OFFSET_0(__ch)		(BAM_ADDR_OFFSET(__ch) + 0x00)
++#define BAM_ADDR_OFFSET_1(__ch)		(BAM_ADDR_OFFSET(__ch) + 0x04)
++#define BAM_ADDR_OFFSET_2(__ch)		(BAM_ADDR_OFFSET(__ch) + 0x08)
++#define BAM_ADDR_OFFSET_3(__ch)		(BAM_ADDR_OFFSET(__ch) + 0x0c)
++#define BAM_ADDR_OFFSET_4(__ch)		(BAM_ADDR_OFFSET(__ch) + 0x10)
++#define BAM_ADDR_OFFSET_5(__ch)		(BAM_ADDR_OFFSET(__ch) + 0x14)
++#define BAM_ADDR_OFFSET_6(__ch)		(BAM_ADDR_OFFSET(__ch) + 0x18)
++#define BAM_ADDR_OFFSET_7(__ch)		(BAM_ADDR_OFFSET(__ch) + 0x1c)
++
 +
 +enum saa716x_dma_type {
 +	SAA716x_DMABUF_EXT_LIN, /* Linear external */
@@ -2796,10 +2746,10 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_dma.h linux-3.7.2.pa
 +extern void saa716x_dmabufsync_cpu(struct saa716x_dmabuf *dmabuf);
 +
 +#endif /* __SAA716x_DMA_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_dma_reg.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_dma_reg.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_dma_reg.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_dma_reg.h	2013-01-16 10:41:10.913798268 +0100
-@@ -0,0 +1,200 @@
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_dma_reg.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_dma_reg.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_dma_reg.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_dma_reg.h	2013-03-07 17:55:53.759588384 +0100
+@@ -0,0 +1,201 @@
 +#ifndef __SAA716x_DMA_REG_H
 +#define __SAA716x_DMA_REG_H
 +
@@ -2957,6 +2907,8 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_dma_reg.h linux-3.7.
 +#define MMU_DMA_CONFIG14		0x03c
 +#define MMU_DMA_CONFIG15		0x040
 +
++#define MMU_DMA_CONFIG(__ch)		(MMU_DMA_CONFIG0 + (4 * __ch))
++
 +#define MMU_SW_RST			0xff0
 +#define MMU_SW_RESET			(0x0001 <<  0)
 +
@@ -2977,37 +2929,38 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_dma_reg.h linux-3.7.
 +#define MMU_PTA_BASE14			0x3c4 /* DMA 14 */
 +#define MMU_PTA_BASE15			0x404 /* DMA 15 */
 +
-+#define MMU_PTA_BASE			0x044 /* DMA 0 */
 +#define MMU_PTA_OFFSET			0x40
 +
-+#define PTA_BASE(__ch)			(MMU_PTA_BASE + (MMU_PTA_OFFSET * __ch))
++#define MMU_PTA_BASE(__ch)		(MMU_PTA_BASE0 + (MMU_PTA_OFFSET * __ch))
 +
-+#define MMU_PTA0_LSB(__ch)		PTA_BASE(__ch) + 0x00
-+#define MMU_PTA0_MSB(__ch)		PTA_BASE(__ch) + 0x04
-+#define MMU_PTA1_LSB(__ch)		PTA_BASE(__ch) + 0x08
-+#define MMU_PTA1_MSB(__ch)		PTA_BASE(__ch) + 0x0c
-+#define MMU_PTA2_LSB(__ch)		PTA_BASE(__ch) + 0x10
-+#define MMU_PTA2_MSB(__ch)		PTA_BASE(__ch) + 0x14
-+#define MMU_PTA3_LSB(__ch)		PTA_BASE(__ch) + 0x18
-+#define MMU_PTA3_MSB(__ch)		PTA_BASE(__ch) + 0x1c
-+#define MMU_PTA4_LSB(__ch)		PTA_BASE(__ch) + 0x20
-+#define MMU_PTA4_MSB(__ch)		PTA_BASE(__ch) + 0x24
-+#define MMU_PTA5_LSB(__ch)		PTA_BASE(__ch) + 0x28
-+#define MMU_PTA5_MSB(__ch)		PTA_BASE(__ch) + 0x2c
-+#define MMU_PTA6_LSB(__ch)		PTA_BASE(__ch) + 0x30
-+#define MMU_PTA6_MSB(__ch)		PTA_BASE(__ch) + 0x34
-+#define MMU_PTA7_LSB(__ch)		PTA_BASE(__ch) + 0x38
-+#define MMU_PTA7_MSB(__ch)		PTA_BASE(__ch) + 0x3c
++#define MMU_PTA0_LSB(__ch)		MMU_PTA_BASE(__ch) + 0x00
++#define MMU_PTA0_MSB(__ch)		MMU_PTA_BASE(__ch) + 0x04
++#define MMU_PTA1_LSB(__ch)		MMU_PTA_BASE(__ch) + 0x08
++#define MMU_PTA1_MSB(__ch)		MMU_PTA_BASE(__ch) + 0x0c
++#define MMU_PTA2_LSB(__ch)		MMU_PTA_BASE(__ch) + 0x10
++#define MMU_PTA2_MSB(__ch)		MMU_PTA_BASE(__ch) + 0x14
++#define MMU_PTA3_LSB(__ch)		MMU_PTA_BASE(__ch) + 0x18
++#define MMU_PTA3_MSB(__ch)		MMU_PTA_BASE(__ch) + 0x1c
++#define MMU_PTA4_LSB(__ch)		MMU_PTA_BASE(__ch) + 0x20
++#define MMU_PTA4_MSB(__ch)		MMU_PTA_BASE(__ch) + 0x24
++#define MMU_PTA5_LSB(__ch)		MMU_PTA_BASE(__ch) + 0x28
++#define MMU_PTA5_MSB(__ch)		MMU_PTA_BASE(__ch) + 0x2c
++#define MMU_PTA6_LSB(__ch)		MMU_PTA_BASE(__ch) + 0x30
++#define MMU_PTA6_MSB(__ch)		MMU_PTA_BASE(__ch) + 0x34
++#define MMU_PTA7_LSB(__ch)		MMU_PTA_BASE(__ch) + 0x38
++#define MMU_PTA7_MSB(__ch)		MMU_PTA_BASE(__ch) + 0x3c
 +
 +#endif /* __SAA716x_DMA_REG_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_cmd.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_ff_cmd.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_cmd.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_ff_cmd.c	2013-01-16 10:41:10.914798261 +0100
-@@ -0,0 +1,412 @@
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_ff_cmd.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_ff_cmd.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_ff_cmd.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_ff_cmd.c	2013-03-07 17:55:53.755588384 +0100
+@@ -0,0 +1,421 @@
 +#include <linux/types.h>
 +
 +#include <linux/dvb/video.h>
 +#include <linux/dvb/osd.h>
++
++#include "saa716x_mod.h"
 +
 +#include "saa716x_phi_reg.h"
 +
@@ -3309,6 +3262,10 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_cmd.c linux-3.7.2
 +			if (sti7109->block_done == 0) {
 +				dprintk(SAA716x_ERROR, 1,
 +					"timed out waiting for block done");
++				/* send a data interrupt to cancel the transfer
++				   and reset the data handling */
++				SAA716x_EPWR(PHI_1, FPGA_ADDR_PHI_ISET,
++						ISR_DATA_MASK);
 +				return -EIO;
 +			}
 +		}
@@ -3323,6 +3280,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_cmd.c linux-3.7.2
 +
 +	if (sti7109->block_done == 0) {
 +		dprintk(SAA716x_ERROR, 1, "timed out waiting for block done");
++		/* send a data interrupt to cancel the transfer and reset the
++		   data handling */
++		SAA716x_EPWR(PHI_1, FPGA_ADDR_PHI_ISET, ISR_DATA_MASK);
 +		return -EIO;
 +	}
 +	sti7109->block_done = 0;
@@ -3416,9 +3376,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_cmd.c linux-3.7.2
 +	return ret_val;
 +}
 +
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_cmd.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_ff_cmd.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_cmd.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_ff_cmd.h	2013-01-16 10:41:10.914798261 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_ff_cmd.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_ff_cmd.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_ff_cmd.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_ff_cmd.h	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,16 @@
 +#ifndef __SAA716x_FF_CMD_H
 +#define __SAA716x_FF_CMD_H
@@ -3436,15 +3396,16 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_cmd.h linux-3.7.2
 +					video_size_t *vs);
 +
 +#endif /* __SAA716x_FF_CMD_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_ff.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_ff.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_ff.h	2013-01-16 10:41:10.915798254 +0100
-@@ -0,0 +1,158 @@
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_ff.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_ff.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_ff.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_ff.h	2013-03-07 17:55:53.759588384 +0100
+@@ -0,0 +1,168 @@
 +#ifndef __SAA716x_FF_H
 +#define __SAA716x_FF_H
 +
 +#include "dvb_filter.h"
 +#include "dvb_ringbuffer.h"
++#include <linux/version.h>
 +
 +#define TECHNOTREND			0x13c2
 +#define S2_6400_DUAL_S2_PREMIUM_DEVEL	0x3009
@@ -3533,6 +3494,10 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff.h linux-3.7.2.pat
 +#define TSOUT_LEN		(1024 * TS_SIZE)
 +#define TSBUF_LEN		(8 * 1024)
 +
++#define VIDEO_CAPTURE_OFF	0
++#define VIDEO_CAPTURE_ONE_SHOT	1
++
++
 +/* place to store all the necessary device information */
 +struct sti7109_dev {
 +	struct saa716x_dev	*dev;
@@ -3581,14 +3546,19 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff.h linux-3.7.2.pat
 +	struct mutex		cmd_lock;
 +	struct mutex		osd_cmd_lock;
 +	struct mutex		data_lock;
++	struct mutex		video_lock;
 +
 +	u64			audio_pts;
 +	u64			video_pts;
 +	u64			current_stc;
 +
++	u32			video_capture;
++	u32			video_format;
++
 +	u32			int_count_enable;
 +	u32			total_int_count;
-+	u32			fgpi_int_count[2];
++	u32			vi_int_count[2];
++	u32			fgpi_int_count[4];
 +	u32			i2c_int_count[2];
 +	u32			ext_int_total_count;
 +	u32			ext_int_source_count[16];
@@ -3598,9 +3568,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff.h linux-3.7.2.pat
 +};
 +
 +#endif /* __SAA716x_FF_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_ir.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_ff_ir.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_ir.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_ff_ir.c	2013-01-16 10:41:10.915798254 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_ff_ir.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_ff_ir.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_ff_ir.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_ff_ir.c	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,265 @@
 +/*
 + * Driver for the remote control of the TT6400 DVB-S2 card
@@ -3867,10 +3837,10 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_ir.c linux-3.7.2.
 +	input_unregister_device(ir->input_dev);
 +	kfree(ir);
 +}
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_ff_main.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_ff_main.c	2013-01-16 10:41:10.917798240 +0100
-@@ -0,0 +1,1535 @@
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_ff_main.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_ff_main.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_ff_main.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_ff_main.c	2013-03-07 17:55:53.755588384 +0100
+@@ -0,0 +1,1762 @@
 +#include <linux/module.h>
 +#include <linux/moduleparam.h>
 +#include <linux/kernel.h>
@@ -3893,6 +3863,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +
 +#include <linux/i2c.h>
 +
++#include <linux/videodev2.h>
 +#include <linux/dvb/video.h>
 +#include <linux/dvb/audio.h>
 +#include <linux/dvb/osd.h>
@@ -3906,8 +3877,6 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +#include "saa716x_spi_reg.h"
 +#include "saa716x_msi_reg.h"
 +
-+#include "saa716x_vip.h"
-+#include "saa716x_aip.h"
 +#include "saa716x_msi.h"
 +#include "saa716x_adap.h"
 +#include "saa716x_gpio.h"
@@ -3934,6 +3903,10 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +unsigned int int_count_enable;
 +module_param(int_count_enable, int, 0644);
 +MODULE_PARM_DESC(int_count_enable, "enable counting of interrupts");
++
++unsigned int video_capture;
++module_param(video_capture, int, 0644);
++MODULE_PARM_DESC(video_capture, "capture digital video coming from STi7109: 0=off, 1=one-shot. default off");
 +
 +#define DRIVER_NAME	"SAA716x FF"
 +
@@ -4400,6 +4373,205 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +	spin_unlock(&sti7109->tsout.lock);
 +}
 +
++static void video_vip_worker(unsigned long data)
++{
++	struct saa716x_vip_stream_port *vip_entry = (struct saa716x_vip_stream_port *)data;
++	struct saa716x_dev *saa716x = vip_entry->saa716x;
++	u32 vip_index;
++	u32 write_index;
++
++	vip_index = vip_entry->dma_channel[0];
++	if (vip_index != 0) {
++		printk(KERN_ERR "%s: unexpected channel %u\n",
++		       __func__, vip_entry->dma_channel[0]);
++		return;
++	}
++
++	write_index = saa716x_vip_get_write_index(saa716x, vip_index);
++	if (write_index < 0)
++		return;
++
++	dprintk(SAA716x_DEBUG, 1, "dma buffer = %d", write_index);
++
++	if (write_index == vip_entry->read_index) {
++		printk(KERN_DEBUG "%s: called but nothing to do\n", __func__);
++		return;
++	}
++
++	do {
++		pci_dma_sync_sg_for_cpu(saa716x->pdev,
++			vip_entry->dma_buf[0][vip_entry->read_index].sg_list,
++			vip_entry->dma_buf[0][vip_entry->read_index].list_len,
++			PCI_DMA_FROMDEVICE);
++		if (vip_entry->dual_channel) {
++			pci_dma_sync_sg_for_cpu(saa716x->pdev,
++				vip_entry->dma_buf[1][vip_entry->read_index].sg_list,
++				vip_entry->dma_buf[1][vip_entry->read_index].list_len,
++				PCI_DMA_FROMDEVICE);
++		}
++
++		vip_entry->read_index = (vip_entry->read_index + 1) & 7;
++	} while (write_index != vip_entry->read_index);
++}
++
++static int video_vip_get_stream_params(struct vip_stream_params * params,
++				       u32 mode)
++{
++	switch (mode)
++	{
++		case 4:  /* 1280x720p60 */
++		case 19: /* 1280x720p50 */
++			params->bits		= 16;
++			params->samples		= 1280;
++			params->lines		= 720;
++			params->pitch		= 1280 * 2;
++			params->offset_x	= 32;
++			params->offset_y	= 30;
++			params->stream_flags	= VIP_HD;
++			break;
++
++		case 5:  /* 1920x1080i60 */
++		case 20: /* 1920x1080i50 */
++			params->bits		= 16;
++			params->samples		= 1920;
++			params->lines		= 1080;
++			params->pitch		= 1920 * 2;
++			params->offset_x	= 0;
++			params->offset_y	= 20;
++			params->stream_flags	= VIP_ODD_FIELD
++						| VIP_EVEN_FIELD
++						| VIP_INTERLACED
++						| VIP_HD
++						| VIP_NO_SCALER;
++			break;
++
++		case 32: /* 1920x1080p24 */
++		case 33: /* 1920x1080p25 */
++		case 34: /* 1920x1080p30 */
++			params->bits		= 16;
++			params->samples		= 1920;
++			params->lines		= 1080;
++			params->pitch		= 1920 * 2;
++			params->offset_x	= 0;
++			params->offset_y	= 0;
++			params->stream_flags	= VIP_HD;
++			break;
++
++		default:
++			return -1;
++	}
++	return 0;
++}
++
++static ssize_t video_vip_read(struct sti7109_dev *sti7109,
++			      struct vip_stream_params * stream_params,
++			      char __user *buf, size_t count)
++{
++	struct saa716x_dev *saa716x = sti7109->dev;
++	struct v4l2_pix_format pix_format;
++	int one_shot = 0;
++	size_t num_bytes;
++	size_t copy_bytes;
++	u32 read_index;
++	u8 *data;
++	int err = 0;
++
++	if (sti7109->video_capture == VIDEO_CAPTURE_ONE_SHOT)
++		one_shot = 1;
++
++	/* put a v4l2_pix_format header at the beginning of the returned data */
++	memset(&pix_format, 0, sizeof(pix_format));
++	pix_format.width	= stream_params->samples;
++	pix_format.height	= stream_params->lines;
++	pix_format.pixelformat	= V4L2_PIX_FMT_UYVY;
++	pix_format.bytesperline	= stream_params->pitch;
++	pix_format.sizeimage	= stream_params->lines * stream_params->pitch;
++
++	if (count > (sizeof(pix_format) + pix_format.sizeimage))
++		count = sizeof(pix_format) + pix_format.sizeimage;
++
++	if (count < sizeof(pix_format)) {
++		err = -EFAULT;
++		goto out;
++	}
++
++	saa716x_vip_start(saa716x, 0, one_shot, stream_params);
++	/* Sleep long enough to be sure to capture at least one frame.
++	   TODO: Change this in a way that it just waits the required time. */
++	msleep(100);
++	saa716x_vip_stop(saa716x, 0);
++
++	read_index = saa716x->vip[0].read_index;
++	if ((stream_params->stream_flags & VIP_INTERLACED) &&
++	    (stream_params->stream_flags & VIP_ODD_FIELD) &&
++	    (stream_params->stream_flags & VIP_EVEN_FIELD)) {
++		read_index = read_index & ~1;
++		read_index = (read_index + 7) & 7;
++		read_index = read_index / 2;
++	} else {
++		read_index = (read_index + 7) & 7;
++	}
++
++	if (copy_to_user((void __user *)buf, &pix_format, sizeof(pix_format))) {
++		err = -EFAULT;
++		goto out;
++	}
++	num_bytes = sizeof(pix_format);
++
++	copy_bytes = count - num_bytes;
++	if (copy_bytes > (SAA716x_PAGE_SIZE / 8 * SAA716x_PAGE_SIZE))
++		copy_bytes = SAA716x_PAGE_SIZE / 8 * SAA716x_PAGE_SIZE;
++	data = (u8 *)saa716x->vip[0].dma_buf[0][read_index].mem_virt;
++	if (copy_to_user((void __user *)(buf + num_bytes), data, copy_bytes)) {
++		err = -EFAULT;
++		goto out;
++	}
++	num_bytes += copy_bytes;
++	if (saa716x->vip[0].dual_channel &&
++	    count - num_bytes > 0) {
++		copy_bytes = count - num_bytes;
++		if (copy_bytes > (SAA716x_PAGE_SIZE / 8 * SAA716x_PAGE_SIZE))
++			copy_bytes = SAA716x_PAGE_SIZE / 8 * SAA716x_PAGE_SIZE;
++		data = (u8 *)saa716x->vip[0].dma_buf[1][read_index].mem_virt;
++		if (copy_to_user((void __user *)(buf + num_bytes), data,
++				 copy_bytes)) {
++			err = -EFAULT;
++			goto out;
++		}
++		num_bytes += copy_bytes;
++	}
++
++	return num_bytes;
++
++out:
++	return err;
++}
++
++static ssize_t dvb_video_read(struct file *file, char __user *buf,
++			      size_t count, loff_t *ppos)
++{
++	struct dvb_device *dvbdev	= file->private_data;
++	struct sti7109_dev *sti7109	= dvbdev->priv;
++	struct vip_stream_params stream_params;
++	ssize_t ret = -ENODATA;
++
++	if ((file->f_flags & O_ACCMODE) == O_WRONLY)
++		return -EPERM;
++
++	mutex_lock(&sti7109->video_lock);
++
++	if (sti7109->video_capture != VIDEO_CAPTURE_OFF) {
++		if (video_vip_get_stream_params(&stream_params,
++						sti7109->video_format) == 0) {
++			ret = video_vip_read(sti7109, &stream_params,
++					     buf, count);
++		}
++	}
++
++	mutex_unlock(&sti7109->video_lock);
++	return ret;
++}
++
 +#define FREE_COND_TS (dvb_ringbuffer_free(&sti7109->tsout) >= TS_SIZE)
 +
 +static ssize_t dvb_video_write(struct file *file, const char __user *buf,
@@ -4527,6 +4699,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +
 +static struct file_operations dvb_video_fops = {
 +	.owner		= THIS_MODULE,
++	.read		= dvb_video_read,
 +	.write		= dvb_video_write,
 +#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 36) && !defined(EXPERIMENTAL_TREE)
 +	.ioctl		= dvb_video_ioctl,
@@ -4540,7 +4713,8 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +
 +static struct dvb_device dvbdev_video = {
 +	.priv		= NULL,
-+	.users		= 1,
++	.users		= 5,
++	.readers	= 5,
 +	.writers	= 1,
 +	.fops		= &dvb_video_fops,
 +	.kernel_ioctl	= NULL,
@@ -4549,6 +4723,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +static int saa716x_ff_video_exit(struct saa716x_dev *saa716x)
 +{
 +	struct sti7109_dev *sti7109 = saa716x->priv;
++
++	if (sti7109->video_capture != VIDEO_CAPTURE_OFF)
++		saa716x_vip_exit(saa716x, 0);
 +
 +	tasklet_kill(&sti7109->fifo_tasklet);
 +	dvb_unregister_device(sti7109->video_dev);
@@ -4572,10 +4749,13 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +	tasklet_init(&sti7109->fifo_tasklet, fifo_worker,
 +		     (unsigned long)saa716x);
 +
++	if (sti7109->video_capture != VIDEO_CAPTURE_OFF)
++		saa716x_vip_init(saa716x, 0, video_vip_worker);
++
 +	return 0;
 +}
 +
-+static int __devinit saa716x_ff_pci_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
++static int saa716x_ff_pci_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
 +{
 +	struct saa716x_dev *saa716x;
 +	struct sti7109_dev *sti7109;
@@ -4656,8 +4836,12 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +
 +	sti7109_cmd_init(sti7109);
 +
++	sti7109->video_capture = video_capture;
++	mutex_init(&sti7109->video_lock);
++
 +	sti7109->int_count_enable = int_count_enable;
 +	sti7109->total_int_count = 0;
++	memset(sti7109->vi_int_count, 0, sizeof(sti7109->vi_int_count));
 +	memset(sti7109->fgpi_int_count, 0, sizeof(sti7109->fgpi_int_count));
 +	memset(sti7109->i2c_int_count, 0, sizeof(sti7109->i2c_int_count));
 +	sti7109->ext_int_total_count = 0;
@@ -4732,6 +4916,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +	/* enable FGPI2 and FGPI3 for TS inputs */
 +	SAA716x_EPWR(GREG, GREG_VI_CTRL, 0x0689F04);
 +	SAA716x_EPWR(GREG, GREG_FGPI_CTRL, 0x280);
++	SAA716x_EPWR(GREG, GREG_VIDEO_IN_CTRL, 0xC0);
 +
 +	err = saa716x_dvb_init(saa716x);
 +	if (err) {
@@ -4776,7 +4961,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +
 +	err = sti7109_cmd_get_fw_version(sti7109, &fw_version);
 +	if (!err) {
-+		printk(KERN_INFO "SAA716x FF firmware version %X.%X.%X\n",
++		printk(KERN_INFO "SAA716x FF firmware version %d.%d.%d\n",
 +			(fw_version >> 16) & 0xFF, (fw_version >> 8) & 0xFF,
 +			fw_version & 0xFF);
 +	}
@@ -4814,7 +4999,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +	return err;
 +}
 +
-+static void __devexit saa716x_ff_pci_remove(struct pci_dev *pdev)
++static void saa716x_ff_pci_remove(struct pci_dev *pdev)
 +{
 +	struct saa716x_dev *saa716x = pci_get_drvdata(pdev);
 +	struct sti7109_dev *sti7109 = saa716x->priv;
@@ -4958,14 +5143,19 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +	SAA716x_EPWR(MSI, MSI_INT_STATUS_CLR_H, msiStatusH);
 +
 +	if (msiStatusL) {
++		if (msiStatusL & MSI_INT_TAGACK_VI0_0) {
++			if (sti7109->int_count_enable)
++				sti7109->vi_int_count[0]++;
++			tasklet_schedule(&saa716x->vip[0].tasklet);
++		}
 +		if (msiStatusL & MSI_INT_TAGACK_FGPI_2) {
 +			if (sti7109->int_count_enable)
-+				sti7109->fgpi_int_count[0]++;
++				sti7109->fgpi_int_count[2]++;
 +			tasklet_schedule(&saa716x->fgpi[2].tasklet);
 +		}
 +		if (msiStatusL & MSI_INT_TAGACK_FGPI_3) {
 +			if (sti7109->int_count_enable)
-+				sti7109->fgpi_int_count[1]++;
++				sti7109->fgpi_int_count[3]++;
 +			tasklet_schedule(&saa716x->fgpi[3].tasklet);
 +		}
 +	}
@@ -5176,6 +5366,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +			SAA716x_EPWR(PHI_1, FPGA_ADDR_EMI_ICLR, ISR_DVO_FORMAT_MASK);
 +
 +			dprintk(SAA716x_INFO, 1, "DVO FORMAT CHANGE: %u", format);
++			sti7109->video_format = format;
 +		}
 +
 +		if (phiISR & ISR_LOG_MESSAGE_MASK) {
@@ -5210,11 +5401,16 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +
 +	if (sti7109->int_count_enable) {
 +		if (jiffies - sti7109->last_int_ticks >= HZ) {
-+			dprintk(SAA716x_INFO, 1, "int count: t: %d, f:%d %d, i:%d %d,"
++			dprintk(SAA716x_INFO, 1,
++				"int count: t: %d, v: %d %d, f:%d %d %d %d, i:%d %d,"
 +				"e: %d (%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d)",
 +				sti7109->total_int_count,
++				sti7109->vi_int_count[0],
++				sti7109->vi_int_count[1],
 +				sti7109->fgpi_int_count[0],
 +				sti7109->fgpi_int_count[1],
++				sti7109->fgpi_int_count[2],
++				sti7109->fgpi_int_count[3],
 +				sti7109->i2c_int_count[0],
 +				sti7109->i2c_int_count[1],
 +				sti7109->ext_int_total_count,
@@ -5235,6 +5431,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +				sti7109->ext_int_source_count[14],
 +				sti7109->ext_int_source_count[15]);
 +			sti7109->total_int_count = 0;
++			memset(sti7109->vi_int_count, 0, sizeof(sti7109->vi_int_count));
 +			memset(sti7109->fgpi_int_count, 0, sizeof(sti7109->fgpi_int_count));
 +			memset(sti7109->i2c_int_count, 0, sizeof(sti7109->i2c_int_count));
 +			sti7109->ext_int_total_count = 0;
@@ -5390,12 +5587,12 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +	.remove			= saa716x_ff_pci_remove,
 +};
 +
-+static int __devinit saa716x_ff_init(void)
++static int __init saa716x_ff_init(void)
 +{
 +	return pci_register_driver(&saa716x_ff_pci_driver);
 +}
 +
-+static void __devexit saa716x_ff_exit(void)
++static void __exit saa716x_ff_exit(void)
 +{
 +	return pci_unregister_driver(&saa716x_ff_pci_driver);
 +}
@@ -5406,10 +5603,10 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_ff_main.c linux-3.7.
 +MODULE_DESCRIPTION("SAA716x FF driver");
 +MODULE_AUTHOR("Manu Abraham");
 +MODULE_LICENSE("GPL");
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_fgpi.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_fgpi.c	2013-01-16 10:41:10.917798240 +0100
-@@ -0,0 +1,389 @@
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_fgpi.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_fgpi.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_fgpi.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_fgpi.c	2013-03-07 17:55:53.759588384 +0100
+@@ -0,0 +1,386 @@
 +#include <linux/kernel.h>
 +
 +#include "saa716x_mod.h"
@@ -5422,44 +5619,6 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c linux-3.7.2.p
 +#include "saa716x_fgpi.h"
 +#include "saa716x_spi.h"
 +#include "saa716x_priv.h"
-+
-+static const u32 mmu_pta_base[] = {
-+	MMU_PTA_BASE0,
-+	MMU_PTA_BASE1,
-+	MMU_PTA_BASE2,
-+	MMU_PTA_BASE3,
-+	MMU_PTA_BASE4,
-+	MMU_PTA_BASE5,
-+	MMU_PTA_BASE6,
-+	MMU_PTA_BASE7,
-+	MMU_PTA_BASE8,
-+	MMU_PTA_BASE9,
-+	MMU_PTA_BASE10,
-+	MMU_PTA_BASE11,
-+	MMU_PTA_BASE12,
-+	MMU_PTA_BASE13,
-+	MMU_PTA_BASE14,
-+	MMU_PTA_BASE15,
-+};
-+
-+static const u32 mmu_dma_cfg[] = {
-+	MMU_DMA_CONFIG0,
-+	MMU_DMA_CONFIG1,
-+	MMU_DMA_CONFIG2,
-+	MMU_DMA_CONFIG3,
-+	MMU_DMA_CONFIG4,
-+	MMU_DMA_CONFIG5,
-+	MMU_DMA_CONFIG6,
-+	MMU_DMA_CONFIG7,
-+	MMU_DMA_CONFIG8,
-+	MMU_DMA_CONFIG9,
-+	MMU_DMA_CONFIG10,
-+	MMU_DMA_CONFIG11,
-+	MMU_DMA_CONFIG12,
-+	MMU_DMA_CONFIG13,
-+	MMU_DMA_CONFIG14,
-+	MMU_DMA_CONFIG15,
-+};
 +
 +static const u32 fgpi_ch[] = {
 +	FGPI0,
@@ -5552,7 +5711,8 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c linux-3.7.2.p
 +}
 +EXPORT_SYMBOL_GPL(saa716x_fgpi_get_write_index);
 +
-+static u32 saa716x_init_ptables(struct saa716x_dmabuf *dmabuf, int channel)
++static u32 saa716x_init_ptables(struct saa716x_dmabuf *dmabuf, int channel,
++				struct fgpi_stream_params *stream_params)
 +{
 +	struct saa716x_dev *saa716x = dmabuf->saa716x;
 +
@@ -5561,25 +5721,49 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c linux-3.7.2.p
 +	for (i = 0; i < FGPI_BUFFERS; i++)
 +		BUG_ON((dmabuf[i].mem_ptab_phys == 0));
 +
-+	config = mmu_dma_cfg[channel]; /* DMACONFIGx */
++	config = MMU_DMA_CONFIG(channel); /* DMACONFIGx */
 +
 +	SAA716x_EPWR(MMU, config, (FGPI_BUFFERS - 1));
-+	SAA716x_EPWR(MMU, MMU_PTA0_LSB(channel), PTA_LSB(dmabuf[0].mem_ptab_phys)); /* Low */
-+	SAA716x_EPWR(MMU, MMU_PTA0_MSB(channel), PTA_MSB(dmabuf[0].mem_ptab_phys)); /* High */
-+	SAA716x_EPWR(MMU, MMU_PTA1_LSB(channel), PTA_LSB(dmabuf[1].mem_ptab_phys)); /* Low */
-+	SAA716x_EPWR(MMU, MMU_PTA1_MSB(channel), PTA_MSB(dmabuf[1].mem_ptab_phys)); /* High */
-+	SAA716x_EPWR(MMU, MMU_PTA2_LSB(channel), PTA_LSB(dmabuf[2].mem_ptab_phys)); /* Low */
-+	SAA716x_EPWR(MMU, MMU_PTA2_MSB(channel), PTA_MSB(dmabuf[2].mem_ptab_phys)); /* High */
-+	SAA716x_EPWR(MMU, MMU_PTA3_LSB(channel), PTA_LSB(dmabuf[3].mem_ptab_phys)); /* Low */
-+	SAA716x_EPWR(MMU, MMU_PTA3_MSB(channel), PTA_MSB(dmabuf[3].mem_ptab_phys)); /* High */
-+	SAA716x_EPWR(MMU, MMU_PTA4_LSB(channel), PTA_LSB(dmabuf[4].mem_ptab_phys)); /* Low */
-+	SAA716x_EPWR(MMU, MMU_PTA4_MSB(channel), PTA_MSB(dmabuf[4].mem_ptab_phys)); /* High */
-+	SAA716x_EPWR(MMU, MMU_PTA5_LSB(channel), PTA_LSB(dmabuf[5].mem_ptab_phys)); /* Low */
-+	SAA716x_EPWR(MMU, MMU_PTA5_MSB(channel), PTA_MSB(dmabuf[5].mem_ptab_phys)); /* High */
-+	SAA716x_EPWR(MMU, MMU_PTA6_LSB(channel), PTA_LSB(dmabuf[6].mem_ptab_phys)); /* Low */
-+	SAA716x_EPWR(MMU, MMU_PTA6_MSB(channel), PTA_MSB(dmabuf[6].mem_ptab_phys)); /* High */
-+	SAA716x_EPWR(MMU, MMU_PTA7_LSB(channel), PTA_LSB(dmabuf[7].mem_ptab_phys)); /* Low */
-+	SAA716x_EPWR(MMU, MMU_PTA7_MSB(channel), PTA_MSB(dmabuf[7].mem_ptab_phys)); /* High */
++
++	if ((stream_params->stream_flags & FGPI_INTERLACED) &&
++	    (stream_params->stream_flags & FGPI_ODD_FIELD) &&
++	    (stream_params->stream_flags & FGPI_EVEN_FIELD)) {
++		/* In interlaced mode the same buffer is written twice, once
++		   the odd field and once the even field */
++		SAA716x_EPWR(MMU, MMU_PTA0_LSB(channel), PTA_LSB(dmabuf[0].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA0_MSB(channel), PTA_MSB(dmabuf[0].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA1_LSB(channel), PTA_LSB(dmabuf[0].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA1_MSB(channel), PTA_MSB(dmabuf[0].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA2_LSB(channel), PTA_LSB(dmabuf[1].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA2_MSB(channel), PTA_MSB(dmabuf[1].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA3_LSB(channel), PTA_LSB(dmabuf[1].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA3_MSB(channel), PTA_MSB(dmabuf[1].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA4_LSB(channel), PTA_LSB(dmabuf[2].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA4_MSB(channel), PTA_MSB(dmabuf[2].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA5_LSB(channel), PTA_LSB(dmabuf[2].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA5_MSB(channel), PTA_MSB(dmabuf[2].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA6_LSB(channel), PTA_LSB(dmabuf[3].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA6_MSB(channel), PTA_MSB(dmabuf[3].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA7_LSB(channel), PTA_LSB(dmabuf[3].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA7_MSB(channel), PTA_MSB(dmabuf[3].mem_ptab_phys)); /* High */
++	} else {
++		SAA716x_EPWR(MMU, MMU_PTA0_LSB(channel), PTA_LSB(dmabuf[0].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA0_MSB(channel), PTA_MSB(dmabuf[0].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA1_LSB(channel), PTA_LSB(dmabuf[1].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA1_MSB(channel), PTA_MSB(dmabuf[1].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA2_LSB(channel), PTA_LSB(dmabuf[2].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA2_MSB(channel), PTA_MSB(dmabuf[2].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA3_LSB(channel), PTA_LSB(dmabuf[3].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA3_MSB(channel), PTA_MSB(dmabuf[3].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA4_LSB(channel), PTA_LSB(dmabuf[4].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA4_MSB(channel), PTA_MSB(dmabuf[4].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA5_LSB(channel), PTA_LSB(dmabuf[5].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA5_MSB(channel), PTA_MSB(dmabuf[5].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA6_LSB(channel), PTA_LSB(dmabuf[6].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA6_MSB(channel), PTA_MSB(dmabuf[6].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA7_LSB(channel), PTA_LSB(dmabuf[7].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA7_MSB(channel), PTA_MSB(dmabuf[7].mem_ptab_phys)); /* High */
++	}
 +
 +	return 0;
 +}
@@ -5593,16 +5777,18 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c linux-3.7.2.p
 +	u32 fgpi_port, buf_mode, val, mid;
 +	u32 D1_XY_END, offst_1, offst_2;
 +	int i = 0;
++	u8 dma_channel;
 +
 +	fgpi_port = fgpi_ch[port];
 +	buf_mode = bamdma_bufmode[port];
++	dma_channel = saa716x->fgpi[port].dma_channel;
 +
 +	/* Reset FGPI block */
 +	SAA716x_EPWR(fgpi_port, FGPI_SOFT_RESET, FGPI_SOFTWARE_RESET);
 +
 +	/* Reset DMA channel */
 +	SAA716x_EPWR(BAM, buf_mode, 0x00000040);
-+	saa716x_init_ptables(dmabuf, saa716x->fgpi[port].dma_channel);
++	saa716x_init_ptables(dmabuf, dma_channel, stream_params);
 +
 +
 +	/* monitor BAM reset */
@@ -5622,14 +5808,14 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c linux-3.7.2.p
 +	SAA716x_EPWR(BAM, buf_mode, FGPI_BUFFERS - 1);
 +
 +	/* initialize all available address offsets */
-+	SAA716x_EPWR(BAM, BAM_FGPI_ADDR_OFFST_0(port), 0x0);
-+	SAA716x_EPWR(BAM, BAM_FGPI_ADDR_OFFST_1(port), 0x0);
-+	SAA716x_EPWR(BAM, BAM_FGPI_ADDR_OFFST_2(port), 0x0);
-+	SAA716x_EPWR(BAM, BAM_FGPI_ADDR_OFFST_3(port), 0x0);
-+	SAA716x_EPWR(BAM, BAM_FGPI_ADDR_OFFST_4(port), 0x0);
-+	SAA716x_EPWR(BAM, BAM_FGPI_ADDR_OFFST_5(port), 0x0);
-+	SAA716x_EPWR(BAM, BAM_FGPI_ADDR_OFFST_6(port), 0x0);
-+	SAA716x_EPWR(BAM, BAM_FGPI_ADDR_OFFST_7(port), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_0(dma_channel), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_1(dma_channel), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_2(dma_channel), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_3(dma_channel), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_4(dma_channel), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_5(dma_channel), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_6(dma_channel), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_7(dma_channel), 0x0);
 +
 +	/* get module ID */
 +	mid = SAA716x_EPRD(fgpi_port, FGPI_MODULE_ID);
@@ -5648,36 +5834,37 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c linux-3.7.2.p
 +		SAA716x_EPWR(fgpi_port, FGPI_SIZE, stream_params->lines);
 +		break;
 +
++	case FGPI_RAW_STREAM:
 +	case FGPI_PROGRAM_STREAM:
 +		SAA716x_EPWR(fgpi_port, FGPI_CONTROL, 0x00000088);
 +		SAA716x_EPWR(fgpi_port, FGPI_SIZE, stream_params->lines);
 +		break;
 +
 +	case FGPI_VIDEO_STREAM:
-+		SAA716x_EPWR(fgpi_port, FGPI_CONTROL, 0x00000088);
-+		SAA716x_EPWR(fgpi_port, FGPI_D1_XY_START, 0x00000002);
++		SAA716x_EPWR(fgpi_port, FGPI_CONTROL, 0x00000040);
++		SAA716x_EPWR(fgpi_port, FGPI_D1_XY_START, stream_params->offset);
 +
 +		if ((stream_params->stream_flags & FGPI_INTERLACED) &&
 +		    (stream_params->stream_flags & FGPI_ODD_FIELD) &&
 +		    (stream_params->stream_flags & FGPI_EVEN_FIELD)) {
 +
 +			SAA716x_EPWR(fgpi_port, FGPI_SIZE, stream_params->lines / 2);
-+			SAA716x_EPWR(fgpi_port, FGPI_STRIDE, 768 * 4); /* interlaced stride of 2 lines */
++			SAA716x_EPWR(fgpi_port, FGPI_STRIDE, stream_params->pitch * 2); /* interlaced stride of 2 lines */
 +
 +			D1_XY_END  = (stream_params->samples << 16);
-+			D1_XY_END |= (stream_params->lines / 2) + 2;
++			D1_XY_END |= (stream_params->lines / 2) + stream_params->offset;
 +
 +			if (stream_params->stream_flags & FGPI_PAL)
-+				offst_1 = 768 * 2;
++				offst_2 = stream_params->pitch;
 +			else
-+				offst_2 = 768 * 2;
++				offst_1 = stream_params->pitch;
 +
 +		} else {
 +			SAA716x_EPWR(fgpi_port, FGPI_SIZE, stream_params->lines);
-+			SAA716x_EPWR(fgpi_port, FGPI_STRIDE, 768 * 2); /* stride of 1 line */
++			SAA716x_EPWR(fgpi_port, FGPI_STRIDE, stream_params->pitch); /* stride of 1 line */
 +
 +			D1_XY_END  = stream_params->samples << 16;
-+			D1_XY_END |= stream_params->lines + 2;
++			D1_XY_END |= stream_params->lines + stream_params->offset;
 +		}
 +
 +		SAA716x_EPWR(fgpi_port, FGPI_D1_XY_END, D1_XY_END);
@@ -5688,8 +5875,8 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c linux-3.7.2.p
 +		break;
 +	}
 +
-+	SAA716x_EPWR(fgpi_port, FGPI_BASE_1, ((saa716x->fgpi[port].dma_channel) << 21) + offst_1);
-+	SAA716x_EPWR(fgpi_port, FGPI_BASE_2, ((saa716x->fgpi[port].dma_channel) << 21) + offst_2);
++	SAA716x_EPWR(fgpi_port, FGPI_BASE_1, (dma_channel << 21) + offst_1);
++	SAA716x_EPWR(fgpi_port, FGPI_BASE_2, (dma_channel << 21) + offst_2);
 +
 +	return 0;
 +}
@@ -5711,7 +5898,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c linux-3.7.2.p
 +		return -EIO;
 +	}
 +
-+	config = mmu_dma_cfg[saa716x->fgpi[port].dma_channel]; /* DMACONFIGx */
++	saa716x->fgpi[port].read_index = 0;
++
++	config = MMU_DMA_CONFIG(saa716x->fgpi[port].dma_channel); /* DMACONFIGx */
 +
 +	val = SAA716x_EPRD(MMU, config);
 +	SAA716x_EPWR(MMU, config, val & ~0x40);
@@ -5745,6 +5934,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c linux-3.7.2.p
 +
 +	return 0;
 +}
++EXPORT_SYMBOL_GPL(saa716x_fgpi_start);
 +
 +int saa716x_fgpi_stop(struct saa716x_dev *saa716x, int port)
 +{
@@ -5763,8 +5953,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c linux-3.7.2.p
 +
 +	return 0;
 +}
++EXPORT_SYMBOL_GPL(saa716x_fgpi_stop);
 +
-+int saa716x_fgpi_init(struct saa716x_dev *saa716x, int port,
++int saa716x_fgpi_init(struct saa716x_dev *saa716x, int port, int dma_buf_size,
 +		      void (*worker)(unsigned long))
 +{
 +	int i;
@@ -5773,8 +5964,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c linux-3.7.2.p
 +	saa716x->fgpi[port].dma_channel = port + 6;
 +	for (i = 0; i < FGPI_BUFFERS; i++)
 +	{
-+		/* TODO: what is a good size for TS DMA buffer? */
-+		ret = saa716x_dmabuf_alloc(saa716x, &saa716x->fgpi[port].dma_buf[i], 16 * SAA716x_PAGE_SIZE);
++		ret = saa716x_dmabuf_alloc(saa716x,
++					   &saa716x->fgpi[port].dma_buf[i],
++					   dma_buf_size);
 +		if (ret < 0) {
 +			return ret;
 +		}
@@ -5786,6 +5978,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c linux-3.7.2.p
 +
 +	return 0;
 +}
++EXPORT_SYMBOL_GPL(saa716x_fgpi_init);
 +
 +int saa716x_fgpi_exit(struct saa716x_dev *saa716x, int port)
 +{
@@ -5799,39 +5992,18 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.c linux-3.7.2.p
 +
 +	return 0;
 +}
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_fgpi.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_fgpi.h	2013-01-16 10:41:10.917798240 +0100
-@@ -0,0 +1,112 @@
++EXPORT_SYMBOL_GPL(saa716x_fgpi_exit);
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_fgpi.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_fgpi.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_fgpi.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_fgpi.h	2013-03-07 17:55:53.759588384 +0100
+@@ -0,0 +1,92 @@
 +#ifndef __SAA716x_FGPI_H
 +#define __SAA716x_FGPI_H
 +
 +#include <linux/interrupt.h>
 +
 +#define FGPI_BUFFERS		8
-+#define PTA_LSB(__mem)		((u32 ) (__mem))
-+#define PTA_MSB(__mem)		((u32 ) ((u64)(__mem) >> 32))
 +
-+#define BAM_DMA_BUF_MODE_BASE		0x0d8
-+#define BAM_DMA_BUF_MODE_OFFSET		0x24
-+
-+#define BAM_DMA_BUF_MODE(__ch)		(BAM_DMA_BUF_MODE_BASE + (BAM_DMA_BUF_MODE_OFFSET * __ch))
-+
-+#define BAM_FGPI_ADDR_OFFST_BASE	0x0dc
-+#define BAM_FGPI_ADDR_OFFST_OFFSET	0x24
-+
-+#define BAM_FGPI_ADDR_OFFSET(__ch)	(BAM_FGPI_ADDR_OFFST_BASE + (BAM_FGPI_ADDR_OFFST_OFFSET * __ch))
-+
-+#define BAM_FGPI_ADDR_OFFST_0(__ch)	BAM_FGPI_ADDR_OFFSET(__ch) + 0x00
-+#define BAM_FGPI_ADDR_OFFST_1(__ch)	BAM_FGPI_ADDR_OFFSET(__ch) + 0x04
-+#define BAM_FGPI_ADDR_OFFST_2(__ch)	BAM_FGPI_ADDR_OFFSET(__ch) + 0x08
-+#define BAM_FGPI_ADDR_OFFST_3(__ch)	BAM_FGPI_ADDR_OFFSET(__ch) + 0x0c
-+#define BAM_FGPI_ADDR_OFFST_4(__ch)	BAM_FGPI_ADDR_OFFSET(__ch) + 0x10
-+#define BAM_FGPI_ADDR_OFFST_5(__ch)	BAM_FGPI_ADDR_OFFSET(__ch) + 0x14
-+#define BAM_FGPI_ADDR_OFFST_6(__ch)	BAM_FGPI_ADDR_OFFSET(__ch) + 0x18
-+#define BAM_FGPI_ADDR_OFFST_7(__ch)	BAM_FGPI_ADDR_OFFSET(__ch) + 0x1c
-+
-+struct saa716x_dmabuf;
 +
 +/*
 + * Port supported streams
@@ -5843,6 +6015,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.h linux-3.7.2.p
 + * FGPI_PROGRAM_STREAM
 + */
 +enum fgpi_stream_type {
++	FGPI_RAW_STREAM		= 0x00,
 +	FGPI_AUDIO_STREAM	= 0x01,
 +	FGPI_VIDEO_STREAM	= 0x02,
 +	FGPI_VBI_STREAM		= 0x04,
@@ -5911,13 +6084,14 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi.h linux-3.7.2.p
 +extern int saa716x_fgpi_stop(struct saa716x_dev *saa716x, int port);
 +
 +extern int saa716x_fgpi_init(struct saa716x_dev *saa716x, int port,
-+			     void (*worker)(unsigned long));
++			      int dma_buf_size,
++			      void (*worker)(unsigned long));
 +extern int saa716x_fgpi_exit(struct saa716x_dev *saa716x, int port);
 +
 +#endif /* __SAA716x_FGPI_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi_reg.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_fgpi_reg.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi_reg.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_fgpi_reg.h	2013-01-16 10:41:10.918798233 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_fgpi_reg.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_fgpi_reg.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_fgpi_reg.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_fgpi_reg.h	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,74 @@
 +#ifndef __SAA716x_FGPI_REG_H
 +#define __SAA716x_FGPI_REG_H
@@ -5993,9 +6167,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_fgpi_reg.h linux-3.7
 +#define FGPI_MODULE_ID			0xffc
 +
 +#endif /* __SAA716x_FGPI_REG_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_gpio.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_gpio.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_gpio.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_gpio.c	2013-01-16 10:41:10.918798233 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_gpio.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_gpio.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_gpio.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_gpio.c	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,140 @@
 +#include <linux/kernel.h>
 +#include <linux/spinlock.h>
@@ -6137,9 +6311,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_gpio.c linux-3.7.2.p
 +	return 0;
 +}
 +EXPORT_SYMBOL_GPL(saa716x_gpio_read);
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_gpio.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_gpio.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_gpio.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_gpio.h	2013-01-16 10:41:10.918798233 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_gpio.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_gpio.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_gpio.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_gpio.h	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,26 @@
 +#ifndef __SAA716x_GPIO_H
 +#define __SAA716x_GPIO_H
@@ -6167,9 +6341,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_gpio.h linux-3.7.2.p
 +extern int saa716x_gpio_read(struct saa716x_dev *saa716x, int gpio);
 +
 +#endif /* __SAA716x_GPIO_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_gpio_reg.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_gpio_reg.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_gpio_reg.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_gpio_reg.h	2013-01-16 10:41:10.919798225 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_gpio_reg.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_gpio_reg.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_gpio_reg.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_gpio_reg.h	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,47 @@
 +#ifndef __SAA716x_GPIO_REG_H
 +#define __SAA716x_GPIO_REG_H
@@ -6218,9 +6392,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_gpio_reg.h linux-3.7
 +#define GPIO_00				(1 <<  0)
 +
 +#endif /* __SAA716x_GPIO_REG_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_greg.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_greg.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_greg.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_greg.c	2013-01-16 10:41:10.919798225 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_greg.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_greg.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_greg.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_greg.c	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,42 @@
 +#include <linux/kernel.h>
 +
@@ -6264,9 +6438,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_greg.c linux-3.7.2.p
 +
 +	SAA716x_EPWR(GREG, GREG_VIDEO_IN_CTRL, g_save[10]);
 +}
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_greg.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_greg.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_greg.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_greg.h	2013-01-16 10:41:10.919798225 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_greg.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_greg.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_greg.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_greg.h	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,9 @@
 +#ifndef __SAA716x_GREG_H
 +#define __SAA716x_GREG_H
@@ -6277,9 +6451,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_greg.h linux-3.7.2.p
 +extern void saa716x_greg_restore(struct saa716x_dev *saa716x);
 +
 +#endif /* __SAA716x_GREG_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_greg_reg.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_greg_reg.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_greg_reg.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_greg_reg.h	2013-01-16 10:41:10.919798225 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_greg_reg.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_greg_reg.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_greg_reg.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_greg_reg.h	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,91 @@
 +#ifndef __SAA716x_GREG_REG_H
 +#define __SAA716x_GREG_REG_H
@@ -6372,9 +6546,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_greg_reg.h linux-3.7
 +
 +
 +#endif /* __SAA716x_GREG_REG_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_hybrid.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_hybrid.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_hybrid.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_hybrid.c	2013-01-16 10:41:10.920798217 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_hybrid.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_hybrid.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_hybrid.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_hybrid.c	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,726 @@
 +#include <linux/module.h>
 +#include <linux/moduleparam.h>
@@ -6426,7 +6600,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_hybrid.c linux-3.7.2
 +
 +#define DRIVER_NAME	"SAA716x Hybrid"
 +
-+static int __devinit saa716x_hybrid_pci_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
++static int saa716x_hybrid_pci_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
 +{
 +	struct saa716x_dev *saa716x;
 +	int err = 0;
@@ -6531,7 +6705,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_hybrid.c linux-3.7.2
 +	return err;
 +}
 +
-+static void __devexit saa716x_hybrid_pci_remove(struct pci_dev *pdev)
++static void saa716x_hybrid_pci_remove(struct pci_dev *pdev)
 +{
 +	struct saa716x_dev *saa716x = pci_get_drvdata(pdev);
 +
@@ -7086,12 +7260,12 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_hybrid.c linux-3.7.2
 +	.remove			= saa716x_hybrid_pci_remove,
 +};
 +
-+static int __devinit saa716x_hybrid_init(void)
++static int __init saa716x_hybrid_init(void)
 +{
 +	return pci_register_driver(&saa716x_hybrid_pci_driver);
 +}
 +
-+static void __devexit saa716x_hybrid_exit(void)
++static void __exit saa716x_hybrid_exit(void)
 +{
 +	return pci_unregister_driver(&saa716x_hybrid_pci_driver);
 +}
@@ -7102,9 +7276,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_hybrid.c linux-3.7.2
 +MODULE_DESCRIPTION("SAA716x Hybrid driver");
 +MODULE_AUTHOR("Manu Abraham");
 +MODULE_LICENSE("GPL");
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_hybrid.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_hybrid.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_hybrid.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_hybrid.h	2013-01-16 10:41:10.920798217 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_hybrid.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_hybrid.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_hybrid.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_hybrid.h	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,13 @@
 +#ifndef __SAA716x_HYBRID_H
 +#define __SAA716x_HYBRID_H
@@ -7119,9 +7293,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_hybrid.h linux-3.7.2
 +#define KWORLD_DVB_T_PE310	0x7521
 +
 +#endif /* __SAA716x_HYBRID_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_i2c.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_i2c.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_i2c.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_i2c.c	2013-01-16 10:41:10.921798210 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_i2c.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_i2c.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_i2c.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_i2c.c	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,738 @@
 +#include <linux/delay.h>
 +
@@ -7758,7 +7932,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_i2c.c linux-3.7.2.pa
 +	}
 +};
 +
-+int __devinit saa716x_i2c_init(struct saa716x_dev *saa716x)
++int saa716x_i2c_init(struct saa716x_dev *saa716x)
 +{
 +	struct pci_dev *pdev		= saa716x->pdev;
 +	struct saa716x_i2c *i2c		= saa716x->i2c;
@@ -7829,7 +8003,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_i2c.c linux-3.7.2.pa
 +}
 +EXPORT_SYMBOL_GPL(saa716x_i2c_init);
 +
-+int __devexit saa716x_i2c_exit(struct saa716x_dev *saa716x)
++int saa716x_i2c_exit(struct saa716x_dev *saa716x)
 +{
 +	struct saa716x_i2c *i2c		= saa716x->i2c;
 +	struct i2c_adapter *adapter	= NULL;
@@ -7861,9 +8035,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_i2c.c linux-3.7.2.pa
 +	return err;
 +}
 +EXPORT_SYMBOL_GPL(saa716x_i2c_exit);
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_i2c.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_i2c.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_i2c.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_i2c.h	2013-01-16 10:41:10.921798210 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_i2c.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_i2c.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_i2c.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_i2c.h	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,52 @@
 +#ifndef __SAA716x_I2C_H
 +#define __SAA716x_I2C_H
@@ -7917,9 +8091,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_i2c.h linux-3.7.2.pa
 +extern int saa716x_i2c_irqevent(struct saa716x_dev *saa716x, u8 bus);
 +
 +#endif /* __SAA716x_I2C_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_i2c_reg.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_i2c_reg.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_i2c_reg.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_i2c_reg.h	2013-01-16 10:41:10.922798203 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_i2c_reg.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_i2c_reg.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_i2c_reg.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_i2c_reg.h	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,145 @@
 +#ifndef __SAA716x_I2C_REG_H
 +#define __SAA716x_I2C_REG_H
@@ -8066,9 +8240,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_i2c_reg.h linux-3.7.
 +
 +
 +#endif /* __SAA716x_I2C_REG_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_mod.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_mod.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_mod.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_mod.h	2013-01-16 10:41:10.922798203 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_mod.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_mod.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_mod.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_mod.h	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,50 @@
 +#ifndef __SAA716x_MOD_H
 +#define __SAA716x_MOD_H
@@ -8113,16 +8287,16 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_mod.h linux-3.7.2.pa
 +#define I2C_A				0x0000c000
 +#define SPI				0x0000d000
 +#define GPIO				0x0000e000
-+#define	PHI_0				0x0000f000
++#define PHI_0				0x0000f000
 +#define GREG				0x00012000
 +#define CGU				0x00013000
 +#define DCS				0x00014000
 +#define PHI_1				0x00020000
 +
 +#endif /* __SAA716x_MOD_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_msi.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_msi.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_msi.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_msi.c	2013-01-16 10:41:10.923798196 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_msi.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_msi.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_msi.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_msi.c	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,479 @@
 +#include <linux/delay.h>
 +
@@ -8603,9 +8777,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_msi.c linux-3.7.2.pa
 +
 +	return 0;
 +}
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_msi.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_msi.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_msi.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_msi.h	2013-01-16 10:41:10.923798196 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_msi.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_msi.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_msi.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_msi.h	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,87 @@
 +#ifndef __SAA716x_MSI_H
 +#define __SAA716x_MSI_H
@@ -8694,9 +8868,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_msi.h linux-3.7.2.pa
 +extern int saa716x_remove_irqvector(struct saa716x_dev *saa716x, int vector);
 +
 +#endif /* __SAA716x_MSI_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_msi_reg.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_msi_reg.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_msi_reg.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_msi_reg.h	2013-01-16 10:41:10.923798196 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_msi_reg.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_msi_reg.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_msi_reg.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_msi_reg.h	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,143 @@
 +#ifndef __SAA716x_MSI_REG_H
 +#define __SAA716x_MSI_REG_H
@@ -8841,9 +9015,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_msi_reg.h linux-3.7.
 +
 +
 +#endif /* __SAA716x_MSI_REG_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_pci.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_pci.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_pci.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_pci.c	2013-01-16 10:41:10.924798189 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_pci.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_pci.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_pci.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_pci.c	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,275 @@
 +#include <asm/io.h>
 +#include <asm/pgtable.h>
@@ -8985,7 +9159,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_pci.c linux-3.7.2.pa
 +	}
 +}
 +
-+int __devinit saa716x_pci_init(struct saa716x_dev *saa716x)
++int saa716x_pci_init(struct saa716x_dev *saa716x)
 +{
 +	struct pci_dev *pdev = saa716x->pdev;
 +	int err = 0, ret = -ENODEV, i, use_dac, pm_cap;
@@ -9096,7 +9270,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_pci.c linux-3.7.2.pa
 +}
 +EXPORT_SYMBOL_GPL(saa716x_pci_init);
 +
-+void __devexit saa716x_pci_exit(struct saa716x_dev *saa716x)
++void saa716x_pci_exit(struct saa716x_dev *saa716x)
 +{
 +	struct pci_dev *pdev = saa716x->pdev;
 +
@@ -9120,9 +9294,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_pci.c linux-3.7.2.pa
 +MODULE_DESCRIPTION("SAA716x bridge driver");
 +MODULE_AUTHOR("Manu Abraham");
 +MODULE_LICENSE("GPL");
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_phi.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_phi.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_phi.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_phi.c	2013-01-16 10:41:10.924798189 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_phi.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_phi.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_phi.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_phi.c	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,152 @@
 +#include <linux/kernel.h>
 +
@@ -9276,9 +9450,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_phi.c linux-3.7.2.pa
 +	return 0;
 +}
 +EXPORT_SYMBOL_GPL(saa716x_phi_write_fifo);
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_phi.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_phi.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_phi.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_phi.h	2013-01-16 10:41:10.924798189 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_phi.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_phi.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_phi.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_phi.h	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,39 @@
 +#ifndef __SAA716x_PHI_H
 +#define __SAA716x_PHI_H
@@ -9319,10 +9493,10 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_phi.h linux-3.7.2.pa
 +extern int saa716x_phi_write_fifo(struct saa716x_dev *saa716x, const u8 * data, int length);
 +
 +#endif /* __SAA716x_PHI_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_phi_reg.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_phi_reg.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_phi_reg.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_phi_reg.h	2013-01-16 10:41:10.925798182 +0100
-@@ -0,0 +1,100 @@
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_phi_reg.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_phi_reg.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_phi_reg.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_phi_reg.h	2013-03-07 17:55:53.755588384 +0100
+@@ -0,0 +1,94 @@
 +#ifndef __SAA716x_PHI_REG_H
 +#define __SAA716x_PHI_REG_H
 +
@@ -9381,8 +9555,6 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_phi_reg.h linux-3.7.
 +
 +/* -------------- PHI_1 Registers -------------- */
 +
-+#define	PHI_1				0x00020000
-+
 +#define PHI_1_MODE			0x00004
 +#define PHI_1_0_CONFIG			0x00018
 +#define PHI_1_1_CONFIG			0x0001c
@@ -9418,15 +9590,11 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_phi_reg.h linux-3.7.
 +#define PHI_1_7_RW_16383		0x7ffc
 +
 +
-+/* BAR = 20 bits */
-+/* -------------- PHI1 Registers -------------- */
-+
-+
 +#endif /* __SAA716x_PHI_REG_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_priv.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_priv.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_priv.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_priv.h	2013-01-16 10:41:10.925798182 +0100
-@@ -0,0 +1,194 @@
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_priv.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_priv.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_priv.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_priv.h	2013-03-07 17:55:53.759588384 +0100
+@@ -0,0 +1,197 @@
 +#ifndef __SAA716x_PRIV_H
 +#define __SAA716x_PRIV_H
 +
@@ -9444,6 +9612,8 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_priv.h linux-3.7.2.p
 +#include "saa716x_cgu.h"
 +#include "saa716x_dma.h"
 +#include "saa716x_fgpi.h"
++#include "saa716x_spi.h"
++#include "saa716x_vip.h"
 +
 +#include "dvbdev.h"
 +#include "dvb_demux.h"
@@ -9585,6 +9755,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_priv.h linux-3.7.2.p
 +	/* DMA */
 +
 +	struct saa716x_fgpi_stream_port	fgpi[4];
++	struct saa716x_vip_stream_port	vip[2];
 +
 +	u32				id_offst;
 +	u32				id_len;
@@ -9621,1292 +9792,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_priv.h linux-3.7.2.p
 +extern void saa716x_ir_handler(struct saa716x_dev *saa716x, u32 ir_cmd);
 +
 +#endif /* __SAA716x_PRIV_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_reg.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_reg.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_reg.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_reg.h	2013-01-16 10:41:10.925798182 +0100
-@@ -0,0 +1,1279 @@
-+#ifndef __SAA716x_REG_H
-+#define __SAA716x_REG_H
-+
-+/* BAR = 17 bits */
-+/*
-+	VI0	0x00000000
-+	VI1	0x00001000
-+	FGPI0	0x00002000
-+	FGPI1	0x00003000
-+	FGPI2	0x00004000
-+	FGPI3	0x00005000
-+	AI0	0x00006000
-+	AI1	0x00007000
-+	BAM	0x00008000
-+	MMU	0x00009000
-+	MSI	0x0000a000
-+	I2C_B	0x0000b000
-+	I2C_A	0x0000c000
-+	SPI	0x0000d000
-+	GPIO	0x0000e000
-+	PHI_0	0x0000f000
-+	CGU	0x00013000
-+	DCS	0x00014000
-+	GREG	0x00012000
-+
-+	PHI_1	0x00020000
-+*/
-+
-+/* -------------- VIP Registers -------------- */
-+
-+#define VI0				0x00000000
-+#define VI1				0x00001000
-+
-+#define VI_MODE				0x000
-+#define VID_CFEN			(0x00000003 << 30)
-+#define VID_OSM				(0x00000001 << 29)
-+#define VID_FSEQ			(0x00000001 << 28)
-+#define AUX_CFEN			(0x00000003 << 26)
-+#define AUX_OSM				(0x00000001 << 25)
-+#define AUX_FSEQ			(0x00000001 << 24)
-+#define AUX_ANC_DATA			(0x00000003 << 22)
-+#define AUX_ANC_RAW			(0x00000001 << 21)
-+#define RST_ON_ERR			(0x00000001 << 17)
-+#define SOFT_RESET			(0x00000001 << 16)
-+#define IFF_CLAMP			(0x00000001 << 14)
-+#define IFF_MODE			(0x00000003 << 12)
-+#define DFF_CLAMP			(0x00000001 << 10)
-+#define DFF_MODE			(0x00000003 <<  8)
-+#define HSP_CLAMP			(0x00000001 <<  3)
-+#define HSP_RGB				(0x00000001 <<  2)
-+#define HSP_MODE			(0x00000003 <<  0)
-+
-+#define RCRB_CTRL			0x004
-+#define RCRB_CFG_ADDR			0x008
-+#define RCRB_CFG_EXT_ADDR		0x00c
-+#define RCRB_IO_ADDR			0x010
-+#define RCRB_MEM_LADDR			0x014
-+#define RCRB_MEM_UADDR			0x018
-+#define RCRB_DATA			0x01c
-+#define RCRB_MASK			0x020
-+#define RCRB_MSG_HDR			0x040
-+#define RCRB_MSG_PL0			0x044
-+#define RCRB_MSG_PL1			0x048
-+
-+#define ID_MASK0			0x020
-+#define VI_ID_MASK_0			(0x000000ff <<  8)
-+#define VI_DATA_ID_0			(0x000000ff <<  0)
-+
-+#define ID_MASK1			0x024
-+#define VI_ID_MASK_1			(0x000000ff <<  8)
-+#define VI_DATA_ID_1			(0x000000ff <<  0)
-+
-+#define VIP_LINE_THRESH			0x040
-+#define VI_LCTHR			(0x000007ff <<  0)
-+
-+#define VIN_FORMAT			0x100
-+#define VI_VSRA				(0x00000003 << 30)
-+#define VI_SYNCHD			(0x00000001 << 25)
-+#define VI_DUAL_STREAM			(0x00000001 << 24)
-+#define VI_NHDAUX			(0x00000001 << 20)
-+#define VI_NPAR				(0x00000001 << 19)
-+#define VI_VSEL				(0x00000003 << 14)
-+#define VI_TWOS				(0x00000001 << 13)
-+#define VI_TPG				(0x00000001 << 12)
-+#define VI_FREF				(0x00000001 << 10)
-+#define VI_FTGL				(0x00000001 <<  9)
-+#define VI_SF				(0x00000001 <<  3)
-+#define VI_FZERO			(0x00000001 <<  2)
-+#define VI_REVS				(0x00000001 <<  1)
-+#define VI_REHS				(0x00000001 <<  0)
-+
-+#define TC76543210			0x800
-+#define TCFEDCBA98			0x804
-+#define PHYCFG				0x900
-+#define CONFIG				0xfd4
-+#define INT_ENABLE_CLR			0xfd8
-+#define INT_ENABLE_SET			0xfdc
-+
-+
-+#define INT_STATUS			0xfe0
-+#define VI_STAT_FID_AUX			(0x00000001 << 31)
-+#define VI_STAT_FID_VID			(0x00000001 << 30)
-+#define VI_STAT_FID_VPI			(0x00000001 << 29)
-+#define VI_STAT_LINE_COUNT		(0x00000fff << 16)
-+#define VI_STAT_AUX_OVRFLW		(0x00000001 <<  9)
-+#define VI_STAT_VID_OVRFLW		(0x00000001 <<  8)
-+#define VI_STAT_WIN_SEQBRK		(0x00000001 <<  7)
-+#define VI_STAT_FID_SEQBRK		(0x00000001 <<  6)
-+#define VI_STAT_LINE_THRESH		(0x00000001 <<  5)
-+#define VI_STAT_AUX_WRAP		(0x00000001 <<  4)
-+#define VI_STAT_AUX_START_IN		(0x00000001 <<  3)
-+#define VI_STAT_AUX_END_OUT		(0x00000001 <<  2)
-+#define VI_STAT_VID_START_IN		(0x00000001 <<  1)
-+#define VI_STAT_VID_END_OUT		(0x00000001 <<  0)
-+
-+#define INT_ENABLE			0xfe4
-+#define VI_ENABLE_AUX_OVRFLW		(0x00000001 <<  9)
-+#define VI_ENABLE_VID_OVRFLW		(0x00000001 <<  8)
-+#define VI_ENABLE_WIN_SEQBRK		(0x00000001 <<  7)
-+#define VI_ENABLE_FID_SEQBRK		(0x00000001 <<  6)
-+#define VI_ENABLE_LINE_THRESH		(0x00000001 <<  5)
-+#define VI_ENABLE_AUX_WRAP		(0x00000001 <<  4)
-+#define VI_ENABLE_AUX_START_IN		(0x00000001 <<  3)
-+#define VI_ENABLE_AUX_END_OUT		(0x00000001 <<  2)
-+#define VI_ENABLE_VID_START_IN		(0x00000001 <<  1)
-+#define VI_ENABLE_VID_END_OUT		(0x00000001 <<  0)
-+
-+#define INT_CLR_STATUS			0xfe8
-+#define VI_CLR_STATUS_AUX_OVRFLW	(0x00000001 <<  9)
-+#define VI_CLR_STATUS_VID_OVRFLW	(0x00000001 <<  8)
-+#define VI_CLR_STATUS_WIN_SEQBRK	(0x00000001 <<  7)
-+#define VI_CLR_STATUS_FID_SEQBRK	(0x00000001 <<  6)
-+#define VI_CLR_STATUS_LINE_THRESH	(0x00000001 <<  5)
-+#define VI_CLR_STATUS_AUX_WRAP		(0x00000001 <<  4)
-+#define VI_CLR_STATUS_AUX_START_IN	(0x00000001 <<  3)
-+#define VI_CLR_STATUS_AUX_END_OUT	(0x00000001 <<  2)
-+#define VI_CLR_STATUS_VID_START_IN	(0x00000001 <<  1)
-+#define VI_CLR_STATUS_VID_END_OUT	(0x00000001 <<  0)
-+
-+#define INT_SET_STATUS			0xfec
-+#define VI_SET_STATUS_AUX_OVRFLW	(0x00000001 <<  9)
-+#define VI_SET_STATUS_VID_OVRFLW	(0x00000001 <<  8)
-+#define VI_SET_STATUS_WIN_SEQBRK	(0x00000001 <<  7)
-+#define VI_SET_STATUS_FID_SEQBRK	(0x00000001 <<  6)
-+#define VI_SET_STATUS_LINE_THRESH	(0x00000001 <<  5)
-+#define VI_SET_STATUS_AUX_WRAP		(0x00000001 <<  4)
-+#define VI_SET_STATUS_AUX_START_IN	(0x00000001 <<  3)
-+#define VI_SET_STATUS_AUX_END_OUT	(0x00000001 <<  2)
-+#define VI_SET_STATUS_VID_START_IN	(0x00000001 <<  1)
-+#define VI_SET_STATUS_VID_END_OUT	(0x00000001 <<  0)
-+
-+#define VIP_POWER_DOWN			0xff4
-+#define VI_PWR_DWN			(0x00000001 << 31)
-+
-+
-+
-+
-+/* -------------- FGPI Registers -------------- */
-+
-+#define FGPI0				0x00002000
-+#define FGPI1				0x00003000
-+#define FGPI2				0x00004000
-+#define FGPI3				0x00005000
-+
-+#define FGPI_CONTROL			0x000
-+#define FGPI_CAPTURE_ENABLE_2		(0x00000001 << 13)
-+#define FGPI_CAPTURE_ENABLE_1		(0x00000001 << 12)
-+#define FGPI_MODE			(0x00000001 << 11)
-+#define FGPI_SAMPLE_SIZE		(0x00000003 <<  8)
-+#define FGPI_BUF_SYNC_MSG_STOP		(0x00000003 <<  5)
-+#define FGPI_REC_START_MSG_START	(0x00000003 <<  2)
-+#define FGPI_TSTAMP_SELECT		(0x00000001 <<  1)
-+#define FGPI_VAR_LENGTH			(0x00000001 <<  0)
-+
-+#define FGPI_BASE_1			0x004
-+#define FGPI_BASE_2			0x008
-+#define FGPI_SIZE			0x00c
-+#define FGPI_REC_SIZE			0x010
-+#define FGPI_STRIDE			0x014
-+#define FGPI_NUM_RECORD_1		0x018
-+#define FGPI_NUM_RECORD_2		0x01c
-+#define FGPI_THRESHOLD_1		0x020
-+#define FGPI_THRESHOLD_2		0x024
-+#define FGPI_D1_XY_START		0x028
-+#define FGPI_D1_XY_END			0x02c
-+
-+#define INT_STATUS			0xfe0
-+#define FGPI_BUF1_ACTIVE		(0x00000001 <<  7)
-+#define FGPI_OVERFLOW			(0x00000001 <<  6)
-+#define FGPI_MBE			(0x00000001 <<  5)
-+#define FGPI_UNDERRUN			(0x00000001 <<  4)
-+#define FGPI_THRESH2_REACHED		(0x00000001 <<  3)
-+#define FGPI_THRESH1_REACHED		(0x00000001 <<  2)
-+#define FGPI_BUF2_FULL			(0x00000001 <<  1)
-+#define FGPI_BUF1_FULL			(0x00000001 <<  0)
-+
-+#define INT_ENABLE			0xfe4
-+#define FGPI_OVERFLOW_ENA		(0x00000001 <<  6)
-+#define FGPI_MBE_ENA			(0x00000001 <<  5)
-+#define FGPI_UNDERRUN_ENA		(0x00000001 <<  4)
-+#define FGPI_THRESH2_REACHED_ENA	(0x00000001 <<  3)
-+#define FGPI_THRESH1_REACHED_ENA	(0x00000001 <<  2)
-+#define FGPI_BUF2_FULL_ENA		(0x00000001 <<  1)
-+#define FGPI_BUF1_FULL_ENA		(0x00000001 <<  0)
-+
-+#define INT_CLR_STATUS			0xfe8
-+#define FGPI_OVERFLOW_ACK		(0x00000001 <<  6)
-+#define FGPI_MBE_ACK			(0x00000001 <<  5)
-+#define FGPI_UNDERRUN_ACK		(0x00000001 <<  4)
-+#define FGPI_THRESH2_REACHED_ACK	(0x00000001 <<  3)
-+#define FGPI_THRESH1_REACHED_ACK	(0x00000001 <<  2)
-+#define FGPI_BUF2_DONE_ACK		(0x00000001 <<  1)
-+#define FGPI_BUF1_DONE_ACK		(0x00000001 <<  0)
-+
-+#define INT_SET_STATUS			0xfec
-+#define FGPI_OVERFLOW_SET		(0x00000001 <<  6)
-+#define FGPI_MBE_SET			(0x00000001 <<  5)
-+#define FGPI_UNDERRUN_SET		(0x00000001 <<  4)
-+#define FGPI_THRESH2_REACHED_SET	(0x00000001 <<  3)
-+#define FGPI_THRESH1_REACHED_SET	(0x00000001 <<  2)
-+#define FGPI_BUF2_DONE_SET		(0x00000001 <<  1)
-+#define FGPI_BUF1_DONE_SET		(0x00000001 <<  0)
-+
-+#define FGPI_SOFT_RESET			0xff0
-+#define FGPI_SOFTWARE_RESET		(0x00000001 <<  0)
-+
-+#define FGPI_INTERFACE			0xff4
-+#define FGPI_DISABLE_BUS_IF		(0x00000001 <<  0)
-+
-+#define FGPI_MOD_ID_EXT			0xff8
-+#define FGPI_MODULE_ID			0xffc
-+
-+
-+/* -------------- AI Registers ---------------- */
-+
-+#define AI0				0x00006000
-+#define AI1				0x00007000
-+
-+#define AI_STATUS			0x000
-+#define AI_BUF1_ACTIVE			(0x00000001 <<  4)
-+#define AI_OVERRUN			(0x00000001 <<  3)
-+#define AI_HBE				(0x00000001 <<  2)
-+#define AI_BUF2_FULL			(0x00000001 <<  1)
-+#define AI_BUF1_FULL			(0x00000001 <<  0)
-+
-+#define AI_CTL				0x004
-+#define AI_RESET			(0x00000001 <<  31)
-+#define AI_CAP_ENABLE			(0x00000001 <<  30)
-+#define AI_CAP_MODE			(0x00000003 <<  28)
-+#define AI_SIGN_CONVERT			(0x00000001 <<  27)
-+#define AI_EARLYMODE			(0x00000001 <<  26)
-+#define AI_DIAGMODE			(0x00000001 <<  25)
-+#define AI_RAWMODE			(0x00000001 <<  24)
-+#define AI_OVR_INTEN			(0x00000001 <<   7)
-+#define AI_HBE_INTEN			(0x00000001 <<   6)
-+#define AI_BUF2_INTEN			(0x00000001 <<   5)
-+#define AI_BUF1_INTEN			(0x00000001 <<   4)
-+#define AI_ACK_OVR			(0x00000001 <<   3)
-+#define AI_ACK_HBE			(0x00000001 <<   2)
-+#define AI_ACK2				(0x00000001 <<   1)
-+#define AI_ACK1				(0x00000001 <<   0)
-+
-+#define AI_SERIAL			0x008
-+#define AI_SER_MASTER			(0x00000001 <<  31)
-+#define AI_DATAMODE			(0x00000001 <<  30)
-+#define AI_FRAMEMODE			(0x00000003 <<  28)
-+#define AI_CLOCK_EDGE			(0x00000001 <<  27)
-+#define AI_SSPOS4			(0x00000001 <<  19)
-+#define AI_NR_CHAN			(0x00000003 <<  17)
-+#define AI_WSDIV			(0x000001ff <<   8)
-+#define AI_SCKDIV			(0x000000ff <<   0)
-+
-+#define AI_FRAMING			0x00c
-+#define AI_VALIDPOS			(0x000001ff << 22)
-+#define AI_LEFTPOS			(0x000001ff << 13)
-+#define AI_RIGHTPOS			(0x000001ff <<  4)
-+#define AI_SSPOS_3_0			(0x0000000f <<  0)
-+
-+#define AI_BASE1			0x014
-+#define AI_BASE2			0x018
-+#define AI_BASE				(0x03ffffff <<  6)
-+
-+#define AI_SIZE				0x01c
-+#define AI_SAMPLE_SIZE			(0x03ffffff <<  6)
-+
-+#define AI_INT_ACK			0x020
-+#define AI_ACK_OVR			(0x00000001 <<  3)
-+#define AI_ACK_HBE			(0x00000001 <<  2)
-+#define AI_ACK2				(0x00000001 <<  1)
-+#define AI_ACK1				(0x00000001 <<  0)
-+
-+#define AI_PWR_DOWN			0xff4
-+#define AI_PWR_DWN			(0x00000001 <<  0)
-+
-+/* -------------- BAM Registers -------------- */
-+
-+#define BAM				0x00008000
-+
-+#define BAM_VI0_0_DMA_BUF_MODE		0x000
-+
-+#define BAM_VI0_0_ADDR_OFFST_0		0x004
-+#define BAM_VI0_0_ADDR_OFFST_1		0x008
-+#define BAM_VI0_0_ADDR_OFFST_2		0x00c
-+#define BAM_VI0_0_ADDR_OFFST_3		0x010
-+#define BAM_VI0_0_ADDR_OFFST_4		0x014
-+#define BAM_VI0_0_ADDR_OFFST_5		0x018
-+#define BAM_VI0_0_ADDR_OFFST_6		0x01c
-+#define BAM_VI0_0_ADDR_OFFST_7		0x020
-+
-+#define BAM_VI0_1_DMA_BUF_MODE		0x024
-+#define BAM_VI0_1_ADDR_OFFST_0		0x028
-+#define BAM_VI0_1_ADDR_OFFST_1		0x02c
-+#define BAM_VI0_1_ADDR_OFFST_2		0x030
-+#define BAM_VI0_1_ADDR_OFFST_3		0x034
-+#define BAM_VI0_1_ADDR_OFFST_4		0x038
-+#define BAM_VI0_1_ADDR_OFFST_5		0x03c
-+#define BAM_VI0_1_ADDR_OFFST_6		0x040
-+#define BAM_VI0_1_ADDR_OFFST_7		0x044
-+
-+#define BAM_VI0_2_DMA_BUF_MODE		0x048
-+#define BAM_VI0_2_ADDR_OFFST_0		0x04c
-+#define BAM_VI0_2_ADDR_OFFST_1		0x050
-+#define BAM_VI0_2_ADDR_OFFST_2		0x054
-+#define BAM_VI0_2_ADDR_OFFST_3		0x058
-+#define BAM_VI0_2_ADDR_OFFST_4		0x05c
-+#define BAM_VI0_2_ADDR_OFFST_5		0x060
-+#define BAM_VI0_2_ADDR_OFFST_6		0x064
-+#define BAM_VI0_2_ADDR_OFFST_7		0x068
-+
-+
-+#define BAM_VI1_0_DMA_BUF_MODE		0x06c
-+#define BAM_VI1_0_ADDR_OFFST_0		0x070
-+#define BAM_VI1_0_ADDR_OFFST_1		0x074
-+#define BAM_VI1_0_ADDR_OFFST_2		0x078
-+#define BAM_VI1_0_ADDR_OFFST_3		0x07c
-+#define BAM_VI1_0_ADDR_OFFST_4		0x080
-+#define BAM_VI1_0_ADDR_OFFST_5		0x084
-+#define BAM_VI1_0_ADDR_OFFST_6		0x088
-+#define BAM_VI1_0_ADDR_OFFST_7		0x08c
-+
-+#define BAM_VI1_1_DMA_BUF_MODE		0x090
-+#define BAM_VI1_1_ADDR_OFFST_0		0x094
-+#define BAM_VI1_1_ADDR_OFFST_1		0x098
-+#define BAM_VI1_1_ADDR_OFFST_2		0x09c
-+#define BAM_VI1_1_ADDR_OFFST_3		0x0a0
-+#define BAM_VI1_1_ADDR_OFFST_4		0x0a4
-+#define BAM_VI1_1_ADDR_OFFST_5		0x0a8
-+#define BAM_VI1_1_ADDR_OFFST_6		0x0ac
-+#define BAM_VI1_1_ADDR_OFFST_7		0x0b0
-+
-+#define BAM_VI1_2_DMA_BUF_MODE		0x0b4
-+#define BAM_VI1_2_ADDR_OFFST_0		0x0b8
-+#define BAM_VI1_2_ADDR_OFFST_1		0x0bc
-+#define BAM_VI1_2_ADDR_OFFST_2		0x0c0
-+#define BAM_VI1_2_ADDR_OFFST_3		0x0c4
-+#define BAM_VI1_2_ADDR_OFFST_4		0x0c8
-+#define BAM_VI1_2_ADDR_OFFST_5		0x0cc
-+#define BAM_VI1_2_ADDR_OFFST_6		0x0d0
-+#define BAM_VI1_2_ADDR_OFFST_7		0x0d4
-+
-+
-+#define BAM_FGPI0_DMA_BUF_MODE		0x0d8
-+#define BAM_FGPI0_ADDR_OFFST_0		0x0dc
-+#define BAM_FGPI0_ADDR_OFFST_1		0x0e0
-+#define BAM_FGPI0_ADDR_OFFST_2		0x0e4
-+#define BAM_FGPI0_ADDR_OFFST_3		0x0e8
-+#define BAM_FGPI0_ADDR_OFFST_4		0x0ec
-+#define BAM_FGPI0_ADDR_OFFST_5		0x0f0
-+#define BAM_FGPI0_ADDR_OFFST_6		0x0f4
-+#define BAM_FGPI0_ADDR_OFFST_7		0x0f8
-+
-+#define BAM_FGPI1_DMA_BUF_MODE		0x0fc
-+#define BAM_FGPI1_ADDR_OFFST_0		0x100
-+#define BAM_FGPI1_ADDR_OFFST_1		0x104
-+#define BAM_FGPI1_ADDR_OFFST_2		0x108
-+#define BAM_FGPI1_ADDR_OFFST_3		0x10c
-+#define BAM_FGPI1_ADDR_OFFST_4		0x110
-+#define BAM_FGPI1_ADDR_OFFST_5		0x114
-+#define BAM_FGPI1_ADDR_OFFST_6		0x118
-+#define BAM_FGPI1_ADDR_OFFST_7		0x11c
-+
-+#define BAM_FGPI2_DMA_BUF_MODE		0x120
-+#define BAM_FGPI2_ADDR_OFFST_0		0x124
-+#define BAM_FGPI2_ADDR_OFFST_1		0x128
-+#define BAM_FGPI2_ADDR_OFFST_2		0x12c
-+#define BAM_FGPI2_ADDR_OFFST_3		0x130
-+#define BAM_FGPI2_ADDR_OFFST_4		0x134
-+#define BAM_FGPI2_ADDR_OFFST_5		0x138
-+#define BAM_FGPI2_ADDR_OFFST_6		0x13c
-+#define BAM_FGPI2_ADDR_OFFST_7		0x140
-+
-+#define BAM_FGPI3_DMA_BUF_MODE		0x144
-+#define BAM_FGPI3_ADDR_OFFST_0		0x148
-+#define BAM_FGPI3_ADDR_OFFST_1		0x14c
-+#define BAM_FGPI3_ADDR_OFFST_2		0x150
-+#define BAM_FGPI3_ADDR_OFFST_3		0x154
-+#define BAM_FGPI3_ADDR_OFFST_4		0x158
-+#define BAM_FGPI3_ADDR_OFFST_5		0x15c
-+#define BAM_FGPI3_ADDR_OFFST_6		0x160
-+#define BAM_FGPI3_ADDR_OFFST_7		0x164
-+
-+
-+#define BAM_AI0_DMA_BUF_MODE		0x168
-+#define BAM_AI0_ADDR_OFFST_0		0x16c
-+#define BAM_AI0_ADDR_OFFST_1		0x170
-+#define BAM_AI0_ADDR_OFFST_2		0x174
-+#define BAM_AI0_ADDR_OFFST_3		0x178
-+#define BAM_AI0_ADDR_OFFST_4		0x17c
-+#define BAM_AIO_ADDR_OFFST_5		0x180
-+#define BAM_AI0_ADDR_OFFST_6		0x184
-+#define BAM_AIO_ADDR_OFFST_7		0x188
-+
-+#define BAM_AI1_DMA_BUF_MODE		0x18c
-+#define BAM_AI1_ADDR_OFFST_0		0x190
-+#define BAM_AI1_ADDR_OFFST_1		0x194
-+#define BAM_AI1_ADDR_OFFST_2		0x198
-+#define BAM_AI1_ADDR_OFFST_3		0x19c
-+#define BAM_AI1_ADDR_OFFST_4		0x1a0
-+#define BAM_AI1_ADDR_OFFST_5		0x1a4
-+#define BAM_AI1_ADDR_OFFST_6		0x1a8
-+#define BAM_AI1_ADDR_OFFST_7		0x1ac
-+
-+#define BAM_SW_RST			0xff0
-+#define BAM_SW_RESET			(0x00000001 <<  0)
-+
-+
-+
-+
-+
-+/* -------------- MMU Registers -------------- */
-+
-+#define MMU				0x00009000
-+
-+#define MMU_MODE			0x000
-+
-+#define MMU_DMA_CONFIG0			0x004
-+#define MMU_DMA_CONFIG1			0x008
-+#define MMU_DMA_CONFIG2			0x00c
-+#define MMU_DMA_CONFIG3			0x010
-+#define MMU_DMA_CONFIG4			0x014
-+#define MMU_DMA_CONFIG5			0x018
-+#define MMU_DMA_CONFIG6			0x01c
-+#define MMU_DMA_CONFIG7			0x020
-+#define MMU_DMA_CONFIG8			0x024
-+#define MMU_DMA_CONFIG9			0x028
-+#define MMU_DMA_CONFIG10		0x02c
-+#define MMU_DMA_CONFIG11		0x030
-+#define MMU_DMA_CONFIG12		0x034
-+#define MMU_DMA_CONFIG13		0x038
-+#define MMU_DMA_CONFIG14		0x03c
-+#define MMU_DMA_CONFIG15		0x040
-+
-+#define MMU_SW_RST			0xff0
-+#define MMU_SW_RESET			(0x0001 <<  0)
-+
-+#define MMU_PTA_BASE0			0x044 /* DMA 0 */
-+#define MMU_PTA_BASE1			0x084 /* DMA 1 */
-+#define MMU_PTA_BASE2			0x0c4 /* DMA 2 */
-+#define MMU_PTA_BASE3			0x104 /* DMA 3 */
-+#define MMU_PTA_BASE4			0x144 /* DMA 4 */
-+#define MMU_PTA_BASE5			0x184 /* DMA 5 */
-+#define MMU_PTA_BASE6			0x1c4 /* DMA 6 */
-+#define MMU_PTA_BASE7			0x204 /* DMA 7 */
-+#define MMU_PTA_BASE8			0x244 /* DMA 8 */
-+#define MMU_PTA_BASE9			0x284 /* DMA 9 */
-+#define MMU_PTA_BASE10			0x2c4 /* DMA 10 */
-+#define MMU_PTA_BASE11			0x304 /* DMA 11 */
-+#define MMU_PTA_BASE12			0x344 /* DMA 12 */
-+#define MMU_PTA_BASE13			0x384 /* DMA 13 */
-+#define MMU_PTA_BASE14			0x3c4 /* DMA 14 */
-+#define MMU_PTA_BASE15			0x404 /* DMA 15 */
-+
-+#define MMU_PTA_BASE			0x044 /* DMA 0 */
-+#define MMU_PTA_OFFSET			0x40
-+
-+#define PTA_BASE(__ch)			(MMU_PTA_BASE + (MMU_PTA_OFFSET * __ch))
-+
-+#define MMU_PTA0_LSB(__ch)		PTA_BASE(__ch) + 0x00
-+#define MMU_PTA0_MSB(__ch)		PTA_BASE(__ch) + 0x04
-+#define MMU_PTA1_LSB(__ch)		PTA_BASE(__ch) + 0x08
-+#define MMU_PTA1_MSB(__ch)		PTA_BASE(__ch) + 0x0c
-+#define MMU_PTA2_LSB(__ch)		PTA_BASE(__ch) + 0x10
-+#define MMU_PTA2_MSB(__ch)		PTA_BASE(__ch) + 0x14
-+#define MMU_PTA3_LSB(__ch)		PTA_BASE(__ch) + 0x18
-+#define MMU_PTA3_MSB(__ch)		PTA_BASE(__ch) + 0x1c
-+#define MMU_PTA4_LSB(__ch)		PTA_BASE(__ch) + 0x20
-+#define MMU_PTA4_MSB(__ch)		PTA_BASE(__ch) + 0x24
-+#define MMU_PTA5_LSB(__ch)		PTA_BASE(__ch) + 0x28
-+#define MMU_PTA5_MSB(__ch)		PTA_BASE(__ch) + 0x2c
-+#define MMU_PTA6_LSB(__ch)		PTA_BASE(__ch) + 0x30
-+#define MMU_PTA6_MSB(__ch)		PTA_BASE(__ch) + 0x34
-+#define MMU_PTA7_LSB(__ch)		PTA_BASE(__ch) + 0x38
-+#define MMU_PTA7_MSB(__ch)		PTA_BASE(__ch) + 0x3c
-+
-+
-+/* -------------- MSI Registers -------------- */
-+
-+#define MSI				0x0000a000
-+
-+#define MSI_DELAY_TIMER			0x000
-+#define MSI_DELAY_1CLK			(0x00000001 <<  0)
-+#define MSI_DELAY_2CLK			(0x00000002 <<  0)
-+
-+#define MSI_INTA_POLARITY		0x004
-+#define MSI_INTA_POLARITY_HIGH		(0x00000001 <<  0)
-+
-+#define MSI_CONFIG0			0x008
-+#define MSI_CONFIG1			0x00c
-+#define MSI_CONFIG2			0x010
-+#define MSI_CONFIG3			0x014
-+#define MSI_CONFIG4			0x018
-+#define MSI_CONFIG5			0x01c
-+#define MSI_CONFIG6			0x020
-+#define MSI_CONFIG7			0x024
-+#define MSI_CONFIG8			0x028
-+#define MSI_CONFIG9			0x02c
-+#define MSI_CONFIG10			0x030
-+#define MSI_CONFIG11			0x034
-+#define MSI_CONFIG12			0x038
-+#define MSI_CONFIG13			0x03c
-+#define MSI_CONFIG14			0x040
-+#define MSI_CONFIG15			0x044
-+#define MSI_CONFIG16			0x048
-+#define MSI_CONFIG17			0x04c
-+#define MSI_CONFIG18			0x050
-+#define MSI_CONFIG19			0x054
-+#define MSI_CONFIG20			0x058
-+#define MSI_CONFIG21			0x05c
-+#define MSI_CONFIG22			0x060
-+#define MSI_CONFIG23			0x064
-+#define MSI_CONFIG24			0x068
-+#define MSI_CONFIG25			0x06c
-+#define MSI_CONFIG26			0x070
-+#define MSI_CONFIG27			0x074
-+#define MSI_CONFIG28			0x078
-+#define MSI_CONFIG29			0x07c
-+#define MSI_CONFIG30			0x080
-+#define MSI_CONFIG31			0x084
-+#define MSI_CONFIG32			0x088
-+#define MSI_CONFIG33			0x08c
-+#define MSI_CONFIG34			0x090
-+#define MSI_CONFIG35			0x094
-+#define MSI_CONFIG36			0x098
-+#define MSI_CONFIG37			0x09c
-+#define MSI_CONFIG38			0x0a0
-+#define MSI_CONFIG39			0x0a4
-+#define MSI_CONFIG40			0x0a8
-+#define MSI_CONFIG41			0x0ac
-+#define MSI_CONFIG42			0x0b0
-+#define MSI_CONFIG43			0x0b4
-+#define MSI_CONFIG44			0x0b8
-+#define MSI_CONFIG45			0x0bc
-+#define MSI_CONFIG46			0x0c0
-+#define MSI_CONFIG47			0x0c4
-+#define MSI_CONFIG48			0x0c8
-+#define MSI_CONFIG49			0x0cc
-+#define MSI_CONFIG50			0x0d0
-+
-+#define MSI_INT_POL_EDGE_RISE		(0x00000001 << 24)
-+#define MSI_INT_POL_EDGE_FALL		(0x00000002 << 24)
-+#define MSI_INT_POL_EDGE_ANY		(0x00000003 << 24)
-+#define MSI_TC				(0x00000007 << 16)
-+#define MSI_ID				(0x0000000f <<  0)
-+
-+#define MSI_INT_STATUS_L		0xfc0
-+#define MSI_INT_TAGACK_VI0_0		(0x00000001 <<  0)
-+#define MSI_INT_TAGACK_VI0_1		(0x00000001 <<  1)
-+#define MSI_INT_TAGACK_VI0_2		(0x00000001 <<  2)
-+#define MSI_INT_TAGACK_VI1_0		(0x00000001 <<  3)
-+#define MSI_INT_TAGACK_VI1_1		(0x00000001 <<  4)
-+#define MSI_INT_TAGACK_VI1_2		(0x00000001 <<  5)
-+#define MSI_INT_TAGACK_FGPI_0		(0x00000001 <<  6)
-+#define MSI_INT_TAGACK_FGPI_1		(0x00000001 <<  7)
-+#define MSI_INT_TAGACK_FGPI_2		(0x00000001 <<  8)
-+#define MSI_INT_TAGACK_FGPI_3		(0x00000001 <<  9)
-+#define MSI_INT_TAGACK_AI_0		(0x00000001 << 10)
-+#define MSI_INT_TAGACK_AI_1		(0x00000001 << 11)
-+#define MSI_INT_OVRFLW_VI0_0		(0x00000001 << 12)
-+#define MSI_INT_OVRFLW_VI0_1		(0x00000001 << 13)
-+#define MSI_INT_OVRFLW_VI0_2		(0x00000001 << 14)
-+#define MSI_INT_OVRFLW_VI1_0		(0x00000001 << 15)
-+#define MSI_INT_OVRFLW_VI1_1		(0x00000001 << 16)
-+#define MSI_INT_OVRFLW_VI1_2		(0x00000001 << 17)
-+#define MSI_INT_OVRFLW_FGPI_O		(0x00000001 << 18)
-+#define MSI_INT_OVRFLW_FGPI_1		(0x00000001 << 19)
-+#define MSI_INT_OVRFLW_FGPI_2		(0x00000001 << 20)
-+#define MSI_INT_OVRFLW_FGPI_3		(0x00000001 << 21)
-+#define MSI_INT_OVRFLW_AI_0		(0x00000001 << 22)
-+#define MSI_INT_OVRFLW_AI_1		(0x00000001 << 23)
-+#define MSI_INT_AVINT_VI0		(0x00000001 << 24)
-+#define MSI_INT_AVINT_VI1		(0x00000001 << 25)
-+#define MSI_INT_AVINT_FGPI_0		(0x00000001 << 26)
-+#define MSI_INT_AVINT_FGPI_1		(0x00000001 << 27)
-+#define MSI_INT_AVINT_FGPI_2		(0x00000001 << 28)
-+#define MSI_INT_AVINT_FGPI_3		(0x00000001 << 29)
-+#define MSI_INT_AVINT_AI_0		(0x00000001 << 30)
-+#define MSI_INT_AVINT_AI_1		(0x00000001 << 31)
-+
-+#define MSI_INT_STATUS_H		0xfc4
-+#define MSI_INT_UNMAPD_TC_INT		(0x00000001 <<  0)
-+#define MSI_INT_EXTINT_0		(0x00000001 <<  1)
-+#define MSI_INT_EXTINT_1		(0x00000001 <<  2)
-+#define MSI_INT_EXTINT_2		(0x00000001 <<  3)
-+#define MSI_INT_EXTINT_3		(0x00000001 <<  4)
-+#define MSI_INT_EXTINT_4		(0x00000001 <<  5)
-+#define MSI_INT_EXTINT_5		(0x00000001 <<  6)
-+#define MSI_INT_EXTINT_6		(0x00000001 <<  7)
-+#define MSI_INT_EXTINT_7		(0x00000001 <<  8)
-+#define MSI_INT_EXTINT_8		(0x00000001 <<  9)
-+#define MSI_INT_EXTINT_9		(0x00000001 << 10)
-+#define MSI_INT_EXTINT_10		(0x00000001 << 11)
-+#define MSI_INT_EXTINT_11		(0x00000001 << 12)
-+#define MSI_INT_EXTINT_12		(0x00000001 << 13)
-+#define MSI_INT_EXTINT_13		(0x00000001 << 14)
-+#define MSI_INT_EXTINT_14		(0x00000001 << 15)
-+#define MSI_INT_EXTINT_15		(0x00000001 << 16)
-+#define MSI_INT_I2CINT_0		(0x00000001 << 17)
-+#define MSI_INT_I2CINT_1		(0x00000001 << 18)
-+
-+#define MSI_INT_STATUS_CLR_L		0xfc8
-+#define MSI_INT_STATUS_CLR_H		0xfcc
-+#define MSI_INT_STATUS_SET_L		0xfd0
-+#define MSI_INT_STATUS_SET_H		0xfd4
-+#define MSI_INT_ENA_L			0xfd8
-+#define MSI_INT_ENA_H			0xfdc
-+#define MSI_INT_ENA_CLR_L		0xfe0
-+#define MSI_INT_ENA_CLR_H		0xfe4
-+#define MSI_INT_ENA_SET_L		0xfe8
-+#define MSI_INT_ENA_SET_H		0xfec
-+
-+#define MSI_SW_RST			0xff0
-+#define MSI_SW_RESET			(0x0001 <<  0)
-+
-+#define MSI_MODULE_ID			0xffc
-+
-+
-+/* -------------- I2C Registers -------------- */
-+
-+#define I2C_B				0x0000b000
-+#define I2C_A				0x0000c000
-+
-+#define RX_FIFO				0x000
-+#define I2C_RX_BYTE			(0x000000ff <<  0)
-+
-+#define TX_FIFO				0x000
-+#define I2C_STOP_BIT			(0x00000001 <<  9)
-+#define I2C_START_BIT			(0x00000001 <<  8)
-+#define I2C_TX_BYTE			(0x000000ff <<  0)
-+
-+#define I2C_STATUS			0x008
-+#define I2C_TRANSMIT			(0x00000001 << 11)
-+#define I2C_RECEIVE			(0x00000001 << 10)
-+#define I2C_TRANSMIT_S_PROG		(0x00000001 <<  9)
-+#define I2C_TRANSMIT_S_CLEAR		(0x00000001 <<  8)
-+#define I2C_TRANSMIT_PROG		(0x00000001 <<  7)
-+#define I2C_TRANSMIT_CLEAR		(0x00000001 <<  6)
-+#define I2C_RECEIVE_PROG		(0x00000001 <<  5)
-+#define I2C_RECEIVE_CLEAR		(0x00000001 <<  4)
-+#define I2C_SDA_LINE			(0x00000001 <<  3)
-+#define I2C_SCL_LINE			(0x00000001 <<  2)
-+#define I2C_START_STOP_FLAG		(0x00000001 <<  1)
-+#define I2C_MODE_STATUS			(0x00000001 <<  0)
-+
-+#define I2C_CONTROL			0x00c
-+#define I2C_SCL_CONTROL			(0x00000001 <<  7)
-+#define I2C_SDA_CONTROL			(0x00000001 <<  6)
-+#define I2C_RECEIVE_PROTECT		(0x00000001 <<  5)
-+#define I2C_RECEIVE_PRO_READ		(0x00000001 <<  4)
-+#define I2C_TRANS_SELF_CLEAR		(0x00000001 <<  3)
-+#define I2C_TRANS_S_SELF_CLEAR		(0x00000001 <<  2)
-+#define I2C_SLAVE_ADDR_10BIT		(0x00000001 <<  1)
-+#define I2C_RESET			(0x00000001 <<  0)
-+
-+#define I2C_CLOCK_DIVISOR_HIGH		0x010
-+#define I2C_CLOCK_HIGH			(0x0000ffff <<  0)
-+
-+#define I2C_CLOCK_DIVISOR_LOW		0x014
-+#define I2C_CLOCK_LOW			(0x0000ffff <<  0)
-+
-+#define I2C_RX_LEVEL			0x01c
-+#define I2C_RECEIVE_RANGE		(0x0000007f <<  0)
-+
-+#define I2C_TX_LEVEL			0x020
-+#define I2C_TRANSMIT_RANGE		(0x0000007f <<  0)
-+
-+#define I2C_SDA_HOLD			0x028
-+#define I2C_HOLD_TIME			(0x0000007f <<  0)
-+
-+#define MODULE_CONF			0xfd4
-+#define INT_CLR_ENABLE			0xfd8
-+#define I2C_CLR_ENABLE_STFNF		(0x00000001 << 12)
-+#define I2C_CLR_ENABLE_MTFNF		(0x00000001 << 11)
-+#define I2C_CLR_ENABLE_RFDA		(0x00000001 << 10)
-+#define I2C_CLR_ENABLE_RFF		(0x00000001 <<  9)
-+#define I2C_CLR_ENABLE_STDR		(0x00000001 <<  8)
-+#define I2C_CLR_ENABLE_MTDR		(0x00000001 <<  7)
-+#define I2C_CLR_ENABLE_IBE		(0x00000001 <<  6)
-+#define I2C_CLR_ENABLE_MSMC		(0x00000001 <<  5)
-+#define I2C_CLR_ENABLE_SRSD		(0x00000001 <<  4)
-+#define I2C_CLR_ENABLE_STSD		(0x00000001 <<  3)
-+#define I2C_CLR_ENABLE_MTNA		(0x00000001 <<  2)
-+#define I2C_CLR_ENABLE_MAF		(0x00000001 <<  1)
-+#define I2C_CLR_ENABLE_MTD		(0x00000001 <<  0)
-+
-+#define INT_SET_ENABLE			0xfdc
-+#define I2C_SET_ENABLE_STFNF		(0x00000001 << 12)
-+#define I2C_SET_ENABLE_MTFNF		(0x00000001 << 11)
-+#define I2C_SET_ENABLE_RFDA		(0x00000001 << 10)
-+#define I2C_SET_ENABLE_RFF		(0x00000001 <<  9)
-+#define I2C_SET_ENABLE_STDR		(0x00000001 <<  8)
-+#define I2C_SET_ENABLE_MTDR		(0x00000001 <<  7)
-+#define I2C_SET_ENABLE_IBE		(0x00000001 <<  6)
-+#define I2C_SET_ENABLE_MSMC		(0x00000001 <<  5)
-+#define I2C_SET_ENABLE_SRSD		(0x00000001 <<  4)
-+#define I2C_SET_ENABLE_STSD		(0x00000001 <<  3)
-+#define I2C_SET_ENABLE_MTNA		(0x00000001 <<  2)
-+#define I2C_SET_ENABLE_MAF		(0x00000001 <<  1)
-+#define I2C_SET_ENABLE_MTD		(0x00000001 <<  0)
-+
-+#define INT_STATUS			0xfe0
-+#define I2C_INTERRUPT_STFNF		(0x00000001 << 12)
-+#define I2C_INTERRUPT_MTFNF		(0x00000001 << 11)
-+#define I2C_INTERRUPT_RFDA		(0x00000001 << 10)
-+#define I2C_INTERRUPTE_RFF		(0x00000001 <<  9)
-+#define I2C_SLAVE_INTERRUPT_STDR	(0x00000001 <<  8)
-+#define I2C_MASTER_INTERRUPT_MTDR	(0x00000001 <<  7)
-+#define I2C_ERROR_IBE			(0x00000001 <<  6)
-+#define I2C_MODE_CHANGE_INTER_MSMC	(0x00000001 <<  5)
-+#define I2C_SLAVE_RECEIVE_INTER_SRSD	(0x00000001 <<  4)
-+#define I2C_SLAVE_TRANSMIT_INTER_STSD	(0x00000001 <<  3)
-+#define I2C_ACK_INTER_MTNA		(0x00000001 <<  2)
-+#define I2C_FAILURE_INTER_MAF		(0x00000001 <<  1)
-+#define I2C_INTERRUPT_MTD		(0x00000001 <<  0)
-+
-+#define INT_ENABLE			0xfe4
-+#define I2C_ENABLE_STFNF		(0x00000001 << 12)
-+#define I2C_ENABLE_MTFNF		(0x00000001 << 11)
-+#define I2C_ENABLE_RFDA			(0x00000001 << 10)
-+#define I2C_ENABLE_RFF			(0x00000001 <<  9)
-+#define I2C_ENABLE_STDR			(0x00000001 <<  8)
-+#define I2C_ENABLE_MTDR			(0x00000001 <<  7)
-+#define I2C_ENABLE_IBE			(0x00000001 <<  6)
-+#define I2C_ENABLE_MSMC			(0x00000001 <<  5)
-+#define I2C_ENABLE_SRSD			(0x00000001 <<  4)
-+#define I2C_ENABLE_STSD			(0x00000001 <<  3)
-+#define I2C_ENABLE_MTNA			(0x00000001 <<  2)
-+#define I2C_ENABLE_MAF			(0x00000001 <<  1)
-+#define I2C_ENABLE_MTD			(0x00000001 <<  0)
-+
-+#define INT_CLR_STATUS			0xfe8
-+#define I2C_CLR_STATUS_STFNF		(0x00000001 << 12)
-+#define I2C_CLR_STATUS_MTFNF		(0x00000001 << 11)
-+#define I2C_CLR_STATUS_RFDA		(0x00000001 << 10)
-+#define I2C_CLR_STATUS_RFF		(0x00000001 <<  9)
-+#define I2C_CLR_STATUS_STDR		(0x00000001 <<  8)
-+#define I2C_CLR_STATUS_MTDR		(0x00000001 <<  7)
-+#define I2C_CLR_STATUS_IBE		(0x00000001 <<  6)
-+#define I2C_CLR_STATUS_MSMC		(0x00000001 <<  5)
-+#define I2C_CLR_STATUS_SRSD		(0x00000001 <<  4)
-+#define I2C_CLR_STATUS_STSD		(0x00000001 <<  3)
-+#define I2C_CLR_STATUS_MTNA		(0x00000001 <<  2)
-+#define I2C_CLR_STATUS_MAF		(0x00000001 <<  1)
-+#define I2C_CLR_STATIS_MTD		(0x00000001 <<  0)
-+
-+#define INT_SET_STATUS			0xfec
-+#define I2C_SET_STATUS_STFNF		(0x00000001 << 12)
-+#define I2C_SET_STATUS_MTFNF		(0x00000001 << 11)
-+#define I2C_SET_STATUS_RFDA		(0x00000001 << 10)
-+#define I2C_SET_STATUS_RFF		(0x00000001 <<  9)
-+#define I2C_SET_STATUS_STDR		(0x00000001 <<  8)
-+#define I2C_SET_STATUS_MTDR		(0x00000001 <<  7)
-+#define I2C_SET_STATUS_IBE		(0x00000001 <<  6)
-+#define I2C_SET_STATUS_MSMC		(0x00000001 <<  5)
-+#define I2C_SET_STATUS_SRSD		(0x00000001 <<  4)
-+#define I2C_SET_STATUS_STSD		(0x00000001 <<  3)
-+#define I2C_SET_STATUS_MTNA		(0x00000001 <<  2)
-+#define I2C_SET_STATUS_MAF		(0x00000001 <<  1)
-+#define I2C_SET_STATIS_MTD		(0x00000001 <<  0)
-+
-+
-+
-+
-+/* -------------- SPI Registers -------------- */
-+
-+#define SPI				0x0000d000
-+
-+#define SPI_CONTROL_REG			0x000
-+#define SPI_SERIAL_INTER_ENABLE		(0x00000001 <<  7)
-+#define SPI_LSB_FIRST_ENABLE		(0x00000001 <<  6)
-+#define SPI_MODE_SELECT			(0x00000001 <<  5)
-+#define SPI_CLOCK_POLARITY		(0x00000001 <<  4)
-+#define SPI_CLOCK_PHASE			(0x00000001 <<  3)
-+
-+#define SPI_STATUS			0x004
-+#define SPI_TRANSFER_FLAG		(0x00000001 <<  7)
-+#define SPI_WRITE_COLLISSION		(0x00000001 <<  6)
-+#define SPI_READ_OVERRUN		(0x00000001 <<  5)
-+#define SPI_MODE_FAULT			(0x00000001 <<  4)
-+#define SPI_SLAVE_ABORT			(0x00000001 <<  3)
-+
-+#define SPI_DATA			0x008
-+#define SPI_BIDI_DATA			(0x000000ff <<  0)
-+
-+#define SPI_CLOCK_COUNTER		0x00c
-+#define SPI_CLOCK			(0x00000001 <<  0)
-+
-+
-+
-+
-+/* -------------- GPIO Registers -------------- */
-+
-+#define GPIO				0x0000e000
-+
-+#define GPIO_RD				0x000
-+#define GPIO_WR				0x004
-+#define GPIO_WR_MODE			0x008
-+#define GPIO_OEN			0x00c
-+
-+#define GPIO_SW_RST			0xff0
-+#define GPIO_SW_RESET			(0x00000001 <<  0)
-+
-+#define GPIO_31				(1 << 31)
-+#define GPIO_30				(1 << 30)
-+#define GPIO_29				(1 << 29)
-+#define GPIO_28				(1 << 28)
-+#define GPIO_27				(1 << 27)
-+#define GPIO_26				(1 << 26)
-+#define GPIO_25				(1 << 25)
-+#define GPIO_24				(1 << 24)
-+#define GPIO_23				(1 << 23)
-+#define GPIO_22				(1 << 22)
-+#define GPIO_21				(1 << 21)
-+#define GPIO_20				(1 << 20)
-+#define GPIO_19				(1 << 19)
-+#define GPIO_18				(1 << 18)
-+#define GPIO_17				(1 << 17)
-+#define GPIO_16				(1 << 16)
-+#define GPIO_15				(1 << 15)
-+#define GPIO_14				(1 << 14)
-+#define GPIO_13				(1 << 13)
-+#define GPIO_12				(1 << 12)
-+#define GPIO_11				(1 << 11)
-+#define GPIO_10				(1 << 10)
-+#define GPIO_09				(1 <<  9)
-+#define GPIO_08				(1 <<  8)
-+#define GPIO_07				(1 <<  7)
-+#define GPIO_06				(1 <<  6)
-+#define GPIO_05				(1 <<  5)
-+#define GPIO_04				(1 <<  4)
-+#define GPIO_03				(1 <<  3)
-+#define GPIO_02				(1 <<  2)
-+#define GPIO_01				(1 <<  1)
-+#define GPIO_00				(1 <<  0)
-+
-+/* -------------- PHI_0 Registers -------------- */
-+
-+#define	PHI_0				0x0000f000
-+
-+#define PHI_0_MODE			0x0000
-+#define PHI_0_0_CONFIG			0x0008
-+#define PHI_0_1_CONFIG			0x000c
-+#define PHI_0_2_CONFIG			0x0010
-+#define PHI_0_3_CONFIG			0x0014
-+
-+#define PHI_POLARITY			0x0038
-+#define PHI_TIMEOUT			0x003c
-+#define PHI_SW_RST			0x0ff0
-+
-+#define PHI_0_0_RW_0			0x1000
-+#define PHI_0_0_RW_511			0x17fc
-+
-+#define PHI_0_1_RW_0			0x1800
-+#define PHI_0_1_RW_511			0x1ffc
-+
-+#define PHI_0_2_RW_0			0x2000
-+#define PHI_0_2_RW_511			0x27fc
-+
-+#define PHI_0_3_RW_0			0x2800
-+#define PHI_0_3_RW_511			0x2ffc
-+
-+#define PHI_CSN_DEASSERT		(0x00000001 <<  2)
-+#define PHI_AUTO_INCREMENT		(0x00000001 <<  1)
-+#define PHI_FIFO_MODE			(0x00000001 <<  0)
-+
-+#define PHI_DELAY_RD_WR			(0x0000001f << 27)
-+#define PHI_EXTEND_RDY3			(0x00000003 << 25)
-+#define PHI_EXTEND_RDY2			(0x00000003 << 23)
-+#define PHI_EXTEND_RDY1			(0x00000003 << 21)
-+#define PHI_EXTEND_RDY0			(0x00000003 << 19)
-+#define PHI_RDY3_OD			(0x00000001 << 18)
-+#define PHI_RDY2_OD			(0x00000001 << 17)
-+#define PHI_RDY1_OD			(0x00000001 << 16)
-+#define PHI_RDY0_OD			(0x00000001 << 15)
-+#define PHI_ALE_POL			(0x00000001 << 14)
-+#define PHI_WRN_POL			(0x00000001 << 13)
-+#define PHI_RDN_POL			(0x00000001 << 12)
-+#define PHI_RDY3_POL			(0x00000001 << 11)
-+#define PHI_RDY2_POL			(0x00000001 << 10)
-+#define PHI_RDY1_POL			(0x00000001 <<  9)
-+#define PHI_RDY0_POL			(0x00000001 <<  8)
-+#define PHI_CSN7_POL			(0x00000001 <<  7)
-+#define PHI_CSN6_POL			(0x00000001 <<  6)
-+#define PHI_CSN5_POL			(0x00000001 <<  5)
-+#define PHI_CSN4_POL			(0x00000001 <<  4)
-+#define PHI_CSN3_POL			(0x00000001 <<  3)
-+#define PHI_CSN2_POL			(0x00000001 <<  2)
-+#define PHI_CSN1_POL			(0x00000001 <<  1)
-+#define PHI_CSN0_POL			(0x00000001 <<  0)
-+
-+/* -------------- PHI_1 Registers -------------- */
-+
-+#define	PHI_1				0x00020000
-+
-+#define PHI_1_MODE			0x00004
-+#define PHI_1_0_CONFIG			0x00018
-+#define PHI_1_1_CONFIG			0x0001c
-+#define PHI_1_2_CONFIG			0x00020
-+#define PHI_1_3_CONFIG			0x00024
-+#define PHI_1_4_CONFIG			0x00028
-+#define PHI_1_5_CONFIG			0x0002c
-+#define PHI_1_6_CONFIG			0x00030
-+#define PHI_1_7_CONFIG			0x00034
-+
-+#define PHI_1_0_RW_0			0x00000
-+#define PHI_1_0_RW_16383		0x0fffc
-+
-+#define PHI_1_1_RW_0			0x1000
-+#define PHI_1_1_RW_16383		0x1ffc
-+
-+#define PHI_1_2_RW_0			0x2000
-+#define PHI_1_2_RW_16383		0x2ffc
-+
-+#define PHI_1_3_RW_0			0x3000
-+#define PHI_1_3_RW_16383		0x3ffc
-+
-+#define PHI_1_4_RW_0			0x4000
-+#define PHI_1_4_RW_16383		0x4ffc
-+
-+#define PHI_1_5_RW_0			0x5000
-+#define PHI_1_5_RW_16383		0x5ffc
-+
-+#define PHI_1_6_RW_0			0x6000
-+#define PHI_1_6_RW_16383		0x6ffc
-+
-+#define PHI_1_7_RW_0			0x7000
-+#define PHI_1_7_RW_16383		0x7ffc
-+
-+/* -------------- CGU Registers -------------- */
-+
-+#define CGU				0x00013000
-+
-+#define CGU_SCR_0			0x000
-+#define CGU_SCR_1			0x004
-+#define CGU_SCR_2			0x008
-+#define CGU_SCR_3			0x00c
-+#define CGU_SCR_4			0x010
-+#define CGU_SCR_5			0x014
-+#define CGU_SCR_6			0x018
-+#define CGU_SCR_7			0x01c
-+#define CGU_SCR_8			0x020
-+#define CGU_SCR_9			0x024
-+#define CGU_SCR_10			0x028
-+#define CGU_SCR_11			0x02c
-+#define CGU_SCR_12			0x030
-+#define CGU_SCR_13			0x034
-+#define CGU_SCR_STOP			(0x00000001 <<  3)
-+#define CGU_SCR_RESET			(0x00000001 <<  2)
-+#define CGU_SCR_ENF2			(0x00000001 <<  1)
-+#define CGU_SCR_ENF1			(0x00000001 <<  0)
-+
-+#define CGU_FS1_0			0x038
-+#define CGU_FS1_1			0x03c
-+#define CGU_FS1_2			0x040
-+#define CGU_FS1_3			0x044
-+#define CGU_FS1_4			0x048
-+#define CGU_FS1_5			0x04c
-+#define CGU_FS1_6			0x050
-+#define CGU_FS1_7			0x054
-+#define CGU_FS1_8			0x058
-+#define CGU_FS1_9			0x05c
-+#define CGU_FS1_10			0x060
-+#define CGU_FS1_11			0x064
-+#define CGU_FS1_12			0x068
-+#define CGU_FS1_13			0x06c
-+#define CGU_FS1_PLL			(0x00000000 <<  0)
-+
-+
-+#define CGU_FS2_0			0x070
-+#define CGU_FS2_1			0x074
-+#define CGU_FS2_2			0x078
-+#define CGU_FS2_3			0x07c
-+#define CGU_FS2_4			0x080
-+#define CGU_FS2_5			0x084
-+#define CGU_FS2_6			0x088
-+#define CGU_FS2_7			0x08c
-+#define CGU_FS2_8			0x090
-+#define CGU_FS2_9			0x094
-+#define CGU_FS2_10			0x098
-+#define CGU_FS2_11			0x09c
-+#define CGU_FS2_12			0x0a0
-+#define CGU_FS2_13			0x0a4
-+
-+#define CGU_SSR_0			0x0a8
-+#define CGU_SSR_1			0x0ac
-+#define CGU_SSR_2			0x0b0
-+#define CGU_SSR_3			0x0b4
-+#define CGU_SSR_4			0x0b8
-+#define CGU_SSR_5			0x0bc
-+#define CGU_SSR_6			0x0c0
-+#define CGU_SSR_7			0x0c4
-+#define CGU_SSR_8			0x0c8
-+#define CGU_SSR_9			0x0cc
-+#define CGU_SSR_10			0x0d0
-+#define CGU_SSR_11			0x0d4
-+#define CGU_SSR_12			0x0d8
-+#define CGU_SSR_13			0x0dc
-+
-+#define CGU_PCR_0_0			0x0e0
-+#define CGU_PCR_0_1			0x0e4
-+#define CGU_PCR_0_2			0x0e8
-+#define CGU_PCR_0_3			0x0ec
-+#define CGU_PCR_0_4			0x0f0
-+#define CGU_PCR_0_5			0x0f4
-+#define CGU_PCR_0_6			0x0f8
-+#define CGU_PCR_0_7			0x0fc
-+#define CGU_PCR_1_0			0x100
-+#define CGU_PCR_1_1			0x104
-+#define CGU_PCR_2_0			0x108
-+#define CGU_PCR_2_1			0x10c
-+#define CGU_PCR_3_0			0x110
-+#define CGU_PCR_3_1			0x114
-+#define CGU_PCR_3_2			0x118
-+#define CGU_PCR_4_0			0x11c
-+#define CGU_PCR_4_1			0x120
-+#define CGU_PCR_5			0x124
-+#define CGU_PCR_6			0x128
-+#define CGU_PCR_7			0x12c
-+#define CGU_PCR_8			0x130
-+#define CGU_PCR_9			0x134
-+#define CGU_PCR_10			0x138
-+#define CGU_PCR_11			0x13c
-+#define CGU_PCR_12			0x140
-+#define CGU_PCR_13			0x144
-+#define CGU_PCR_WAKE_EN			(0x00000001 <<  2)
-+#define CGU_PCR_AUTO			(0x00000001 <<  1)
-+#define CGU_PCR_RUN			(0x00000001 <<  0)
-+
-+
-+#define CGU_PSR_0_0			0x148
-+#define CGU_PSR_0_1			0x14c
-+#define CGU_PSR_0_2			0x150
-+#define CGU_PSR_0_3			0x154
-+#define CGU_PSR_0_4			0x158
-+#define CGU_PSR_0_5			0x15c
-+#define CGU_PSR_0_6			0x160
-+#define CGU_PSR_0_7			0x164
-+#define CGU_PSR_1_0			0x168
-+#define CGU_PSR_1_1			0x16c
-+#define CGU_PSR_2_0			0x170
-+#define CGU_PSR_2_1			0x174
-+#define CGU_PSR_3_0			0x178
-+#define CGU_PSR_3_1			0x17c
-+#define CGU_PSR_3_2			0x180
-+#define CGU_PSR_4_0			0x184
-+#define CGU_PSR_4_1			0x188
-+#define CGU_PSR_5			0x18c
-+#define CGU_PSR_6			0x190
-+#define CGU_PSR_7			0x194
-+#define CGU_PSR_8			0x198
-+#define CGU_PSR_9			0x19c
-+#define CGU_PSR_10			0x1a0
-+#define CGU_PSR_11			0x1a4
-+#define CGU_PSR_12			0x1a8
-+#define CGU_PSR_13			0x1ac
-+
-+#define CGU_ESR_0_0			0x1b0
-+#define CGU_ESR_0_1			0x1b4
-+#define CGU_ESR_0_2			0x1b8
-+#define CGU_ESR_0_3			0x1bc
-+#define CGU_ESR_0_4			0x1c0
-+#define CGU_ESR_0_5			0x1c4
-+#define CGU_ESR_0_6			0x1c8
-+#define CGU_ESR_0_7			0x1cc
-+#define CGU_ESR_1_0			0x1d0
-+#define CGU_ESR_1_1			0x1d4
-+#define CGU_ESR_2_0			0x1d8
-+#define CGU_ESR_2_1			0x1dc
-+#define CGU_ESR_3_0			0x1e0
-+#define CGU_ESR_3_1			0x1e4
-+#define CGU_ESR_3_2			0x1e8
-+#define CGU_ESR_4_0			0x1ec
-+#define CGU_ESR_4_1			0x1f0
-+#define CGU_ESR_5			0x1f4
-+#define CGU_ESR_6			0x1f8
-+#define CGU_ESR_7			0x1fc
-+#define CGU_ESR_8			0x200
-+#define CGU_ESR_9			0x204
-+#define CGU_ESR_10			0x208
-+#define CGU_ESR_11			0x20c
-+#define CGU_ESR_12			0x210
-+#define CGU_ESR_13			0x214
-+#define CGU_ESR_FD_EN			(0x00000001 <<  0)
-+
-+#define CGU_FDC_0			0x218
-+#define CGU_FDC_1			0x21c
-+#define CGU_FDC_2			0x220
-+#define CGU_FDC_3			0x224
-+#define CGU_FDC_4			0x228
-+#define CGU_FDC_5			0x22c
-+#define CGU_FDC_6			0x230
-+#define CGU_FDC_7			0x234
-+#define CGU_FDC_8			0x238
-+#define CGU_FDC_9			0x23c
-+#define CGU_FDC_10			0x240
-+#define CGU_FDC_11			0x244
-+#define CGU_FDC_12			0x248
-+#define CGU_FDC_13			0x24c
-+#define CGU_FDC_STRETCH			(0x00000001 <<  0)
-+#define CGU_FDC_RESET			(0x00000001 <<  1)
-+#define CGU_FDC_RUN1			(0x00000001 <<  2)
-+#define CGU_FDC_MADD			(0x000000ff <<  3)
-+#define CGU_FDC_MSUB			(0x000000ff << 11)
-+
-+/* -------------- DCS Registers -------------- */
-+
-+#define DCS				0x00014000
-+
-+#define DCSC_CTRL			0x000
-+#define DCSC_SEL_PLLDI			(0x03ffffff <<  5)
-+#define DCSC_TOUT_SEL			(0x0000000f <<  1)
-+#define DCSC_TOUT_OFF			(0x00000001 <<  0)
-+
-+#define DCSC_ADDR			0x00c
-+#define DCSC_ERR_TOUT_ADDR		(0x3fffffff <<  2)
-+
-+#define DCSC_STAT			0x010
-+#define DCSC_ERR_TOUT_GNT		(0x0000001f << 24)
-+#define DCSC_ERR_TOUT_SEL		(0x0000007f << 10)
-+#define DCSC_ERR_TOUT_READ		(0x00000001 <<  8)
-+#define DCSC_ERR_TOUT_MASK		(0x0000000f <<  4)
-+#define DCSC_ERR_ACK			(0x00000001 <<  1)
-+
-+#define DCSC_FEATURES			0x040
-+#define DCSC_UNIQUE_ID			(0x00000007 << 16)
-+#define DCSC_SECURITY			(0x00000001 << 14)
-+#define DCSC_NUM_BASE_REGS		(0x00000003 << 11)
-+#define DCSC_NUM_TARGETS		(0x0000001f <<  5)
-+#define DCSC_NUM_INITIATORS		(0x0000001f <<  0)
-+
-+#define DCSC_BASE_REG0			0x100
-+#define DCSC_BASE_N_REG			(0x00000fff << 20)
-+
-+#define DCSC_INT_CLR_ENABLE		0xfd8
-+#define DCSC_INT_CLR_ENABLE_TOUT	(0x00000001 <<  1)
-+#define DCSC_INT_CLR_ENABLE_ERROR	(0x00000001 <<  0)
-+
-+#define DCSC_INT_SET_ENABLE		0xfdc
-+#define DCSC_INT_SET_ENABLE_TOUT	(0x00000001 <<  1)
-+#define DCSC_INT_SET_ENABLE_ERROR	(0x00000001 <<  0)
-+
-+#define DCSC_INT_STATUS			0xfe0
-+#define DCSC_INT_STATUS_TOUT		(0x00000001 <<  1)
-+#define DCSC_INT_STATUS_ERROR		(0x00000001 <<  0)
-+
-+#define DCSC_INT_ENABLE			0xfe4
-+#define DCSC_INT_ENABLE_TOUT		(0x00000001 <<  1)
-+#define DCSC_INT_ENABLE_ERROR		(0x00000001 <<  0)
-+
-+#define DCSC_INT_CLR_STATUS		0xfe8
-+#define DCSC_INT_CLEAR_TOUT		(0x00000001 <<  1)
-+#define DCSC_INT_CLEAR_ERROR		(0x00000001 <<  0)
-+
-+#define DCSC_INT_SET_STATUS		0xfec
-+#define DCSC_INT_SET_TOUT		(0x00000001 <<  1)
-+#define DCSC_INT_SET_ERROR		(0x00000001 <<  0)
-+
-+
-+
-+
-+/* -------------- GREG Registers -------------- */
-+
-+#define GREG				0x00012000
-+
-+#define GREG_SUBSYS_CONFIG		0x000
-+#define GREG_SUBSYS_ID			(0x0000ffff << 16)
-+#define GREG_SUBSYS_VID			(0x0000ffff <<  0)
-+
-+#define GREG_MSI_BAR_PMCSR		0x004
-+#define GREG_PMCSR_SCALE_7		(0x00000003 << 30)
-+#define GREG_PMCSR_SCALE_6		(0x00000003 << 28)
-+#define GREG_PMCSR_SCALE_5		(0x00000003 << 26)
-+#define GREG_PMCSR_SCALE_4		(0x00000003 << 24)
-+#define GREG_PMCSR_SCALE_3		(0x00000003 << 22)
-+#define GREG_PMCSR_SCALE_2		(0x00000003 << 20)
-+#define GREG_PMCSR_SCALE_1		(0x00000003 << 18)
-+#define GREG_PMCSR_SCALE_0		(0x00000003 << 16)
-+
-+#define GREG_BAR_WIDTH_17		(0x0000001e <<  8)
-+#define GREG_BAR_WIDTH_18		(0x0000001c <<  8)
-+#define GREG_BAR_WIDTH_19		(0x00000018 <<  8)
-+#define GREG_BAR_WIDTH_20		(0x00000010 <<  8)
-+
-+#define GREG_BAR_PREFETCH		(0x00000001 <<  3)
-+#define GREG_MSI_MM_CAP1		(0x00000000 <<  0) // FIXME !
-+#define GREG_MSI_MM_CAP2		(0x00000001 <<  0)
-+#define GREG_MSI_MM_CAP4		(0x00000002 <<  0)
-+#define GREG_MSI_MM_CAP8		(0x00000003 <<  0)
-+#define GREG_MSI_MM_CAP16		(0x00000004 <<  0)
-+#define GREG_MSI_MM_CAP32		(0x00000005 <<  0)
-+
-+#define GREG_PMCSR_DATA_1		0x008
-+#define GREG_PMCSR_DATA_2		0x00c
-+#define GREG_VI_CTRL			0x010
-+#define GREG_FGPI_CTRL			0x014
-+
-+#define GREG_RSTU_CTRL			0x018
-+#define GREG_BOOT_READY			(0x00000001 << 13)
-+#define GREG_RESET_REQ			(0x00000001 << 12)
-+#define GREG_IP_RST_RELEASE		(0x00000001 << 11)
-+#define GREG_ADAPTER_RST_RELEASE	(0x00000001 << 10)
-+#define GREG_PCIE_CORE_RST_RELEASE	(0x00000001 <<  9)
-+#define GREG_BOOT_IP_RST_RELEASE	(0x00000001 <<  8)
-+#define GREG_BOOT_RST_RELEASE		(0x00000001 <<  7)
-+#define GREG_CGU_RST_RELEASE		(0x00000001 <<  6)
-+#define GREG_IP_RST_ASSERT		(0x00000001 <<  5)
-+#define GREG_ADAPTER_RST_ASSERT		(0x00000001 <<  4)
-+#define GREG_RST_ASSERT			(0x00000001 <<  3)
-+#define GREG_BOOT_IP_RST_ASSERT		(0x00000001 <<  2)
-+#define GREG_BOOT_RST_ASSERT		(0x00000001 <<  1)
-+#define GREG_CGU_RST_ASSERT		(0x00000001 <<  0)
-+
-+#define GREG_I2C_CTRL			0x01c
-+#define GREG_I2C_SLAVE_ADDR		(0x0000007f <<  0)
-+
-+#define GREG_OVFLW_CTRL			0x020
-+#define GREG_OVERFLOW_ENABLE		(0x00001fff <<  0)
-+
-+#define GREG_TAG_ACK_FLEN		0x024
-+#define GREG_TAG_ACK_FLEN_1B		(0x00000000 <<  0)
-+#define GREG_TAG_ACK_FLEN_2B		(0x00000001 <<  0)
-+#define GREG_TAG_ACK_FLEN_4B		(0x00000002 <<  0)
-+#define GREG_TAG_ACK_FLEN_8B		(0x00000003 <<  0)
-+
-+#define GREG_VIDEO_IN_CTRL		0x028
-+
-+#define GREG_SPARE_1			0x02c
-+#define GREG_SPARE_2			0x030
-+#define GREG_SPARE_3			0x034
-+#define GREG_SPARE_4			0x038
-+#define GREG_SPARE_5			0x03c
-+#define GREG_SPARE_6			0x040
-+#define GREG_SPARE_7			0x044
-+#define GREG_SPARE_8			0x048
-+#define GREG_SPARE_9			0x04c
-+#define GREG_SPARE_10			0x050
-+#define GREG_SPARE_11			0x054
-+#define GREG_SPARE_12			0x058
-+#define GREG_SPARE_13			0x05c
-+#define GREG_SPARE_14			0x060
-+#define GREG_SPARE_15			0x064
-+
-+#define GREG_FAIL_DISABLE		0x068
-+#define GREG_BOOT_FAIL_DISABLE		(0x00000001 <<  0)
-+
-+#define GREG_SW_RST			0xff0
-+#define GREG_SW_RESET			(0x00000001 <<  0)
-+
-+
-+
-+
-+/* BAR = 20 bits */
-+
-+/* -------------- PHI1 Registers -------------- */
-+
-+#define PHI_1				0x00020000
-+
-+
-+
-+#endif /* __SAA716x_REG_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_rom.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_rom.c	2013-01-16 10:41:10.926798175 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_rom.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_rom.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_rom.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_rom.c	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,1071 @@
 +#include <linux/kernel.h>
 +#include <linux/string.h>
@@ -11024,7 +9912,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +	if (rom_header->header_size != sizeof (struct saa716x_romhdr)) {
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
-+			(int)sizeof (struct saa716x_romhdr),
++			sizeof (struct saa716x_romhdr),
 +			rom_header->header_size);
 +
 +		return -1;
@@ -11149,7 +10037,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
 +			header.size,
-+			(int)sizeof (struct saa716x_decoder_hdr));
++			sizeof (struct saa716x_decoder_hdr));
 +
 +		return -1;
 +	}
@@ -11180,7 +10068,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
 +			header.size,
-+			(int)sizeof (struct saa716x_gpio_hdr));
++			sizeof (struct saa716x_gpio_hdr));
 +
 +		return -1;
 +	}
@@ -11217,7 +10105,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
 +			header.size,
-+			(int)sizeof (struct saa716x_video_decoder_hdr));
++			sizeof (struct saa716x_video_decoder_hdr));
 +
 +		return -1;
 +	}
@@ -11298,7 +10186,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
 +			header.size,
-+			(int)sizeof (struct saa716x_audio_decoder_hdr));
++			sizeof (struct saa716x_audio_decoder_hdr));
 +
 +		return -1;
 +	}
@@ -11329,7 +10217,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
 +			header.size,
-+			(int)sizeof (struct saa716x_evsrc_hdr));
++			sizeof (struct saa716x_evsrc_hdr));
 +
 +		return -1;
 +	}
@@ -11360,7 +10248,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
 +			header.size,
-+			(int)sizeof (struct saa716x_xbar_hdr));
++			sizeof (struct saa716x_xbar_hdr));
 +
 +		return -1;
 +	}
@@ -11398,7 +10286,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
 +			header.size,
-+			(int)sizeof (struct saa716x_tuner_hdr));
++			sizeof (struct saa716x_tuner_hdr));
 +
 +		return -1;
 +	}
@@ -11428,7 +10316,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
 +			header.size,
-+			(int)sizeof (struct saa716x_pll_hdr));
++			sizeof (struct saa716x_pll_hdr));
 +
 +		return -1;
 +	}
@@ -11458,7 +10346,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
 +			header.size,
-+			(int)sizeof (struct saa716x_channel_decoder_hdr));
++			sizeof (struct saa716x_channel_decoder_hdr));
 +
 +		return -1;
 +	}
@@ -11488,7 +10376,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
 +			header.size,
-+			(int)sizeof (struct saa716x_encoder_hdr));
++			sizeof (struct saa716x_encoder_hdr));
 +
 +		return -1;
 +	}
@@ -11518,7 +10406,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
 +			header.size,
-+			(int)sizeof (struct saa716x_ir_hdr));
++			sizeof (struct saa716x_ir_hdr));
 +
 +		return -1;
 +	}
@@ -11549,7 +10437,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
 +			header.size,
-+			(int)sizeof (struct saa716x_eeprom_hdr));
++			sizeof (struct saa716x_eeprom_hdr));
 +
 +		return -1;
 +	}
@@ -11580,7 +10468,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
 +			header.size,
-+			(int)sizeof(struct saa716x_filter_hdr));
++			sizeof (struct saa716x_filter_hdr));
 +
 +		return -1;
 +	}
@@ -11611,7 +10499,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +		dprintk(SAA716x_ERROR, 1,
 +			"ERROR: Header size mismatch! Read size=%d bytes, Expected=%d",
 +			header.size,
-+			(int)sizeof(struct saa716x_streamdev_hdr));
++			sizeof (struct saa716x_streamdev_hdr));
 +
 +		return -1;
 +	}
@@ -11697,11 +10585,11 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +{
 +	u8 address = 0;
 +
-+	memcpy(device, &buf[*offset], sizeof(struct saa716x_devinfo));
-+	if (device->struct_size != sizeof(struct saa716x_devinfo)) {
++	memcpy(device, &buf[*offset], sizeof (struct saa716x_devinfo));
++	if (device->struct_size != sizeof (struct saa716x_devinfo)) {
 +		dprintk(SAA716x_ERROR, 1, "ERROR: Device size mismatch! Read=%d bytes, expected=%d bytes",
 +		device->struct_size,
-+		(int)sizeof(struct saa716x_devinfo));
++		sizeof (struct saa716x_devinfo));
 +
 +		return -1;
 +	}
@@ -11979,9 +10867,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.c linux-3.7.2.pa
 +	return ret;
 +}
 +EXPORT_SYMBOL_GPL(saa716x_eeprom_data);
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_rom.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_rom.h	2013-01-16 10:41:10.926798175 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_rom.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_rom.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_rom.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_rom.h	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,253 @@
 +#ifndef __SAA716x_ROM_H
 +#define __SAA716x_ROM_H
@@ -12236,9 +11124,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_rom.h linux-3.7.2.pa
 +extern int saa716x_eeprom_data(struct saa716x_dev *saa716x);
 +
 +#endif /* __SAA716x_ROM_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_spi.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_spi.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_spi.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_spi.c	2013-01-16 10:41:10.926798175 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_spi.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_spi.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_spi.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_spi.c	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,313 @@
 +#include <linux/kernel.h>
 +#include <linux/device.h>
@@ -12505,7 +11393,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_spi.c linux-3.7.2.pa
 +	return 0;
 +}
 +
-+int __devinit saa716x_spi_init(struct saa716x_dev *saa716x)
++int saa716x_spi_init(struct saa716x_dev *saa716x)
 +{
 +	struct pci_dev *pdev = saa716x->pdev;
 +	struct spi_master *master;
@@ -12543,7 +11431,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_spi.c linux-3.7.2.pa
 +}
 +EXPORT_SYMBOL(saa716x_spi_init);
 +
-+void __devexit saa716x_spi_exit(struct saa716x_dev *saa716x)
++void saa716x_spi_exit(struct saa716x_dev *saa716x)
 +{
 +	struct saa716x_spi_state *saa716x_spi = saa716x->saa716x_spi;
 +
@@ -12553,9 +11441,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_spi.c linux-3.7.2.pa
 +EXPORT_SYMBOL(saa716x_spi_exit);
 +#endif
 +
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_spi.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_spi.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_spi.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_spi.h	2013-01-16 10:41:10.926798175 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_spi.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_spi.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_spi.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_spi.h	2013-03-07 17:55:53.759588384 +0100
 @@ -0,0 +1,23 @@
 +#ifndef __SAA716x_SPI_H
 +#define __SAA716x_SPI_H
@@ -12580,9 +11468,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_spi.h linux-3.7.2.pa
 +extern void saa716x_spi_exit(struct saa716x_dev *saa716x);
 +
 +#endif /* __SAA716x_SPI_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_spi_reg.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_spi_reg.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_spi_reg.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_spi_reg.h	2013-01-16 10:41:10.926798175 +0100
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_spi_reg.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_spi_reg.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_spi_reg.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_spi_reg.h	2013-03-07 17:55:53.755588384 +0100
 @@ -0,0 +1,27 @@
 +#ifndef __SAA716x_SPI_REG_H
 +#define __SAA716x_SPI_REG_H
@@ -12611,17 +11499,39 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_spi_reg.h linux-3.7.
 +
 +
 +#endif /* __SAA716x_SPI_REG_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_vip.c linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_vip.c
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_vip.c	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_vip.c	2013-01-16 10:41:10.926798175 +0100
-@@ -0,0 +1,23 @@
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_vip.c linux-3.8.2/drivers/media/pci/saa716x/saa716x_vip.c
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_vip.c	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_vip.c	2013-03-07 17:55:53.759588384 +0100
+@@ -0,0 +1,401 @@
 +#include <linux/kernel.h>
 +
 +#include "saa716x_mod.h"
 +
 +#include "saa716x_vip_reg.h"
-+#include "saa716x_spi.h"
++#include "saa716x_dma_reg.h"
++#include "saa716x_msi_reg.h"
++
 +#include "saa716x_priv.h"
++
++
++static const u32 vi_ch[] = {
++	VI0,
++	VI1
++};
++
++static const u32 msi_int_tagack[] = {
++	MSI_INT_TAGACK_VI0_0,
++	MSI_INT_TAGACK_VI0_1,
++	MSI_INT_TAGACK_VI0_2,
++	MSI_INT_TAGACK_VI1_0,
++	MSI_INT_TAGACK_VI1_1,
++	MSI_INT_TAGACK_VI1_2
++};
++
++static const u32 msi_int_avint[] = {
++	MSI_INT_AVINT_VI0,
++	MSI_INT_AVINT_VI1
++};
 +
 +void saa716x_vipint_disable(struct saa716x_dev *saa716x)
 +{
@@ -12638,23 +11548,428 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_vip.c linux-3.7.2.pa
 +       SAA716x_EPWR(VI1, VIP_POWER_DOWN, VI_PWR_DWN);
 +}
 +EXPORT_SYMBOL_GPL(saa716x_vip_disable);
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_vip.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_vip.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_vip.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_vip.h	2013-01-16 10:41:10.927798168 +0100
-@@ -0,0 +1,9 @@
++
++int saa716x_vip_get_write_index(struct saa716x_dev *saa716x, int port)
++{
++	u32 buf_mode, val;
++
++	buf_mode = BAM_DMA_BUF_MODE(saa716x->vip[port].dma_channel[0]);
++
++	val = SAA716x_EPRD(BAM, buf_mode);
++	return (val >> 3) & 0x7;
++}
++EXPORT_SYMBOL_GPL(saa716x_vip_get_write_index);
++
++static int saa716x_vip_init_ptables(struct saa716x_dmabuf *dmabuf, int channel,
++				    struct vip_stream_params *stream_params)
++{
++	struct saa716x_dev *saa716x = dmabuf->saa716x;
++	u32 config, i;
++
++	for (i = 0; i < VIP_BUFFERS; i++)
++		BUG_ON((dmabuf[i].mem_ptab_phys == 0));
++
++	config = MMU_DMA_CONFIG(channel); /* DMACONFIGx */
++
++	SAA716x_EPWR(MMU, config, (VIP_BUFFERS - 1));
++
++	if ((stream_params->stream_flags & VIP_INTERLACED) &&
++	    (stream_params->stream_flags & VIP_ODD_FIELD) &&
++	    (stream_params->stream_flags & VIP_EVEN_FIELD)) {
++		/* In interlaced mode the same buffer is written twice, once
++		   the odd field and once the even field */
++		SAA716x_EPWR(MMU, MMU_PTA0_LSB(channel), PTA_LSB(dmabuf[0].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA0_MSB(channel), PTA_MSB(dmabuf[0].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA1_LSB(channel), PTA_LSB(dmabuf[0].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA1_MSB(channel), PTA_MSB(dmabuf[0].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA2_LSB(channel), PTA_LSB(dmabuf[1].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA2_MSB(channel), PTA_MSB(dmabuf[1].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA3_LSB(channel), PTA_LSB(dmabuf[1].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA3_MSB(channel), PTA_MSB(dmabuf[1].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA4_LSB(channel), PTA_LSB(dmabuf[2].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA4_MSB(channel), PTA_MSB(dmabuf[2].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA5_LSB(channel), PTA_LSB(dmabuf[2].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA5_MSB(channel), PTA_MSB(dmabuf[2].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA6_LSB(channel), PTA_LSB(dmabuf[3].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA6_MSB(channel), PTA_MSB(dmabuf[3].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA7_LSB(channel), PTA_LSB(dmabuf[3].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA7_MSB(channel), PTA_MSB(dmabuf[3].mem_ptab_phys)); /* High */
++	} else {
++		SAA716x_EPWR(MMU, MMU_PTA0_LSB(channel), PTA_LSB(dmabuf[0].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA0_MSB(channel), PTA_MSB(dmabuf[0].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA1_LSB(channel), PTA_LSB(dmabuf[1].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA1_MSB(channel), PTA_MSB(dmabuf[1].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA2_LSB(channel), PTA_LSB(dmabuf[2].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA2_MSB(channel), PTA_MSB(dmabuf[2].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA3_LSB(channel), PTA_LSB(dmabuf[3].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA3_MSB(channel), PTA_MSB(dmabuf[3].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA4_LSB(channel), PTA_LSB(dmabuf[4].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA4_MSB(channel), PTA_MSB(dmabuf[4].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA5_LSB(channel), PTA_LSB(dmabuf[5].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA5_MSB(channel), PTA_MSB(dmabuf[5].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA6_LSB(channel), PTA_LSB(dmabuf[6].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA6_MSB(channel), PTA_MSB(dmabuf[6].mem_ptab_phys)); /* High */
++		SAA716x_EPWR(MMU, MMU_PTA7_LSB(channel), PTA_LSB(dmabuf[7].mem_ptab_phys)); /* Low */
++		SAA716x_EPWR(MMU, MMU_PTA7_MSB(channel), PTA_MSB(dmabuf[7].mem_ptab_phys)); /* High */
++	}
++	return 0;
++}
++
++static int saa716x_vip_setparams(struct saa716x_dev *saa716x, int port,
++				 struct vip_stream_params *stream_params)
++{
++	u32 vi_port, buf_mode, mid, val, i;
++	u8 dma_channel;
++	u32 num_pages;
++	u32 start_x, start_line, end_line, num_lines;
++	u32 base_address, base_offset, pitch;
++	u32 vin_format;
++
++	vi_port = vi_ch[port];
++	buf_mode = BAM_DMA_BUF_MODE(saa716x->vip[port].dma_channel[0]);
++	dma_channel = saa716x->vip[port].dma_channel[0];
++
++	/* number of pages needed for a buffer */
++	num_pages = (stream_params->bits / 8 * stream_params->samples
++		     * stream_params->lines) / SAA716x_PAGE_SIZE;
++	/* check if these will fit into one page table */
++	if (num_pages > (SAA716x_PAGE_SIZE / 8))
++		saa716x->vip[port].dual_channel = 1;
++	else
++		saa716x->vip[port].dual_channel = 0;
++
++	/* Reset DMA channel */
++	SAA716x_EPWR(BAM, buf_mode, 0x00000040);
++	saa716x_vip_init_ptables(saa716x->vip[port].dma_buf[0],
++				 saa716x->vip[port].dma_channel[0],
++				 stream_params);
++	if (saa716x->vip[port].dual_channel)
++		saa716x_vip_init_ptables(saa716x->vip[port].dma_buf[1],
++					 saa716x->vip[port].dma_channel[1],
++					 stream_params);
++
++	/* get module ID */
++	mid = SAA716x_EPRD(vi_port, VI_MODULE_ID);
++	if (mid != 0x11A5100) {
++		dprintk(SAA716x_ERROR, 1, "VIP Id<%04x> is not supported", mid);
++		return -1;
++	}
++
++	start_x = stream_params->offset_x;
++	start_line = stream_params->offset_y + 1;
++	end_line = 0;
++	num_lines = stream_params->lines;
++	pitch = stream_params->pitch;
++	base_address = saa716x->vip[port].dma_channel[0] << 21;
++	base_offset = 0;
++	vin_format = 0x00004000;
++
++	if ((stream_params->stream_flags & VIP_INTERLACED) &&
++	    (stream_params->stream_flags & VIP_ODD_FIELD) &&
++	    (stream_params->stream_flags & VIP_EVEN_FIELD)) {
++		num_lines /= 2;
++		pitch *= 2;
++		base_offset = stream_params->pitch;
++	}
++	if (stream_params->stream_flags & VIP_HD) {
++		if (stream_params->stream_flags & VIP_INTERLACED) {
++			vin_format |= 0x01000000;
++		} else {
++			/* suppress the windower break message */
++			vin_format |= 0x01000200;
++		}
++	}
++	if (stream_params->stream_flags & VIP_NO_SCALER) {
++		vin_format |= 0x00000400;
++	}
++
++	end_line = stream_params->offset_y + num_lines;
++
++	/* set device to normal operation */
++	SAA716x_EPWR(vi_port, VIP_POWER_DOWN, 0);
++	/* disable ANC bit detection */
++	SAA716x_EPWR(vi_port, ANC_DID_FIELD0, 0);
++	SAA716x_EPWR(vi_port, ANC_DID_FIELD1, 0);
++	/* set line threshold to 0 (interrupt is disabled anyway)*/
++	SAA716x_EPWR(vi_port, VI_LINE_THRESH, 0);
++
++	vin_format |= 2;
++	SAA716x_EPWR(vi_port, VIN_FORMAT, vin_format);
++
++	/* disable dithering */
++	SAA716x_EPWR(vi_port, PRE_DIT_CTRL, 0);
++	SAA716x_EPWR(vi_port, POST_DIT_CTRL, 0);
++	/* set alpha value */
++	SAA716x_EPWR(vi_port, CSM_CKEY, 0);
++
++	SAA716x_EPWR(vi_port, WIN_XYSTART, (start_x << 16) + start_line);
++	SAA716x_EPWR(vi_port, WIN_XYEND,
++		     ((start_x + stream_params->samples - 1) << 16) + end_line);
++
++	/* enable cropping to assure that VIP does not exceed buffer boundaries */
++	SAA716x_EPWR(vi_port, PSU_WINDOW,
++		     (stream_params->samples << 16) + num_lines);
++	/* set packet YUY2 output format */
++	SAA716x_EPWR(vi_port, PSU_FORMAT, 0x800000A1);
++
++	SAA716x_EPWR(vi_port, PSU_BASE1, base_address);
++	SAA716x_EPWR(vi_port, PSU_PITCH1, pitch);
++	SAA716x_EPWR(vi_port, PSU_PITCH2, 0);
++	SAA716x_EPWR(vi_port, PSU_BASE2, 0);
++	SAA716x_EPWR(vi_port, PSU_BASE3, 0);
++	SAA716x_EPWR(vi_port, PSU_BASE4, base_address + base_offset);
++	SAA716x_EPWR(vi_port, PSU_BASE5, 0);
++	SAA716x_EPWR(vi_port, PSU_BASE6, 0);
++
++	/* monitor BAM reset */
++	i = 0;
++	val = SAA716x_EPRD(BAM, buf_mode);
++	while (val && (i < 100)) {
++		msleep(30);
++		val = SAA716x_EPRD(BAM, buf_mode);
++		i++;
++	}
++	if (val) {
++		dprintk(SAA716x_ERROR, 1, "Error: BAM VIP Reset failed!");
++		return -EIO;
++	}
++
++	/* set buffer count */
++	SAA716x_EPWR(BAM, buf_mode, VIP_BUFFERS - 1);
++	/* initialize all available address offsets to 0 */
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_0(dma_channel), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_1(dma_channel), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_2(dma_channel), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_3(dma_channel), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_4(dma_channel), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_5(dma_channel), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_6(dma_channel), 0x0);
++	SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_7(dma_channel), 0x0);
++
++	if (saa716x->vip[port].dual_channel) {
++		buf_mode = BAM_DMA_BUF_MODE(saa716x->vip[port].dma_channel[1]);
++		dma_channel = saa716x->vip[port].dma_channel[1];
++
++		/* set buffer count */
++		SAA716x_EPWR(BAM, buf_mode, VIP_BUFFERS - 1);
++		/* initialize all available address offsets to 0 */
++		SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_0(dma_channel), 0x0);
++		SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_1(dma_channel), 0x0);
++		SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_2(dma_channel), 0x0);
++		SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_3(dma_channel), 0x0);
++		SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_4(dma_channel), 0x0);
++		SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_5(dma_channel), 0x0);
++		SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_6(dma_channel), 0x0);
++		SAA716x_EPWR(BAM, BAM_ADDR_OFFSET_7(dma_channel), 0x0);
++	}
++
++	return 0;
++}
++
++int saa716x_vip_start(struct saa716x_dev *saa716x, int port, int one_shot,
++		      struct vip_stream_params *stream_params)
++{
++	u32 vi_port;
++	u32 config1;
++	u32 config2;
++	u32 val;
++	u32 i;
++
++	vi_port = vi_ch[port];
++	config1 = MMU_DMA_CONFIG(saa716x->vip[port].dma_channel[0]);
++	config2 = MMU_DMA_CONFIG(saa716x->vip[port].dma_channel[1]);
++
++	if (saa716x_vip_setparams(saa716x, port, stream_params) != 0) {
++		return -EIO;
++	}
++
++	val = SAA716x_EPRD(MMU, config1);
++	SAA716x_EPWR(MMU, config1, val & ~0x40);
++	SAA716x_EPWR(MMU, config1, val | 0x40);
++	if (saa716x->vip[port].dual_channel) {
++		val = SAA716x_EPRD(MMU, config2);
++		SAA716x_EPWR(MMU, config2, val & ~0x40);
++		SAA716x_EPWR(MMU, config2, val | 0x40);
++	}
++
++	SAA716x_EPWR(vi_port, INT_ENABLE, 0x33F);
++
++	i = 0;
++	while (i < 500) {
++		val = SAA716x_EPRD(MMU, config1);
++		if (saa716x->vip[port].dual_channel)
++			val &= SAA716x_EPRD(MMU, config2);
++		if (val & 0x80)
++			break;
++		msleep(10);
++		i++;
++	}
++
++	if (!(val & 0x80)) {
++		dprintk(SAA716x_ERROR, 1, "Error: PTE pre-fetch failed!");
++		return -EIO;
++	}
++
++	/* enable video capture path */
++	val = SAA716x_EPRD(vi_port, VI_MODE);
++	val &= ~(VID_CFEN | VID_FSEQ | VID_OSM);
++
++	if ((stream_params->stream_flags & VIP_INTERLACED) &&
++	    (stream_params->stream_flags & VIP_ODD_FIELD) &&
++	    (stream_params->stream_flags & VIP_EVEN_FIELD)) {
++		val |= VID_CFEN_BOTH; /* capture both fields */
++		val |= VID_FSEQ; /* start capture with odd field */
++	} else {
++		val |= VID_CFEN_BOTH; /* capture both fields */
++	}
++
++	if (one_shot)
++		val |= VID_OSM; /* stop capture after receiving one frame */
++
++	saa716x_set_clk_external(saa716x, saa716x->vip[port].dma_channel[0]);
++
++	SAA716x_EPWR(vi_port, VI_MODE, val);
++
++	SAA716x_EPWR(MSI, MSI_INT_ENA_SET_L, msi_int_tagack[port]);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(saa716x_vip_start);
++
++int saa716x_vip_stop(struct saa716x_dev *saa716x, int port)
++{
++	u32 val;
++
++	SAA716x_EPWR(MSI, MSI_INT_ENA_CLR_L, msi_int_tagack[port]);
++
++	/* disable capture */
++	val = SAA716x_EPRD(vi_ch[port], VI_MODE);
++	val &= ~VID_CFEN;
++	SAA716x_EPWR(vi_ch[port], VI_MODE, val);
++
++	saa716x_set_clk_internal(saa716x, saa716x->vip[port].dma_channel[0]);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(saa716x_vip_stop);
++
++int saa716x_vip_init(struct saa716x_dev *saa716x, int port,
++		     void (*worker)(unsigned long))
++{
++	int n;
++	int i;
++	int ret;
++
++	/* reset VI */
++	SAA716x_EPWR(vi_ch[port], VI_MODE, SOFT_RESET);
++
++	for (n = 0; n < 2; n++)
++	{
++		saa716x->vip[port].dma_channel[n] = port * 3 + n;
++		for (i = 0; i < VIP_BUFFERS; i++)
++		{
++			ret = saa716x_dmabuf_alloc(
++					saa716x,
++					&saa716x->vip[port].dma_buf[n][i],
++					512 * SAA716x_PAGE_SIZE);
++			if (ret < 0) {
++				return ret;
++			}
++		}
++	}
++	saa716x->vip[port].saa716x = saa716x;
++	tasklet_init(&saa716x->vip[port].tasklet, worker,
++		     (unsigned long)&saa716x->vip[port]);
++	saa716x->vip[port].read_index = 0;
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(saa716x_vip_init);
++
++int saa716x_vip_exit(struct saa716x_dev *saa716x, int port)
++{
++	int n;
++	int i;
++
++	tasklet_kill(&saa716x->vip[port].tasklet);
++	for (n = 0; n < 2; n++)
++	{
++		for (i = 0; i < VIP_BUFFERS; i++)
++		{
++			saa716x_dmabuf_free(
++				saa716x, &saa716x->vip[port].dma_buf[n][i]);
++		}
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(saa716x_vip_exit);
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_vip.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_vip.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_vip.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_vip.h	2013-03-07 17:55:53.759588384 +0100
+@@ -0,0 +1,58 @@
 +#ifndef __SAA716x_VIP_H
 +#define __SAA716x_VIP_H
 +
-+struct saa716x_dev;
++#include "saa716x_dma.h"
++
++#define VIP_BUFFERS	8
++
++/*
++ * Stream port flags
++ */
++enum vip_stream_flags {
++	VIP_ODD_FIELD		= 0x0001,
++	VIP_EVEN_FIELD		= 0x0002,
++	VIP_INTERLACED		= 0x0004,
++	VIP_HD			= 0x0010,
++	VIP_NO_SCALER		= 0x0100
++};
++
++/*
++ * Stream port parameters
++ * bits: Bits per sample
++ * samples: samples perline
++ * lines: number of lines
++ * pitch: stream pitch in bytes
++ * offset_x: offset to first valid pixel
++ * offset_y: offset to first valid line
++ */
++struct vip_stream_params {
++	u32			bits;
++	u32			samples;
++	u32			lines;
++	s32			pitch;
++	u32			offset_x;
++	u32			offset_y;
++	enum vip_stream_flags	stream_flags;
++};
++
++struct saa716x_vip_stream_port {
++	u8			dual_channel;
++	u8			read_index;
++	u8			dma_channel[2];
++	struct saa716x_dmabuf	dma_buf[2][VIP_BUFFERS];
++	struct saa716x_dev	*saa716x;
++	struct tasklet_struct	tasklet;
++};
 +
 +extern void saa716x_vipint_disable(struct saa716x_dev *saa716x);
 +extern void saa716x_vip_disable(struct saa716x_dev *saa716x);
++extern int saa716x_vip_get_write_index(struct saa716x_dev *saa716x, int port);
++extern int saa716x_vip_start(struct saa716x_dev *saa716x, int port,
++			     int one_shot,
++			     struct vip_stream_params *stream_params);
++extern int saa716x_vip_stop(struct saa716x_dev *saa716x, int port);
++extern int saa716x_vip_init(struct saa716x_dev *saa716x, int port,
++			    void (*worker)(unsigned long));
++extern int saa716x_vip_exit(struct saa716x_dev *saa716x, int port);
 +
 +#endif /* __SAA716x_VIP_H */
-diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_vip_reg.h linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_vip_reg.h
---- linux-3.7.2/drivers/media/common/saa716x/saa716x_vip_reg.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/common/saa716x/saa716x_vip_reg.h	2013-01-16 10:41:10.927798168 +0100
-@@ -0,0 +1,127 @@
+diff -urN linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_vip_reg.h linux-3.8.2/drivers/media/pci/saa716x/saa716x_vip_reg.h
+--- linux-3.8.2.mediabuild/drivers/media/pci/saa716x/saa716x_vip_reg.h	1970-01-01 01:00:00.000000000 +0100
++++ linux-3.8.2/drivers/media/pci/saa716x/saa716x_vip_reg.h	2013-03-07 17:55:53.759588384 +0100
+@@ -0,0 +1,141 @@
 +#ifndef __SAA716x_VIP_REG_H
 +#define __SAA716x_VIP_REG_H
 +
@@ -12662,6 +11977,9 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_vip_reg.h linux-3.7.
 +
 +#define VI_MODE				0x000
 +#define VID_CFEN			(0x00000003 << 30)
++#define VID_CFEN_ODD			(0x00000001 << 30)
++#define VID_CFEN_EVEN			(0x00000002 << 30)
++#define VID_CFEN_BOTH			(0x00000003 << 30)
 +#define VID_OSM				(0x00000001 << 29)
 +#define VID_FSEQ			(0x00000001 << 28)
 +#define AUX_CFEN			(0x00000003 << 26)
@@ -12679,27 +11997,15 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_vip_reg.h linux-3.7.
 +#define HSP_RGB				(0x00000001 <<  2)
 +#define HSP_MODE			(0x00000003 <<  0)
 +
-+#define RCRB_CTRL			0x004
-+#define RCRB_CFG_ADDR			0x008
-+#define RCRB_CFG_EXT_ADDR		0x00c
-+#define RCRB_IO_ADDR			0x010
-+#define RCRB_MEM_LADDR			0x014
-+#define RCRB_MEM_UADDR			0x018
-+#define RCRB_DATA			0x01c
-+#define RCRB_MASK			0x020
-+#define RCRB_MSG_HDR			0x040
-+#define RCRB_MSG_PL0			0x044
-+#define RCRB_MSG_PL1			0x048
-+
-+#define ID_MASK0			0x020
++#define ANC_DID_FIELD0			0x020
 +#define VI_ID_MASK_0			(0x000000ff <<  8)
 +#define VI_DATA_ID_0			(0x000000ff <<  0)
 +
-+#define ID_MASK1			0x024
++#define ANC_DID_FIELD1			0x024
 +#define VI_ID_MASK_1			(0x000000ff <<  8)
 +#define VI_DATA_ID_1			(0x000000ff <<  0)
 +
-+#define VIP_LINE_THRESH			0x040
++#define VI_LINE_THRESH			0x040
 +#define VI_LCTHR			(0x000007ff <<  0)
 +
 +#define VIN_FORMAT			0x100
@@ -12718,13 +12024,33 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_vip_reg.h linux-3.7.
 +#define VI_REVS				(0x00000001 <<  1)
 +#define VI_REHS				(0x00000001 <<  0)
 +
-+#define TC76543210			0x800
-+#define TCFEDCBA98			0x804
-+#define PHYCFG				0x900
-+#define CONFIG				0xfd4
-+#define INT_ENABLE_CLR			0xfd8
-+#define INT_ENABLE_SET			0xfdc
++#define VIN_TESTPGEN			0x104
 +
++#define WIN_XYSTART			0x140
++#define WIN_XYEND			0x144
++
++#define PRE_DIT_CTRL			0x160
++#define POST_DIT_CTRL			0x164
++
++#define AUX_XYSTART			0x180
++#define AUX_XYEND			0x184
++
++#define CSM_CKEY			0x284
++
++#define PSU_FORMAT			0x300
++#define PSU_WINDOW			0x304
++#define PSU_BASE1			0x340
++#define PSU_PITCH1			0x344
++#define PSU_BASE2			0x348
++#define PSU_PITCH2			0x34c
++#define PSU_BASE3			0x350
++#define PSU_BASE4			0x354
++#define PSU_BASE5			0x358
++#define PSU_BASE6			0x35c
++
++#define AUX_FORMAT			0x380
++#define AUX_BASE			0x390
++#define AUX_PITCH			0x394
 +
 +#define INT_STATUS			0xfe0
 +#define VI_STAT_FID_AUX			(0x00000001 << 31)
@@ -12781,116 +12107,13 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_vip_reg.h linux-3.7.
 +#define VIP_POWER_DOWN			0xff4
 +#define VI_PWR_DWN			(0x00000001 << 31)
 +
++#define VI_MODULE_ID			0xffc
++
++
 +#endif /* __SAA716x_VIP_REG_H */
-diff -Naur linux-3.7.2/drivers/media/dvb-frontends/ds3103.h linux-3.7.2.patch/drivers/media/dvb-frontends/ds3103.h
---- linux-3.7.2/drivers/media/dvb-frontends/ds3103.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/dvb-frontends/ds3103.h	2013-01-16 10:41:10.927798168 +0100
-@@ -0,0 +1,47 @@
-+/*
-+    Montage Technology DS3103 - DVBS/S2 Demodulator driver
-+
-+    This program is free software; you can redistribute it and/or modify
-+    it under the terms of the GNU General Public License as published by
-+    the Free Software Foundation; either version 2 of the License, or
-+    (at your option) any later version.
-+
-+    This program is distributed in the hope that it will be useful,
-+    but WITHOUT ANY WARRANTY; without even the implied warranty of
-+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+    GNU General Public License for more details.
-+
-+    You should have received a copy of the GNU General Public License
-+    along with this program; if not, write to the Free Software
-+    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-+*/
-+
-+#ifndef DS3103_H
-+#define DS3103_H
-+
-+#include <linux/dvb/frontend.h>
-+
-+struct ds3103_config {
-+	/* the demodulator's i2c address */
-+	u8 demod_address;
-+	u8 ci_mode;
-+	/* Set device param to start dma */
-+	int (*set_ts_params)(struct dvb_frontend *fe, int is_punctured);
-+	/* Hook for Lock LED */
-+	void (*set_lock_led)(struct dvb_frontend *fe, int offon);
-+};
-+
-+#if defined(CONFIG_DVB_DS3103) || \
-+			(defined(CONFIG_DVB_DS3103_MODULE) && defined(MODULE))
-+extern struct dvb_frontend *ds3103_attach(const struct ds3103_config *config,
-+					struct i2c_adapter *i2c);
-+#else
-+static inline
-+struct dvb_frontend *ds3103_attach(const struct ds3103_config *config,
-+					struct i2c_adapter *i2c)
-+{
-+	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);
-+	return NULL;
-+}
-+#endif /* CONFIG_DVB_DS3103 */
-+#endif /* DS3103_H */
-diff -Naur linux-3.7.2/drivers/media/dvb-frontends/ts2022.h linux-3.7.2.patch/drivers/media/dvb-frontends/ts2022.h
---- linux-3.7.2/drivers/media/dvb-frontends/ts2022.h	1970-01-01 01:00:00.000000000 +0100
-+++ linux-3.7.2.patch/drivers/media/dvb-frontends/ts2022.h	2013-01-16 10:41:10.927798168 +0100
-@@ -0,0 +1,51 @@
-+  /*
-+     Driver for Montage TS2022 DVBS/S2 Silicon tuner
-+
-+     Copyright (C) 2012 Tomazzo Muzumici
-+
-+     This program is free software; you can redistribute it and/or modify
-+     it under the terms of the GNU General Public License as published by
-+     the Free Software Foundation; either version 2 of the License, or
-+     (at your option) any later version.
-+
-+     This program is distributed in the hope that it will be useful,
-+     but WITHOUT ANY WARRANTY; without even the implied warranty of
-+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+
-+     GNU General Public License for more details.
-+
-+     You should have received a copy of the GNU General Public License
-+     along with this program; if not, write to the Free Software
-+     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-+
-+  */
-+
-+#ifndef __DVB_TS2022_H__
-+#define __DVB_TS2022_H__
-+
-+#include <linux/i2c.h>
-+#include "dvb_frontend.h"
-+
-+/**
-+ * Attach a ts2022 tuner to the supplied frontend structure.
-+ *
-+ * @param fe Frontend to attach to.
-+ * @param addr i2c address of the tuner.
-+ * @param i2c i2c adapter to use.
-+ * @return FE pointer on success, NULL on failure.
-+ */
-+#if defined(CONFIG_DVB_TS2022) || (defined(CONFIG_DVB_TS2022_MODULE) \
-+							&& defined(MODULE))
-+extern struct dvb_frontend *ts2022_attach(struct dvb_frontend *fe, int addr,
-+					   struct i2c_adapter *i2c);
-+#else
-+static inline struct dvb_frontend *ts2022_attach(struct dvb_frontend *fe,
-+						  int addr,
-+						  struct i2c_adapter *i2c)
-+{
-+	printk(KERN_WARNING "%s: driver disabled by Kconfig\n", __func__);
-+	return NULL;
-+}
-+#endif /* CONFIG_DVB_TS2022 */
-+
-+#endif /* __DVB_TS2022_H__ */
-diff -Naur linux-3.7.2/include/uapi/linux/dvb/osd.h linux-3.7.2.patch/include/uapi/linux/dvb/osd.h
---- linux-3.7.2/include/uapi/linux/dvb/osd.h	2013-01-11 18:19:28.000000000 +0100
-+++ linux-3.7.2.patch/include/uapi/linux/dvb/osd.h	2013-01-16 10:41:21.992712972 +0100
+diff -urN linux-3.8.2.mediabuild/include/uapi/linux/dvb/osd.h linux-3.8.2/include/uapi/linux/dvb/osd.h
+--- linux-3.8.2.mediabuild/include/uapi/linux/dvb/osd.h	2012-10-17 22:04:44.000000000 +0200
++++ linux-3.8.2/include/uapi/linux/dvb/osd.h	2013-03-07 17:58:52.779591457 +0100
 @@ -141,4 +141,20 @@
  #define OSD_SEND_CMD            _IOW('o', 160, osd_cmd_t)
  #define OSD_GET_CAPABILITY      _IOR('o', 161, osd_cap_t)

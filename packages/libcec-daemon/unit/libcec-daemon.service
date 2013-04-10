@@ -2,7 +2,7 @@
 Description=Lib CEC Daemon
 
 [Service]
-ExecStart=/usr/bin/libcec-daemon > /dev/null 2>&1
+ExecStart=/usr/bin/libcec-daemon
 Restart=always
 
 [Install]

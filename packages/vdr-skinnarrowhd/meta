@@ -1,6 +1,6 @@
 PKG_NAME=vdr-skinnarrowhd
 PKG_URL_REV=bdb27959f0
-PKG_VERSION=0.0.1-r${PKG_URL_REV}
+PKG_VERSION=0.0.1
 PKG_URL_PROTO=git
 #PKG_VERSION=0.0.1~git20110222
 #PKG_URL="http://95.225.138.70/sifbox/vdr-skin-narrowhd_${PKG_VERSION}.tar.gz"

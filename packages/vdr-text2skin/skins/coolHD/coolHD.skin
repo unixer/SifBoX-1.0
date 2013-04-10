@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<skin version="0.1" name="coolHD" screenBase="absolute" >
+<skin version="0.2" name="coolHD" screenBase="absolute" >
 
 <!--
  
@@ -225,17 +225,17 @@ MA 02110, USA
 		<block condition="equal({MenuTitle:clean},'VDR')">
 			<rectangle x1="96" x2="1824" y1="942" y2="1009" color="Background" />
 		
-			<rectangle x1="133" x2="409" y1="960" y2="997" condition="{ButtonRed}" color="RedLow" />
-			<text x1="136"  x2="406"  y1="964"  y2="991" color="TextHigh" condition="{ButtonRed}" align="center" font="VDRSymbolsSans:Book@24">{ButtonRed}</text>
+			<rectangle x1="133" x2="437" y1="960" y2="997" condition="{ButtonRed}" color="RedLow" />
+			<text      x1="133" x2="437" y1="964" y2="991" condition="{ButtonRed}" color="TextHigh" align="center" font="VDRSymbolsSans:Book@24">{ButtonRed}</text>
 
-			<rectangle x1="426" x2="749" y1="960" y2="997" condition="{ButtonGreen}" color="GreenLow" />
-			<text x1="446"  x2="746"  y1="964"  y2="991" color="TextHigh" condition="{ButtonGreen}" align="center" font="VDRSymbolsSans:Book@24">{ButtonGreen}</text>
+			<rectangle x1="447" x2="751" y1="960" y2="997" condition="{ButtonGreen}" color="GreenLow" />
+			<text      x1="447" x2="751" y1="964" y2="991" condition="{ButtonGreen}" color="TextHigh" align="center" font="VDRSymbolsSans:Book@24">{ButtonGreen}</text>
 
-			<rectangle x1="756" x2="1074" y1="960" y2="997" condition="{ButtonBlue}" color="BlueLow" />
-			<text x1="776"  x2="1071" y1="964"  y2="991" color="TextHigh" condition="{ButtonBlue}" align="center" font="VDRSymbolsSans:Book@24">{ButtonBlue}</text>
+			<rectangle x1="761" x2="1065" y1="960" y2="997" condition="{ButtonYellow}" color="YellowLow" />
+			<text      x1="761" x2="1065" y1="964" y2="991" condition="{ButtonYellow}" color="TextHigh" align="center" font="VDRSymbolsSans:Book@24">{ButtonYellow}</text>
 
-			<rectangle x1="1082" x2="1379" y1="960" y2="997" condition="{ButtonYellow}" color="YellowLow" />
-			<text x1="1102" x2="1376" y1="964"  y2="991" color="TextHigh" condition="{ButtonYellow}" align="center" font="VDRSymbolsSans:Book@24">{ButtonYellow}</text>
+			<rectangle x1="1075" x2="1379" y1="960" y2="997" condition="{ButtonBlue}" color="BlueLow" />
+			<text      x1="1078" x2="1376" y1="964" y2="991" condition="{ButtonBlue}" color="TextHigh" align="center" font="VDRSymbolsSans:Book@24">{ButtonBlue}</text>
 			
 			<block  condition="{Message}">
 				<rectangle x1="117" x2="1400" y1="945" y2="1000" color="BackgroundMessage" />
@@ -339,13 +339,13 @@ MA 02110, USA
 			<rectangle x1="544" x2="932" y1="960" y2="997" condition="{ButtonGreen}" color="GreenLow" />
 			<text x1="547" x2="939" y1="964" y2="991" color="TextHigh" condition="{ButtonGreen}" align="center" font="VDRSymbols Sans:Book@27">{ButtonGreen}</text>
 
-			<!-- <rectangle x1="952" x2="967" y1="960" y2="995" condition="{ButtonBlue}" color="BlueHigh" /> -->
-			<rectangle x1="969" x2="1353" y1="960" y2="997" condition="{ButtonBlue}" color="BlueLow" />
-			<text x1="972" x2="1350" y1="964" y2="991" color="TextHigh" condition="{ButtonBlue}" align="center" font="VDRSymbols Sans:Book@27">{ButtonBlue}</text>
+			<!-- <rectangle x1="952" x2="967" y1="960" y2="995" condition="{ButtonYellow}" color="YellowHigh" /> -->
+			<rectangle x1="969" x2="1353" y1="960" y2="997" condition="{ButtonYellow}" color="YellowLow" />
+			<text x1="972" x2="1350" y1="964" y2="991" color="TextHigh" condition="{ButtonYellow}" align="center" font="VDRSymbols Sans:Book@27">{ButtonYellow}</text>
 
-			<!-- <rectangle x1="1372" x2="1387" y1="960" y2="995" condition="{ButtonYellow}" color="YellowHigh" /> -->
-			<rectangle x1="1389" x2="1759" y1="960" y2="997" condition="{ButtonYellow}" color="YellowLow" />
-			<text x1="1392" x2="1756" y1="964" y2="991" color="TextHigh" condition="{ButtonYellow}" align="center" font="VDRSymbols Sans:Book@27">{ButtonYellow}</text>
+			<!-- <rectangle x1="1372" x2="1387" y1="960" y2="995" condition="{ButtonBlue}" color="BlueHigh" /> -->
+			<rectangle x1="1389" x2="1759" y1="960" y2="997" condition="{ButtonBlue}" color="BlueLow" />
+			<text x1="1392" x2="1756" y1="964" y2="991" color="TextHigh" condition="{ButtonBlue}" align="center" font="VDRSymbols Sans:Book@27">{ButtonBlue}</text>
 			
 			<block  condition="{Message}">
 				<rectangle x1="117" x2="1824" y1="945" y2="1000" color="BackgroundMessage" />
