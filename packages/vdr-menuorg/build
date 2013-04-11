@@ -25,6 +25,7 @@ verlte 1.7.36 $PKG_VERSION && VDRINS="no" || VDRINS="yes"
 #VDRINS="no"
 if [ $VDRINS = "yes" ]; then
   make_install
+  rm -rf .install-debuginfo || true
 else
   mv locale/de locale/de_de
   mv locale/fr locale/fr_FR
