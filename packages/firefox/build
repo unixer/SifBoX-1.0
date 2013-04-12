@@ -21,36 +21,75 @@ echo $HOST_NAME
 #read enterKey
 rm mozconfig || true
 
+
 cat > mozconfig << "EOF"
-# See http://www.mozilla.org/build/unix.html for build instructions.
-#
-CROSS_COMPILE=1
-HOST_LIBIDL_CONFIG='/usr/bin/libIDL-config-2 --prefix=/usr'
-HOST_LIBIDL_CFLAGS='-I/usr/include/libIDL-2.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include'
-HOST_LIBIDL_LIBS='-L/usr/lib -lIDL-2 -lglib-2.0'
-LIBIDL_CONFIG='/usr/bin/libIDL-config-2 --prefix=/usr/mipsEEel-linux'
-export PKG_CONFIG_PATH=/usr/mipsEEel-linux/lib/pkgconfig
+# If you have a multicore machine you can speed up the build by running
+# several jobs at once by uncommenting the following line and setting the
+# value to number of CPU cores:
+mk_add_options MOZ_MAKE_FLAGS="-j1"
 
-# don't use pkg-config for host libIDL
-ac_add_options --without-libIDL
-ac_add_options --prefix=/usr/mipsEEel-linux
-ac_add_options --target=mipsEEel-linux
+# If you have installed DBus-Glib comment out this line:
+ac_add_options --disable-dbus
 
-# Options for 'configure' (same as command-line options). 
-# all are listed so that one can manually tweak this config file.
+# If you have installed wireless-tools comment out this line:
+ac_add_options --disable-necko-wifi
+
+# If you have installed libnotify comment out this line:
+ac_add_options --disable-libnotify
+
+# Uncomment these lines if you have installed optional dependencies:
+#ac_add_options --enable-system-hunspell
+#ac_add_options --enable-startup-notification
+
+# If you have not installed Yasm then uncomment this line:
+#ac_add_options --disable-webm
+
+# If you have installed xulrunner uncomment following two lines:
+#ac_add_options --with-system-libxul
+#ac_add_options --with-libxul-sdk=\$(pkg-config --variable=sdkdir libxul)
+
+# Comment out following options if you have not installed
+# recommended dependencies:
+# ac_add_options --enable-system-sqlite
+ac_add_options --with-system-libevent
+# ac_add_options --with-system-libvpx
+# ac_add_options --with-system-nspr
+# ac_add_options --with-system-nss
+
+# It is recommended not to touch anything below this line
+ac_add_options --prefix=/usr
 ac_add_options --enable-application=browser
-ac_add_options --enable-mathml
-ac_add_options --enable-extensions
-#ac_add_options --enable-crypto
-ac_add_options --enable-logrefcnt
 
-ac_add_options --without-system-nspr
-ac_add_options --without-system-zlib
-ac_add_options --without-system-jpeg
-ac_add_options --without-system-png
+ac_add_options --disable-crashreporter
+ac_add_options --disable-installer
+ac_add_options --disable-updater
+ac_add_options --disable-debug
+ac_add_options --disable-tests
+
+ac_add_options --enable-optimize
+ac_add_options --enable-strip
+ac_add_options --enable-install-strip
+
+ac_add_options --enable-gio
+ac_add_options --enable-official-branding
+ac_add_options --enable-safe-browsing
+ac_add_options --enable-url-classifier
+
+ac_add_options --enable-system-ffi
+ac_add_options --enable-system-pixman
+
+ac_add_options --with-pthreads
+
+ac_add_options --with-system-bz2
+ac_add_options --with-system-jpeg
+#ac_add_options --with-system-png
+ac_add_options --with-system-zlib
 
 mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/firefox-build-dir
 EOF
+
+
+
 sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config/autoconf.mk || true
 sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config/autoconf.mk || true
 sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config.log || true

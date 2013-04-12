@@ -1,8 +1,10 @@
 #!/bin/sh
 
 . config/options
+
 get_meta linux
 verlte 3.6.11 $PKG_VERSION && INSDVB="yes" || INSDVB="no"
+
 
 cd $BUILD/$1*
 if [ $INSDVB = "no" ]; then
