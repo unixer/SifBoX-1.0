@@ -10,7 +10,6 @@ make -j1 \
   SRCDIR=$(kernel_path) \
   OUTDIR=$(kernel_path) \
 install_dir="$PWD/.install"
-read enterKey
 #debug_dir="$PWD/.install-debuginfo/usr/lib/debug"
 cd ../..
 
