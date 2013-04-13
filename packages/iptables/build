@@ -14,7 +14,7 @@ $SCRIPTS/build linux
 
 cd $BUILD/$1*
 
-
+do_autoconf
 do_configure \
             --enable-devel \
             --disable-ipv6 \
