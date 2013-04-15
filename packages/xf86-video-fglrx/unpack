@@ -1,13 +1,10 @@
 #!/bin/sh
 
 . config/options
-
 get_meta $1
 
 require_glibc $1
 
-ZIP_PKG="`echo $PKG_URL | sed 's%.*/\(.*\)$%\1%'`"
-[ -d $PKG_BUILD_DIR ] && rm -rf $PKG_BUILD_DIR
 
 #sh $ATI_PKG --extract $PKG_BUILD_DIR
 cd $PKG_BUILD_DIR
@@ -24,7 +21,7 @@ if [ -d "$PACKAGES/$1/patches.ati/" ]; then
   done
 fi
 
-for patch in `ls $PACKAGES/$1/patches.upstream/*.patch`; do
-  cat $patch | patch -d \
-    `echo $BUILD/$PKG_NAME-$PKG_VERSION | cut -f1 -d\ ` -p1
-done
+#sed -i -e 's/__SMP__/CONFIG_SMP/' \
+#  $BUILD/${PKG_NAME}-${PKG_VERSION}/common/lib/modules/fglrx/build_mod/*.[hc]
+#sed -i -e 's/ifdef MODVERSIONS/ifdef CONFIG_MODVERSIONS/' \
+#  $BUILD/${PKG_NAME}-${PKG_VERSION}/common/lib/modules/fglrx/build_mod/*.[hc]

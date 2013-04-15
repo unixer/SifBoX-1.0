@@ -6,7 +6,7 @@ diff -urN dvbloop-dkms_0.9.4/mcast/dvbloop/dvblo_adap_fe.c vdr-mcli-plugin/mcast
  
  /* fontend ops */
 -int dvblo_adap_fe_get_frontend (struct dvb_frontend *fe, struct dvb_frontend_parameters *params)
-+int dvblo_adap_fe_get_frontend (struct dvb_frontend *fe, struct analog_parameters *params)
++int dvblo_adap_fe_get_frontend (struct dvb_frontend *fe, struct dvb_frontend_parameters *params)
  {
  	int rv = SUCCESS;
  	struct dvblo *dvblo = FE_PRIV (fe);

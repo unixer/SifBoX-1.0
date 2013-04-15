@@ -4,7 +4,6 @@
 
 get_meta vdr
 verlte 1.7.36 $PKG_VERSION && VDRINS="no" || VDRINS="yes"
-VDRINS="no"
 
 get_meta $1
 

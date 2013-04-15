@@ -1,11 +1,10 @@
 PKG_NAME=vdr-live
-#PKG_URL_REV=545739feb11
-#PKG_VERSION=0.2.0+${PKG_URL_REV}
-PKG_URL_REV=9f56065e
+#PKG_URL_REV=9f56065e
+PKG_URL_REV=1a1f2e07
 PKG_VERSION=0.3.0
 PKG_URL_PROTO=git
 PKG_URL="git://projects.vdr-developer.org/vdr-plugin-live.git"
-PKG_REV=3
+PKG_REV=4
 PKG_BUILD_DEPENDS="toolchain gettext"
 PKG_RUN_DEPENDS="$TARGET_LIBC vdr"
 PKG_DEPENDS="tntnet pcre"
