@@ -9,12 +9,20 @@ require_glibc $1
 ZIP_PKG="`echo $PKG_URL | sed 's%.*/\(.*\)$%\1%'`"
 [ -d $PKG_BUILD_DIR ] && rm -rf $PKG_BUILD_DIR
 
-mkdir -p $PKG_BUILD_DIR
-  unzip $SOURCES/$1/$ZIP_PKG -d $BUILD/${PKG_NAME}-${PKG_VERSION} 2>&1
-  ATI_PKG=`ls -d $PKG_BUILD_DIR/amd-driver-installer-*.run`
-  sh $ATI_PKG --extract $PKG_BUILD_DIR
+#sh $ATI_PKG --extract $PKG_BUILD_DIR
+cd $PKG_BUILD_DIR
 
-echo "### Applying upstream patches ###"
+ATI_PKG="`basename $PKG_URL | sed 's/.zip//'`.run"
+sh $ATI_PKG --extract .
+cd -
+
+
+if [ -d "$PACKAGES/$1/patches.ati/" ]; then
+  for i in $PACKAGES/$1/patches.ati/*.diff*; do
+    echo "## Applying patch: $i"
+    cat $i | patch -d `echo $BUILD/$1* | cut -f1 -d\ ` -p1 >&$VERBOSE_OUT
+  done
+fi
 
 for patch in `ls $PACKAGES/$1/patches.upstream/*.patch`; do
   cat $patch | patch -d \
