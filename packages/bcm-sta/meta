@@ -1,0 +1,9 @@
+PKG_NAME=bcm-sta
+PKG_VERSION=5.100.82.112
+PKG_REV=1
+PKG_URL="http://sources.openelec.tv/devel/bcm_sta-$PKG_VERSION.tar.xz"
+PKG_DEPENDS="$TARGET_LIBC"
+PKG_BUILD_DEPENDS="toolchain linux"
+PKG_PRIORITY=optional
+PKG_SECTION=drivers
+PKG_SHORTDESC="bcm_sta: Broadcom's BCM4311-, BCM4312-, BCM4313-, BCM4321-, BCM4322-, BCM43224-, and BCM43225-based WLAN driver"

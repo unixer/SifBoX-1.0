@@ -1,12 +1,11 @@
 PKG_NAME=vdr-plugin-xvdr
 PKG_URL_PROTO=git
-#PKG_URL_REV=c43033c1ca
-PKG_URL_REV=935a294
-#PKG_URL_REV=22b556c  #0.9.9
+PKG_URL_REV=c43033c1ca # OK 
+#PKG_URL_REV=935a294 problemi
 PKG_URL="git://github.com/pipelka/vdr-plugin-xvdr.git"
 #PKG_VERSION=0.9.6
 PKG_VERSION=0.9.9
-PKG_REV=3
+PKG_REV=4
 PKG_BUILD_DEPENDS="toolchain zlib linux-headers"
 PKG_DEPENDS="vdr"
 PKG_PRIORITY=optional

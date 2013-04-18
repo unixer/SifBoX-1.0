@@ -1,0 +1,11 @@
+PKG_NAME=atv-bootloader
+PKG_VERSION=r520
+PKG_URL="http://sources.openelec.tv/devel/$PKG_NAME-$PKG_VERSION.tar.xz"
+PKG_REV=1
+PKG_ARCH="i386 x86_64"
+PKG_DEPENDS="$TARGET_LIBC darwin-cross"
+PKG_BUILD_DEPENDS="toolchain darwin-cross"
+PKG_PRIORITY=optional
+PKG_SECTION=misc
+PKG_SHORTDESC="atv-bootloader: Tool to create a mach_kernel compaitible kernel image"
+PKG_LONGDESC="atv-bootloader which uses principals from mach_linux_boot to boot a compiled-in Linux kernel"
