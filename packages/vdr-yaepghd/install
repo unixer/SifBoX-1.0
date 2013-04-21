@@ -33,4 +33,5 @@ fi
 
 mkdir -p $INSTALL/etc/vdr/plugins/yaepghd
 cp -r $ROOT/$PACKAGES/$1/config/yaepghd $INSTALL/etc/vdr/plugins/
+cp -r yaepghd $INSTALL/etc/vdr/plugins/
 #cp -r $BUILD/$1*/yaepghd $INSTALL/etc/vdr/plugins/

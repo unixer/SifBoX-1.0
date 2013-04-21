@@ -5,6 +5,9 @@
 do_shutdown()
 {
   sleep 0
+  systemctl stop libcec-daemon.service
+  sleep .5
+  echo 'standby 0' | cec-client -s /dev/ttyACM0
   poweroff
 }
 

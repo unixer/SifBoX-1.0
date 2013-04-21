@@ -25,7 +25,16 @@ if [ -n "$MACHINE_UBOOT_CONFIG" ]; then
   cp -P $ROOT/$TOOLCHAIN/share/u-boot/* $TARBALL_DIR/boot
 fi
 
-tar cpjf $TBZ2_NAME -C $TARBALL_DIR .
+if [ "$BOOTLOADER" = "atv-bootloader" ]; then
+  cp -PR $ROOT/$BUILD/atv-bootloader-*/mach_kernel $TARBALL_DIR/mach_kernel
+  chmod 0644 $TARBALL_DIR/mach_kernel
+fi
+
+if [ -f $TARBALL_DIR/mach_kernel ]; then
+  cp $TARBALL_DIR/mach_kernel binaries/binaries.$VERSION_SUFFIX/MACH_KERNEL
+fi
+
+tar cpJf $TBZ2_NAME -C $TARBALL_DIR .
 
 rm -rf $TARBALL_DIR
 
