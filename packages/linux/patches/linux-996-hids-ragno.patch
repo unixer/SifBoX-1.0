@@ -1,0 +1,11 @@
+--- linux-3.8.6/drivers/hid/hid-ids.h.org	2013-04-21 18:20:58.521795363 +0200
++++ linux-3.8.6/drivers/hid/hid-ids.h	2013-04-21 18:23:13.029797672 +0200
+@@ -158,6 +158,8 @@
+ #define USB_VENDOR_ID_ATMEL		0x03eb
+ #define USB_DEVICE_ID_ATMEL_MULTITOUCH	0x211c
+ #define USB_DEVICE_ID_ATMEL_MXT_DIGITIZER	0x2118
++#define USB_VENDOR_ID_ATMEL_V_USB 	0x16c0
++#define USB_DEVICE_ID_ATMEL_V_USB 	0x05df
+ 
+ #define USB_VENDOR_ID_AUREAL		0x0755
+ #define USB_DEVICE_ID_AUREAL_W01RN	0x2626
