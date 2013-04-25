@@ -312,6 +312,7 @@ show_logfile() {
 
 do_reboot() {
   echo "Rebooting..."
+  sync
   reboot
 }
 
