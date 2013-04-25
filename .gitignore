@@ -8,6 +8,7 @@ unixer
 sifbox-*.iso
 sifbox-*.tar*
 geexbox-*.tar
+*prova*
 *.old
 *.caz
 *.org
