@@ -1,6 +1,6 @@
-diff -ruN 1.7.41_22/config.c 1.7.41_24/config.c
---- 1.7.41_22/config.c	2013-03-18 22:34:38.000000000 +0100
-+++ 1.7.41_24/config.c	2013-03-18 22:39:10.000000000 +0100
+diff -ruN 2.0_org/config.c vdr-2.0.0/config.c
+--- 2.0_org/config.c	2013-04-05 01:44:43.000000000 +0200
++++ vdr-2.0.0/config.c	2013-04-05 01:45:54.000000000 +0200
 @@ -396,6 +396,9 @@
    StandardCompliance = STANDARD_DVB;
    MarginStart = 2;
@@ -31,9 +31,9 @@ diff -ruN 1.7.41_22/config.c 1.7.41_24/config.c
    StoreLanguages("AudioLanguages", AudioLanguages);
    Store("DisplaySubtitles",   DisplaySubtitles);
    Store("SupportTeletext",    SupportTeletext);
-diff -ruN 1.7.41_22/config.h 1.7.41_24/config.h
---- 1.7.41_22/config.h	2013-03-18 22:34:38.000000000 +0100
-+++ 1.7.41_24/config.h	2013-03-18 22:39:10.000000000 +0100
+diff -ruN 2.0_org/config.h vdr-2.0.0/config.h
+--- 2.0_org/config.h	2013-04-05 01:44:43.000000000 +0200
++++ vdr-2.0.0/config.h	2013-04-05 01:45:54.000000000 +0200
 @@ -280,6 +280,7 @@
    int TimeTransponder;
    int StandardCompliance;
@@ -42,10 +42,10 @@ diff -ruN 1.7.41_22/config.h 1.7.41_24/config.h
    int AudioLanguages[I18N_MAX_LANGUAGES + 1];
    int DisplaySubtitles;
    int SupportTeletext;
-diff -ruN 1.7.41_22/menu.c 1.7.41_24/menu.c
---- 1.7.41_22/menu.c	2013-03-18 22:34:38.000000000 +0100
-+++ 1.7.41_24/menu.c	2013-03-18 22:41:54.000000000 +0100
-@@ -3414,6 +3414,9 @@
+diff -ruN 2.0_org/menu.c vdr-2.0.0/menu.c
+--- 2.0_org/menu.c	2013-04-05 01:44:43.000000000 +0200
++++ vdr-2.0.0/menu.c	2013-04-05 01:56:39.000000000 +0200
+@@ -3426,6 +3426,9 @@
    Add(new cMenuEditIntItem(tr("Setup.Replay$Resume ID"), &data.ResumeID, 0, 99));
    Add(new cMenuEditBoolItem(tr("Setup.Replay$Jump&Play"), &data.JumpPlay));
    Add(new cMenuEditBoolItem(tr("Setup.Replay$Play&Jump"), &data.PlayJump));
@@ -55,34 +55,45 @@ diff -ruN 1.7.41_22/menu.c 1.7.41_24/menu.c
    Add(new cMenuEditBoolItem(tr("Setup.Replay$Pause at last mark"), &data.PauseLastMark));
  }
  
-@@ -5504,13 +5507,15 @@
+@@ -5490,9 +5493,11 @@
      case kRight:   Forward(); break;
      case kRed:     TimeSearch(); break;
      case kGreen|k_Repeat:
 -    case kGreen:   SkipSeconds(-60); break;
--    case kYellow|k_Repeat:
--    case kYellow:  SkipSeconds( 60); break;
 +                   SkipSeconds(-(Setup.JumpSecondsRepeat)); break;
 +    case kGreen:   SkipSeconds(-(Setup.JumpSeconds)); break;
-     case k1|k_Repeat:
--    case k1:       SkipSeconds(-20); break;
-+    case k1:       SkipSeconds(-Setup.JumpSecondsSlow); break;
-     case k3|k_Repeat:
--    case k3:       SkipSeconds( 20); break;
-+    case k3:       SkipSeconds( Setup.JumpSecondsSlow); break;
-+    case kYellow|k_Repeat:
+     case kYellow|k_Repeat:
+-    case kYellow:  SkipSeconds( 60); break;
 +                   SkipSeconds(Setup.JumpSecondsRepeat); break;
 +    case kYellow:  SkipSeconds(Setup.JumpSeconds); break;
      case kPrev|k_Repeat:
      case kPrev:    if (lastSkipTimeout.TimedOut()) {
                        lastSkipSeconds = REPLAYCONTROLSKIPSECONDS;
+@@ -5539,7 +5544,7 @@
+                                   marks.Save();
+                                   }
+                                else
+-                                  SkipSeconds(-20);
++                                  SkipSeconds(-Setup.JumpSecondsSlow);
+                                break;
+         case k3|k_Repeat:
+         case k3:               if (GetReplayMode(play, forward, speed) && !play && GetIndex(Current, Total) && (m = marks.Get(Current)) != NULL) {
+@@ -5552,7 +5557,7 @@
+                                   marks.Save();
+                                   }
+                                else
+-                                  SkipSeconds(20);
++                                  SkipSeconds(Setup.JumpSecondsSlow);
+                                break;
+         case kMarkToggle:      if (GetReplayMode(play, forward, speed) && play) {
+                                   displayFrames = true;
 diff -ruN 1.7.41_22/po/de_DE.po 1.7.41_24/po/de_DE.po
---- 1.7.41_22/po/de_DE.po	2013-03-18 22:34:38.000000000 +0100
-+++ 1.7.41_24/po/de_DE.po	2013-03-18 22:39:11.000000000 +0100
+--- 1.7.41_22/po/de_DE.po       2013-03-18 22:34:38.000000000 +0100
++++ 1.7.41_24/po/de_DE.po       2013-03-18 22:39:11.000000000 +0100
 @@ -870,6 +870,15 @@
  msgid "Button$Scan"
  msgstr "Scan"
- 
+
 +msgid "Setup.Recording$Jump Seconds"
 +msgstr "Sprungweite in Sekunden"
 +
@@ -94,4 +105,4 @@ diff -ruN 1.7.41_22/po/de_DE.po 1.7.41_24/po/de_DE.po
 +
  msgid "Setup.EPG$EPG scan timeout (h)"
  msgstr "Zeit bis zur EPG-Aktualisierung (h)"
- 
+

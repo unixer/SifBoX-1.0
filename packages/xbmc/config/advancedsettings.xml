@@ -17,11 +17,4 @@
   <samba>
     <clienttimeout>30</clienttimeout>
   </samba>
-  <lcd>
-  	<rows>4<rows>			 	<!-- Number of Rows to use for the LCD -->
-  	<columns>20</columns>                   <!-- Number of columns to use for the LCD. -->
-  	<heartbeat>true</heartbeat>             <!-- Enables LCDprocs heartbeat symbol. Defaults to false. -->
-  	<dimonscreensave>true</dimonscreensave> <!-- Turns of the LCD/VFD backlight while screensaving. Defaults to false. -->
-  	<scrolldelay>2</scrolldelay>            <!-- Delay of the scroller widget. Defaults to 1. -->
-  </lcd>
 </advancedsettings>

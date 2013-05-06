@@ -780,7 +780,7 @@ diff -ruN 1.7.41_31/dvbdevice.c 1.7.41_33/dvbdevice.c
    cPoller Poller(fd_frontend);
    if (Poller.Poll(TUNER_POLL_TIMEOUT)) {
       dvb_frontend_event Event;
-@@ -752,6 +763,8 @@
+@@ -757,6 +768,8 @@
  
  bool cDvbTuner::SetFrontend(void)
  {
@@ -789,7 +789,7 @@ diff -ruN 1.7.41_31/dvbdevice.c 1.7.41_33/dvbdevice.c
  #define MAXFRONTENDCMDS 16
  #define SETCMD(c, d) { Frontend[CmdSeq.num].cmd = (c);\
                         Frontend[CmdSeq.num].u.data = (d);\
-@@ -898,9 +911,11 @@
+@@ -903,9 +916,11 @@
    bool LostLock = false;
    fe_status_t Status = (fe_status_t)0;
    while (Running()) {
@@ -804,7 +804,7 @@ diff -ruN 1.7.41_31/dvbdevice.c 1.7.41_33/dvbdevice.c
          cMutexLock MutexLock(&mutex);
          if (SendDiseqc) {
             CHECK(ioctl(fd_frontend, FE_DISEQC_SEND_MASTER_CMD, &diseqc_cmd));
-@@ -957,6 +972,40 @@
+@@ -962,6 +977,40 @@
          }
  }
  
@@ -845,7 +845,7 @@ diff -ruN 1.7.41_31/dvbdevice.c 1.7.41_33/dvbdevice.c
  // --- cDvbSourceParam -------------------------------------------------------
  
  class cDvbSourceParam : public cSourceParam {
-@@ -1042,7 +1091,8 @@
+@@ -1047,7 +1096,8 @@
    NULL
    };
  
@@ -855,7 +855,7 @@ diff -ruN 1.7.41_31/dvbdevice.c 1.7.41_33/dvbdevice.c
  {
    adapter = Adapter;
    frontend = Frontend;
-@@ -1060,9 +1110,8 @@
+@@ -1065,9 +1115,8 @@
  
    // Common Interface:
  
@@ -867,7 +867,7 @@ diff -ruN 1.7.41_31/dvbdevice.c 1.7.41_33/dvbdevice.c
  
    // The DVR device (will be opened and closed as needed):
  
-@@ -1290,7 +1339,11 @@
+@@ -1295,7 +1344,11 @@
           if (d >= 0) {
              int ErrorDevice = 0;
              if (cDevice *Device1 = cDevice::GetDevice(i)) {
@@ -879,7 +879,7 @@ diff -ruN 1.7.41_31/dvbdevice.c 1.7.41_33/dvbdevice.c
                    if (cDvbDevice *DvbDevice1 = dynamic_cast<cDvbDevice *>(Device1)) {
                       if (cDvbDevice *DvbDevice2 = dynamic_cast<cDvbDevice *>(Device2)) {
                          if (!DvbDevice1->Bond(DvbDevice2))
-@@ -1324,7 +1377,10 @@
+@@ -1329,7 +1382,10 @@
  void cDvbDevice::UnBondDevices(void)
  {
    for (int i = 0; i < cDevice::NumDevices(); i++) {
@@ -891,7 +891,7 @@ diff -ruN 1.7.41_31/dvbdevice.c 1.7.41_33/dvbdevice.c
           d->UnBond();
        }
  }
-@@ -1378,6 +1434,26 @@
+@@ -1383,6 +1439,26 @@
    return true;
  }
  
@@ -918,7 +918,7 @@ diff -ruN 1.7.41_31/dvbdevice.c 1.7.41_33/dvbdevice.c
  bool cDvbDevice::HasCi(void)
  {
    return ciAdapter;
-@@ -1551,7 +1627,7 @@
+@@ -1556,7 +1632,7 @@
  
  bool cDvbDevice::ProvidesEIT(void) const
  {
@@ -927,7 +927,7 @@ diff -ruN 1.7.41_31/dvbdevice.c 1.7.41_33/dvbdevice.c
  }
  
  int cDvbDevice::NumProvidedSystems(void) const
-@@ -1610,8 +1686,12 @@
+@@ -1615,8 +1691,12 @@
  {
    CloseDvr();
    fd_dvr = DvbOpen(DEV_DVB_DVR, adapter, frontend, O_RDONLY | O_NONBLOCK, true);

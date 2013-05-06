@@ -75,6 +75,17 @@ diff -ruN 1.7.41_33/device.h 1.7.41_34/device.h
  #define MAXOCCUPIEDTIMEOUT 99 // max. time (in seconds) a device may be occupied
  
  enum eSetChannelResult { scrOk, scrNotAvailable, scrNoTransfer, scrFailed };
+--- 1/menu.c.orig 2013-04-28 21:06:25.166914458 +0200
++++ 2/menu.c      2013-04-28 21:06:29.834914622 +0200
+@@ -3461,6 +3461,8 @@
+   Add(new cMenuEditIntItem( tr("Setup.Miscellaneous$Remote control repeat delta (ms)"), &data.RcRepeatDelta, 0));
+   Add(new cMenuEditChanItem(tr("Setup.Miscellaneous$Initial channel"),            &data.InitialChannel, tr("Setup.Miscellaneous$as before")));
+   Add(new cMenuEditIntItem( tr("Setup.Miscellaneous$Initial volume"),             &data.InitialVolume, -1, 255, tr("Setup.Miscellaneous$as before")));
++  Add(new cMenuEditIntItem( tr("Setup.Miscellaneous$Volume steps"),               &data.VolumeSteps, 5, 255));
++  Add(new cMenuEditIntItem( tr("Setup.Miscellaneous$Volume linearize"),           &data.VolumeLinearize, -20, 20));
+   Add(new cMenuEditBoolItem(tr("Setup.Miscellaneous$Channels wrap"),              &data.ChannelsWrap));
+   Add(new cMenuEditBoolItem(tr("Setup.Miscellaneous$Show channel names with source"), &data.ShowChannelNamesWithSource));
+   Add(new cMenuEditBoolItem(tr("Setup.Miscellaneous$Emergency exit"),             &data.EmergencyExit));
 diff -ruN 1.7.41_33/po/de_DE.po 1.7.41_34/po/de_DE.po
 --- 1.7.41_33/po/de_DE.po	2013-03-18 23:13:22.000000000 +0100
 +++ 1.7.41_34/po/de_DE.po	2013-03-18 23:18:14.000000000 +0100

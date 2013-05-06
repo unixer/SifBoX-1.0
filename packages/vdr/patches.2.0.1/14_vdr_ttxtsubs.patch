@@ -802,7 +802,7 @@ Origin: ttxsubs plugin
  // TS to PES converter:
 --- a/vdr.5
 +++ b/vdr.5
-@@ -235,6 +235,12 @@
+@@ -240,6 +240,12 @@
  
  .B ...:201;2001=deu,2002=eng:...
  

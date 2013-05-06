@@ -235,7 +235,7 @@ diff -ruN 1.7.41_12/menu.c 1.7.41_13/menu.c
  }
  
  void cMenuSetupReplay::Store(void)
-@@ -5041,8 +5044,10 @@
+@@ -5043,8 +5046,10 @@
          marks.Add(Current);
          bool Play, Forward;
          int Speed;
@@ -247,7 +247,7 @@ diff -ruN 1.7.41_12/menu.c 1.7.41_13/menu.c
          }
       ShowTimed(2);
       marksModified = true;
-@@ -5055,8 +5060,17 @@
+@@ -5057,8 +5062,17 @@
    if (GetIndex(Current, Total)) {
       if (marks.Count()) {
          if (cMark *m = Forward ? marks.GetNext(Current) : marks.GetPrev(Current)) {
@@ -267,7 +267,7 @@ diff -ruN 1.7.41_12/menu.c 1.7.41_13/menu.c
             return;
             }
          }
-@@ -5117,7 +5131,7 @@
+@@ -5119,7 +5133,7 @@
       if (!m)
          m = marks.GetNext(Current);
       if (m) {

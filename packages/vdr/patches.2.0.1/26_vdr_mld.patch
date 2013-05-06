@@ -1,7 +1,7 @@
 diff -ruN 1.7.41_24/menu.c 1.7.41_26/menu.c
 --- 1.7.41_24/menu.c	2013-03-18 22:41:54.000000000 +0100
 +++ 1.7.41_26/menu.c	2013-03-18 22:46:57.000000000 +0100
-@@ -3544,7 +3544,7 @@
+@@ -3556,7 +3556,7 @@
  {
    Clear();
    char buffer[64];
@@ -10,7 +10,7 @@ diff -ruN 1.7.41_24/menu.c 1.7.41_26/menu.c
    SetTitle(buffer);
    SetHasHotkeys();
    Add(new cOsdItem(hk(tr("OSD")),           osUser1));
-@@ -3622,9 +3622,9 @@
+@@ -3634,9 +3634,9 @@
  :cOsdMenu("")
  {
    // Load Menu Configuration
@@ -22,7 +22,7 @@ diff -ruN 1.7.41_24/menu.c 1.7.41_26/menu.c
    subMenu.LoadXml(menuXML);
    nrDynamicMenuEntries = 0;
    SetMenuCategory(mcMain);
-@@ -3709,7 +3709,7 @@
+@@ -3726,7 +3726,7 @@
           else if (strcmp(item, "Recordings") == 0)
              Add(new cOsdItem(hk(tr("Recordings")), osRecordings));
           else if (strcmp(item, "Setup") == 0) {

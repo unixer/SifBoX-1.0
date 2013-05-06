@@ -1,10 +1,8 @@
 PKG_NAME=vdr-setup
 PKG_VERSION=0.3.1
 #PKG_VERSION=0.4.2
-#PKG_URL="http://ppa.launchpad.net/martin-neuby/rar3/ubuntu/pool/main/v/vdr-plugin-setup/vdr-plugin-setup_${PKG_VERSION}-29easyVDR0.1~raring.tar.gz"
-#PKG_URL="http://ppa.launchpad.net/martin-neuby/rar3/ubuntu/pool/main/v/vdr-plugin-setup/vdr-plugin-setup_0.3.1-0easyVDR0.1~raring.tar.gz"
-PKG_URL="http://www.zulu-entertainment.de/files/vdr-setup/vdr-setup-0.3.1-zulu-edition.tgz"
 #PKG_URL="http://www.zulu-entertainment.de/files/vdr-setup/vdr-setup-0.3.1-zulu-edition.tgz"
+PKG_URL="http://www.zulu-entertainment.de/files/vdr-setup/vdr-setup-0.3.1-zulu-edition.tgz"
 PKG_REV=3
 PKG_DEPENDS="$TARGET_LIBC vdr"
 PKG_BUILD_DEPENDS="toolchain vdr"

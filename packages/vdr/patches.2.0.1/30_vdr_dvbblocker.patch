@@ -39,7 +39,7 @@ diff -ruN 1.7.41_28/config.h 1.7.41_30/config.h
 diff -ruN 1.7.41_28/dvbdevice.c 1.7.41_30/dvbdevice.c
 --- 1.7.41_28/dvbdevice.c	2013-03-18 23:03:34.000000000 +0100
 +++ 1.7.41_30/dvbdevice.c	2013-03-18 23:06:14.000000000 +0100
-@@ -1463,6 +1463,10 @@
+@@ -1468,6 +1468,10 @@
  
  bool cDvbDevice::ProvidesSource(int Source) const
  {
@@ -53,10 +53,11 @@ diff -ruN 1.7.41_28/dvbdevice.c 1.7.41_30/dvbdevice.c
 diff -ruN 1.7.41_28/menu.c 1.7.41_30/menu.c
 --- 1.7.41_28/menu.c	2013-03-18 23:03:34.000000000 +0100
 +++ 1.7.41_30/menu.c	2013-03-18 23:06:14.000000000 +0100
-@@ -3216,6 +3216,8 @@
-          }
+@@ -3097,7 +3097,8 @@
+      Add(new cMenuEditIntItem( tr("Setup.DVB$Subtitle background transparency"), &data.SubtitleBgTransparency, 0, 10));
       }
- 
+   Add(new cMenuEditBoolItem(tr("Setup.DVB$Enable teletext support"), &data.SupportTeletext));
+-
 +  Add(new cMenuEditBoolItem(tr("Setup.DVB$Channel Blocker"), &data.ChannelBlocker));
 +
    SetCurrent(Get(current));

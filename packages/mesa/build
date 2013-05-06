@@ -4,8 +4,6 @@
 
 get_meta $1
 
-#export MAKEFLAGS=-j1
-
 $SCRIPTS/clean $1
 $SCRIPTS/unpack $1
 
