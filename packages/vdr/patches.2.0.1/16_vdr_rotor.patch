@@ -56,7 +56,7 @@ Origin: extracted from the rotor plugin 0.1.4-vdr1.5
    frontendType = SYS_UNDEFINED;
    device = Device;
    fd_frontend = Fd_Frontend;
-@@ -658,6 +664,35 @@
+@@ -653,6 +659,35 @@
    return -1;
  }
  
@@ -92,7 +92,7 @@ Origin: extracted from the rotor plugin 0.1.4-vdr1.5
  static unsigned int FrequencyToHz(unsigned int f)
  {
    while (f && f < 1000000)
-@@ -872,6 +907,10 @@
+@@ -867,6 +902,10 @@
          if (GetFrontendStatus(NewStatus))
             Status = NewStatus;
          cMutexLock MutexLock(&mutex);
@@ -103,7 +103,7 @@ Origin: extracted from the rotor plugin 0.1.4-vdr1.5
          int WaitTime = 1000;
          switch (tunerStatus) {
            case tsIdle:
-@@ -1558,6 +1597,11 @@
+@@ -1553,6 +1592,11 @@
    return dvbTuner ? dvbTuner->Locked(TimeoutMs) : false;
  }
  

@@ -1,7 +1,7 @@
 diff -ruN 1.7.41_26/svdrp.c 1.7.41_28/svdrp.c
 --- 1.7.41_26/svdrp.c	2013-03-18 22:43:59.000000000 +0100
 +++ 1.7.41_28/svdrp.c	2013-03-18 23:03:34.000000000 +0100
-@@ -410,6 +410,7 @@
+@@ -402,6 +402,7 @@
    length = BUFSIZ;
    cmdLine = MALLOC(char, length);
    lastActivity = 0;
@@ -9,7 +9,7 @@ diff -ruN 1.7.41_26/svdrp.c 1.7.41_28/svdrp.c
    isyslog("SVDRP listening on port %d", Port);
  }
  
-@@ -1823,7 +1824,8 @@
+@@ -1755,7 +1756,8 @@
          }
       if (NewConnection)
          lastActivity = time(NULL);
@@ -19,7 +19,7 @@ diff -ruN 1.7.41_26/svdrp.c 1.7.41_28/svdrp.c
             unsigned char c;
             int r = safe_read(file, &c, 1);
             if (r > 0) {
-@@ -1834,7 +1836,9 @@
+@@ -1766,7 +1768,9 @@
                   // make sure the string is terminated:
                   cmdLine[numChars] = 0;
                   // showtime!

@@ -26,4 +26,5 @@ make all \
   LIBDIR="." \
   LOCALEDIR="./locale" \
 
+make_install
 do_strip bin lib$1.so.*

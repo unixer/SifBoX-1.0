@@ -1,7 +1,7 @@
 diff -ruN vdr-1.7.40-original/menu.h vdr-1.7.40/menu.h
 --- vdr-1.7.40-original/menu.h	2013-03-14 19:13:03.547902736 +0100
 +++ vdr-1.7.40/menu.h	2013-03-14 19:48:11.042722383 +0100
-@@ -240,8 +240,11 @@ class cRecordControls {
+@@ -238,8 +238,11 @@ class cRecordControls {
  private:
    static cRecordControl *RecordControls[];
    static int state;
@@ -14,7 +14,7 @@ diff -ruN vdr-1.7.40-original/menu.h vdr-1.7.40/menu.h
    static void Stop(const char *InstantId);
    static bool PauseLiveVideo(void);
    static const char *GetInstantId(const char *LastInstantId);
-@@ -249,6 +252,9 @@ public:
+@@ -247,6 +250,9 @@ public:
    static cRecordControl *GetRecordControl(const cTimer *Timer);
           ///< Returns the cRecordControl for the given Timer.
           ///< If there is no cRecordControl for Timer, NULL is returned.
@@ -24,7 +24,7 @@ diff -ruN vdr-1.7.40-original/menu.h vdr-1.7.40/menu.h
    static void Process(time_t t);
    static void ChannelDataModified(cChannel *Channel);
    static bool Active(void);
-@@ -286,7 +292,7 @@ private:
+@@ -281,7 +287,7 @@ private:
    void EditCut(void);
    void EditTest(void);
  public:
@@ -36,7 +36,7 @@ diff -ruN vdr-1.7.40-original/menu.h vdr-1.7.40/menu.h
 diff -ruN vdr-1.7.40-original/menu.c vdr-1.7.40/menu.c
 --- vdr-1.7.40-original/menu.c	2013-03-14 19:13:03.555902974 +0100
 +++ vdr-1.7.40/menu.c	2013-03-29 20:19:05.379835984 +0100
-@@ -4506,7 +4506,7 @@ bool cRecordControl::Process(time_t t)
+@@ -4314,7 +4314,7 @@ bool cRecordControl::Process(time_t t)
  cRecordControl *cRecordControls::RecordControls[MAXRECORDCONTROLS] = { NULL };
  int cRecordControls::state = 0;
  
@@ -45,7 +45,7 @@ diff -ruN vdr-1.7.40-original/menu.c vdr-1.7.40/menu.c
  {
    static time_t LastNoDiskSpaceMessage = 0;
    int FreeMB = 0;
-@@ -4525,6 +4525,13 @@ bool cRecordControls::Start(cTimer *Time
+@@ -4333,6 +4333,13 @@ bool cRecordControls::Start(cTimer *Time
       }
    LastNoDiskSpaceMessage = 0;
  
@@ -59,7 +59,7 @@ diff -ruN vdr-1.7.40-original/menu.c vdr-1.7.40/menu.c
    ChangeState();
    int ch = Timer ? Timer->Channel()->Number() : cDevice::CurrentChannel();
    cChannel *channel = Channels.GetByNumber(ch);
-@@ -4577,12 +4584,53 @@ void cRecordControls::Stop(const char *I
+@@ -4385,12 +4392,53 @@ void cRecordControls::Stop(const char *I
        }
  }
  
@@ -115,7 +115,7 @@ diff -ruN vdr-1.7.40-original/menu.c vdr-1.7.40/menu.c
       cControl::Launch(rc);
       cControl::Attach();
       Skins.Message(mtStatus, NULL);
-@@ -4625,6 +4673,23 @@ cRecordControl *cRecordControls::GetReco
+@@ -4433,6 +4481,23 @@ cRecordControl *cRecordControls::GetReco
    return NULL;
  }
  
@@ -139,7 +139,7 @@ diff -ruN vdr-1.7.40-original/menu.c vdr-1.7.40/menu.c
  void cRecordControls::Process(time_t t)
  {
    for (int i = 0; i < MAXRECORDCONTROLS; i++) {
-@@ -4687,8 +4752,8 @@ bool cRecordControls::StateChanged(int &
+@@ -4491,8 +4556,8 @@ bool cRecordControls::StateChanged(int &
  cReplayControl *cReplayControl::currentReplayControl = NULL;
  cString cReplayControl::fileName;
  
@@ -199,7 +199,7 @@ diff -ruN vdr-1.7.40-original/dvbplayer.c vdr-1.7.40/dvbplayer.c
    eof = false;
    firstPacket = true;
    playMode = pmPlay;
-@@ -419,8 +421,17 @@ void cDvbPlayer::Action(void)
+@@ -414,8 +416,17 @@ void cDvbPlayer::Action(void)
    int LastReadIFrame = -1;
    int SwitchToPlayFrame = 0;
  
@@ -219,7 +219,7 @@ diff -ruN vdr-1.7.40-original/dvbplayer.c vdr-1.7.40/dvbplayer.c
    while (Running()) {
          if (WaitingForData)
             WaitingForData = !nonBlockingFileReader->WaitForDataMs(3); // this keeps the CPU load low, but reacts immediately on new data
-@@ -864,8 +875,8 @@ bool cDvbPlayer::GetReplayMode(bool &Pla
+@@ -859,8 +870,8 @@ bool cDvbPlayer::GetReplayMode(bool &Pla
  
  // --- cDvbPlayerControl -----------------------------------------------------
  

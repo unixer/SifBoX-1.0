@@ -108,6 +108,8 @@ do_install() {
   mkdir -p $INSTALL_MOUNT/boot >> $LOGFILE 2>&1
   cp -P /.root/vmlinuz $INSTALL_MOUNT/boot/ >> $LOGFILE 2>&1
   cp -P /.root/initrd $INSTALL_MOUNT/boot/ >> $LOGFILE 2>&1
+  #Modifica Syslinux 5.01
+  cp -P /.root/isolinux/* $INSTALL_MOUNT/boot/ >> $LOGFILE 2>&1
 
   # Add SSD batch discard if needed
   if [ "$INSTALL_SSD" = 0 ]; then

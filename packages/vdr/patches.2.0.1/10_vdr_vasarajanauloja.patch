@@ -9,7 +9,7 @@ diff -ruN 1.7.41/cutter.c 1.7.41_10/cutter.c
  #include "menu.h"
  #include "recording.h"
  #include "remux.h"
-@@ -649,7 +650,7 @@
+@@ -632,7 +633,7 @@
  bool cCutter::error = false;
  bool cCutter::ended = false;
  
@@ -18,7 +18,7 @@ diff -ruN 1.7.41/cutter.c 1.7.41_10/cutter.c
  {
    cMutexLock MutexLock(&mutex);
    if (!cuttingThread) {
-@@ -663,11 +664,16 @@
+@@ -646,11 +647,16 @@
       if (cMark *First = FromMarks.GetNextBegin())
          Recording.SetStartTime(Recording.Start() + (int(First->Position() / Recording.FramesPerSecond() + 30) / 60) * 60);
  
@@ -686,7 +686,7 @@ diff -ruN 1.7.41/menu.c 1.7.41_10/menu.c
    timeoutShow = 0;
    timeSearchActive = false;
    cRecording Recording(fileName);
-@@ -4836,7 +5035,7 @@
+@@ -4834,7 +5033,7 @@
             Skins.Message(mtError, tr("No editing marks defined!"));
          else if (!marks.GetNumSequences())
             Skins.Message(mtError, tr("No editing sequences defined!"));
@@ -695,7 +695,7 @@ diff -ruN 1.7.41/menu.c 1.7.41_10/menu.c
             Skins.Message(mtError, tr("Can't start editing process!"));
          else
             Skins.Message(mtInfo, tr("Editing process started"));
-@@ -4934,6 +5133,32 @@
+@@ -4932,6 +5131,32 @@
      case kGreen:   SkipSeconds(-60); break;
      case kYellow|k_Repeat:
      case kYellow:  SkipSeconds( 60); break;
@@ -728,7 +728,7 @@ diff -ruN 1.7.41/menu.c 1.7.41_10/menu.c
      case kStop:
      case kBlue:    Hide();
                     Stop();
-@@ -4943,12 +5168,8 @@
+@@ -4941,12 +5166,8 @@
        switch (int(Key)) {
          // Editing:
          case kMarkToggle:      MarkToggle(); break;

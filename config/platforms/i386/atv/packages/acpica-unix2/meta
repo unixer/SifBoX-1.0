@@ -1,0 +1,11 @@
+PKG_NAME=acpica-unix2
+PKG_VERSION=20130328
+PKG_REV=1
+PKG_ARCH="i386 x86_64"
+PKG_URL="https://acpica.org/sites/acpica/files/$PKG_NAME-$PKG_VERSION.tar.gz"
+PKG_DEPENDS="$TARGET_LIBC"
+PKG_BUILD_DEPENDS="toolchain flex bison"
+PKG_PRIORITY=required
+PKG_SECTION=system
+PKG_SHORTDESC="acpica: A set of tools to disassemble ACPI tables"
+PKG_LONGDESC="acpica is a set of tools from Intel to disassemble ACPI tables."

@@ -36,8 +36,8 @@ do_install usr/share/locale
 do_install etc/vdr
 do_install var
 #[ "$SERVICES" = yes ] && echo '0.0.0.0/0' >> $INSTALL/etc/vdr/svdrphosts.conf
-[ "$SERVICES" = yes ] && sed -i "s|0.0.0.0/0|#0.0.0.0/0|" $INSTALL/etc/vdr/svdrphosts.conf
-[ "$SERVICES" = yes ] && sed -i "s|#127.0.0.1|127.0.0.1|" $INSTALL/etc/vdr/svdrphosts.conf
+##[ "$SERVICES" = yes ] && sed -i "s|0.0.0.0/0|#0.0.0.0/0|" $INSTALL/etc/vdr/svdrphosts.conf
+##[ "$SERVICES" = yes ] && sed -i "s|#127.0.0.1|127.0.0.1|" $INSTALL/etc/vdr/svdrphosts.conf
 
 mkdir -p $INSTALL/etc/vdr/plugins
 mkdir -p $INSTALL/etc/vdr/plugins.d

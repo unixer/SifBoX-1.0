@@ -1,0 +1,17 @@
+#!/bin/sh
+
+. config/options
+
+get_meta $1
+
+cd $PKG_BUILD_DIR
+do_configure --host=$TARGET_NAME \
+            --build=$HOST_NAME \
+            --prefix=/usr \
+            --sbindir=/usr/sbin \
+            --exec-prefix=/usr \
+            --localstatedir=/var \
+            --sysconfdir=/etc \
+
+make
+make_install

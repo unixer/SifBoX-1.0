@@ -15,13 +15,8 @@ require_cxx $1
 #  fi
 #done
 cd $PKG_BUILD_DIR
-#rm -rf PLUGINS/src/dvbhddevice
-#rm -rf PLUGINS/src/dvbsddevice
-#cp svdrpsend.pl svdrpsend
 #cp $ROOT/$PACKAGES/$1/config/Make.config.$PKG_VERSION.bis Make.config
 cp $ROOT/$PACKAGES/$1/config/Make.config.$PKG_VERSION Make.config
-#cp $ROOT/$PACKAGES/$1/config/Makefile .
-#cp /root/vdr/* .
 
 sed -i "s|#DVBDIR   =|DVBDIR=$SYSROOT_PREFIX/usr|" Make.config
 #sed -i "s|#INCDIR       =|INCDIR=$SYSROOT_PREFIX/usr/include|" Make.config
@@ -35,8 +30,6 @@ sed -i "s|#INCDIR       =|INCDIR=.install|" Make.config
 #  VDR_DEFINES="$VDR_DEFINES -DUSE_$EXTNAME"
 #done
 #[ -n "$VDR_DEFINES" ] && echo "DEFINES += $VDR_DEFINES" >> Make.config
-
-export MAKEFLAGS=-j1
 
 make && make include-dir # latter one to build extra plugins
 

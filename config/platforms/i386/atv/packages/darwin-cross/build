@@ -1,0 +1,9 @@
+#!/bin/sh
+
+. config/options
+
+get_meta $1
+
+# extract toolchain
+  tar -xzf $PKG_BUILD_DIR/darwin-cross.tar.gz -C $PKG_BUILD_DIR
+

@@ -1,0 +1,24 @@
+#!/bin/sh
+
+. config/options
+
+get_meta $1
+
+setup_toolchain host
+
+cd $PKG_BUILD_DIR
+./configure --host=$HOST_NAME \
+            --build=$HOST_NAME \
+            --prefix=/usr \
+            --disable-rpath \
+            --with-gnu-ld
+
+#            --prefix=$ROOT/$TOOLCHAIN \
+
+# The configure system causes Bison to be built without support for
+# internationalization of error messages if a bison program is not already in
+# $PATH. The following addition will correct this:
+  echo '#define YYENABLE_NLS 1' >> lib/config.h
+
+make
+make_install
