@@ -1,11 +1,11 @@
 PKG_NAME=xbmc
 PKG_URL_PROTO=git
-PKG_URL_REV=0d373cc
-#PKG_URL_REV=83b16d0fd8
-PKG_VERSION=12.1
+#PKG_URL_REV=0d373cc
+PKG_URL_REV=32b1a5ef9e7f2
+PKG_VERSION=12.2
 PKG_URL="https://github.com/xbmc/xbmc.git"
 PKG_REV=1
-PKG_DEPENDS="$TARGET_LIBC Python boost zlib bzip2 lzo pcre libssh libass enca curl dbus fontconfig fribidi libjpeg-turbo libpng tiff freetype jasper libmad libsamplerate libogg libvorbis libcdio libmms libmodplug faad2 flac wavpack libmpeg2 sqlite alsa yajl libplist openssl python-simplejson tinyxml systemd taglib speex"
+PKG_DEPENDS="$TARGET_LIBC Python boost zlib bzip2 lzo pcre libssh libass enca curl dbus fontconfig fribidi libjpeg-turbo libpng tiff freetype jasper libmad libsamplerate libogg libvorbis libcdio libmms libmodplug faad2 flac wavpack libmpeg2 sqlite alsa yajl libplist openssl python-simplejson tinyxml systemd taglib"
 PKG_RUN_DEPENDS="libmysqlclient libsmbclient python-lsb-release"
 PKG_BUILD_DEPENDS="toolchain boost mysql samba unzip-host zip swig SDL-image-host"
 PKG_USE="opengl opengles openmax joystick zeroconf webserver vdpau xvba vaapi crystalhd pulseaudio dvdcss bluray rtmp nonfree externalffmpeg externalffmpeglibav pvr addons libcec libnfs afpclient airtunes screensavers dove gstreamer xorg sdl alsa"
