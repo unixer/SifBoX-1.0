@@ -8,7 +8,7 @@ do_shutdown()
   systemctl stop libcec-daemon.service
   sleep .5
   echo 'standby 0' | cec-client -s /dev/ttyACM0
-  poweroff
+  poweroff -d -f -h
 }
 
 do_reboot()
