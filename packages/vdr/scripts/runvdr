@@ -2,6 +2,9 @@
 
 . /etc/pvr.conf
 
+#Accendi il televisore
+echo 'on 0' | cec-client -s /dev/ttyACM0
+
 #/usr/bin/wait_fornet.sh
 export TERM=linux
 export LANG="it_IT.UTF8"

@@ -8,12 +8,14 @@ do_shutdown()
   systemctl stop libcec-daemon.service
   sleep .5
   echo 'standby 0' | cec-client -s /dev/ttyACM0
+  sync
   poweroff -d -f -h
 }
 
 do_reboot()
 {
   sleep 0
+  sync
   reboot
 }
 
@@ -63,9 +65,9 @@ if [ "$WAKEUP" = nvram -a -x /usr/bin/nvram-wakeup ]; then
   esac
 elif [ "$WAKEUP" = acpi -a -e /sys/class/rtc/rtc0/wakealarm ]; then
   echo 0 >/sys/class/rtc/rtc0/wakealarm
-  echo $TIMER >/sys/class/rtc/rtc0/wakealarm
+  echo  $((${TIMER}-300)) >/sys/class/rtc/rtc0/wakealarm
   #some boards need to have this run twice
-  echo $TIMER >/sys/class/rtc/rtc0/wakealarm
+  echo  $((${TIMER}-300)) >/sys/class/rtc/rtc0/wakealarm
   do_shutdown
 else
   do_shutdown
