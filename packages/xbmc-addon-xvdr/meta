@@ -1,9 +1,9 @@
 PKG_NAME=xbmc-addon-xvdr
 PKG_URL_PROTO=git
-#PKG_URL_REV=0b3b2d4237 #0.9.7
-PKG_URL_REV=871faab51
+PKG_URL_REV=0b3b2d4237 #0.9.7
+#PKG_URL_REV=871faab51 #Crash XBMC 12.2
 PKG_URL="git://github.com/pipelka/xbmc-addon-xvdr.git"
-PKG_VERSION=0.9.8
+PKG_VERSION=0.9.7
 #PKG_VERSION=0.9.7+r${PKG_URL_REV}
 #PKG_VERSION=0.9.8+r${PKG_URL_REV}
 PKG_REV=1
