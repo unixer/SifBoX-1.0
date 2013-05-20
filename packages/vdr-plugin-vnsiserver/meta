@@ -1,6 +1,6 @@
 PKG_PARENT=xbmc-pvr-addons
 PKG_NAME=vdr-plugin-vnsiserver
-PKG_REV=5
+PKG_REV=6
 PKG_BUILD_DEPENDS="toolchain zlib"
 PKG_DEPENDS="vdr"
 PKG_PRIORITY=optional
