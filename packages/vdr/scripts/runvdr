@@ -3,7 +3,11 @@
 . /etc/pvr.conf
 
 #Accendi il televisore
-echo 'on 0' | cec-client -s /dev/ttyACM0
+if [ -c /dev/ttyACM0 ]; then
+  systemctl stop libcec-daemon.service
+  echo 'on 0' | cec-client -s /dev/ttyACM0
+  systemctl start libcec-daemon.service
+fi
 
 #/usr/bin/wait_fornet.sh
 export TERM=linux

@@ -16,8 +16,11 @@ mv .install/usr/bin/cxxtools-config .install/usr/bin/cxxtools-host-config
 
 cd ..
 
+[ "$TARGET_MACHINE" = cubieboard ] && EXTRA_CONFIG="--with-atomictype=pthread"
+
 mkdir -p objdir-target && cd objdir-target
-do_configure target
+do_configure target \
+	$EXTRA_CONFIG
 
 make
 make_install
