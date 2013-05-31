@@ -88,7 +88,6 @@ export LIB_P=$LIB_PREFIX
   LDFLAGS=`echo $LDFLAGS | sed -e "s|-Wl,--as-needed||"`
 #Fine
 
-
 export PYTHON_VERSION=2.7
 export PYTHON_CPPFLAGS=-I$LIB_PREFIX/include/python2.7
 export PYTHON_LDFLAGS="-L$LIB_PREFIX/lib/python2.7 -lpython2.7"
@@ -109,6 +108,7 @@ echo "$PKG_URL_REV-SifBoX" > git.version
 export USE_TEXTUREPACKER_NATIVE_ROOT=$ROOT/$TOOLCHAIN
 if [ "$TARGET_MACHINE" = cubox ] || [ "$TARGET_MACHINE" = raspberrypi ] || [ "$TARGET_MACHINE" = cubieboard ]; then
   EXTRA_CONFIG="$EXTRA_CONFIG --enable-use_texturepacker_native"
+  CEDARLIBS="/root/openbricks/build/build.cubieboard.eglibc/rootfs/usr/lib/"
   export TEXTUREPACKER_NATIVE_ROOT=$USE_TEXTUREPACKER_NATIVE_ROOT
 else 
   export use_texturepacker_native=yes
@@ -163,7 +163,6 @@ do_configure \
 
 #  --enable-external-ffmpeg \
 #  --enable-ffmpeg-libvorbis \
-
 
 # leaked host includes break the Python components build
 sed -i Makefile.include -e "s:-I$ROOT/$TOOLCHAIN/include::"
