@@ -1,11 +1,9 @@
 PKG_NAME=vdr-dbus2vdr
-#PKG_VERSION=1.0
 PKG_URL_PROTO=git
-#PKG_URL_REV=7f41382423
-PKG_URL_REV=006b7b9092
-PKG_VERSION=1.0
+#PKG_URL_REV=006b7b9092 #ver 1.0
+PKG_URL_REV=616fc82
+PKG_VERSION=12.0
 PKG_URL="git://github.com/flensrocker/vdr-plugin-dbus2vdr.git"
-#PKG_URL="https://github.com/flensrocker/vdr-plugin-dbus2vdr.git"
 #PKG_VERSION=0.0.6
 #PKG_URL="https://github.com/downloads/flensrocker/vdr-plugin-dbus2vdr/vdr-dbus2vdr-0.0.6.tgz"
 PKG_REV=6

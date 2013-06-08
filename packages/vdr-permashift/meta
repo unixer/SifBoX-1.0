@@ -1,6 +1,7 @@
 PKG_NAME=vdr-permashift
-PKG_VERSION=0.5.3
-PKG_URL="http://ein-eike.de/wordpress/wp-content/uploads/2013/04/vdr-permashift-$PKG_VERSION.tgz"
+PKG_VERSION=0.5.4
+#PKG_URL="http://ein-eike.de/wordpress/wp-content/uploads/2013/04/vdr-permashift-$PKG_VERSION.tgz"
+PKG_URL="http://ein-eike.de/wordpress/wp-content/uploads/2013/05/vdr-permashift-0.5.4.tgz"
 PKG_REV=6
 PKG_DEPENDS="$TARGET_LIBC"
 PKG_BUILD_DEPENDS="toolchain"
