@@ -37,7 +37,7 @@ echo "Copying files..."
 if [ -d "$ROOTFS" ]; then
   cp -PR $ROOTFS/* $mountdir
 else
-  tar --no-same-owner -xjf $ROOTFS -C $mountdir
+  tar --no-same-owner -xJf $ROOTFS -C $mountdir
 fi
 
 umount $mountdir/boot
