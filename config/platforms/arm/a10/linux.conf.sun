@@ -784,7 +784,39 @@ CONFIG_SCSI_LOWLEVEL=y
 # CONFIG_SCSI_DEBUG is not set
 # CONFIG_SCSI_DH is not set
 # CONFIG_SCSI_OSD_INITIATOR is not set
-# CONFIG_ATA is not set
+CONFIG_ATA=m
+# CONFIG_ATA_NONSTANDARD is not set
+CONFIG_ATA_VERBOSE_ERROR=y
+CONFIG_SATA_PMP=y
+
+#
+# Controllers with non-SFF native interface
+#
+# CONFIG_SATA_AHCI_PLATFORM is not set
+CONFIG_SW_SATA_AHCI_PLATFORM=m
+CONFIG_ATA_SFF=y
+
+#
+# SFF controllers with custom DMA interface
+#
+CONFIG_ATA_BMDMA=y
+
+#
+# SATA SFF controllers with BMDMA
+#
+# CONFIG_SATA_MV is not set
+
+#
+# PATA SFF controllers with BMDMA
+#
+
+#
+# PIO-only SFF controllers
+#
+
+#
+# Generic fallback / legacy drivers
+#
 # CONFIG_MD is not set
 # CONFIG_TARGET_CORE is not set
 CONFIG_NETDEVICES=y
@@ -1097,7 +1129,8 @@ CONFIG_SERIAL_CORE_CONSOLE=y
 # CONFIG_TCG_TPM is not set
 # CONFIG_DCC_TTY is not set
 # CONFIG_RAMOOPS is not set
-CONFIG_SUN4I_G2D=y
+CONFIG_SUN4I_G2D=m
+CONFIG_SUNXI_WDT=m
 CONFIG_I2C=y
 CONFIG_I2C_BOARDINFO=y
 CONFIG_I2C_COMPAT=y
