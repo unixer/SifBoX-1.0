@@ -1,0 +1,33 @@
+--- xbmc-12.2/xbmc/cores/dvdplayer/DVDCodecs/Video/DVDVideoCodecA10.cpp.org	2013-06-02 21:37:54.868344683 +0200
++++ xbmc-12.2/xbmc/cores/dvdplayer/DVDCodecs/Video/DVDVideoCodecA10.cpp	2013-06-02 21:38:51.428345655 +0200
+@@ -312,7 +312,7 @@
+     return false;
+   }
+ 
+-  m_hcedarv = libcedarv_init(&ret);
++  //m_hcedarv = libcedarv_init(&ret);
+   if (ret < 0)
+   {
+     CLog::Log(LOGERROR, "A10: libcedarv_init failed. (%d)\n", ret);
+@@ -364,7 +364,7 @@
+   {
+     m_hcedarv->ioctrl(m_hcedarv, CEDARV_COMMAND_STOP, 0);
+     m_hcedarv->close(m_hcedarv);
+-    libcedarv_exit(m_hcedarv);
++    //libcedarv_exit(m_hcedarv);
+     m_hcedarv = NULL;
+     cas(&g_cedaropen, 1, 0);
+     CLog::Log(LOGDEBUG, "A10: cedar dispose.");
+--- xbmc-12.2/xbmc/cores/VideoRenderers/LinuxRendererA10.cpp.org	2013-06-02 21:39:21.320346167 +0200
++++ xbmc-12.2/xbmc/cores/VideoRenderers/LinuxRendererA10.cpp	2013-06-02 21:39:32.140346353 +0200
+@@ -1742,8 +1742,8 @@
+   frmbuf.addr[0]         = (u32)picture.y;
+   frmbuf.addr[1]         = (u32)picture.u;
+ #else
+-  frmbuf.addr[0]         = mem_get_phy_addr((u32)picture.y);
+-  frmbuf.addr[1]         = mem_get_phy_addr((u32)picture.u);
++  //frmbuf.addr[0]         = mem_get_phy_addr((u32)picture.y);
++  //frmbuf.addr[1]         = mem_get_phy_addr((u32)picture.u);
+ #endif
+ 
+   if ((g_srcRect != srcRect) || (g_dstRect != dstRect))
