@@ -2,7 +2,8 @@
 
 . config/options
 
-cd $BUILD/$1*
+mkdir -p $INSTALL/etc/systemd/system
 
-do_install usr/bin
-do_install usr/lib/*.so
+# for now, mask this service (we should not install it in the first place)
+ln -s /dev/null $INSTALL/etc/systemd/system/hdmi.service
+
