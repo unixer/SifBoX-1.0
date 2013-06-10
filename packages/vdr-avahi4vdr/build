@@ -15,7 +15,7 @@ get_meta $1
 VDR_DIR=`basename $BUILD/vdr-1*`
 
 cd $PKG_BUILD_DIR
-mkdir po
+mkdir po || true
 
 make all \
   VDRDIR="../$VDR_DIR" \

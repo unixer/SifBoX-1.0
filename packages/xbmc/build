@@ -54,9 +54,6 @@ pkg_uses $1 externalffmpeglibav && ! pkg_uses $1 externalffmpeg && xbmc_set_opti
 CFG_TEGRA="--disable-tegra"
 [ "$TARGET_PLATFORM" = tegra2 ] && CFG_TEGRA="--enable-tegra"
 [ "$TARGET_MACHINE" = cubox ] && EXTRA_CONFIG="$EXTRA_CONFIG --with-platform=marvell-dove"
-
-[ "$TARGET_MACHINE" = cubieboard ] && EXTRA_CONFIG="$EXTRA_CONFIG --with-platform=marvell-dove"
-
 if [ "$TARGET_MACHINE" = raspberrypi ]; then
   EXTRA_CONFIG="$EXTRA_CONFIG --with-platform=raspberry-pi"
   if pkg_uses $1 openmax; then
@@ -68,6 +65,11 @@ fi
 
 if [ "$TARGET_MACHINE" = pandaboard ]; then
   EXTRA_CONFIG="$EXTRA_CONFIG --enable-player=gstplayer"
+fi
+
+if [ "$TARGET_MACHINE" = cubieboard ]; then
+  export CEDARLIBS="-lcedarv -lvecore"
+  EXTRA_CONFIG="$EXTRA_CONFIG --disable-dvdcss"
 fi
 
 if [ "$FPU_OPTIMIZATIONS" = "neon" -o  "$FPU_OPTIMIZATIONS" = "neon-vfp4" ]; then
@@ -108,7 +110,6 @@ echo "$PKG_URL_REV-SifBoX" > git.version
 export USE_TEXTUREPACKER_NATIVE_ROOT=$ROOT/$TOOLCHAIN
 if [ "$TARGET_MACHINE" = cubox ] || [ "$TARGET_MACHINE" = raspberrypi ] || [ "$TARGET_MACHINE" = cubieboard ]; then
   EXTRA_CONFIG="$EXTRA_CONFIG --enable-use_texturepacker_native"
-  CEDARLIBS="/root/openbricks/build/build.cubieboard.eglibc/rootfs/usr/lib/"
   export TEXTUREPACKER_NATIVE_ROOT=$USE_TEXTUREPACKER_NATIVE_ROOT
 else 
   export use_texturepacker_native=yes
