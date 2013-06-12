@@ -1,8 +1,9 @@
 PKG_NAME=xine-lib
 PKG_URL_PROTO=git
-PKG_URL_REV=9228f41e
-#PKG_URL_REV=195c3566c
-PKG_VERSION=1.2.2+${PKG_URL_REV}
+#PKG_URL_REV=9228f41e #1.2.2
+PKG_URL_REV=cfe50b31 # 1.2.3
+PKG_VERSION=1.2.3
+#2+${PKG_URL_REV}
 PKG_URL="git://projects.vdr-developer.org/xine-lib.git"
 PKG_REV=1
 PKG_BUILD_DEPENDS="toolchain libdvdnav"
