@@ -1,7 +1,7 @@
 PKG_NAME=vdr-skinnopacity
-#PKG_URL_REV=1179c9f
-PKG_URL_REV=e88f2c5
-PKG_VERSION=0.1.1
+#PKG_URL_REV=e88f2c5 #1.1
+PKG_URL_REV=798024416 #1.2
+PKG_VERSION=0.1.2
 PKG_URL_PROTO=git
 PKG_URL="git://projects.vdr-developer.org/skin-nopacity.git"
 PKG_REV=6
