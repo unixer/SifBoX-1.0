@@ -4,5 +4,7 @@
 
 cd $BUILD/$1*
 
-do_install usr/bin
-do_install usr/lib/*.so
+export MAKEFLAGS=-j1
+
+make
+make_install
