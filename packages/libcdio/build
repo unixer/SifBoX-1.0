@@ -4,6 +4,7 @@
 get_meta $1
 
 cd $PKG_BUILD_DIR
+do_autoconf
 
 do_configure \
             --enable-cxx \
@@ -17,6 +18,17 @@ do_configure \
             --without-iso-info \
             --without-iso-read \
             --without-versioned-libs \
+
+
+#do_configure \
+#            --enable-cxx \
+#            --enable-joliet \
+#            --enable-rock \
+#	    --enable-cddb \
+#            --without-cd-drive \
+#            --without-cd-info \
+#            --with-cd-paranoia \
+#	    --with-cdda-player \
 
 make
 make_install

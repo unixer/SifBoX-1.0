@@ -47,65 +47,17 @@ do_autoconf
 do_configure \
  	    --host=$TARGET_NAME \
 	    --build=$HOST_NAME \
-            --disable-dependency-tracking \
-            --disable-nls \
-            --disable-ipv6 \
-            --disable-coreaudio \
-            --disable-irixal \
-            --disable-oss \
-            --disable-sunaudio \
-            --disable-aalib \
-            --disable-dha-kmod \
-            --disable-directfb \
-            --disable-dxr3 \
-            --disable-macosx-video \
-            --disable-glu \
-            --disable-vidix \
-            --disable-xinerama \
-            --disable-static-xv \
-            --disable-xvmc \
-            --disable-dvb \
-            --disable-gnomevfs \
-            --disable-samba \
-            --disable-v4l \
-            --disable-vcd \
-            --enable-a52dec \
-	    --with-external-ffmpeg \
-            --disable-asf \
-            --disable-nosefart \
-            --disable-faad \
-            --disable-gdkpixbuf \
-            --enable-dts \
-            --disable-libmpeg2new \
-            --enable-mad \
-            --disable-modplug \
-            --disable-musepack \
-            --disable-mlib \
-            --disable-mlib-lazyload \
-            --disable-mng \
-            --disable-real-codecs \
-            --enable-w32dll \
-            --with-freetype \
-            --without-fontconfig \
-            --with-alsa \
-            --without-esound \
-            --without-fusionsound \
-            --without-jack \
-            --without-pulseaudio \
-            --without-caca \
-            --without-dxheaders \
-            --without-libstk \
-            --without-external-dvdnav \
-            --without-imagemagick \
-            --without-libflac \
-            --without-speex \
-            --without-theora \
-            --without-vorbis \
-            --without-wavpack \
+	    --enable-dxr3 \
+	    --enable-opengl \
+	    --disable-musepack \
+	    --enable-w32dll \
+	    --with-w32-path=/usr/lib/win32 \
+	    --disable-vcd \
             $DEBUG_CONFIG \
             $XORG_CONFIG \
             $CONSOLE_CONFIG \
             $SDL_CONFIG \
+	    $VDPAU_CONFIG \
             $VDR_CONFIG
 make
 make_install
