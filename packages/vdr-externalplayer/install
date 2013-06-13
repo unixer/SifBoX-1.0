@@ -25,5 +25,6 @@ if [ $VDRINS = "no" ]; then
   done
 else
   do_install usr
+  do_install etc
 fi
 
