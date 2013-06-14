@@ -51,7 +51,6 @@ do_configure \
 	    --enable-opengl \
 	    --disable-musepack \
 	    --enable-w32dll \
-	    --with-w32-path=/usr/lib/win32 \
 	    --disable-vcd \
             $DEBUG_CONFIG \
             $XORG_CONFIG \
