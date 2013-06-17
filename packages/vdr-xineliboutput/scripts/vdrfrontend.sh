@@ -1,6 +1,15 @@
 #!/bin/sh
+if lsmod | grep vmwgfx > /dev/null; then
+   DRIVER="--video=xshm"
+fi
+if lsmod | grep nvidia > /dev/null; then
+   DRIVER="--video=vdpau"
+fi
+if lsmod | grep gma500_gfx > /dev/null; then
+   DRIVER="--video=xshm"
+fi
 HUDOPTS=""
-XINELIBOUTPUTOPTS="--fullscreen --aspect=16:9 --reconnect --post tvtime:method=use_vo_driver --audio=alsa --syslog --silent --tcp --hud=xshape"
+XINELIBOUTPUTOPTS="$DRIVER --fullscreen --aspect=16:9 --reconnect --post tvtime:method=use_vo_driver --audio=alsa --syslog --silent --tcp --hud=xshape"
 CONFIG="--config /etc/vdr-sxfe/config_xineliboutput"
 
 while  ! netcat -z localhost 37890; do sleep 0.1; done;
