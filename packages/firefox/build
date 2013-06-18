@@ -2,6 +2,8 @@
 
 . config/options
 
+   export MAKEFLAGS=-j1
+
 #LD_LIBRARY_PATH=$SYSROOT_PREFIX/lib:$SYSROOT_PREFIX/usr/lib:$SYSROOT_PREFIX/usr/local/lib:$LD_LIBRARY_PATH
 
 #CFLAGS="$CFLAGS -I$SYSROOT_PREFIX/usr/include"
@@ -18,7 +20,7 @@ cd $PKG_BUILD_DIR
 echo $TARGET_NAME
 echo $HOST
 echo $HOST_NAME
-#read enterKey
+read enterKey
 rm mozconfig || true
 
 
@@ -50,7 +52,7 @@ ac_add_options --disable-libnotify
 
 # Comment out following options if you have not installed
 # recommended dependencies:
-# ac_add_options --enable-system-sqlite
+ac_add_options --enable-system-sqlite
 ac_add_options --with-system-libevent
 # ac_add_options --with-system-libvpx
 # ac_add_options --with-system-nspr
@@ -82,8 +84,10 @@ ac_add_options --with-pthreads
 
 ac_add_options --with-system-bz2
 ac_add_options --with-system-jpeg
-#ac_add_options --with-system-png
+# ac_add_options --with-system-png
 ac_add_options --with-system-zlib
+
+ac_add_options --disable-elf-hack
 
 mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/firefox-build-dir
 EOF
@@ -96,7 +100,7 @@ sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config
 sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/nsprpub/config/autoconf.mk || true
 sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/nsprpub/config.status || true
 sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/js/src/config/autoconf.mk || true
-sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config.status || true
+#sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config.status || true
 sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/js/src/config.log || true
 sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/js/src/config.status || true
 
