@@ -7846,7 +7846,7 @@ diff -Naur linux-3.7.2/drivers/media/common/saa716x/saa716x_i2c.c linux-3.7.2.pa
 +		saa716x_i2c_hwdeinit(i2c, SAA716x_I2C_BUS(i));
 +		dprintk(SAA716x_DEBUG, 1, "Removing adapter (%d) %s", i, adapter->name);
 +
-+		err = i2c_del_adapter(adapter);
++		//err = i2c_del_adapter(adapter);
 +		if (err < 0) {
 +			dprintk(SAA716x_ERROR, 1, "Adapter (%d) %s remove failed", i, adapter->name);
 +			goto exit;

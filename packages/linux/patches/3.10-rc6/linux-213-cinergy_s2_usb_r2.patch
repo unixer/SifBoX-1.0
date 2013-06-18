@@ -15,14 +15,6 @@ diff -Naur linux-3.7.2/drivers/media/usb/dvb-usb/dw2102.c linux-3.7.2.patch/driv
  		err("command 0x0e transfer failed.");
  
  	obuf[0] = 0xe;
-@@ -1444,6 +1451,7 @@
- 	PROF_7500,
- 	GENIATECH_SU3000,
- 	TERRATEC_CINERGY_S2,
-+	TERRATEC_CINERGY_S2_R2,
- 	TEVII_S480_1,
- 	TEVII_S480_2,
- 	X3M_SPC1400HD,
 @@ -1462,6 +1470,7 @@
  	[PROF_7500] = {USB_DEVICE(0x3034, 0x7500)},
  	[GENIATECH_SU3000] = {USB_DEVICE(0x1f4d, 0x3000)},

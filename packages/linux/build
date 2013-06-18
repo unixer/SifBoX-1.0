@@ -29,6 +29,8 @@ esac
 #patch -p1 < $ROOT/$PACKAGES/$1/99_disablemeida.diff
 
 make $IMAGE
+
+
 make CONFIG_DEBUG_SECTION_MISMATCH=y modules
 install_dir="`pwd`/.install"
 debug_dir="`pwd`/.install-debuginfo/usr/lib/debug"

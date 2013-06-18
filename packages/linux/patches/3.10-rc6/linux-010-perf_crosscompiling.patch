@@ -1,0 +1,11 @@
+--- linux-3.10-rc6/tools/perf/Makefile.orig	2013-06-15 23:51:07.000000000 +0200
++++ linux-3.10-rc6/tools/perf/Makefile	2013-06-18 12:17:49.646739164 +0200
+@@ -691,8 +691,6 @@
+ 	ifneq ($(call try-cc,$(SOURCE_SLANG),$(FLAGS_SLANG),libslang),y)
+ 		msg := $(warning slang not found, disables TUI support. Please install slang-devel or libslang-dev);
+ 	else
+-		# Fedora has /usr/include/slang/slang.h, but ubuntu /usr/include/slang.h
+-		BASIC_CFLAGS += -I/usr/include/slang
+ 		BASIC_CFLAGS += -DSLANG_SUPPORT
+ 		EXTLIBS += -lslang
+ 		LIB_OBJS += $(OUTPUT)ui/browser.o
