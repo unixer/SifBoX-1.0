@@ -65203,7 +65203,7 @@ diff -urN linux-3.9.6/drivers/media/usb/dvb-usb-v2/az6007.c linux-3.9.6.media/dr
  	pr_debug("Loading az6007 firmware\n");
  
 -	return usbv2_cypress_load_firmware(d->udev, fw, CYPRESS_FX2);
-+	return cypress_load_firmware(d->udev, fw, CYPRESS_FX2);
++	//return cypress_load_firmware(d->udev, fw, CYPRESS_FX2);
  }
  
  /* DVB USB Driver stuff */
