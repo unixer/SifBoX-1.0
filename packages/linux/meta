@@ -1,6 +1,6 @@
 PKG_NAME=linux
-PKG_VERSION=3.8.6
-#PKG_VERSION=3.9.6
+#PKG_VERSION=3.8.6
+PKG_VERSION=3.9.7
 #PKG_VERSION=3.10-rc6
 PKG_URL="http://www.kernel.org/pub/linux/kernel/v3.x/linux-${PKG_VERSION}.tar.xz"
 #PKG_URL="https://www.kernel.org/pub/linux/kernel/v3.x/testing/linux-3.10-rc6.tar.xz"
