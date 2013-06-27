@@ -12,3 +12,7 @@ make -C lib install PREFIX=$install_dir
 make -C utils install PREFIX=/usr DESTDIR=$PWD/.install/
 strip_libs $install_dir
 fix_libs $install_dir $LIB_PREFIX
+
+cat >> .install/etc/rc_maps.cfg << "EOF"
+mantis_core * /etc/rc_keymaps/technisat_skystar_hd2
+EOF

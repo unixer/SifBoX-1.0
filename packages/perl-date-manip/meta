@@ -1,7 +1,8 @@
 PKG_NAME=perl-date-manip
 #PKG_VERSION=6.38
 PKG_VERSION=6.39
-PKG_URL="$CPAN_SRCS/S/SB/SBECK/Date-Manip-${PKG_VERSION}.tar.gz"
+#PKG_URL="$CPAN_SRCS/S/SB/SBECK/Date-Manip-${PKG_VERSION}.tar.gz"
+PKG_URL="http://pkgs.fedoraproject.org/repo/pkgs/perl-Date-Manip/Date-Manip-6.39.tar.gz/dd91d884b5ff044134c2870b1de678c9/Date-Manip-6.39.tar.gz"
 PKG_REV=1
 PKG_RUN_DEPENDS="$TARGET_LIBC"
 PKG_BUILD_DEPENDS="toolchain"

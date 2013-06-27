@@ -4,6 +4,7 @@
 if [ "$TARGET_MACHINE" = raspberrypi ]; then
    export MAKEFLAGS=-j1
 fi
+
 unset LDFLAGS
 
 cd $BUILD
