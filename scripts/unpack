@@ -50,11 +50,12 @@ else
   PBASE=$PACKAGES/$1/patches
 fi
 
-if [ "$1" = "vdr" ]; then
-  get_meta vdr
-  rm packages/vdr/patches || true
-  ln -s patches.$PKG_VERSION packages/vdr/patches
-fi
+#if [ "$1" = "vdr" ]; then
+#  get_meta vdr
+#  rm packages/vdr/patches || true
+#  ln -s patches.$PKG_VERSION packages/vdr/patches
+#fi
+
 check_timestamp "$PBASE"
 [ -f $STAMP ] && exit 0
 
