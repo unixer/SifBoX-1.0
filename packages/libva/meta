@@ -1,7 +1,8 @@
 PKG_NAME=libva
 #PKG_VERSION=1.1.0
 #PKG_VERSION=3c15867
-PKG_VERSION=1.1.1
+#PKG_VERSION=1.1.1
+PKG_VERSION=1.2.1
 PKG_URL="http://cgit.freedesktop.org/libva/snapshot/${PKG_NAME}-${PKG_VERSION}.tar.gz"
 #PKG_URL="http://cgit.freedesktop.org/libva/snapshot/libva-staging.tar.gz"
 PKG_REV=1

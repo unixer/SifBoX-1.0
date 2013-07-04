@@ -11,8 +11,10 @@ do_configure \
             --disable-ipv6 \
             --disable-nls \
             --disable-rpath \
-            --without-ssl \
-            --without-libssl-prefix \
+
+
+#            --without-ssl \
+#            --without-libssl-prefix \
 
 make
 make_install

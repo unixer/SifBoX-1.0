@@ -17,7 +17,7 @@ else
 fi
 
 if pkg_uses $1 devtools; then
-  DEVTOOLS_CONFIG="--enable-bccmd --enable-test --enable-tools"
+  DEVTOOLS_CONFIG="--enable-test --enable-tools"
 else
   DEVTOOLS_CONFIG="--disable-bccmd --disable-test --disable-tools"
 fi
@@ -29,40 +29,26 @@ do_configure \
             --localstatedir=/var \
             --disable-dependency-tracking \
             --disable-silent-rules \
-            --enable-shared \
-            --disable-static \
-            --enable-optimization \
-            --enable-fortify \
-            --disable-pie \
-            --enable-network \
-            --disable-sap \
-            --disable-proximity \
-            --disable-serial \
-            --enable-input \
-            --enable-service \
-            --enable-health \
-            --disable-pnat \
-            --disable-gstreamer \
-            $BLUEZ_ALSA \
+            --disable-shared \
+            --enable-static \
+            --enable-library \
             --enable-usb \
-            --enable-datafiles \
-            --enable-pcmcia \
-            --enable-hid2hci \
-            --enable-dfutool \
-            --disable-hidd \
-            --disable-pand \
-            --disable-dund \
+            --disable-udev \
             --disable-cups \
-            --enable-wiimote \
-            --disable-maemo6 \
-            --disable-dbusoob \
-            --enable-thermometer \
-            --disable-hal \
-            --disable-capng \
+            --disable-obex \
+            --enable-client \
+            --disable-systemd \
+            --enable-datafiles \
+            --disable-experimental \
             --with-gnu-ld \
-            $DEBUG_CONFIG \
-            $DEVTOOLS_CONFIG \
+            --enable-udev \
+	    --disable-obex \
+	    --with-systemdsystemunitdir=/lib/systemd/system \
+	    --with-systemduserunitdir=/lib/systemd/system \
+	    --with-dbussessionbusdir=/usr/share/dbus-1 \
+	    --with-dbussystembusdir=/usr/share/dbus-1 \
             --disable-test
+
 
 
 #do_configure \

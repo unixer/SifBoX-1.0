@@ -1,0 +1,13 @@
+--- libva-xvba-0.8.0/src/xvba_dump.c.org	2013-07-02 18:10:13.171195015 +0200
++++ libva-xvba-0.8.0/src/xvba_dump.c	2013-07-02 18:10:25.643195229 +0200
+@@ -150,8 +150,8 @@
+         _(VAEncSequenceParameterBufferType);
+         _(VAEncPictureParameterBufferType);
+         _(VAEncSliceParameterBufferType);
+-        _(VAEncH264VUIBufferType);
+-        _(VAEncH264SEIBufferType);
++        //_(VAEncH264VUIBufferType);
++        //_(VAEncH264SEIBufferType);
+ #endif
+ #undef _
+     }

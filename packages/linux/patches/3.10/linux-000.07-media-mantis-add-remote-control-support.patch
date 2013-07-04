@@ -1067,3 +1067,18 @@ index 74f55a3..00c58ec 100644
  #define RC_MAP_TWINHAN_VP1027_DVBS       "rc-twinhan1027"
  #define RC_MAP_VIDEOMATE_K100            "rc-videomate-k100"
  #define RC_MAP_VIDEOMATE_S350            "rc-videomate-s350"
+--- linux-3.8.6/drivers/media/pci/mantis/mantis_input.c.org	2013-06-20 17:30:48.769029662 +0200
++++ linux-3.8.6/drivers/media/pci/mantis/mantis_input.c	2013-06-20 17:29:59.445031132 +0200
+@@ -80,8 +80,12 @@
+ 	return err;
+ }
+ 
++EXPORT_SYMBOL_GPL(mantis_input_init);
++
+ void mantis_input_exit(struct mantis_pci *mantis)
+ {
+ 	rc_unregister_device(mantis->rc);
+ }
+ 
++EXPORT_SYMBOL_GPL(mantis_input_exit);
++

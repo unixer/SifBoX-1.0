@@ -13,14 +13,14 @@ ATI_PKG="`basename $PKG_URL | sed 's/.zip//'`.run"
 sh $ATI_PKG --extract .
 cd -
 
-if [ $PKG_VERSION = "13.1" ]; then
+#if [ $PKG_VERSION = "13.1" ]; then
    if [ -d "$PACKAGES/$1/patches.ati/" ]; then
      for i in $PACKAGES/$1/patches.ati/*.diff*; do
        echo "## Applying patch: $i"
        cat $i | patch -d `echo $BUILD/$1* | cut -f1 -d\ ` -p1 >&$VERBOSE_OUT
      done
    fi
-fi
+#fi
 
 #sed -i -e 's/__SMP__/CONFIG_SMP/' \
 #  $BUILD/${PKG_NAME}-${PKG_VERSION}/common/lib/modules/fglrx/build_mod/*.[hc]

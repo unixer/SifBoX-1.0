@@ -1,0 +1,73 @@
+#!/bin/sh
+
+. config/options
+
+cd $BUILD/$1*
+
+if [ "$DEBUG" = yes ]; then
+  DEBUG_CONFIG="--enable-debug"
+else
+  DEBUG_CONFIG="--disable-debug"
+fi
+
+if pkg_uses $1 alsa; then
+  ALSA_CONFIG="--enable-alsa"
+else
+  ALSA_CONFIG="--disable-alsa"
+fi
+
+if pkg_uses $1 devtools; then
+  DEVTOOLS_CONFIG="--enable-test --enable-tools"
+else
+  DEVTOOLS_CONFIG="--disable-bccmd --disable-test --disable-tools"
+fi
+
+do_configure \
+            --prefix=/usr \
+            --sysconfdir=/etc \
+            --libexecdir=/usr/lib \
+            --localstatedir=/var \
+            --disable-dependency-tracking \
+            --disable-silent-rules \
+            --enable-shared \
+            --disable-static \
+            --enable-optimization \
+	    --enable-usb \
+            --disable-pie \
+            $BLUEZ_ALSA \
+            --enable-usb \
+            --enable-datafiles \
+            --disable-cups \
+            --with-gnu-ld \
+            $DEBUG_CONFIG \
+            $DEVTOOLS_CONFIG \
+            --enable-udev \
+	    --disable-obex \
+	    --with-systemdsystemunitdir=/lib/systemd/system \
+	    --with-systemduserunitdir=/lib/systemd/system \
+	    --with-dbussessionbusdir=/usr/share/dbus-1 \
+	    --with-dbussystembusdir=/usr/share/dbus-1 \
+            --disable-test
+
+
+
+#do_configure \
+#            --disable-dependency-tracking \
+#            --disable-network \
+#            --disable-serial \
+#            --disable-input \
+#            --disable-audio \
+#            --disable-service \
+#            --disable-gstreamer \
+#            $ALSA_CONFIG \
+#            --disable-usb \
+#            --disable-hidd \
+#            --disable-pand \
+#            --disable-dund \
+#            --disable-configfiles \
+#            --disable-udevrules \
+#            $DEBUG_CONFIG \
+#            $DEVTOOLS_CONFIG \
+
+make
+make_install

@@ -1,6 +1,6 @@
 PKG_NAME=libva-intel
-PKG_VERSION=1.0.20
-#PKG_VERSION=752da5e
+#PKG_VERSION=1.0.20
+PKG_VERSION=1.2.0
 PKG_URL="http://cgit.freedesktop.org/vaapi/intel-driver/snapshot/intel-driver-${PKG_VERSION}.tar.gz"
 PKG_REV=1
 PKG_DEPENDS="$TARGET_LIBC libva libdrm"

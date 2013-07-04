@@ -14,6 +14,7 @@ do_configure host \
 make
 make_install toolchain
 sed -i "s:\(['= ]\)/usr:\\1$ROOT/$TOOLCHAIN:g" .install/usr/bin/freetype-config
+
 cd ..
 
 mkdir -p objdir-target
