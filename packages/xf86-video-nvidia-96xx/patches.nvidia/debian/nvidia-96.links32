@@ -1,0 +1,14 @@
+/usr/lib32/nvidia-96/libGL.so.96.43.23 /usr/lib32/nvidia-96/libGL.so.1
+/usr/lib32/nvidia-96/libGL.so.1 /usr/lib32/nvidia-96/libGL.so
+/usr/lib32/nvidia-96/libGLcore.so.96.43.23 /usr/lib32/nvidia-96/libGLcore.so.1
+
+/usr/lib32/nvidia-96/libnvidia-cfg.so.96.43.23 /usr/lib32/nvidia-96/libnvidia-cfg.so.1
+/usr/lib32/nvidia-96/libnvidia-cfg.so.1 /usr/lib32/nvidia-96/libnvidia-cfg.so
+
+/usr/lib/nvidia-96/xorg/libglx.so.96.43.23 /usr/lib/nvidia-96/xorg/libglx.so
+
+/usr/lib32/nvidia-96/libXvMCNVIDIA.so.96.43.23 /usr/lib32/nvidia-96/libXvMCNVIDIA.so
+/usr/lib32/nvidia-96/libXvMCNVIDIA.so.96.43.23 /usr/lib32/nvidia-96/libXvMCNVIDIA.so.1
+/usr/lib32/nvidia-96/libXvMCNVIDIA.so.96.43.23 /usr/lib32/nvidia-96/libXvMCNVIDIA_dynamic.so.1
+
+/usr/lib32/nvidia-96/libnvidia-tls.so.96.43.23 /usr/lib32/nvidia-96/libnvidia-tls.so.1

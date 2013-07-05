@@ -1,0 +1,89 @@
+nvidia-96: library-not-linked-against-libc ./usr/lib/libGL.so.96.43.23
+
+nvidia-96: shared-lib-without-dependency-information ./usr/lib/libGLcore.so.96.43.23
+
+nvidia-96: library-not-linked-against-libc ./usr/lib/xorg/modules/extensions/libglx.so.96.43.23
+
+nvidia-96: shlib-with-non-pic-code usr/lib/libGL.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib/libGLcore.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib/xorg/modules/extensions/libglx.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib/libXvMCNVIDIA.so.96.43.23
+
+nvidia-96: non-dev-pkg-with-shlib-symlink usr/lib/libGL.so.96.43.23 usr/lib/libGL.so
+nvidia-96: non-dev-pkg-with-shlib-symlink usr/lib/xorg/modules/extensions/libglx.so.96.43.23 usr/lib/xorg/modules/extensions/libglx.so
+
+
+nvidia-96: script-not-executable usr/src/nvidia-96-96.43.23/conftest.sh
+nvidia-96: maintainer-script-ignores-errors prerm
+nvidia-96: shlib-with-non-pic-code usr/lib/nvidia-96/libGL.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib/nvidia-96/libGL.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib/nvidia-96/libGLcore.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib/nvidia-96/libGLcore.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib/nvidia-96/libXvMCNVIDIA.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib/nvidia-96/libXvMCNVIDIA.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib/nvidia-96/libcuda.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib/nvidia-96/libcuda.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib/nvidia-96/libnvidia-cfg.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib/nvidia-96/libnvidia-cfg.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib/nvidia-96/libnvidia-tls.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib/nvidia-96/libnvidia-tls.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib/nvidia-96/libvdpau.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib/nvidia-96/tls/libnvidia-tls.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib/nvidia-96/tls/libnvidia-tls.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib/nvidia-96/vdpau/libvdpau_nvidia.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib/nvidia-96/vdpau/libvdpau_nvidia.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib/nvidia-96/vdpau/libvdpau_trace.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib/nvidia-96/xorg/libglx.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib/nvidia-96/xorg/libglx.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib/tls/libnvidia-tls.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib/tls/libnvidia-tls.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib/vdpau/libvdpau_nvidia.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib/vdpau/libvdpau_nvidia.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib/vdpau/libvdpau_trace.so.96.43.23
+nvidia-96: unused-shlib-entry-in-control-file libnvidia-tls 190
+nvidia-96: shlibs-declares-dependency-on-other-package libgl1-mesa | libgl1
+nvidia-96: prerm-calls-ldconfig
+nvidia-96: copyright-without-copyright-notice
+nvidia-96: desktop-command-not-in-package /usr/share/applications/nvidia-96/ubuntu-nvidia-settings.desktop /usr/bin/nvidia-settings
+nvidia-96: shared-lib-without-dependency-information ./usr/lib/nvidia-96/libnvidia-tls.so.96.43.23
+nvidia-96: shared-lib-without-dependency-information ./usr/lib/nvidia-96/tls/libnvidia-tls.so.96.43.23
+nvidia-96: shared-lib-without-dependency-information ./usr/lib/tls/libnvidia-tls.so.96.43.23
+nvidia-96: unknown-section restricted/misc
+nvidia-185-modaliases: copyright-without-copyright-notice
+nvidia-185-modaliases: extended-description-line-too-long
+nvidia-glx-185-dev: copyright-without-copyright-notice
+nvidia-glx-185-dev: extended-description-line-too-long
+nvidia-glx-185-dev: unknown-section restricted/misc
+nvidia-185-kernel-source: copyright-without-copyright-notice
+nvidia-185-kernel-source: unknown-section restricted/misc
+nvidia-96-dev: shlib-with-non-pic-code usr/lib/nvidia-96/libXvMCNVIDIA.so.96.43.23
+nvidia-96-dev: shlib-without-PT_GNU_STACK-section usr/lib/nvidia-96/libXvMCNVIDIA.so.96.43.23
+nvidia-96-dev: postinst-has-useless-call-to-ldconfig
+nvidia-96-dev: postrm-has-useless-call-to-ldconfig
+nvidia-96-dev: copyright-without-copyright-notice
+nvidia-96-dev: missing-dependency-on-libc needed by ./usr/lib/nvidia-96/libXvMCNVIDIA.so.96.43.23
+nvidia-96-dev: unknown-section restricted/misc
+nvidia-glx-185: copyright-without-copyright-notice
+nvidia-glx-185: unknown-section restricted/misc
+nvidia-96-modaliases: copyright-without-copyright-notice
+
+nvidia-96: script-not-executable ./usr/src/nvidia-96-96.43.23/conftest.sh
+nvidia-96: maintainer-script-ignores-errors prerm
+nvidia-96: shlib-with-non-pic-code usr/lib32/nvidia-96/libGL.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib32/nvidia-96/libGLcore.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib32/nvidia-96/libXvMCNVIDIA.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib32/nvidia-96/libXvMCNVIDIA.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib32/nvidia-96/libcuda.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib32/nvidia-96/libnvidia-cfg.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib32/nvidia-96/libnvidia-tls.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib32/nvidia-96/libvdpau_nvidia.so.96.43.23
+nvidia-96: shlib-with-non-pic-code usr/lib32/nvidia-96/tls/libnvidia-tls.so.96.43.23
+nvidia-96: shlib-without-PT_GNU_STACK-section usr/lib32/nvidia-96/tls/libnvidia-tls.so.96.43.23
+
+nvidia-96: shared-lib-without-dependency-information ./usr/lib/nvidia-96/libnvidia-tls.so.96.43.23
+nvidia-96: shared-lib-without-dependency-information ./usr/lib/nvidia-96/tls/libnvidia-tls.so.96.43.23
+nvidia-96: shared-lib-without-dependency-information ./usr/lib/tls/libnvidia-tls.so.96.43.23
+nvidia-96: shared-lib-without-dependency-information ./usr/lib32/nvidia-96/libnvidia-tls.so.96.43.23
+nvidia-96: shared-lib-without-dependency-information ./usr/lib32/nvidia-96/tls/libnvidia-tls.so.96.43.23
+
+

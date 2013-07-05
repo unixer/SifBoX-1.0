@@ -1,0 +1,27 @@
+debian/nvidia-96.override                 usr/share/lintian/overrides
+#Blacklist some card ids from GRUB gfxpayload=keep
+debian/nvidia-96.grub-gfxpayload          /usr/share/nvidia-96
+
+NVIDIA-Linux-x86_64-96.43.23-pkg2/usr/X11R6/lib/modules/drivers/nvidia_drv.so /usr/lib/nvidia-96/xorg
+NVIDIA-Linux-x86_64-96.43.23-pkg2/usr/X11R6/lib/modules/extensions/libglx.so.96.43.23 /usr/lib/nvidia-96/xorg
+
+NVIDIA-Linux-x86_64-96.43.23-pkg2/usr/lib/libGL*.so*                  /usr/lib/nvidia-96
+NVIDIA-Linux-x86_64-96.43.23-pkg2/usr/lib/libnvidia*.so*              /usr/lib/nvidia-96
+
+NVIDIA-Linux-x86_64-96.43.23-pkg2/usr/lib/tls/*.so*                   /usr/lib/nvidia-96/tls
+
+NVIDIA-Linux-x86_64-96.43.23-pkg2/usr/X11R6/lib/libXvMCNVIDIA.so.96.43.23  /usr/lib/nvidia-96
+
+debian/dkms/patches                           usr/src/nvidia-96-96.43.23
+debian/dkms.conf                              usr/src/nvidia-96-96.43.23
+debian/temp/modules/nvidia-kernel/nv/*        usr/src/nvidia-96-96.43.23
+
+NVIDIA-Linux-x86_64-96.43.23-pkg2/usr/bin/nvidia-bug-report.sh /usr/lib/nvidia-96/bin
+NVIDIA-Linux-x86_64-96.43.23-pkg2/usr/bin/nvidia-xconfig /usr/lib/nvidia-96/bin
+
+NVIDIA-Linux-x86_64-96.43.23-pkg2/usr/share/pixmaps/nvidia-96-settings.png /usr/share/pixmaps
+
+debian/ubuntu-nvidia-settings.desktop   /usr/share/nvidia-96
+
+debian/nvidia-autostart.desktop /usr/share/nvidia-96
+

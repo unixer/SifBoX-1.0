@@ -1,0 +1,3 @@
+NVIDIA-Linux-x86_64-96.43.23-pkg2/usr/X11R6/lib/libXvMCNVIDIA.a       /usr/lib/nvidia-96
+
+NVIDIA-Linux-x86_64-96.43.23-pkg2/usr/include/*                       /usr/include/nvidia-96

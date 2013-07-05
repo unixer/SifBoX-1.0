@@ -1,0 +1,27 @@
+From 531b27202bfcc28377f3d7553de9b7184d64d3d8 Mon Sep 17 00:00:00 2001
+From: Alberto Milone <alberto.milone@canonical.com>
+Date: Sat, 20 Nov 2010 16:39:48 +0100
+Subject: [PATCH 1/1] Add compatibility with kernel 2.6.36
+
+
+Signed-off-by: Alberto Milone <alberto.milone@canonical.com>
+---
+ nv.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/nv.c b/nv.c
+index 2659e4c..cd94da3 100644
+--- a/nv.c
++++ b/nv.c
+@@ -250,7 +250,7 @@ static struct file_operations nv_fops = {
+     .owner     = THIS_MODULE,
+     .poll      = nv_kern_poll,
+ #if defined(NV_FILE_OPERATIONS_HAS_IOCTL)
+-    .ioctl     = nv_kern_ioctl,
++    .unlocked_ioctl = nv_kern_unlocked_ioctl,
+ #endif
+ #if defined(NV_FILE_OPERATIONS_HAS_UNLOCKED_IOCTL)
+     .unlocked_ioctl = nv_kern_unlocked_ioctl,
+-- 
+1.7.1
+
