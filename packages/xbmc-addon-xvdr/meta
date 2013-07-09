@@ -1,7 +1,8 @@
 PKG_NAME=xbmc-addon-xvdr
 PKG_URL_PROTO=git
 #PKG_URL_REV=0b3b2d4237 #0.9.7
-PKG_URL_REV=871faab
+##PKG_URL_REV=871faab
+PKG_ULR_REV=fd060928
 PKG_URL="git://github.com/pipelka/xbmc-addon-xvdr.git"
 #PKG_VERSION=0.9.7
 PKG_VERSION=0.9.8

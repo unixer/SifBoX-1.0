@@ -52,6 +52,10 @@ do_configure target \
 	    --enable-use-tty-group \
 	    --enable-setterm \
             $TLS_CONFIG \
+	    --disable-runuser \
+	    --disable-ul \
+	    --disable-more \
+	    --disable-pg \
 
 make
 make_install

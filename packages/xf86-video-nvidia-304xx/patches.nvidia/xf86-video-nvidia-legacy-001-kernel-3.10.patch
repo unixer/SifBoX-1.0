@@ -1,20 +1,9 @@
-From 572253a46ba8af8733efdfc54965c86611820d0f Mon Sep 17 00:00:00 2001
-From: Alberto Milone <alberto.milone@canonical.com>
-Date: Wed, 12 Jun 2013 15:31:53 +0200
-Subject: [PATCH 1/1] Add support for 3.10
+https://devtalk.nvidia.com/default/topic/543728/linux/building-nvidia-driver-on-kernel-3-9-0/post/3814531/#3814531
+http://pastie.org/7942599
 
-Patch based on the one originally written by user "Unhelpful" on the following page:
-https://devtalk.nvidia.com/default/topic/543728/linux/building-nvidia-driver-on-kernel-3-9-0/2
----
- nv-i2c.c    |   13 +-
- nv-procfs.c |  501 ++++++++++++++++++++++++++++++++---------------------------
- 2 files changed, 276 insertions(+), 238 deletions(-)
-
-diff --git a/kernel/nv-i2c.c b/kernel/nv-i2c.c
-index a702506..24c2611 100644
---- a/kernel/nv-i2c.c
-+++ b/kernel/nv-i2c.c
-@@ -311,8 +311,6 @@ void* NV_API_CALL nv_i2c_add_adapter(nv_state_t *nv, NvU32 port)
+--- a/kernel/nv-i2c.c	2013-04-26 00:22:30.000000000 -0400
++++ b/kernel/nv-i2c.c	2013-05-13 05:20:55.571981365 -0400
+@@ -311,8 +311,6 @@
  BOOL NV_API_CALL nv_i2c_del_adapter(nv_state_t *nv, void *data)
  {
      struct i2c_adapter *pI2cAdapter = (struct i2c_adapter *)data;
@@ -23,30 +12,29 @@ index a702506..24c2611 100644
  
  #if defined(KERNEL_2_4)
      if (!NV_WEAK_SYMBOL_PRESENT(i2c_add_adapter))
-@@ -324,15 +322,10 @@ BOOL NV_API_CALL nv_i2c_del_adapter(nv_state_t *nv, void *data)
+@@ -324,15 +322,10 @@
      if (!pI2cAdapter) return FALSE;
  
      // attempt release with the OS
 -    osstatus = i2c_del_adapter(pI2cAdapter);
--
++    i2c_del_adapter(pI2cAdapter);
++    os_free_mem(pI2cAdapter);
+ 
 -    if (!osstatus)
 -    {
 -        os_free_mem(pI2cAdapter);
 -        wasReleased = TRUE;
 -    }
-+    i2c_del_adapter(pI2cAdapter);
-+    os_free_mem(pI2cAdapter);
- 
+-
 -    return wasReleased;
 +    return TRUE;
  }
  
  #else // (defined(CONFIG_I2C) || defined(CONFIG_I2C_MODULE))
-diff --git a/kernel/nv-procfs.c b/kernel/nv-procfs.c
-index 3e05ef5..fe72bb2 100644
---- a/kernel/nv-procfs.c
-+++ b/kernel/nv-procfs.c
-@@ -60,60 +60,41 @@ static char nv_registry_keys[NV_MAX_REGISTRY_KEYS_LENGTH];
+
+--- a/kernel/nv-procfs.c	2013-04-26 00:22:30.000000000 -0400
++++ b/kernel/nv-procfs.c	2013-05-22 04:52:45.229495748 -0400
+@@ -60,60 +60,41 @@
          __entry;                                          \
      })
  
@@ -121,7 +109,7 @@ index 3e05ef5..fe72bb2 100644
      NV_KMEM_CACHE_ALLOC_STACK(sp);
      if (sp == NULL)
      {
-@@ -134,31 +115,31 @@ nv_procfs_read_gpu_info(
+@@ -134,31 +115,31 @@
          if (rm_get_device_name(sp, nv, dev->device, dev->subsystem_vendor,
                      dev->subsystem_device, NV_DEVICE_NAME_LENGTH,
                      tmpstr) != RM_OK)
@@ -159,7 +147,7 @@ index 3e05ef5..fe72bb2 100644
              os_free_mem(uuid);
          }
  
-@@ -166,12 +147,12 @@ nv_procfs_read_gpu_info(
+@@ -166,12 +147,12 @@
                      &vbios_rev3, &vbios_rev4,
                      &vbios_rev5) != RM_OK)
          {
@@ -174,7 +162,7 @@ index 3e05ef5..fe72bb2 100644
                             vbios_rev4, vbios_rev5);
          }
      }
-@@ -182,12 +163,12 @@ nv_procfs_read_gpu_info(
+@@ -180,12 +161,12 @@
          type = "PCI-E";
      else
          type = "PCI";
@@ -191,7 +179,7 @@ index 3e05ef5..fe72bb2 100644
                     nv->domain, nv->bus, nv->slot, PCI_FUNC(dev->devfn));
  #if defined(DEBUG)
      do
-@@ -195,7 +176,7 @@ nv_procfs_read_gpu_info(
+@@ -193,7 +174,7 @@
          int j;
          for (j = 0; j < NV_GPU_NUM_BARS; j++)
          {
@@ -200,15 +188,22 @@ index 3e05ef5..fe72bb2 100644
                             j, nv->bars[j].address, (nv->bars[j].size >> 20));
          }
      } while (0);
-@@ -203,26 +184,120 @@ nv_procfs_read_gpu_info(
+@@ -201,26 +182,120 @@
  
      NV_KMEM_CACHE_FREE_STACK(sp);
  
 -    return len;
 +    return 0;
-+}
-+
-+static int
+ }
+ 
+ static int
+-nv_procfs_read_version(
+-    char  *page,
+-    char **start,
+-    off_t  off,
+-    int    count,
+-    int   *eof,
+-    void  *data
 +nv_procfs_open_gpu_info(
 +    struct inode *inode,
 +    struct file *file
@@ -235,16 +230,9 @@ index 3e05ef5..fe72bb2 100644
 +    seq_printf(m, "GCC version:  %s\n", NV_COMPILER);
 +
 +    return 0;
- }
- 
- static int
--nv_procfs_read_version(
--    char  *page,
--    char **start,
--    off_t  off,
--    int    count,
--    int   *eof,
--    void  *data
++}
++
++static int
 +nv_procfs_open_version(
 +    struct inode *inode,
 +    struct file *file
@@ -333,220 +321,8 @@ index 3e05ef5..fe72bb2 100644
 +    return ((status < 0) ? status : count);
  }
  
- static struct pci_dev *nv_get_agp_device_by_class(unsigned int class)
-@@ -255,24 +330,17 @@ static struct pci_dev *nv_get_agp_device_by_class(unsigned int class)
- }
- 
  static int
--nv_procfs_read_agp_info(
--    char  *page,
--    char **start,
--    off_t  off,
--    int    count,
--    int   *eof,
--    void  *data
-+nv_procfs_show_agp_info(
-+    struct seq_file *m,
-+    void *v
- )
- {
--    nv_state_t *nv = data;
-+    nv_state_t *nv = m->private;
-     nv_linux_state_t *nvl = NULL;
-     struct pci_dev *dev;
-     char   *fw, *sba;
-     u8     cap_ptr;
-     u32    status, command, agp_rate;
--    int    len = 0;
--
--    *eof = 1;
- 
-     if (nv != NULL)
-     {
-@@ -285,12 +353,12 @@ nv_procfs_read_agp_info(
-         if (!dev)
-             return 0;
- 
--        len += sprintf(page+len, "Host Bridge: \t ");
-+        seq_printf(m, "Host Bridge: \t ");
- 
- #if defined(CONFIG_PCI_NAMES)
--        len += sprintf(page+len, "%s\n", NV_PCI_DEVICE_NAME(dev));
-+        seq_printf(m, "%s\n", NV_PCI_DEVICE_NAME(dev));
- #else
--        len += sprintf(page+len, "PCI device %04x:%04x\n",
-+        seq_printf(m, "PCI device %04x:%04x\n",
-                 dev->vendor, dev->device);
- #endif
-     }
-@@ -303,48 +371,75 @@ nv_procfs_read_agp_info(
-     fw  = (status & 0x00000010) ? "Supported" : "Not Supported";
-     sba = (status & 0x00000200) ? "Supported" : "Not Supported";
- 
--    len += sprintf(page+len, "Fast Writes: \t %s\n", fw);
--    len += sprintf(page+len, "SBA: \t\t %s\n", sba);
-+    seq_printf(m, "Fast Writes: \t %s\n", fw);
-+    seq_printf(m, "SBA: \t\t %s\n", sba);
- 
-     agp_rate = status & 0x7;
-     if (status & 0x8)
-         agp_rate <<= 2;
- 
--    len += sprintf(page+len, "AGP Rates: \t %s%s%s%s\n",
-+    seq_printf(m, "AGP Rates: \t %s%s%s%s\n",
-             (agp_rate & 0x00000008) ? "8x " : "",
-             (agp_rate & 0x00000004) ? "4x " : "",
-             (agp_rate & 0x00000002) ? "2x " : "",
-             (agp_rate & 0x00000001) ? "1x " : "");
- 
--    len += sprintf(page+len, "Registers: \t 0x%08x:0x%08x\n", status, command);
-+    seq_printf(m, "Registers: \t 0x%08x:0x%08x\n", status, command);
- 
-     if (nvl == NULL)
-         NV_PCI_DEV_PUT(dev);
- 
--    return len;
-+    return 0;
- }
- 
- static int
--nv_procfs_read_agp_status(
--    char  *page,
--    char **start,
--    off_t  off,
--    int    count,
--    int   *eof,
--    void  *data
-+nv_procfs_read_agp_info(
-+    struct inode *inode,
-+    struct file *file
-+)
-+{
-+    return single_open(file, nv_procfs_show_agp_info, NULL);
-+}
-+
-+static const struct file_operations nv_procfs_read_agp_info_fops = {
-+    .owner   = THIS_MODULE,
-+    .open    = nv_procfs_read_agp_info,
-+    .read    = seq_read,
-+    .llseek  = seq_lseek,
-+    .release = single_release,
-+};
-+
-+static int
-+nv_procfs_read_agp_info_gpu(
-+    struct inode *inode,
-+    struct file *file
-+)
-+{
-+    return single_open(file, nv_procfs_show_agp_info, PDE_DATA(inode));
-+}
-+
-+static const struct file_operations nv_procfs_read_agp_info_gpu_fops = {
-+    .owner   = THIS_MODULE,
-+    .open    = nv_procfs_read_agp_info_gpu,
-+    .read    = seq_read,
-+    .llseek  = seq_lseek,
-+    .release = single_release,
-+};
-+
-+static int
-+nv_procfs_show_agp_status(
-+    struct seq_file *m,
-+    void *v
- )
- {
--    nv_state_t *nv = data;
-+    nv_state_t *nv = m->private;
-     struct pci_dev *dev;
-     char   *fw, *sba, *drv;
--    int    len = 0;
-     u8     cap_ptr;
-     u32    scratch;
-     u32    status, command, agp_rate;
-     nv_stack_t *sp = NULL;
- 
--    *eof = 1;
--
-     dev = nv_get_agp_device_by_class(PCI_CLASS_BRIDGE_HOST);
-     if (!dev)
-         return 0;
-@@ -366,22 +461,22 @@ nv_procfs_read_agp_status(
- 
-     if (NV_AGP_ENABLED(nv) && (command & 0x100))
-     {
--        len += sprintf(page+len, "Status: \t Enabled\n");
-+        seq_printf(m, "Status: \t Enabled\n");
- 
-         drv = NV_OSAGP_ENABLED(nv) ? "AGPGART" : "NVIDIA";
--        len += sprintf(page+len, "Driver: \t %s\n", drv);
-+        seq_printf(m, "Driver: \t %s\n", drv);
- 
-         agp_rate = command & 0x7;
-         if (status & 0x8)
-             agp_rate <<= 2;
- 
--        len += sprintf(page+len, "AGP Rate: \t %dx\n", agp_rate);
-+        seq_printf(m, "AGP Rate: \t %dx\n", agp_rate);
- 
-         fw = (command & 0x00000010) ? "Enabled" : "Disabled";
--        len += sprintf(page+len, "Fast Writes: \t %s\n", fw);
-+        seq_printf(m, "Fast Writes: \t %s\n", fw);
- 
-         sba = (command & 0x00000200) ? "Enabled" : "Disabled";
--        len += sprintf(page+len, "SBA: \t\t %s\n", sba);
-+        seq_printf(m, "SBA: \t\t %s\n", sba);
-     }
-     else
-     {
-@@ -394,7 +489,7 @@ nv_procfs_read_agp_status(
-             return 0;
-         }
- 
--        len += sprintf(page+len, "Status: \t Disabled\n\n");
-+        seq_printf(m, "Status: \t Disabled\n\n");
- 
-         /*
-          * If we find AGP is disabled, but the RM registry indicates it
-@@ -409,7 +504,7 @@ nv_procfs_read_agp_status(
- 
-         if (agp_config != NVOS_AGP_CONFIG_DISABLE_AGP && NV_AGP_FAILED(nv))
-         {
--            len += sprintf(page+len,
-+            seq_printf(m,
-                   "AGP initialization failed, please check the ouput  \n"
-                   "of the 'dmesg' command and/or your system log file \n"
-                   "for additional information on this problem.        \n");
-@@ -419,9 +514,27 @@ nv_procfs_read_agp_status(
-     }
- 
-     NV_PCI_DEV_PUT(dev);
--    return len;
-+    return 0;
-+}
-+
-+static int
-+nv_procfs_read_agp_status(
-+    struct inode *inode,
-+    struct file *file
-+)
-+{
-+    return single_open(file, nv_procfs_show_agp_status, PDE_DATA(inode));
- }
- 
-+static const struct file_operations nv_procfs_read_agp_status_fops = {
-+    .owner   = THIS_MODULE,
-+    .open    = nv_procfs_read_agp_status,
-+    .read    = seq_read,
-+    .llseek  = seq_lseek,
-+    .release = single_release,
-+};
-+
-+
- static int
- nv_procfs_open_registry(
-     struct inode *inode,
-@@ -432,7 +545,7 @@ nv_procfs_open_registry(
+@@ -233,7 +308,7 @@
      nv_stack_t *sp = NULL;
  
      if (0 == (file->f_mode & FMODE_WRITE))
@@ -555,7 +331,7 @@ index 3e05ef5..fe72bb2 100644
  
      nvfp = nv_alloc_file_private();
      if (nvfp == NULL)
-@@ -481,6 +594,9 @@ nv_procfs_close_registry(
+@@ -282,6 +357,9 @@
      RM_STATUS rm_status;
      int rc = 0;
  
@@ -565,7 +341,7 @@ index 3e05ef5..fe72bb2 100644
      nvfp = NV_GET_FILE_PRIVATE(file);
      if (nvfp == NULL)
          return 0;
-@@ -545,122 +661,81 @@ done:
+@@ -346,122 +424,81 @@
      return rc;
  }
  
@@ -667,7 +443,8 @@ index 3e05ef5..fe72bb2 100644
 -    down(&nvfp->fops_sp_lock[NV_FOPS_STACK_INDEX_PROCFS]);
 -
 -    bytes_left = (NV_PROC_WRITE_BUFFER_SIZE - nvfp->off - 1);
--
++    seq_printf(m, "%s", (char *)m->private);
+ 
 -    if (count == 0)
 -    {
 -        status = -EINVAL;
@@ -691,8 +468,7 @@ index 3e05ef5..fe72bb2 100644
 -        nvfp->proc_data = data;
 -        nvfp->off += count;
 -    }
-+    seq_printf(m, "%s", (char *)m->private);
- 
+-
 -done:
 -    up(&nvfp->fops_sp_lock[NV_FOPS_STACK_INDEX_PROCFS]);
 -
@@ -729,7 +505,7 @@ index 3e05ef5..fe72bb2 100644
  static void
  nv_procfs_add_text_file(
      struct proc_dir_entry *parent,
-@@ -668,22 +743,7 @@ nv_procfs_add_text_file(
+@@ -469,22 +506,7 @@
      const char *text
  )
  {
@@ -753,7 +529,7 @@ index 3e05ef5..fe72bb2 100644
  }
  #endif
  
-@@ -713,26 +773,11 @@ int nv_register_procfs(void)
+@@ -513,26 +535,11 @@
      if (!proc_nvidia)
          goto failed;
  
@@ -782,7 +558,7 @@ index 3e05ef5..fe72bb2 100644
      if (!entry)
          goto failed;
  
-@@ -753,8 +798,7 @@ int nv_register_procfs(void)
+@@ -553,8 +560,7 @@
  
      nv_procfs_add_text_file(proc_nvidia_patches, "README", __README_patches);
  
@@ -792,53 +568,25 @@ index 3e05ef5..fe72bb2 100644
      if (!entry)
          goto failed;
  
-@@ -771,14 +815,12 @@ int nv_register_procfs(void)
+@@ -571,15 +577,11 @@
          if (!proc_nvidia_gpu)
              goto failed;
  
 -        entry = NV_CREATE_PROC_FILE("information", proc_nvidia_gpu,
 -            nv_procfs_read_gpu_info, NULL, NULL, nv);
-+        entry = proc_create_data("information", NV_PROC_RO, proc_nvidia_gpu,
-+            &nv_procfs_gpu_info_fops, nv);
++	entry = proc_create_data("information", NV_PROC_RO, proc_nvidia_gpu, &nv_procfs_gpu_info_fops, nv);
          if (!entry)
              goto failed;
  
 -        entry = NV_CREATE_PROC_FILE("registry", proc_nvidia_gpu,
 -            nv_procfs_read_registry,
 -            nv_procfs_write_registry,
-+        entry = proc_create_data("registry", NV_PROC_RW, proc_nvidia_gpu,
-             &nv_procfs_registry_fops, nv);
+-            &nv_procfs_registry_fops, nv);
++	entry = proc_create_data("registry", NV_PROC_RW, proc_nvidia_gpu, &nv_procfs_registry_fops, nv);
          if (!entry)
              goto failed;
-@@ -789,18 +831,21 @@ int nv_register_procfs(void)
-             if (!proc_nvidia_agp)
-                 goto failed;
- 
--            entry = NV_CREATE_PROC_FILE("status", proc_nvidia_agp,
--                nv_procfs_read_agp_status, NULL, NULL, nv);
-+            entry = proc_create_data("status", NV_PROC_RO, proc_nvidia_agp,
-+                &nv_procfs_read_agp_status_fops, nv);
-+
-             if (!entry)
-                 goto failed;
- 
--            entry = NV_CREATE_PROC_FILE("host-bridge", proc_nvidia_agp,
--                nv_procfs_read_agp_info, NULL, NULL, NULL);
-+            entry = proc_create("host-bridge", NV_PROC_RO, proc_nvidia_agp,
-+                &nv_procfs_read_agp_info_fops);
-+
-             if (!entry)
-                 goto failed;
- 
--            entry = NV_CREATE_PROC_FILE("gpu", proc_nvidia_agp,
--                nv_procfs_read_agp_info, NULL, NULL, nv);
-+            entry = proc_create_data("gpu", NV_PROC_RO, proc_nvidia_agp,
-+                &nv_procfs_read_agp_info_fops, nv);
-+
-             if (!entry)
-                 goto failed;
-         }
-@@ -809,7 +854,7 @@ int nv_register_procfs(void)
+     }
+@@ -587,7 +589,7 @@
      return 0;
  #if defined(CONFIG_PROC_FS)
  failed:
@@ -847,7 +595,7 @@ index 3e05ef5..fe72bb2 100644
      return -1;
  #endif
  }
-@@ -817,6 +862,6 @@ failed:
+@@ -595,6 +597,6 @@
  void nv_unregister_procfs(void)
  {
  #if defined(CONFIG_PROC_FS)
@@ -855,6 +603,3 @@ index 3e05ef5..fe72bb2 100644
 +    remove_proc_subtree("nvidia", proc_nvidia);
  #endif
  }
--- 
-1.7.9.5
-
