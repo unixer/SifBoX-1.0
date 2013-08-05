@@ -1,0 +1,25 @@
+Submitted By: Fernando de Oliveira <famobr at yahoo dot com dot br>
+Date: 2013-06-07
+Initial Package Version: 21.0
+Upstream Status: Unknown
+Origin: User re_nelson at linuxquestions.org
+https://www.linuxquestions.org/questions/linux-from-scratch-13/blfs-xulrunner-firefox-21-0-and-searc
+h-4175462532/
+Description: Makes the search box work again when building firefox on xulrunner.
+
+--- mozilla-release/browser/base/content/browser.js.orig	2013-05-11 16:19:21.000000000 -0300
++++ mozilla-release/browser/base/content/browser.js	2013-06-07 00:39:16.114862388 -0300
+@@ -3559,10 +3559,12 @@
+    */
+   recordSearchInHealthReport: function (engine, source) {
+ #ifdef MOZ_SERVICES_HEALTHREPORT
+-    let reporter = Cc["@mozilla.org/datareporting/service;1"]
++    /*let reporter = Cc["@mozilla.org/datareporting/service;1"]
+                      .getService()
+                      .wrappedJSObject
+                      .healthReporter;
++    */
++       return;
+ 
+     // This can happen if the FHR component of the data reporting service is
+     // disabled. This is controlled by a pref that most will never use.

@@ -8,19 +8,15 @@
 
 #CFLAGS="$CFLAGS -I$SYSROOT_PREFIX/usr/include"
 #LDFLAGS="$LDFLAGS -L$SYSROOT_PREFIX/lib -L$SYSROOT_PREFIX/usr/lib -L$SYSROOT_PREFIX/usr/local/lib"
-#CFLAGS=`echo $CFLAGS | sed -e "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS==64||"`
-#CFLAGS=`echo $CFLAGS | sed -e "s|-D_FILE_OFFSET_BITS=64||"`
-#CFLAGS=`echo $CFLAGS | sed -e "s|-D_LARGEFILE_SOURCE||"`
-#CFLAGS=`echo $CFLAGS | sed -e "s|-D_FILE_OFFSET_BITS==64||"`
-#CXXFLAGS=`echo $CXXFLAGS | sed -e "s|-D_FILE_OFFSET_BITS==64||"`
+##CFLAGS=`echo $CFLAGS | sed -e "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS==64||"`
+##CFLAGS=`echo $CFLAGS | sed -e "s|-D_FILE_OFFSET_BITS=64||"`
+##CFLAGS=`echo $CFLAGS | sed -e "s|-D_LARGEFILE_SOURCE||"`
+##CFLAGS=`echo $CFLAGS | sed -e "s|-D_FILE_OFFSET_BITS==64||"`
+##CXXFLAGS=`echo $CXXFLAGS | sed -e "s|-D_FILE_OFFSET_BITS==64||"`
 #PKG_CONFIG_LIBDIR=$SYSROOT_PREFIX/usr/local/lib/pkgconfig:$SYSROOT_PREFIX/usr/local/share/pkgconfig
 get_meta $1
 cd $PKG_BUILD_DIR
 
-echo $TARGET_NAME
-echo $HOST
-echo $HOST_NAME
-read enterKey
 rm mozconfig || true
 
 
@@ -90,19 +86,44 @@ ac_add_options --with-system-zlib
 ac_add_options --disable-elf-hack
 
 mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/firefox-build-dir
+CROSS_COMPILE=1
+# HOST_LIBIDL_CONFIG='/usr/bin/libIDL-config-2 --prefix=/usr'
+#HOST_LIBIDL_CFLAGS='-I$/root/openbricks/build/build.x86_64.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/include -I$/root/openbricks/build/build.x86_64.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/local/include -I/root/openbricks/build/build.x86_64.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/local/include/glib-2.0'
+#HOST_LIBIDL_LIBS='-L/root/openbricks/build/build.x86_64.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/lib -L/root/openbricks/build/build.x86_64.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/lib -L/root/openbricks/build/build.x86_64.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/local/lib -lglib-2.0'
+# LIBIDL_CONFIG='/usr/bin/libIDL-config-2 --prefix=/usr/mipsEEel-linux'
+export PKG_CONFIG_PATH=/root/openbricks/build/build.x86_64.eglibc/toolchain/x86_64-openbricks-linux-gnu/sysroot/usr/local/lib/pkgconfig
+# don't use pkg-config for host libIDL
+#ac_add_options --without-libIDL
+#ac_add_options --prefix=/usr/mipsEEel-linux
+#ac_add_options --target=mipsEEel-linux
+
+# Options for 'configure' (same as command-line options). 
+# all are listed so that one can manually tweak this config file.
+ac_add_options --enable-application=browser
+ac_add_options --enable-mathml
+#ac_add_options --enable-extensions
+#ac_add_options --enable-crypto
+ac_add_options --enable-logrefcnt
+
+ac_add_options --without-system-nspr
+ac_add_options --without-system-zlib
+ac_add_options --without-system-jpeg
+ac_add_options --without-system-png
 EOF
 
 
-
-sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config/autoconf.mk || true
-sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config/autoconf.mk || true
-sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config.log || true
-sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/nsprpub/config/autoconf.mk || true
-sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/nsprpub/config.status || true
-sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/js/src/config/autoconf.mk || true
+#sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config/autoconf.mk || true
+#sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config/autoconf.mk || true
+#sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config.log || true
+#sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/nsprpub/config/autoconf.mk || true
+#sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/nsprpub/config.status || true
+#sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/js/src/config/autoconf.mk || true
 #sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/config.status || true
-sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/js/src/config.log || true
-sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/js/src/config.status || true
+#sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/js/src/config.log || true
+#sed -i "s|-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE||" firefox-build-dir/js/src/config.status || true
+
+touch .gdbinit
+
 
 sed -i 's# ""##' browser/base/Makefile.in &&
 make -f client.mk
@@ -111,15 +132,15 @@ make -f client.mk
 do_strip bin lib*.so.*
 
 read enterKey
-mkdir -p .install/usr/lib/firefox-14.0.1 
-tar -xvf firefox-build-dir/dist/firefox-14.0.1.en-US.linux-$TARGET_ARCH.tar.bz2 -C .install/usr/lib/firefox-14.0.1 --strip-components=1 
+mkdir -p .install/usr/lib/firefox-$PKG_VERSION
+tar -xvf firefox-build-dir/dist/firefox-$PKG_VERSION.en-US.linux-$TARGET_ARCH.tar.bz2 -C .install/usr/lib/firefox-$PKG_VERSION --strip-components=1 
 
 do_strip bin lib*.so.*
 
 cd .install
 mkdir -p usr/bin
-ln -sfv ../lib/firefox-14.0.1/firefox usr/bin
+ln -sfv ../lib/firefox-$PKG_VERSION/firefox usr/bin
 
 mkdir -pv usr/lib/mozilla/plugins
-ln -sfv ../mozilla/plugins usr/lib/firefox-14.0.1
+ln -sfv ../mozilla/plugins usr/lib/firefox-$PKG_VERSION
 

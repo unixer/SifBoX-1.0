@@ -1,6 +1,6 @@
 PKG_NAME=vdr-softhddevice
-#PKG_URL_REV=eab051f5
-PKG_URL_REV=c0286b3a
+#PKG_URL_REV=c0286b3a
+PKG_URL_REV=8ff65a01
 PKG_VERSION=0.6.0
 PKG_URL_PROTO=git
 PKG_URL="git://projects.vdr-developer.org/vdr-plugin-softhddevice.git"

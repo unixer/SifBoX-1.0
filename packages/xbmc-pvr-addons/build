@@ -7,8 +7,17 @@ cd $PKG_BUILD_DIR
 
 do_autoconf
 
+#do_configure target \
+#	--prefix=/usr \
+
 do_configure target \
 	--prefix=/usr \
+	--disable-static \
+	--enable-addons-with-dependencies \
+	--enable-shared \
+	--enable-mysql
+
+
 
 make
 make_install

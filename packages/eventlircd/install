@@ -21,3 +21,8 @@ cp $ROOT/$PACKAGES/$1/config/98-eventlircd.rules $INSTALL/lib/udev/rules.d/
 #cp $ROOT/$PACKAGES/$1/remotes/imon* $INSTALL/etc/rc_keymaps
 mkdir -p $INSTALL/usr/bin
 cp $ROOT/$PACKAGES/$1/scripts/* $INSTALL/usr/bin
+
+# ir-kbd-i2c applies to PC hardware only
+if [ "$TARGET_ARCH" != i386 ] && [ "$TARGET_ARCH" != x86_64 ] ; then 
+  sed -i -e "s/ir-kbd-i2c/#ir-kbd-i2c/g" $INSTALL/usr/lib/modules-load.d/eventlircd-mod.conf
+fi

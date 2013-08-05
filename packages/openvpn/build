@@ -16,13 +16,11 @@ do_configure \
             --enable-small \
             --disable-pthread \
             --disable-selinux \
-	    --enable-systemd \
-	    --disable-plugin-auth-pam \
-	    --enable-password-save \
-            --disable-plugin-down-root \
-            --enable-iproute2 IPROUTE="/sbin/ip" \
+            --enable-systemd \
+            --disable-plugin-auth-pam \
             $SMARTCARD_OPTS \
 
 touch .gitignore .gitattributes
+
 make
 make_install

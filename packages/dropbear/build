@@ -4,6 +4,7 @@
 
 cd $BUILD/$1*
 
+do_autoreconf
 do_configure \
              --enable-zlib \
              --disable-pam \

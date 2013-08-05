@@ -1,0 +1,14 @@
+--- linux/kernel/time/timer_list..c.org	2013-08-02 14:21:04.307926333 +0200
++++ linux/kernel/time/timer_list.c	2013-08-02 14:22:02.735927336 +0200
+@@ -327,8 +327,10 @@
+ 	return timer_list_start(file, offset);
+ }
+ 
+-static void timer_list_stop(struct seq_file *seq, void *v)
++static void timer_list_stop(struct seq_file *file, void *v)
+ {
++struct timer_list_iter *iter = file->private;
++iter->cpu = cpumask_next(iter->cpu, cpu_online_mask);
+ }
+ 
+ static const struct seq_operations timer_list_sops = {

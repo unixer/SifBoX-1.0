@@ -1,7 +1,8 @@
 PKG_NAME=xine-lib
 PKG_URL_PROTO=git
 #PKG_URL_REV=9228f41e #1.2.2
-PKG_URL_REV=cfe50b31 # 1.2.3
+#PKG_URL_REV=cfe50b31 # 1.2.3
+PKG_URL_REV=a771cb80 # 1.2.3 Prova
 PKG_VERSION=1.2.3
 #2+${PKG_URL_REV}
 PKG_URL="git://projects.vdr-developer.org/xine-lib.git"

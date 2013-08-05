@@ -1,10 +1,14 @@
 PKG_NAME=xbmc
 PKG_URL_PROTO=git
 #PKG_URL_REV=32b1a5ef9e7f2
-#PKG_VERSION=12.2
-PKG_URL_REV=6aa6247
-PKG_VERSION=13.0
+#PKG_URL_REV=8e4f92452d85112c5e708d90962a90be05755be2
+PKG_URL_REV=12.2-Frodo
+#ad84e88
+PKG_VERSION=12.2
+#PKG_URL_REV=c218d5c
+#PKG_VERSION=13.0
 PKG_URL="https://github.com/xbmc/xbmc.git"
+#PKG_URL="https://github.com/xbmc/xbmc/archive/8e4f92452d85112c5e708d90962a90be05755be2.zip"
 PKG_REV=1
 PKG_DEPENDS="$TARGET_LIBC Python boost zlib bzip2 lzo pcre libssh libass enca curl dbus fontconfig fribidi libjpeg-turbo libpng tiff freetype jasper libmad libsamplerate libogg libvorbis libcdio libmms libmodplug faad2 flac wavpack libmpeg2 sqlite alsa yajl libplist openssl python-simplejson tinyxml systemd taglib"
 PKG_RUN_DEPENDS="libmysqlclient libsmbclient python-lsb-release"

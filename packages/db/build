@@ -27,7 +27,7 @@ rm -f config.cache
   --disable-nls \
   --enable-largefile \
   --enable-shared \
-  --enable-static \
+  --disable-static \
   --disable-java \
   --disable-cxx \
   --disable-tcl \

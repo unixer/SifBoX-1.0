@@ -22,7 +22,7 @@ do_reboot()
 osdmsg()
 {
   sleep 2
-  echo "MESG $1" | nc localhost 2001
+  echo "MESG $1" | nc localhost 6419
 }
 
 grep -q '^LOCAL$' /etc/adjtime && HWCLOCK_LOCAL_TIME="-l"
