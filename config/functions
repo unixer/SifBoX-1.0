@@ -787,16 +787,16 @@ version_strip_minor() {
 apply_series() {
   if [ -f $2/series ]; then
     for i in `cat $2/series`; do
-      [ -f $2/$i ] && { apply_patch $1 $2/$i || continue; }
+      [ -f $2/$i ] && { apply_patch $1 $2/$i || return 1; }
     done
   else
     for i in $2/*.diff $2/*.patch; do
-      [ -f $i ] && { apply_patch $1 $i || continue; }
+      [ -f $i ] && { apply_patch $1 $i || return 1; }
     done
   fi
 
   if [ -d $2/$PKG_VERSION ]; then
-      apply_series $1 $2/$PKG_VERSION || continue
+      apply_series $1 $2/$PKG_VERSION || return 1
   fi
 
   return 0
