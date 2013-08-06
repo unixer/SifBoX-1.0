@@ -10,6 +10,7 @@ cd objdir-target
 
 do_configure \
   --disable-manpages \
+  --enable-shared \
   --disable-static
 
 make
