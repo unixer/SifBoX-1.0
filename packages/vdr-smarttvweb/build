@@ -18,7 +18,7 @@ get_meta $1
 VDR_DIR=`basename $BUILD/vdr-$VDR_VERSION`
 
 cd $PKG_BUILD_DIR
-cd vdr-smarttvweb
+#cd vdr-smarttvweb
 sed -i "s|VDRDIR = /usr/include/vdr|VDRDIR = $ROOT/$BUILD/$VDR_DIR|" Makefile
 
 make all

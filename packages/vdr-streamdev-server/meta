@@ -1,12 +1,12 @@
 PKG_PARENT=vdr-streamdev
 PKG_NAME=${PKG_PARENT}-server
 PKG_URL_PROTO=git
-PKG_URL_REV=10db11acd9
-PKG_VERSION=0.6.0+r$PKG_URL_REV
+#PKG_URL_REV=10db11acd9
+#PKG_VERSION=0.6.0+r$PKG_URL_REV
+PKG_URL_REV=d7652d89ca
+PKG_VERSION=0.6.0
 PKG_URL="git://projects.vdr-developer.org/vdr-plugin-streamdev.git"
-#PKG_URL="http://projects.vdr-developer.org/attachments/download/969/vdr-streamdev-0.6.0.tgz"
-#PKG_URL="git://projects.vdr-developer.org/vdr-plugin-streamdev.git"
-PKG_REV=1
+PKG_REV=6
 PKG_RUN_DEPENDS="$TARGET_LIBC vdr"
 PKG_BUILD_DEPENDS="toolchain"
 PKG_PRIORITY=optional

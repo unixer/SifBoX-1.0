@@ -11,5 +11,6 @@ if pkg_uses $1 devtools; then
 fi
 
 do_install usr/lib/libvlc*.so*
-do_install usr/lib/vlc/plugins/*/*.so
+#do_install usr/lib/vlc/plugins/*/*.so
+do_install usr/lib/vlc/plugins
 do_install usr/share

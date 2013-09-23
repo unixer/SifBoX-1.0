@@ -1,9 +1,6 @@
-Description: This patch is needed for the rotor plugin.
-Author: Thomas Bergwinkl <Bergwinkl.Thomas@vr-web.de>
-Origin: extracted from the rotor plugin 0.1.4-vdr1.5
-
---- a/device.h
-+++ b/device.h
+diff -ruN vdr-2.0.2-org/device.h vdr-2.0.3/device.h
+--- vdr-2.0.2-org/device.h	2013-09-04 21:45:47.000000000 +0200
++++ vdr-2.0.3/device.h	2013-09-04 21:48:17.000000000 +0200
 @@ -24,6 +24,8 @@
  #include "spu.h"
  #include "thread.h"
@@ -13,7 +10,7 @@ Origin: extracted from the rotor plugin 0.1.4-vdr1.5
  
  #define MAXDEVICES         16 // the maximum number of devices in the system
  #define MAXPIDHANDLES      64 // the maximum number of different PIDs per device
-@@ -337,6 +339,7 @@
+@@ -333,6 +335,7 @@
    virtual bool HasProgramme(void) const;
           ///< Returns true if the device is currently showing any programme to
           ///< the user, either through replaying or live.
@@ -21,28 +18,29 @@ Origin: extracted from the rotor plugin 0.1.4-vdr1.5
  
  // PID handle facilities
  
---- a/dvbdevice.c
-+++ b/dvbdevice.c
+diff -ruN vdr-2.0.2-org/dvbdevice.c vdr-2.0.3/dvbdevice.c
+--- vdr-2.0.2-org/dvbdevice.c	2013-09-04 21:45:47.000000000 +0200
++++ vdr-2.0.3/dvbdevice.c	2013-09-04 21:50:21.183000090 +0200
 @@ -285,6 +285,7 @@
  private:
    static cMutex bondMutex;
    enum eTunerStatus { tsIdle, tsSet, tsTuned, tsLocked };
-+  bool SendDiseqc;
++  bool SendDiseqc; 
    int frontendType;
    const cDvbDevice *device;
-   int fd_frontend;
+   mutable int fd_frontend;
 @@ -301,6 +302,7 @@
-   cMutex mutex;
+   mutable cMutex mutex;
    cCondVar locked;
    cCondVar newSet;
 +  dvb_diseqc_master_cmd diseqc_cmd;
    cDvbTuner *bondedTuner;
    bool bondedMaster;
    bool SetFrontendType(const cChannel *Channel);
-@@ -327,12 +329,16 @@
-   bool Locked(int TimeoutMs = 0);
-   int GetSignalStrength(void) const;
+@@ -333,12 +335,16 @@
    int GetSignalQuality(void) const;
+   bool SetIdle(bool Idle);
+   bool IsIdle(void) const { return isIdle; }
 +  bool SendDiseqcCmd(dvb_diseqc_master_cmd cmd);
 +private:
 +  int GetCurrentDeliverySystem(void);
@@ -56,7 +54,7 @@ Origin: extracted from the rotor plugin 0.1.4-vdr1.5
    frontendType = SYS_UNDEFINED;
    device = Device;
    fd_frontend = Fd_Frontend;
-@@ -655,6 +661,35 @@
+@@ -666,6 +672,35 @@
    return -1;
  }
  
@@ -92,9 +90,9 @@ Origin: extracted from the rotor plugin 0.1.4-vdr1.5
  static unsigned int FrequencyToHz(unsigned int f)
  {
    while (f && f < 1000000)
-@@ -874,6 +909,10 @@
-         if (GetFrontendStatus(NewStatus))
-            Status = NewStatus;
+@@ -889,6 +924,10 @@
+               Status = NewStatus;
+            }
          cMutexLock MutexLock(&mutex);
 +        if (SendDiseqc) {
 +           CHECK(ioctl(fd_frontend, FE_DISEQC_SEND_MASTER_CMD, &diseqc_cmd));
@@ -103,7 +101,7 @@ Origin: extracted from the rotor plugin 0.1.4-vdr1.5
          int WaitTime = 1000;
          switch (tunerStatus) {
            case tsIdle:
-@@ -1576,6 +1615,11 @@
+@@ -1656,6 +1695,11 @@
    return dvbTuner ? dvbTuner->Locked(TimeoutMs) : false;
  }
  
@@ -115,9 +113,10 @@ Origin: extracted from the rotor plugin 0.1.4-vdr1.5
  void cDvbDevice::SetTransferModeForDolbyDigital(int Mode)
  {
    setTransferModeForDolbyDigital = Mode;
---- a/dvbdevice.h
-+++ b/dvbdevice.h
-@@ -242,6 +242,7 @@
+diff -ruN vdr-2.0.2-org/dvbdevice.h vdr-2.0.3/dvbdevice.h
+--- vdr-2.0.2-org/dvbdevice.h	2013-09-04 21:45:47.000000000 +0200
++++ vdr-2.0.3/dvbdevice.h	2013-09-04 21:48:17.000000000 +0200
+@@ -243,6 +243,7 @@
    virtual bool SetChannelDevice(const cChannel *Channel, bool LiveView);
  public:
    virtual bool HasLock(int TimeoutMs = 0) const;

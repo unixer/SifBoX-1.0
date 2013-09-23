@@ -7,7 +7,7 @@ verlte 1.7.36 $PKG_VERSION && VDRINS="no" || VDRINS="yes"
 
 get_meta $1
 cd $PKG_BUILD_DIR
-cd vdr-smarttvweb
+#cd vdr-smarttvweb
 NAME=`echo $1 | sed s/vdr-//`
 mkdir -p $INSTALL/etc/vdr/plugins.d
 echo "PLUGIN=${NAME}" > $INSTALL/etc/vdr/plugins.d/50_$NAME

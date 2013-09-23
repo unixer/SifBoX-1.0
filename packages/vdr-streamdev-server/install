@@ -2,36 +2,49 @@
 
 . config/options
 
+get_meta vdr
+verlte 1.7.36 $PKG_VERSION && VDRINS="no" || VDRINS="yes"
+
 get_meta $1
 
-mkdir -p $INSTALL/usr/lib/vdr/plugins
-#cp -PR $BUILD/vdr-streamdev-ser*/server/lib$1*.so.* $INSTALL/usr/lib/vdr/plugins
-cp -a $BUILD/${PKG_NAME}-${PKG_VERSION}/server/lib$1*.so.* $INSTALL/usr/lib/vdr/plugins
+cd $PKG_BUILD_DIR
 
-for loc in $INCLUDED_LOCALES; do
+
+#mkdir -p $INSTALL/usr/lib/vdr/plugins
+#cp -a $BUILD/${PKG_NAME}-${PKG_VERSION}/server/lib$1*.so.* $INSTALL/usr/lib/vdr/plugins
+
+if [ $VDRINS = "no" ]; then
+  mkdir -p $INSTALL/usr/lib/vdr/plugins
+  cp -a lib$1*.so.* $INSTALL/usr/lib/vdr/plugins
+  for loc in $INCLUDED_LOCALES; do
   LOCALE=`echo $loc|cut -f1 -d.`
-  if [ -d $BUILD/${PKG_NAME}-${PKG_VERSION}/server/locale/$LOCALE ]; then
-    mkdir -p $INSTALL/usr/share/locale/$LOCALE
-    cp -a $BUILD/${PKG_NAME}-${PKG_VERSION}/server/locale/$LOCALE/* $INSTALL/usr/share/locale/$LOCALE/
-  fi
-done
+    if [ -d locale/$LOCALE ]; then
+      mkdir -p $INSTALL/usr/share/locale/$LOCALE
+      cp -a locale/$LOCALE/* $INSTALL/usr/share/locale/$LOCALE/
+    fi
+  done
+else
+  do_install usr/lib/vdr/plugins/libvdr-streamdev-server*
+  do_install usr/share/locale/de_DE/LC_MESSAGES/vdr-streamdev-server.mo
+  do_install usr/share/locale/es_ES/LC_MESSAGES/vdr-streamdev-server.mo
+  do_install usr/share/locale/fi_FI/LC_MESSAGES/vdr-streamdev-server.mo
+  do_install usr/share/locale/fr_FR/LC_MESSAGES/vdr-streamdev-server.mo
+  do_install usr/share/locale/it_IT/LC_MESSAGES/vdr-streamdev-server.mo
+  do_install usr/share/locale/lt_LT/LC_MESSAGES/vdr-streamdev-server.mo
+  do_install usr/share/locale/ru_RU/LC_MESSAGES/vdr-streamdev-server.mo
+  do_install usr/share/locale/sk_SK/LC_MESSAGES/vdr-streamdev-server.mo
+fi
+
 
 NAME=`echo $1 | sed s/vdr-//`
 mkdir -p $INSTALL/etc/vdr/plugins.d
 echo "PLUGIN=${NAME}" > $INSTALL/etc/vdr/plugins.d/50_$NAME
 echo "ENABLED=yes" >> $INSTALL/etc/vdr/plugins.d/50_$NAME
 
-#NAME=`echo $1 | sed s/vdr-//`
-#mkdir -p $INSTALL/etc/vdr/plugins.d
-#echo "PLUGIN=streamdev-client" > $INSTALL/etc/vdr/plugins.d/50_streamdev-client
-#echo "ENABLED=yes" >> $INSTALL/etc/vdr/plugins.d/50_streamdev-client
-
 
 mkdir -p $INSTALL/etc/vdr/plugins/streamdev-server
 cp -P $ROOT/$PACKAGES/$1/scripts/* $INSTALL/etc/vdr/plugins/streamdev-server
 cp -P $ROOT/$PACKAGES/$1/streamdevhosts.conf $INSTALL/etc/vdr/plugins/streamdev-server
-#cp -P $BUILD/vdr-streamdev-*/streamdev-server/streamdevhosts.conf $INSTALL/etc/vdr/plugins/streamdev-server
-#cp $BUILD/vdr-streamdev-*/streamdev-server/externremux.sh $INSTALL/etc/vdr/plugins/streamdev-server
 echo '0.0.0.0/0' >> $INSTALL/etc/vdr/plugins/streamdev-server/streamdevhosts.conf
 
 exit 0

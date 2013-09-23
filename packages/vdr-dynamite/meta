@@ -1,13 +1,10 @@
 PKG_NAME="vdr-dynamite"
 PKG_URL_PROTO=git
-#vdr 1.7.27
-#PKG_URL_REV=10d78a85a5e85170979b7695704203de86f17ad3
-#vdr 1.7.39
-#PKG_URL_REV=5fe51b1a
-PKG_URL_REV=483b907a
+#PKG_URL_REV=483b907a
+PKG_URL_REV=4babf398
 PKG_URL="git://github.com/flensrocker/vdr-plugin-dynamite.git"
 PKG_VERSION=0.1.5
-PKG_REV=1
+PKG_REV=6
 PKG_DEPENDS="vdr systemd"
 PKG_BUILD_DEPENDS="toolchain"
 PKG_PRIORITY="optional"
