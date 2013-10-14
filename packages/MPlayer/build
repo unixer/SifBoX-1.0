@@ -208,6 +208,7 @@ fi
             --disable-shm \
             --disable-dynamic-plugins \
             --extra-libs="$EXTRA_LIBS" \
+            --enable-vdpau \
             $DEBUG_CONFIG \
 	    --disable-ffmpeg_a
 

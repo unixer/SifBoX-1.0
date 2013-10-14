@@ -6098,7 +6098,7 @@ diff -urN a/drivers/media/usb/dvb-usb-v2/dvbsky.c b/drivers/media/usb/dvb-usb-v2
 +};
 +
 +static const struct usb_device_id dvbsky_id_table[] = {
-+	{ DVB_USB_DEVICE(0x0572, 0x6832,
++	{ DVB_USB_DEVICE(0x0572, 0x6831,
 +		&dvbsky_s960_props, "DVBSky S960/S860", RC_MAP_DVBSKY) },
 +	{ }
 +};

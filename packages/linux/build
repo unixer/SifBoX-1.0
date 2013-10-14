@@ -8,7 +8,11 @@ fi
 unset LDFLAGS
 
 cd $BUILD
-[ -d "linux" ] || ln -s $1-3* linux
+if [ "$TARGET_MACHINE" = "cubieboard" ]; then
+   [ -d "linux" ] || ln -s linux-sunxi-3.4 linux
+else
+   [ -d "linux" ] || ln -s $1-3* linux
+fi
 
 cd $(kernel_path)
 
