@@ -1,0 +1,16 @@
+#!/bin/sh
+
+. config/options
+
+cd $BUILD/$1*
+#do_configure \
+#            --disable-documentation \
+#	    --prefix=/usr \
+#            --enable-shared \
+#            --disable-static \
+#            --enable-dri2 \
+#            --with-module-dir=/usr/lib/vdpau
+
+
+make
+make_install

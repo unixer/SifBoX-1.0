@@ -1,0 +1,17 @@
+--- libvdpau-sunxi-0.0.1/Makefile	2013-10-10 11:48:23.147406251 +0200
++++ libvdpau-sunxi-0.0.1/Makefile.org	2013-09-19 21:26:28.000000000 +0200
+@@ -14,11 +14,11 @@
+ OBJ = $(addsuffix .o,$(basename $(SRC)))
+ DEP = $(addsuffix .d,$(basename $(SRC)))
+ 
+-MODULEDIR = $(shell pkg-config --variable=moduledir vdpau)
++#MODULEDIR = $(shell pkg-config --variable=moduledir vdpau)
+ 
+-ifeq ($(MODULEDIR),)
++#ifeq ($(MODULEDIR),)
+ MODULEDIR=/usr/lib/vdpau
+-endif
++#endif
+ 
+ .PHONY: clean all install
+ 

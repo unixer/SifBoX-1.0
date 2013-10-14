@@ -1,14 +1,13 @@
 PKG_NAME=xbmc
-#PKG_URL_PROTO=git
+PKG_URL_PROTO=git
 
 #PKG_URL_REV=64afe480b46c
 #PKG_VERSION=frodo-12.0-r${PKG_URL_REV}
 #PKG_URL="https://github.com/empatzero/xbmca10.git"
 
 PKG_URL_REV=f6a809cff1ec0
-PKG_VERSION=12.2.a10
-#PKG_URL="https://github.com/rellla/xbmca10.git"
-PKG_URL="https://github.com/rellla/xbmca10/archive/f6a809cff1ec0f64f1f163c6556aaeb54bd06f67.zip"
+PKG_VERSION=frodo-12.2-r${PKG_URL_REV}
+PKG_URL="https://github.com/rellla/xbmca10.git"
 
 
 
