@@ -17,7 +17,7 @@ else
   FB_CONFIG="--disable-fb"
 fi
 
-if pkg_uses $1 vdpau; then
+if pkg_uses $1 libvdpau; then
   VDPAU_CONFIG="--enable-vdpau"
 else
   VDPAU_CONFIG="--disable-vdpau"
@@ -47,6 +47,7 @@ fi
            --cc="$CC" \
            --cxx="$CXX" \
            --add-cflags="$CFLAGS" \
+	   $VDPAU_CONFIG \
 
 export VDRDIR="$ROOT/$BUILD/$VDR_DIR"
 

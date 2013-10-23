@@ -1,20 +1,16 @@
 PKG_NAME=xine-lib
-PKG_URL_PROTO=git
-#PKG_URL_REV=9228f41e #1.2.2
-#PKG_URL_REV=a771cb80 # 1.2.3 Prova
-PKG_URL_REV=69cc7f05
-PKG_VERSION=1.2.3
-#2+${PKG_URL_REV}
-PKG_URL="git://projects.vdr-developer.org/xine-lib.git"
-PKG_REV=1
-PKG_BUILD_DEPENDS="toolchain libdvdnav"
+PKG_VERSION=1.2.3_git20130615
+PKG_URL=$SFNET_SRCS/openpctv/sources/xine-lib-${PKG_VERSION}.tar.xz
+PKG_REV=2
+PKG_BUILD_DEPENDS="toolchain"
 PKG_RUN_DEPENDS="$TARGET_LIBC"
 PKG_DEPENDS="zlib ffmpeg freetype alsa-lib"
+
 PKG_USE="uclibc vdpau xorg sdl vdr"
 PKG_USE_NAME_vdr="VDR"
 PKG_DEPENDS_vdr="libjpeg-turbo"
 PKG_DEPENDS_uclibc="libiconv"
-PKG_BUILD_DEPENDS_vdpau="libvdpau"
+PKG_BUILD_DEPENDS_vdpau="libvdpau libglu"
 PKG_DEPENDS_xorg="libX11 libxcb libXext libXv mesa"
 PKG_DEPENDS_sdl="SDL"
 

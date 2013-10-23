@@ -1,5 +1,6 @@
 PKG_NAME=vdr-markad
-PKG_URL_REV=b952e638
+#PKG_URL_REV=b952e638
+PKG_URL_REV=5b1ab197
 PKG_VERSION=0.1.4
 PKG_URL_PROTO=git
 #PKG_URL="http://projects.vdr-developer.org/attachments/download/1041/vdr-markad-${PKG_VERSION}.tgz"

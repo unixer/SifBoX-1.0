@@ -68,11 +68,12 @@ if [ "$TARGET_MACHINE" = pandaboard ]; then
 fi
 
 if [ "$TARGET_PLATFORM" = a10 ]; then
-  export CEDARLIBS="-lcedarv -lvecore"
+  #export CEDARLIBS="-lcedarv -lvecore"
+  export CEDARLIBS="-lcedarx"
   EXTRA_CONFIG="$EXTRA_CONFIG --with-platform=allwinner-a10"
 fi
 
-if [ "$TARGET_MACHINE" = cuboxi ]; then
+if [ "$TARGET_PLATFORM" = imx6 ]; then
   EXTRA_CONFIG="$EXTRA_CONFIG --enable-codec=imxvpu"
 fi
 
