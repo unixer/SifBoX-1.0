@@ -49,6 +49,10 @@ config FRONTEND_vdr
   bool \"VDR\"
   select PKG_vdr
 
+config FRONTEND_enigma2pc
+  bool \"Enigma2pc\"
+  select PKG_enigma2pc
+
 endchoice
 
 config OPT_MEDIA_CENTER_FRONTEND
@@ -61,4 +65,5 @@ config OPT_MEDIA_CENTER_FRONTEND
   default \"mythtv\" if FRONTEND_mythtv
   default \"showtime\" if FRONTEND_showtime
   default \"VDR\" if FRONTEND_vdr
+  default \"Enigma2pc\" if FRONTEND_enigma2pc
 "

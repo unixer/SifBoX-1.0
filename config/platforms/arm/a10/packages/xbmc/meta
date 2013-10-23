@@ -6,8 +6,12 @@ PKG_URL_PROTO=git
 #PKG_URL="https://github.com/empatzero/xbmca10.git"
 
 PKG_URL_REV=f6a809cff1ec0
+#PKG_URL_REV=51d02c2556214761d001ff2faee0f411d5c88efb
 PKG_VERSION=frodo-12.2-r${PKG_URL_REV}
+
+#PKG_VERSION=12.2-Ruby
 PKG_URL="https://github.com/rellla/xbmca10.git"
+#PKG_URL="git://update.prismcube.com/frodo.git"
 
 
 
