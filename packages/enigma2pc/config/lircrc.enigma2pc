@@ -141,63 +141,70 @@ end
 
 begin
         prog = irxevent
-        button = KEY_NUMERIC_1
+        button = KEY_1
         config = Key 1 CurrentWindow
         repeat = 0
 end
 
 begin
         prog = irxevent
-        button = KEY_NUMERIC_2
+        button = KEY_2
         config = Key 2 CurrentWindow
         repeat = 0
 end
 
 begin
         prog = irxevent
-        button = KEY_NUMERIC_3
+        button = KEY_3
         config = Key 3 CurrentWindow
         repeat = 0
 end
 
 begin
         prog = irxevent
-        button = KEY_NUMERIC_4
+        button = KEY_4
         config = Key 4 CurrentWindow
         repeat = 0
 end
 
 begin
         prog = irxevent
-        button = KEY_NUMERIC_5
+        button = KEY_5
         config = Key 5 CurrentWindow
         repeat = 0
 end
 
 begin
         prog = irxevent
-        button = KEY_NUMERIC_6
+        button = KEY_6
         config = Key 6 CurrentWindow
         repeat = 0
 end
 
 begin
         prog = irxevent
-        button = KEY_NUMERIC_7
+        button = KEY_7
         config = Key 7 CurrentWindow
         repeat = 0
 end
 
 begin
         prog = irxevent
-        button = KEY_NUMERIC_9
+        button = KEY_8
+        config = Key 8 CurrentWindow
+        repeat = 0
+end
+
+begin
+        prog = irxevent
+        button = KEY_9
         config = Key 9 CurrentWindow
         repeat = 0
 end
 
 begin
         prog = irxevent
-        button = KEY_NUMERIC_0
+        button = KEY_0
         config = Key 0 CurrentWindow
         repeat = 0
 end

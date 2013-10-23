@@ -1,0 +1,18 @@
+#!/bin/sh
+
+. config/options
+
+get_meta $1
+
+cd $PKG_BUILD_DIR
+#SPLASH_FILE="$ROOT/$CONFIG/flavours/$FLAVOUR/splash.png"
+#[ -f "$SPLASH_FILE" ] && cp "$SPLASH_FILE" splash.png
+do_configure \
+	--enable-systemd-integration \
+
+make
+make_install
+
+SPLASH_FILE="$ROOT/$CONFIG/flavours/$FLAVOUR/splash.png"
+[ -f "$SPLASH_FILE" ] && cp -P "$SPLASH_FILE" .install/usr/share/plymouth/splash.png
+

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+. config/options
+
+get_meta $1
+cd $PKG_BUILD_DIR
+
+#do_install usr/bin
+do_install bin
+do_install etc
+do_install lib
+do_install sbin
+do_install usr
+do_install var
+#SPLASH_FILE="$ROOT/$CONFIG/flavours/$FLAVOUR/splash.png"
+#[ -f "$SPLASH_FILE" ] && cp "$SPLASH_FILE" $INSTALL/usr/share/plymouth/splash.png
+
