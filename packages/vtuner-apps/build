@@ -1,0 +1,15 @@
+#!/bin/sh
+
+. config/options
+
+cd $BUILD/$1*
+make $TARGET_SUBARCH
+do_strip bin dist/$TARGET_SUBARCH/vtunerc.$TARGET_SUBARCH
+do_strip bin dist/$TARGET_SUBARCH/vtunerd.$TARGET_SUBARCH
+mkdir -p .install/usr/sbin
+cd .install/usr/sbin
+cp ../../../dist/$TARGET_SUBARCH/vtunerc.$TARGET_SUBARCH .
+cp ../../../dist/$TARGET_SUBARCH/vtunerd.$TARGET_SUBARCH .
+ln -s vtunerd.$TARGET_SUBARCH vtunerd
+ln -s vtunerc.$TARGET_SUBARCH vtunerc
+cd ../../../ 

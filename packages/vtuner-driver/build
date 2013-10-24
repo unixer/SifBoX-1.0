@@ -3,5 +3,7 @@
 . config/options
 
 cd $BUILD/$1*
+
 make KDIR=$(kernel_path) CC=$CC
+
 

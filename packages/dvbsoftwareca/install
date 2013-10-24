@@ -1,8 +1,14 @@
 #!/bin/sh
 
 . config/options
+get_meta $1
+VER=`ls $BUILD/rootfs/lib/modules`
+
 
 dir=$INSTALL/lib/modules/$(kernel_version)/kernel/extra
 
+cd $PKG_BUILD_DIR
+
 mkdir -p $dir
-cp $BUILD/$1*/dvbsoftwareca.ko $dir
+#cp $BUILD/$1*/dvbsoftwareca.ko $dir
+cp dvbsoftwareca.ko $INSTALL/lib/modules/$VER/kernel/extra

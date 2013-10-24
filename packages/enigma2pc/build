@@ -5,6 +5,8 @@
 get_meta swig
 SWIG_VER=$PKG_VERSION
 
+export MAKEFLAGS=-j1
+
 get_meta $1
 
 require_cxx $1
@@ -22,11 +24,14 @@ export PYTHON_EXTRA_LDFLAGS="-Xlinker -export-dynamic"
 
 export SWIG_LIB=$ROOT/$TOOLCHAIN/share/swig/$SWIG_VER
 
+do_autoreconf -i
+
 do_configure \
              --with-arch=$TARGET_ARCH \
              --with-cpu=$TARGET_CPU \
              --with-xlib \
-             --with-debug
+             --with-debug 
+
 
 make
 make_install

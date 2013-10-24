@@ -1,0 +1,3972 @@
+diff -urN xine-lib-1.2.4.org/include/configure.h xine-lib-1.2.4/include/configure.h
+--- xine-lib-1.2.4.org/include/configure.h	1970-01-01 01:00:00.000000000 +0100
++++ xine-lib-1.2.4/include/configure.h	2013-10-24 09:35:56.363188739 +0200
+@@ -0,0 +1,869 @@
++/* include/configure.h.  Generated from configure.h.in by configure.  */
++/* include/configure.h.in.  Generated from configure.ac by autoheader.  */
++
++#ifndef __XINE_LIB_CONFIG_H__
++#define __XINE_LIB_CONFIG_H__ 1
++
++
++#ifndef _XINE_CONFIGURE_H_
++#define _XINE_CONFIGURE_H_
++
++
++/* Define if building universal (internal helper macro) */
++/* #undef AC_APPLE_UNIVERSAL_BUILD */
++
++/* Define this if you're running Alpha architecture */
++/* #undef ARCH_ALPHA */
++
++/* Define this if you're running ARM architecture */
++/* #undef ARCH_ARM */
++
++/* Define this if you're running PowerPC architecture */
++/* #undef ARCH_PPC */
++
++/* Define this if you're running SPARC architecture */
++/* #undef ARCH_SPARC */
++
++/* Define this if you're running x86 architecture */
++#define ARCH_X86 /**/
++
++/* Define this if you're running x86 architecture 32 bits */
++/* #undef ARCH_X86_32 */
++
++/* Define this if you're running x86 architecture 64 bits */
++#define ARCH_X86_64 /**/
++
++/* define if '.align n' means alignment to (1 << n) - byte boundaries */
++/* #undef ASMALIGN_1SLN */
++
++/* Define the highest alignment supported */
++#define ATTRIBUTE_ALIGNED_MAX 64
++
++/* Define this if built on Mac OS X/Darwin */
++/* #undef CONFIG_DARWIN */
++
++/* what to put between the brackets for empty arrays */
++#define EMPTY_ARRAY_SIZE 
++
++/* Define this if you want to use altivec on PowerPC CPUs */
++/* #undef ENABLE_ALTIVEC */
++
++/* Define this to 1 to enable font antialising. */
++/* #undef ENABLE_ANTIALIASING */
++
++/* Enable this when IPv6 is requested */
++/* #undef ENABLE_IPV6 */
++
++/* Define to 1 if translation of program messages to the user's native
++   language is requested. */
++#define ENABLE_NLS 1
++
++/* Define this if you have Sun UltraSPARC CPU */
++/* #undef ENABLE_VIS */
++
++/* Mark a symbol as being exported if visibility is changed */
++#define EXPORTED __attribute__((visibility("default")))
++
++/* Get of rid system libcdio build configuration */
++#define EXTERNAL_LIBCDIO_CONFIG_H 1
++
++/* Define to select libmad fixed point arithmetic implementation */
++#define FPM_64BIT 1
++
++/* Define to select libmad fixed point arithmetic implementation */
++/* #undef FPM_ARM */
++
++/* Define to select libmad fixed point arithmetic implementation */
++/* #undef FPM_DEFAULT */
++
++/* Define to select libmad fixed point arithmetic implementation */
++/* #undef FPM_INTEL */
++
++/* Define to select libmad fixed point arithmetic implementation */
++/* #undef FPM_MIPS */
++
++/* Define to select libmad fixed point arithmetic implementation */
++/* #undef FPM_PPC */
++
++/* Define to select libmad fixed point arithmetic implementation */
++/* #undef FPM_SPARC */
++
++/* Define to 1 if you have the <a52dec/a52.h> header file. */
++/* #undef HAVE_A52DEC_A52_H */
++
++/* Define to 1 if you have the <alloca.h> header file. */
++#define HAVE_ALLOCA_H 1
++
++/* Define this if you have ALSA installed */
++#define HAVE_ALSA 1
++
++/* Define to 1 if you have the <asm/types.h> header file. */
++#define HAVE_ASM_TYPES_H 1
++
++/* Define to 1 if you have the `asprintf' function. */
++#define HAVE_ASPRINTF 1
++
++/* Define to 1 if you have the <assert.h> header file. */
++#define HAVE_ASSERT_H 1
++
++/* Define to 1 if `output_muted' is a member of `audio_info_t'. */
++/* #undef HAVE_AUDIO_INFO_T_OUTPUT_MUTED */
++
++/* define if compiler supports avx inline assembler */
++#define HAVE_AVX 1
++
++/* Define to 1 if you have the `basename' function. */
++#define HAVE_BASENAME 1
++
++/* Define to 1 if you have the <byteswap.h> header file. */
++#define HAVE_BYTESWAP_H 1
++
++/* Define to 1 if you have the `bzero' function. */
++#define HAVE_BZERO 1
++
++/* Define to 1 if you have the MacOS X function CFLocaleCopyCurrent in the
++   CoreFoundation framework. */
++/* #undef HAVE_CFLOCALECOPYCURRENT */
++
++/* Define to 1 if you have the MacOS X function CFPreferencesCopyAppValue in
++   the CoreFoundation framework. */
++/* #undef HAVE_CFPREFERENCESCOPYAPPVALUE */
++
++/* Define if the GNU dcgettext() function is already present or preinstalled.
++   */
++#define HAVE_DCGETTEXT 1
++
++/* Define this if you have DirectX */
++/* #undef HAVE_DIRECTX */
++
++/* Define to 1 if you have the <dirent.h> header file. */
++#define HAVE_DIRENT_H 1
++
++/* Define to 1 if you have the <dlfcn.h> header file. */
++#define HAVE_DLFCN_H 1
++
++/* Define this if you have a suitable version of libdvdnav */
++/* #undef HAVE_DVDNAV */
++
++/* Define to 1 if you have the environ symbol. */
++/* #undef HAVE_ENVIRON */
++
++/* Define to 1 if you have the <errno.h> header file. */
++#define HAVE_ERRNO_H 1
++
++/* Define to 1 if you have the <execinfo.h> header file. */
++#define HAVE_EXECINFO_H 1
++
++/* Define to 1 if you have the <fame.h> header file. */
++/* #undef HAVE_FAME_H */
++
++/* Define this if you have linux framebuffer support */
++#define HAVE_FB 1
++
++/* Define to 1 if you have the <fcntl.h> header file. */
++#define HAVE_FCNTL_H 1
++
++/* Define this if you have ffmpeg library */
++#define HAVE_FFMPEG 1
++
++/* Define to 1 if you have the <ffmpeg/avutil.h> header file. */
++/* #undef HAVE_FFMPEG_AVUTIL_H */
++
++/* Define to 1 if you have the <FLAC/stream_decoder.h> header file. */
++/* #undef HAVE_FLAC_STREAM_DECODER_H */
++
++/* Define this if you have fontconfig library */
++/* #undef HAVE_FONTCONFIG */
++
++/* Define to 1 if fseeko (and presumably ftello) exists and is declared. */
++#define HAVE_FSEEKO 1
++
++/* Define this if you have freetype2 library */
++/* #undef HAVE_FT2 */
++
++/* Define this if you have GNU getopt_long() implemented */
++#define HAVE_GETOPT_LONG /**/
++
++/* Define to 1 if you have the `getpwuid_r' function. */
++#define HAVE_GETPWUID_R 1
++
++/* Define if the GNU gettext() function is already present or preinstalled. */
++#define HAVE_GETTEXT 1
++
++/* Define to 1 if you have the `gettimeofday' function. */
++#define HAVE_GETTIMEOFDAY 1
++
++/* Define to 1 if you have the <glob.h> header file. */
++#define HAVE_GLOB_H 1
++
++/* Define this if you have GLU support available */
++#define HAVE_GLU 1
++
++/* Define to 1 if you have the <GL/glu.h> header file. */
++#define HAVE_GL_GLU_H 1
++
++/* Define to 1 if you have the <GL/gl.h> header file. */
++#define HAVE_GL_GL_H 1
++
++/* Define this if you have GraphicsMagick installed */
++#define HAVE_GRAPHICSMAGICK 1
++
++/* Define to 1 if you have 'hstrerror' in <netdb.h> */
++#define HAVE_HSTRERROR 1
++
++/* Define if you have the iconv() function and it works. */
++#define HAVE_ICONV 1
++
++/* Define to 1 if you have the <inttypes.h> header file. */
++#define HAVE_INTTYPES_H 1
++
++/* Define this if you have a usable IRIX al interface available */
++/* #undef HAVE_IRIXAL */
++
++/* Supports ISO _Pragma() macro */
++#define HAVE_ISOC99_PRAGMA /**/
++
++/* Define to 1 if you have the <jpeglib.h> header file. */
++#define HAVE_JPEGLIB_H 1
++
++/* Define this if you have kernel statistics available via kstat interface */
++/* #undef HAVE_KSTAT */
++
++/* Define to 1 if you have the <libavutil/avutil.h> header file. */
++#define HAVE_LIBAVUTIL_AVUTIL_H 1
++
++/* Define to 1 if you have the <libavutil/sha1.h> header file. */
++/* #undef HAVE_LIBAVUTIL_SHA1_H */
++
++/* Define to 1 if you have the <libavutil/sha.h> header file. */
++#define HAVE_LIBAVUTIL_SHA_H 1
++
++/* Define this if you have libfame mpeg encoder installed (fame.sf.net) */
++/* #undef HAVE_LIBFAME */
++
++/* Define to 1 if you have the <libgen.h> header file. */
++#define HAVE_LIBGEN_H 1
++
++/* Define to 1 if you have the <libmng.h> header file. */
++/* #undef HAVE_LIBMNG_H */
++
++/* Define to 1 if you have the `posix4' library (-lposix4). */
++/* #undef HAVE_LIBPOSIX4 */
++
++/* Define this if you have librte mpeg encoder installed (zapping.sf.net) */
++/* #undef HAVE_LIBRTE */
++
++/* Define to 1 if you have the <libsmbclient.h> header file. */
++/* #undef HAVE_LIBSMBCLIENT_H */
++
++/* Define this if you have libv4l installed */
++/* #undef HAVE_LIBV4L2_H */
++
++/* Define to 1 if you have the `vdpau' library (-lvdpau). */
++/* #undef HAVE_LIBVDPAU */
++
++/* Define 1 if you have Linux-type CD-ROM support */
++#define HAVE_LINUX_CDROM 1
++
++/* Define to 1 if you have the <linux/cdrom.h> header file. */
++#define HAVE_LINUX_CDROM_H 1
++
++/* Define 1 if timeout is in cdrom_generic_command struct */
++#define HAVE_LINUX_CDROM_TIMEOUT 1
++
++/* Define to 1 if you have the <linux/fb.h> header file. */
++#define HAVE_LINUX_FB_H 1
++
++/* Define to 1 if you have the <linux/videodev2.h> header file. */
++#define HAVE_LINUX_VIDEODEV2_H 1
++
++/* Define to 1 if you have the <linux/videodev.h> header file. */
++/* #undef HAVE_LINUX_VIDEODEV_H */
++
++/* Define this if the 'lrintf' function is declared in math.h */
++#define HAVE_LRINTF 1
++
++/* Define to 1 if you have the `lstat' function. */
++#define HAVE_LSTAT 1
++
++/* Define to 1 if you have the <machine/soundcard.h> header file. */
++/* #undef HAVE_MACHINE_SOUNDCARD_H */
++
++/* Define to 1 if you have the <mad.h> header file. */
++/* #undef HAVE_MAD_H */
++
++/* Define to 1 if you have the <malloc.h> header file. */
++#define HAVE_MALLOC_H 1
++
++/* Define to 1 if you have 'MAX' macro in sys/param.h */
++#define HAVE_MAX_MACRO 1
++
++/* Define to 1 if you have the `memalign' function. */
++#define HAVE_MEMALIGN 1
++
++/* Define to 1 if you have the `memcpy' function. */
++#define HAVE_MEMCPY 1
++
++/* Define to 1 if you have the `memmem' function. */
++#define HAVE_MEMMEM 1
++
++/* Define to 1 if you have the <memory.h> header file. */
++#define HAVE_MEMORY_H 1
++
++/* Define to 1 if you have the `memset' function. */
++#define HAVE_MEMSET 1
++
++/* Define to 1 if you have 'MIN' macro in sys/param.h */
++#define HAVE_MIN_MACRO 1
++
++/* Define this if you have mlib installed */
++/* #undef HAVE_MLIB */
++
++/* Define to 1 if you have the <mlib_video.h> header file. */
++/* #undef HAVE_MLIB_VIDEO_H */
++
++/* Define to 1 if you have the `mmap' function. */
++/* #undef HAVE_MMAP */
++
++/* Define this if you can compile MMX asm instructions */
++#define HAVE_MMX /**/
++
++/* Define to 1 if you have the <mpcdec/mpcdec.h> header file. */
++/* #undef HAVE_MPCDEC_MPCDEC_H */
++
++/* Define to 1 if you have the <mpc/mpcdec.h> header file. */
++#define HAVE_MPC_MPCDEC_H 1
++
++/* Define to 1 if you have the `nanosleep' function. */
++#define HAVE_NANOSLEEP 1
++
++/* Define to 1 if you have the <neaacdec.h> header file. */
++/* #undef HAVE_NEAACDEC_H */
++
++/* Define to 1 if you have the <netdb.h> header file. */
++#define HAVE_NETDB_H 1
++
++/* Define this if you have libfame 0.8.10 or above */
++/* #undef HAVE_NEW_LIBFAME */
++
++/* Define to 1 if you have the `nl_langinfo' function. */
++#define HAVE_NL_LANGINFO 1
++
++/* Define to 1 if you have 'opendir' function */
++#define HAVE_OPENDIR 1
++
++/* Define this if you have POSIX timers. */
++#define HAVE_POSIX_TIMERS 1
++
++/* Define to 1 if you have 'pthread_mutex_timedlock' in <pthread.h> */
++#define HAVE_PTHREAD_MUTEX_TIMEDLOCK 1
++
++/* define this if you have pulseaudio >= 0.9.7 */
++#define HAVE_PULSEAUDIO_0_9_7 1
++
++/* Define to 1 if you have the `readlink' function. */
++#define HAVE_READLINK 1
++
++/* Define to 1 if you have the <rte.h> header file. */
++/* #undef HAVE_RTE_H */
++
++/* Define to 1 if you have the `setenv' function. */
++#define HAVE_SETENV 1
++
++/* Define to 1 if you have the `sigaction' function. */
++#define HAVE_SIGACTION 1
++
++/* Define to 1 if you have the `sigset' function. */
++#define HAVE_SIGSET 1
++
++/* Define to 1 if you have the `snprintf' function. */
++#define HAVE_SNPRINTF 1
++
++/* Define to 1 if you have the <soundcard.h> header file. */
++/* #undef HAVE_SOUNDCARD_H */
++
++/* Define this if you have speex */
++/* #undef HAVE_SPEEX */
++
++/* Define to 1 if you have the <stdbool.h> header file. */
++#define HAVE_STDBOOL_H 1
++
++/* Define to 1 if you have the stderr symbol. */
++#define HAVE_STDERR 1
++
++/* Define to 1 if you have the <stdint.h> header file. */
++#define HAVE_STDINT_H 1
++
++/* Define to 1 if you have the <stdio.h> header file. */
++#define HAVE_STDIO_H 1
++
++/* Define to 1 if you have the <stdlib.h> header file. */
++#define HAVE_STDLIB_H 1
++
++/* Define to 1 if you have the `strcasecmp' function. */
++#define HAVE_STRCASECMP 1
++
++/* Define to 1 if you have the `strcasestr' function. */
++#define HAVE_STRCASESTR 1
++
++/* Define to 1 if you have the `strchr' function. */
++#define HAVE_STRCHR 1
++
++/* Define to 1 if you have the <strings.h> header file. */
++#define HAVE_STRINGS_H 1
++
++/* Define to 1 if you have the <string.h> header file. */
++#define HAVE_STRING_H 1
++
++/* Define to 1 if you have the `strncasecmp' function. */
++#define HAVE_STRNCASECMP 1
++
++/* Define to 1 if you have the `strndup' function. */
++#define HAVE_STRNDUP 1
++
++/* Define to 1 if you have the `strpbrk' function. */
++#define HAVE_STRPBRK 1
++
++/* Define to 1 if you have the `strsep' function. */
++#define HAVE_STRSEP 1
++
++/* Define to 1 if you have the `strtok_r' function. */
++#define HAVE_STRTOK_R 1
++
++/* Define to 1 if you have the <sys/cdio.h> header file. */
++/* #undef HAVE_SYS_CDIO_H */
++
++/* Define to 1 if you have the <sys/dvdio.h> header file. */
++/* #undef HAVE_SYS_DVDIO_H */
++
++/* Define to 1 if you have the <sys/fbio.h> header file. */
++/* #undef HAVE_SYS_FBIO_H */
++
++/* Define to 1 if you have the <sys/ioctl.h> header file. */
++#define HAVE_SYS_IOCTL_H 1
++
++/* Define to 1 if you have the <sys/mixer.h> header file. */
++/* #undef HAVE_SYS_MIXER_H */
++
++/* Define to 1 if you have the <sys/mman.h> header file. */
++#define HAVE_SYS_MMAN_H 1
++
++/* Define to 1 if you have the <sys/param.h> header file. */
++#define HAVE_SYS_PARAM_H 1
++
++/* Define to 1 if you have the <sys/scsiio.h> header file. */
++/* #undef HAVE_SYS_SCSIIO_H */
++
++/* Define to 1 if you have the <sys/soundcard.h> header file. */
++#define HAVE_SYS_SOUNDCARD_H 1
++
++/* Define to 1 if you have the <sys/stat.h> header file. */
++#define HAVE_SYS_STAT_H 1
++
++/* Define to 1 if you have the <sys/times.h> header file. */
++#define HAVE_SYS_TIMES_H 1
++
++/* Define to 1 if you have the <sys/types.h> header file. */
++#define HAVE_SYS_TYPES_H 1
++
++/* Define to 1 if you have the <sys/videodev2.h> header file. */
++/* #undef HAVE_SYS_VIDEODEV2_H */
++
++/* Define to 1 if you have the <sys/videoio.h> header file. */
++/* #undef HAVE_SYS_VIDEOIO_H */
++
++/* Define to 1 if you have the <sys/wait.h> header file. */
++#define HAVE_SYS_WAIT_H 1
++
++/* Define this if you have theora */
++/* #undef HAVE_THEORA */
++
++/* Define to 1 if you have the `timegm' function. */
++#define HAVE_TIMEGM 1
++
++/* Define if struct tm has the tm_gmtoff member. */
++#define HAVE_TM_GMTOFF 1
++
++/* Define to 1 if you have the <ucontext.h> header file. */
++#define HAVE_UCONTEXT_H 1
++
++/* Define to 1 if you have the <unistd.h> header file. */
++#define HAVE_UNISTD_H 1
++
++/* Define to 1 if you have the `unsetenv' function. */
++#define HAVE_UNSETENV 1
++
++/* Define to 1 if you have the `va_copy' function. */
++/* #undef HAVE_VA_COPY */
++
++/* Define to 1 if you have the <va/va.h> header file. */
++/* #undef HAVE_VA_VA_H */
++
++/* Define to 1 if you have the <va/va_x11.h> header file. */
++/* #undef HAVE_VA_VA_X11_H */
++
++/* Define this if you use external libcdio/libvcdinfo */
++#define HAVE_VCDNAV 1
++
++/* Define to 1 if you have the <vdpau/vdpau_x11.h> header file. */
++/* #undef HAVE_VDPAU_VDPAU_X11_H */
++
++/* Define if you have vldXvMC.h */
++/* #undef HAVE_VLDXVMC */
++
++/* Define this if you have vorbis */
++/* #undef HAVE_VORBIS */
++
++/* Define to 1 if you have the `vsnprintf' function. */
++#define HAVE_VSNPRINTF 1
++
++/* Define to 1 if you have the `vsscanf' function. */
++#define HAVE_VSSCANF 1
++
++/* Define this if you have X11R6 installed */
++#define HAVE_X11 1
++
++/* Define to 1 if you have the <X11/extensions/vldXvMC.h> header file. */
++/* #undef HAVE_X11_EXTENSIONS_VLDXVMC_H */
++
++/* Define to 1 if you have the <X11/extensions/XShm.h> header file. */
++#define HAVE_X11_EXTENSIONS_XSHM_H 1
++
++/* Define to 1 if you have the <X11/extensions/XvMC.h> header file. */
++/* #undef HAVE_X11_EXTENSIONS_XVMC_H */
++
++/* Define this if you have libXinerama installed */
++/* #undef HAVE_XINERAMA */
++
++/* Define this if you have libXv installed */
++#define HAVE_XV 1
++
++/* Define this if you have an XvMC library and XvMC.h installed. */
++/* #undef HAVE_XVMC */
++
++/* Define to 1 if you have the _environ symbol. */
++/* #undef HAVE__ENVIRON */
++
++/* Define to 1 if you have the `_snprintf' function. */
++/* #undef HAVE__SNPRINTF */
++
++/* Define to 1 if you have the `_stricmp' function. */
++/* #undef HAVE__STRICMP */
++
++/* Define to 1 if you have the `_strnicmp' function. */
++/* #undef HAVE__STRNICMP */
++
++/* Define to 1 if you have the `_vsnprintf' function. */
++/* #undef HAVE__VSNPRINTF */
++
++/* Define to 1 if you have the __ctype_b symbol. */
++/* #undef HAVE___CTYPE_B */
++
++/* Define to 1 if you have the __environ symbol. */
++#define HAVE___ENVIRON 1
++
++/* Define to 1 if you have the __stderrp symbol. */
++/* #undef HAVE___STDERRP */
++
++/* Define to 1 if you have the ___brk_addr symbol. */
++/* #undef HAVE____BRK_ADDR */
++
++/* Define this if built on Mac OS X/Darwin */
++/* #undef HOST_OS_DARWIN */
++
++/* Define as const if the declaration of iconv() needs const. */
++#define ICONV_CONST 
++
++/* Type of the request parameter for ioctl() */
++#define IOCTL_REQUEST_TYPE unsigned long
++
++/* Get of rid system libcdio build configuration */
++#define LIBCDIO_CONFIG_H 1
++
++/* Define this if you have mlib installed */
++/* #undef LIBMPEG2_MLIB */
++
++/* The soname of libX11, needed for dlopen() */
++#define LIBX11_SO "libX11.so"
++
++/* The soname of libXv, needed for dlopen() */
++#define LIBXV_SO "libXv.so"
++
++/* Define to the sub-directory in which libtool stores uninstalled libraries.
++   */
++#define LT_OBJDIR ".libs/"
++
++/* Define this if you want to load mlib lazily */
++/* #undef MLIB_LAZYLOAD */
++
++/* Define to 1 if your C compiler doesn't accept -c and -o together. */
++/* #undef NO_MINUS_C_MINUS_O */
++
++/* Name of package */
++#define PACKAGE "xine-lib"
++
++/* Define to the address where bug reports for this package should be sent. */
++#define PACKAGE_BUGREPORT "xine-bugs@lists.sourceforge.net"
++
++/* Define to the full name of this package. */
++#define PACKAGE_NAME "xine-lib"
++
++/* Define to the full name and version of this package. */
++#define PACKAGE_STRING "xine-lib 1.2.3openpliPC-e2"
++
++/* Define to the one symbol short name of this package. */
++#define PACKAGE_TARNAME "xine-lib"
++
++/* Define to the home page for this package. */
++#define PACKAGE_URL ""
++
++/* Define to the version of this package. */
++#define PACKAGE_VERSION "1.2.3openpliPC-e2"
++
++/* Default path in which to find Real binary codecs */
++/* #undef REAL_CODEC_PATH */
++
++/* The size of `int', as computed by sizeof. */
++#define SIZEOF_INT 4
++
++/* The size of `long', as computed by sizeof. */
++#define SIZEOF_LONG 8
++
++/* Define to 1 if you have the ANSI C header files. */
++#define STDC_HEADERS 1
++
++/* Define this if the compiler supports __attribute__(( ifelse([weak, alias],
++   , [alias], [weak, alias]) )) */
++/* #undef SUPPORT_ATTRIBUTE_ALIAS */
++
++/* Define this if the compiler supports __attribute__(( ifelse([], , [const],
++   []) )) */
++#define SUPPORT_ATTRIBUTE_CONST 1
++
++/* Define this if the compiler supports __attribute__(( ifelse([], ,
++   [deprecated], []) )) */
++#define SUPPORT_ATTRIBUTE_DEPRECATED 1
++
++/* Define this if the compiler supports __attribute__(( ifelse([format(printf,
++   n, n)], , [format], [format(printf, n, n)]) )) */
++#define SUPPORT_ATTRIBUTE_FORMAT 1
++
++/* Define this if the compiler supports __attribute__((
++   ifelse([format_arg(printf)], , [format_arg], [format_arg(printf)]) )) */
++#define SUPPORT_ATTRIBUTE_FORMAT_ARG 1
++
++/* Define this if the compiler supports __attribute__(( ifelse([], , [malloc],
++   []) )) */
++#define SUPPORT_ATTRIBUTE_MALLOC 1
++
++/* Define this if the compiler supports __attribute__(( ifelse([], , [packed],
++   []) )) */
++#define SUPPORT_ATTRIBUTE_PACKED 1
++
++/* Define this if the compiler supports __attribute__(( ifelse([], ,
++   [sentinel], []) )) */
++#define SUPPORT_ATTRIBUTE_SENTINEL 1
++
++/* Define this if the compiler supports __attribute__(( ifelse([], , [unused],
++   []) )) */
++#define SUPPORT_ATTRIBUTE_UNUSED 1
++
++/* Define this if the compiler supports __attribute__((
++   ifelse([visibility("default")], , [visibility_default],
++   [visibility("default")]) )) */
++/* #undef SUPPORT_ATTRIBUTE_VISIBILITY_DEFAULT */
++
++/* Define this if the compiler supports __attribute__((
++   ifelse([visibility("internal")], , [visibility_internal],
++   [visibility("internal")]) )) */
++#define SUPPORT_ATTRIBUTE_VISIBILITY_INTERNAL 1
++
++/* Define this if the compiler supports __attribute__((
++   ifelse([visibility("protected")], , [visibility_protected],
++   [visibility("protected")]) )) */
++#define SUPPORT_ATTRIBUTE_VISIBILITY_PROTECTED 1
++
++/* Define this if the compiler supports __attribute__(( ifelse([], , [weak],
++   []) )) */
++#define SUPPORT_ATTRIBUTE_WEAK 1
++
++/* Define this if the compiler supports the -fvisibility flag */
++#define SUPPORT_FLAG_VISIBILITY 1
++
++/* Enable extensions on AIX 3, Interix.  */
++#ifndef _ALL_SOURCE
++# define _ALL_SOURCE 1
++#endif
++/* Enable GNU extensions on systems that have them.  */
++#ifndef _GNU_SOURCE
++# define _GNU_SOURCE 1
++#endif
++/* Enable threading extensions on Solaris.  */
++#ifndef _POSIX_PTHREAD_SEMANTICS
++# define _POSIX_PTHREAD_SEMANTICS 1
++#endif
++/* Enable extensions on HP NonStop.  */
++#ifndef _TANDEM_SOURCE
++# define _TANDEM_SOURCE 1
++#endif
++/* Enable general extensions on Solaris.  */
++#ifndef __EXTENSIONS__
++# define __EXTENSIONS__ 1
++#endif
++
++
++/* Version number of package */
++#define VERSION "1.2.3openpliPC-e2"
++
++/* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
++   significant byte first (like Motorola and SPARC, unlike Intel). */
++#if defined AC_APPLE_UNIVERSAL_BUILD
++# if defined __BIG_ENDIAN__
++#  define WORDS_BIGENDIAN 1
++# endif
++#else
++# ifndef WORDS_BIGENDIAN
++/* #  undef WORDS_BIGENDIAN */
++# endif
++#endif
++
++/* Path where aclocal m4 files will be. */
++#define XINE_ACFLAGS "-I ${prefix}/share/aclocal"
++
++/* Define this to osd fonts dir location */
++#define XINE_FONTDIR "/usr/share/xine/libxine1/fonts"
++
++/* Path where catalog files will be. */
++#define XINE_LOCALEDIR "/usr/share/locale"
++
++/* xine interface version age */
++#define XINE_LT_AGE 3
++
++/* xine interface version number */
++#define XINE_LT_CURRENT 5
++
++/* Define this if a universal binary is being built for Mac OS X */
++/* #undef XINE_MACOSX_UNIVERSAL_BINARY */
++
++/* xine major version number */
++#define XINE_MAJOR 1
++
++/* xine minor version number */
++#define XINE_MINOR 2
++
++/* xine patch version number */
++#define XINE_PATCH 
++
++/* Define this to soecific plugins directory location */
++#define XINE_PLUGINDIR "/usr/lib/xine/plugins/2.3"
++
++/* Define this to general plugins directory location */
++#define XINE_PLUGINROOT "/usr/lib/xine/plugins/2"
++
++/* Define this to font directory relative to prefix */
++#define XINE_REL_FONTDIR "share/xine/libxine1/fonts"
++
++/* Define this to font directory relative to prefix */
++#define XINE_REL_LOCALEDIR "share/locale"
++
++/* Define this to specific plugin directory relative to execution prefix */
++#define XINE_REL_PLUGINDIR "lib/xine/plugins/2.3"
++
++/* Define this to general plugin directory relative to execution prefix */
++#define XINE_REL_PLUGINROOT "lib/xine/plugins/2"
++
++/* xine sub version number */
++#define XINE_SUB 3
++
++/* catalog message text domain */
++#define XINE_TEXTDOMAIN "libxine2"
++
++/* Define to 1 if the X Window System is missing or not being used. */
++/* #undef X_DISPLAY_MISSING */
++
++/* Enable large inode numbers on Mac OS X 10.5.  */
++#ifndef _DARWIN_USE_64_BIT_INODE
++# define _DARWIN_USE_64_BIT_INODE 1
++#endif
++
++/* Number of bits in a file offset, on hosts where this is settable. */
++/* #undef _FILE_OFFSET_BITS */
++
++/* Define this if you are ISO C9X compliant */
++#define _ISOC9X_SOURCE 1
++
++/* Define to 1 to make fseeko visible on some hosts (e.g. glibc 2.2). */
++/* #undef _LARGEFILE_SOURCE */
++
++/* Define for large files, on AIX-style hosts. */
++/* #undef _LARGE_FILES */
++
++/* Define to 1 if on MINIX. */
++/* #undef _MINIX */
++
++/* Define to 2 if the system does not provide POSIX.1 features except with
++   this defined. */
++/* #undef _POSIX_1_SOURCE */
++
++/* Define to 1 if you need to in order for `stat' and other things to work. */
++/* #undef _POSIX_SOURCE */
++
++/* Define to empty if `const' does not conform to ANSI C. */
++/* #undef const */
++
++/* Define to `__inline__' or `__inline' if that's what the C compiler
++   calls it, or to nothing if 'inline' is not supported under any name.  */
++#ifndef __cplusplus
++/* #undef inline */
++#endif
++
++/* Define to `long int' if <sys/types.h> does not define. */
++/* #undef off_t */
++
++/* Define to the equivalent of the C99 'restrict' keyword, or to
++   nothing if this is not supported.  Do not define if restrict is
++   supported directly.  */
++#define restrict __restrict
++/* Work around a bug in Sun C++: it does not support _Restrict or
++   __restrict__, even though the corresponding Sun C compiler ends up with
++   "#define restrict _Restrict" or "#define restrict __restrict__" in the
++   previous line.  Perhaps some future version of Sun C++ will work with
++   restrict; if so, hopefully it defines __RESTRICT like Sun C does.  */
++#if defined __SUNPRO_CC && !defined __RESTRICT
++# define _Restrict
++# define __restrict__
++#endif
++
++/* Define to `unsigned int' if <sys/types.h> does not define. */
++/* #undef size_t */
++
++/* Define the real type of socklen_t */
++/* #undef socklen_t */
++
++/* define ssize_t to __int64 if it's missing in default includes */
++/* #undef ssize_t */
++
++#ifdef ASMALIGN_1SLN
++# define ASMALIGN(ZEROBITS) ".align " #ZEROBITS "\n\t"
++#else
++# define ASMALIGN(ZEROBITS) ".align 1<<" #ZEROBITS "\n\t"
++#endif
++
++#endif  /* __XINE_LIB_CONFIG_H__ */
++
++
++
++#if defined (__FreeBSD__) && !defined (__FreeBSD_kernel__)
++#define __FreeBSD_kernel__ __FreeBSD__
++#endif
++
++#if defined (__FreeBSD_kernel__)
++#include <sys/param.h>
++# if defined (__FreeBSD_version) && !defined (__FreeBSD_kernel_version)
++# define __FreeBSD_kernel_version __FreeBSD_version
++# endif
++#endif
++
++
++#endif
++
+diff -urN xine-lib-1.2.4.org/include/configure.h.in xine-lib-1.2.4/include/configure.h.in
+--- xine-lib-1.2.4.org/include/configure.h.in	1970-01-01 01:00:00.000000000 +0100
++++ xine-lib-1.2.4/include/configure.h.in	2013-10-24 09:35:56.363188739 +0200
+@@ -0,0 +1,868 @@
++/* include/configure.h.in.  Generated from configure.ac by autoheader.  */
++
++#ifndef __XINE_LIB_CONFIG_H__
++#define __XINE_LIB_CONFIG_H__ 1
++
++
++#ifndef _XINE_CONFIGURE_H_
++#define _XINE_CONFIGURE_H_
++
++
++/* Define if building universal (internal helper macro) */
++#undef AC_APPLE_UNIVERSAL_BUILD
++
++/* Define this if you're running Alpha architecture */
++#undef ARCH_ALPHA
++
++/* Define this if you're running ARM architecture */
++#undef ARCH_ARM
++
++/* Define this if you're running PowerPC architecture */
++#undef ARCH_PPC
++
++/* Define this if you're running SPARC architecture */
++#undef ARCH_SPARC
++
++/* Define this if you're running x86 architecture */
++#undef ARCH_X86
++
++/* Define this if you're running x86 architecture 32 bits */
++#undef ARCH_X86_32
++
++/* Define this if you're running x86 architecture 64 bits */
++#undef ARCH_X86_64
++
++/* define if '.align n' means alignment to (1 << n) - byte boundaries */
++#undef ASMALIGN_1SLN
++
++/* Define the highest alignment supported */
++#undef ATTRIBUTE_ALIGNED_MAX
++
++/* Define this if built on Mac OS X/Darwin */
++#undef CONFIG_DARWIN
++
++/* what to put between the brackets for empty arrays */
++#undef EMPTY_ARRAY_SIZE
++
++/* Define this if you want to use altivec on PowerPC CPUs */
++#undef ENABLE_ALTIVEC
++
++/* Define this to 1 to enable font antialising. */
++#undef ENABLE_ANTIALIASING
++
++/* Enable this when IPv6 is requested */
++#undef ENABLE_IPV6
++
++/* Define to 1 if translation of program messages to the user's native
++   language is requested. */
++#undef ENABLE_NLS
++
++/* Define this if you have Sun UltraSPARC CPU */
++#undef ENABLE_VIS
++
++/* Mark a symbol as being exported if visibility is changed */
++#undef EXPORTED
++
++/* Get of rid system libcdio build configuration */
++#undef EXTERNAL_LIBCDIO_CONFIG_H
++
++/* Define to select libmad fixed point arithmetic implementation */
++#undef FPM_64BIT
++
++/* Define to select libmad fixed point arithmetic implementation */
++#undef FPM_ARM
++
++/* Define to select libmad fixed point arithmetic implementation */
++#undef FPM_DEFAULT
++
++/* Define to select libmad fixed point arithmetic implementation */
++#undef FPM_INTEL
++
++/* Define to select libmad fixed point arithmetic implementation */
++#undef FPM_MIPS
++
++/* Define to select libmad fixed point arithmetic implementation */
++#undef FPM_PPC
++
++/* Define to select libmad fixed point arithmetic implementation */
++#undef FPM_SPARC
++
++/* Define to 1 if you have the <a52dec/a52.h> header file. */
++#undef HAVE_A52DEC_A52_H
++
++/* Define to 1 if you have the <alloca.h> header file. */
++#undef HAVE_ALLOCA_H
++
++/* Define this if you have ALSA installed */
++#undef HAVE_ALSA
++
++/* Define to 1 if you have the <asm/types.h> header file. */
++#undef HAVE_ASM_TYPES_H
++
++/* Define to 1 if you have the `asprintf' function. */
++#undef HAVE_ASPRINTF
++
++/* Define to 1 if you have the <assert.h> header file. */
++#undef HAVE_ASSERT_H
++
++/* Define to 1 if `output_muted' is a member of `audio_info_t'. */
++#undef HAVE_AUDIO_INFO_T_OUTPUT_MUTED
++
++/* define if compiler supports avx inline assembler */
++#undef HAVE_AVX
++
++/* Define to 1 if you have the `basename' function. */
++#undef HAVE_BASENAME
++
++/* Define to 1 if you have the <byteswap.h> header file. */
++#undef HAVE_BYTESWAP_H
++
++/* Define to 1 if you have the `bzero' function. */
++#undef HAVE_BZERO
++
++/* Define to 1 if you have the MacOS X function CFLocaleCopyCurrent in the
++   CoreFoundation framework. */
++#undef HAVE_CFLOCALECOPYCURRENT
++
++/* Define to 1 if you have the MacOS X function CFPreferencesCopyAppValue in
++   the CoreFoundation framework. */
++#undef HAVE_CFPREFERENCESCOPYAPPVALUE
++
++/* Define if the GNU dcgettext() function is already present or preinstalled.
++   */
++#undef HAVE_DCGETTEXT
++
++/* Define this if you have DirectX */
++#undef HAVE_DIRECTX
++
++/* Define to 1 if you have the <dirent.h> header file. */
++#undef HAVE_DIRENT_H
++
++/* Define to 1 if you have the <dlfcn.h> header file. */
++#undef HAVE_DLFCN_H
++
++/* Define this if you have a suitable version of libdvdnav */
++#undef HAVE_DVDNAV
++
++/* Define to 1 if you have the environ symbol. */
++#undef HAVE_ENVIRON
++
++/* Define to 1 if you have the <errno.h> header file. */
++#undef HAVE_ERRNO_H
++
++/* Define to 1 if you have the <execinfo.h> header file. */
++#undef HAVE_EXECINFO_H
++
++/* Define to 1 if you have the <fame.h> header file. */
++#undef HAVE_FAME_H
++
++/* Define this if you have linux framebuffer support */
++#undef HAVE_FB
++
++/* Define to 1 if you have the <fcntl.h> header file. */
++#undef HAVE_FCNTL_H
++
++/* Define this if you have ffmpeg library */
++#undef HAVE_FFMPEG
++
++/* Define to 1 if you have the <ffmpeg/avutil.h> header file. */
++#undef HAVE_FFMPEG_AVUTIL_H
++
++/* Define to 1 if you have the <FLAC/stream_decoder.h> header file. */
++#undef HAVE_FLAC_STREAM_DECODER_H
++
++/* Define this if you have fontconfig library */
++#undef HAVE_FONTCONFIG
++
++/* Define to 1 if fseeko (and presumably ftello) exists and is declared. */
++#undef HAVE_FSEEKO
++
++/* Define this if you have freetype2 library */
++#undef HAVE_FT2
++
++/* Define this if you have GNU getopt_long() implemented */
++#undef HAVE_GETOPT_LONG
++
++/* Define to 1 if you have the `getpwuid_r' function. */
++#undef HAVE_GETPWUID_R
++
++/* Define if the GNU gettext() function is already present or preinstalled. */
++#undef HAVE_GETTEXT
++
++/* Define to 1 if you have the `gettimeofday' function. */
++#undef HAVE_GETTIMEOFDAY
++
++/* Define to 1 if you have the <glob.h> header file. */
++#undef HAVE_GLOB_H
++
++/* Define this if you have GLU support available */
++#undef HAVE_GLU
++
++/* Define to 1 if you have the <GL/glu.h> header file. */
++#undef HAVE_GL_GLU_H
++
++/* Define to 1 if you have the <GL/gl.h> header file. */
++#undef HAVE_GL_GL_H
++
++/* Define this if you have GraphicsMagick installed */
++#undef HAVE_GRAPHICSMAGICK
++
++/* Define to 1 if you have 'hstrerror' in <netdb.h> */
++#undef HAVE_HSTRERROR
++
++/* Define if you have the iconv() function and it works. */
++#undef HAVE_ICONV
++
++/* Define to 1 if you have the <inttypes.h> header file. */
++#undef HAVE_INTTYPES_H
++
++/* Define this if you have a usable IRIX al interface available */
++#undef HAVE_IRIXAL
++
++/* Supports ISO _Pragma() macro */
++#undef HAVE_ISOC99_PRAGMA
++
++/* Define to 1 if you have the <jpeglib.h> header file. */
++#undef HAVE_JPEGLIB_H
++
++/* Define this if you have kernel statistics available via kstat interface */
++#undef HAVE_KSTAT
++
++/* Define to 1 if you have the <libavutil/avutil.h> header file. */
++#undef HAVE_LIBAVUTIL_AVUTIL_H
++
++/* Define to 1 if you have the <libavutil/sha1.h> header file. */
++#undef HAVE_LIBAVUTIL_SHA1_H
++
++/* Define to 1 if you have the <libavutil/sha.h> header file. */
++#undef HAVE_LIBAVUTIL_SHA_H
++
++/* Define this if you have libfame mpeg encoder installed (fame.sf.net) */
++#undef HAVE_LIBFAME
++
++/* Define to 1 if you have the <libgen.h> header file. */
++#undef HAVE_LIBGEN_H
++
++/* Define to 1 if you have the <libmng.h> header file. */
++#undef HAVE_LIBMNG_H
++
++/* Define to 1 if you have the `posix4' library (-lposix4). */
++#undef HAVE_LIBPOSIX4
++
++/* Define this if you have librte mpeg encoder installed (zapping.sf.net) */
++#undef HAVE_LIBRTE
++
++/* Define to 1 if you have the <libsmbclient.h> header file. */
++#undef HAVE_LIBSMBCLIENT_H
++
++/* Define this if you have libv4l installed */
++#undef HAVE_LIBV4L2_H
++
++/* Define to 1 if you have the `vdpau' library (-lvdpau). */
++#undef HAVE_LIBVDPAU
++
++/* Define 1 if you have Linux-type CD-ROM support */
++#undef HAVE_LINUX_CDROM
++
++/* Define to 1 if you have the <linux/cdrom.h> header file. */
++#undef HAVE_LINUX_CDROM_H
++
++/* Define 1 if timeout is in cdrom_generic_command struct */
++#undef HAVE_LINUX_CDROM_TIMEOUT
++
++/* Define to 1 if you have the <linux/fb.h> header file. */
++#undef HAVE_LINUX_FB_H
++
++/* Define to 1 if you have the <linux/videodev2.h> header file. */
++#undef HAVE_LINUX_VIDEODEV2_H
++
++/* Define to 1 if you have the <linux/videodev.h> header file. */
++#undef HAVE_LINUX_VIDEODEV_H
++
++/* Define this if the 'lrintf' function is declared in math.h */
++#undef HAVE_LRINTF
++
++/* Define to 1 if you have the `lstat' function. */
++#undef HAVE_LSTAT
++
++/* Define to 1 if you have the <machine/soundcard.h> header file. */
++#undef HAVE_MACHINE_SOUNDCARD_H
++
++/* Define to 1 if you have the <mad.h> header file. */
++#undef HAVE_MAD_H
++
++/* Define to 1 if you have the <malloc.h> header file. */
++#undef HAVE_MALLOC_H
++
++/* Define to 1 if you have 'MAX' macro in sys/param.h */
++#undef HAVE_MAX_MACRO
++
++/* Define to 1 if you have the `memalign' function. */
++#undef HAVE_MEMALIGN
++
++/* Define to 1 if you have the `memcpy' function. */
++#undef HAVE_MEMCPY
++
++/* Define to 1 if you have the `memmem' function. */
++#undef HAVE_MEMMEM
++
++/* Define to 1 if you have the <memory.h> header file. */
++#undef HAVE_MEMORY_H
++
++/* Define to 1 if you have the `memset' function. */
++#undef HAVE_MEMSET
++
++/* Define to 1 if you have 'MIN' macro in sys/param.h */
++#undef HAVE_MIN_MACRO
++
++/* Define this if you have mlib installed */
++#undef HAVE_MLIB
++
++/* Define to 1 if you have the <mlib_video.h> header file. */
++#undef HAVE_MLIB_VIDEO_H
++
++/* Define to 1 if you have the `mmap' function. */
++#undef HAVE_MMAP
++
++/* Define this if you can compile MMX asm instructions */
++#undef HAVE_MMX
++
++/* Define to 1 if you have the <mpcdec/mpcdec.h> header file. */
++#undef HAVE_MPCDEC_MPCDEC_H
++
++/* Define to 1 if you have the <mpc/mpcdec.h> header file. */
++#undef HAVE_MPC_MPCDEC_H
++
++/* Define to 1 if you have the `nanosleep' function. */
++#undef HAVE_NANOSLEEP
++
++/* Define to 1 if you have the <neaacdec.h> header file. */
++#undef HAVE_NEAACDEC_H
++
++/* Define to 1 if you have the <netdb.h> header file. */
++#undef HAVE_NETDB_H
++
++/* Define this if you have libfame 0.8.10 or above */
++#undef HAVE_NEW_LIBFAME
++
++/* Define to 1 if you have the `nl_langinfo' function. */
++#undef HAVE_NL_LANGINFO
++
++/* Define to 1 if you have 'opendir' function */
++#undef HAVE_OPENDIR
++
++/* Define this if you have POSIX timers. */
++#undef HAVE_POSIX_TIMERS
++
++/* Define to 1 if you have 'pthread_mutex_timedlock' in <pthread.h> */
++#undef HAVE_PTHREAD_MUTEX_TIMEDLOCK
++
++/* define this if you have pulseaudio >= 0.9.7 */
++#undef HAVE_PULSEAUDIO_0_9_7
++
++/* Define to 1 if you have the `readlink' function. */
++#undef HAVE_READLINK
++
++/* Define to 1 if you have the <rte.h> header file. */
++#undef HAVE_RTE_H
++
++/* Define to 1 if you have the `setenv' function. */
++#undef HAVE_SETENV
++
++/* Define to 1 if you have the `sigaction' function. */
++#undef HAVE_SIGACTION
++
++/* Define to 1 if you have the `sigset' function. */
++#undef HAVE_SIGSET
++
++/* Define to 1 if you have the `snprintf' function. */
++#undef HAVE_SNPRINTF
++
++/* Define to 1 if you have the <soundcard.h> header file. */
++#undef HAVE_SOUNDCARD_H
++
++/* Define this if you have speex */
++#undef HAVE_SPEEX
++
++/* Define to 1 if you have the <stdbool.h> header file. */
++#undef HAVE_STDBOOL_H
++
++/* Define to 1 if you have the stderr symbol. */
++#undef HAVE_STDERR
++
++/* Define to 1 if you have the <stdint.h> header file. */
++#undef HAVE_STDINT_H
++
++/* Define to 1 if you have the <stdio.h> header file. */
++#undef HAVE_STDIO_H
++
++/* Define to 1 if you have the <stdlib.h> header file. */
++#undef HAVE_STDLIB_H
++
++/* Define to 1 if you have the `strcasecmp' function. */
++#undef HAVE_STRCASECMP
++
++/* Define to 1 if you have the `strcasestr' function. */
++#undef HAVE_STRCASESTR
++
++/* Define to 1 if you have the `strchr' function. */
++#undef HAVE_STRCHR
++
++/* Define to 1 if you have the <strings.h> header file. */
++#undef HAVE_STRINGS_H
++
++/* Define to 1 if you have the <string.h> header file. */
++#undef HAVE_STRING_H
++
++/* Define to 1 if you have the `strncasecmp' function. */
++#undef HAVE_STRNCASECMP
++
++/* Define to 1 if you have the `strndup' function. */
++#undef HAVE_STRNDUP
++
++/* Define to 1 if you have the `strpbrk' function. */
++#undef HAVE_STRPBRK
++
++/* Define to 1 if you have the `strsep' function. */
++#undef HAVE_STRSEP
++
++/* Define to 1 if you have the `strtok_r' function. */
++#undef HAVE_STRTOK_R
++
++/* Define to 1 if you have the <sys/cdio.h> header file. */
++#undef HAVE_SYS_CDIO_H
++
++/* Define to 1 if you have the <sys/dvdio.h> header file. */
++#undef HAVE_SYS_DVDIO_H
++
++/* Define to 1 if you have the <sys/fbio.h> header file. */
++#undef HAVE_SYS_FBIO_H
++
++/* Define to 1 if you have the <sys/ioctl.h> header file. */
++#undef HAVE_SYS_IOCTL_H
++
++/* Define to 1 if you have the <sys/mixer.h> header file. */
++#undef HAVE_SYS_MIXER_H
++
++/* Define to 1 if you have the <sys/mman.h> header file. */
++#undef HAVE_SYS_MMAN_H
++
++/* Define to 1 if you have the <sys/param.h> header file. */
++#undef HAVE_SYS_PARAM_H
++
++/* Define to 1 if you have the <sys/scsiio.h> header file. */
++#undef HAVE_SYS_SCSIIO_H
++
++/* Define to 1 if you have the <sys/soundcard.h> header file. */
++#undef HAVE_SYS_SOUNDCARD_H
++
++/* Define to 1 if you have the <sys/stat.h> header file. */
++#undef HAVE_SYS_STAT_H
++
++/* Define to 1 if you have the <sys/times.h> header file. */
++#undef HAVE_SYS_TIMES_H
++
++/* Define to 1 if you have the <sys/types.h> header file. */
++#undef HAVE_SYS_TYPES_H
++
++/* Define to 1 if you have the <sys/videodev2.h> header file. */
++#undef HAVE_SYS_VIDEODEV2_H
++
++/* Define to 1 if you have the <sys/videoio.h> header file. */
++#undef HAVE_SYS_VIDEOIO_H
++
++/* Define to 1 if you have the <sys/wait.h> header file. */
++#undef HAVE_SYS_WAIT_H
++
++/* Define this if you have theora */
++#undef HAVE_THEORA
++
++/* Define to 1 if you have the `timegm' function. */
++#undef HAVE_TIMEGM
++
++/* Define if struct tm has the tm_gmtoff member. */
++#undef HAVE_TM_GMTOFF
++
++/* Define to 1 if you have the <ucontext.h> header file. */
++#undef HAVE_UCONTEXT_H
++
++/* Define to 1 if you have the <unistd.h> header file. */
++#undef HAVE_UNISTD_H
++
++/* Define to 1 if you have the `unsetenv' function. */
++#undef HAVE_UNSETENV
++
++/* Define to 1 if you have the `va_copy' function. */
++#undef HAVE_VA_COPY
++
++/* Define to 1 if you have the <va/va.h> header file. */
++#undef HAVE_VA_VA_H
++
++/* Define to 1 if you have the <va/va_x11.h> header file. */
++#undef HAVE_VA_VA_X11_H
++
++/* Define this if you use external libcdio/libvcdinfo */
++#undef HAVE_VCDNAV
++
++/* Define to 1 if you have the <vdpau/vdpau_x11.h> header file. */
++#undef HAVE_VDPAU_VDPAU_X11_H
++
++/* Define if you have vldXvMC.h */
++#undef HAVE_VLDXVMC
++
++/* Define this if you have vorbis */
++#undef HAVE_VORBIS
++
++/* Define to 1 if you have the `vsnprintf' function. */
++#undef HAVE_VSNPRINTF
++
++/* Define to 1 if you have the `vsscanf' function. */
++#undef HAVE_VSSCANF
++
++/* Define this if you have X11R6 installed */
++#undef HAVE_X11
++
++/* Define to 1 if you have the <X11/extensions/vldXvMC.h> header file. */
++#undef HAVE_X11_EXTENSIONS_VLDXVMC_H
++
++/* Define to 1 if you have the <X11/extensions/XShm.h> header file. */
++#undef HAVE_X11_EXTENSIONS_XSHM_H
++
++/* Define to 1 if you have the <X11/extensions/XvMC.h> header file. */
++#undef HAVE_X11_EXTENSIONS_XVMC_H
++
++/* Define this if you have libXinerama installed */
++#undef HAVE_XINERAMA
++
++/* Define this if you have libXv installed */
++#undef HAVE_XV
++
++/* Define this if you have an XvMC library and XvMC.h installed. */
++#undef HAVE_XVMC
++
++/* Define to 1 if you have the _environ symbol. */
++#undef HAVE__ENVIRON
++
++/* Define to 1 if you have the `_snprintf' function. */
++#undef HAVE__SNPRINTF
++
++/* Define to 1 if you have the `_stricmp' function. */
++#undef HAVE__STRICMP
++
++/* Define to 1 if you have the `_strnicmp' function. */
++#undef HAVE__STRNICMP
++
++/* Define to 1 if you have the `_vsnprintf' function. */
++#undef HAVE__VSNPRINTF
++
++/* Define to 1 if you have the __ctype_b symbol. */
++#undef HAVE___CTYPE_B
++
++/* Define to 1 if you have the __environ symbol. */
++#undef HAVE___ENVIRON
++
++/* Define to 1 if you have the __stderrp symbol. */
++#undef HAVE___STDERRP
++
++/* Define to 1 if you have the ___brk_addr symbol. */
++#undef HAVE____BRK_ADDR
++
++/* Define this if built on Mac OS X/Darwin */
++#undef HOST_OS_DARWIN
++
++/* Define as const if the declaration of iconv() needs const. */
++#undef ICONV_CONST
++
++/* Type of the request parameter for ioctl() */
++#undef IOCTL_REQUEST_TYPE
++
++/* Get of rid system libcdio build configuration */
++#undef LIBCDIO_CONFIG_H
++
++/* Define this if you have mlib installed */
++#undef LIBMPEG2_MLIB
++
++/* The soname of libX11, needed for dlopen() */
++#undef LIBX11_SO
++
++/* The soname of libXv, needed for dlopen() */
++#undef LIBXV_SO
++
++/* Define to the sub-directory in which libtool stores uninstalled libraries.
++   */
++#undef LT_OBJDIR
++
++/* Define this if you want to load mlib lazily */
++#undef MLIB_LAZYLOAD
++
++/* Define to 1 if your C compiler doesn't accept -c and -o together. */
++#undef NO_MINUS_C_MINUS_O
++
++/* Name of package */
++#undef PACKAGE
++
++/* Define to the address where bug reports for this package should be sent. */
++#undef PACKAGE_BUGREPORT
++
++/* Define to the full name of this package. */
++#undef PACKAGE_NAME
++
++/* Define to the full name and version of this package. */
++#undef PACKAGE_STRING
++
++/* Define to the one symbol short name of this package. */
++#undef PACKAGE_TARNAME
++
++/* Define to the home page for this package. */
++#undef PACKAGE_URL
++
++/* Define to the version of this package. */
++#undef PACKAGE_VERSION
++
++/* Default path in which to find Real binary codecs */
++#undef REAL_CODEC_PATH
++
++/* The size of `int', as computed by sizeof. */
++#undef SIZEOF_INT
++
++/* The size of `long', as computed by sizeof. */
++#undef SIZEOF_LONG
++
++/* Define to 1 if you have the ANSI C header files. */
++#undef STDC_HEADERS
++
++/* Define this if the compiler supports __attribute__(( ifelse([weak, alias],
++   , [alias], [weak, alias]) )) */
++#undef SUPPORT_ATTRIBUTE_ALIAS
++
++/* Define this if the compiler supports __attribute__(( ifelse([], , [const],
++   []) )) */
++#undef SUPPORT_ATTRIBUTE_CONST
++
++/* Define this if the compiler supports __attribute__(( ifelse([], ,
++   [deprecated], []) )) */
++#undef SUPPORT_ATTRIBUTE_DEPRECATED
++
++/* Define this if the compiler supports __attribute__(( ifelse([format(printf,
++   n, n)], , [format], [format(printf, n, n)]) )) */
++#undef SUPPORT_ATTRIBUTE_FORMAT
++
++/* Define this if the compiler supports __attribute__((
++   ifelse([format_arg(printf)], , [format_arg], [format_arg(printf)]) )) */
++#undef SUPPORT_ATTRIBUTE_FORMAT_ARG
++
++/* Define this if the compiler supports __attribute__(( ifelse([], , [malloc],
++   []) )) */
++#undef SUPPORT_ATTRIBUTE_MALLOC
++
++/* Define this if the compiler supports __attribute__(( ifelse([], , [packed],
++   []) )) */
++#undef SUPPORT_ATTRIBUTE_PACKED
++
++/* Define this if the compiler supports __attribute__(( ifelse([], ,
++   [sentinel], []) )) */
++#undef SUPPORT_ATTRIBUTE_SENTINEL
++
++/* Define this if the compiler supports __attribute__(( ifelse([], , [unused],
++   []) )) */
++#undef SUPPORT_ATTRIBUTE_UNUSED
++
++/* Define this if the compiler supports __attribute__((
++   ifelse([visibility("default")], , [visibility_default],
++   [visibility("default")]) )) */
++#undef SUPPORT_ATTRIBUTE_VISIBILITY_DEFAULT
++
++/* Define this if the compiler supports __attribute__((
++   ifelse([visibility("internal")], , [visibility_internal],
++   [visibility("internal")]) )) */
++#undef SUPPORT_ATTRIBUTE_VISIBILITY_INTERNAL
++
++/* Define this if the compiler supports __attribute__((
++   ifelse([visibility("protected")], , [visibility_protected],
++   [visibility("protected")]) )) */
++#undef SUPPORT_ATTRIBUTE_VISIBILITY_PROTECTED
++
++/* Define this if the compiler supports __attribute__(( ifelse([], , [weak],
++   []) )) */
++#undef SUPPORT_ATTRIBUTE_WEAK
++
++/* Define this if the compiler supports the -fvisibility flag */
++#undef SUPPORT_FLAG_VISIBILITY
++
++/* Enable extensions on AIX 3, Interix.  */
++#ifndef _ALL_SOURCE
++# undef _ALL_SOURCE
++#endif
++/* Enable GNU extensions on systems that have them.  */
++#ifndef _GNU_SOURCE
++# undef _GNU_SOURCE
++#endif
++/* Enable threading extensions on Solaris.  */
++#ifndef _POSIX_PTHREAD_SEMANTICS
++# undef _POSIX_PTHREAD_SEMANTICS
++#endif
++/* Enable extensions on HP NonStop.  */
++#ifndef _TANDEM_SOURCE
++# undef _TANDEM_SOURCE
++#endif
++/* Enable general extensions on Solaris.  */
++#ifndef __EXTENSIONS__
++# undef __EXTENSIONS__
++#endif
++
++
++/* Version number of package */
++#undef VERSION
++
++/* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
++   significant byte first (like Motorola and SPARC, unlike Intel). */
++#if defined AC_APPLE_UNIVERSAL_BUILD
++# if defined __BIG_ENDIAN__
++#  define WORDS_BIGENDIAN 1
++# endif
++#else
++# ifndef WORDS_BIGENDIAN
++#  undef WORDS_BIGENDIAN
++# endif
++#endif
++
++/* Path where aclocal m4 files will be. */
++#undef XINE_ACFLAGS
++
++/* Define this to osd fonts dir location */
++#undef XINE_FONTDIR
++
++/* Path where catalog files will be. */
++#undef XINE_LOCALEDIR
++
++/* xine interface version age */
++#undef XINE_LT_AGE
++
++/* xine interface version number */
++#undef XINE_LT_CURRENT
++
++/* Define this if a universal binary is being built for Mac OS X */
++#undef XINE_MACOSX_UNIVERSAL_BINARY
++
++/* xine major version number */
++#undef XINE_MAJOR
++
++/* xine minor version number */
++#undef XINE_MINOR
++
++/* xine patch version number */
++#undef XINE_PATCH
++
++/* Define this to soecific plugins directory location */
++#undef XINE_PLUGINDIR
++
++/* Define this to general plugins directory location */
++#undef XINE_PLUGINROOT
++
++/* Define this to font directory relative to prefix */
++#undef XINE_REL_FONTDIR
++
++/* Define this to font directory relative to prefix */
++#undef XINE_REL_LOCALEDIR
++
++/* Define this to specific plugin directory relative to execution prefix */
++#undef XINE_REL_PLUGINDIR
++
++/* Define this to general plugin directory relative to execution prefix */
++#undef XINE_REL_PLUGINROOT
++
++/* xine sub version number */
++#undef XINE_SUB
++
++/* catalog message text domain */
++#undef XINE_TEXTDOMAIN
++
++/* Define to 1 if the X Window System is missing or not being used. */
++#undef X_DISPLAY_MISSING
++
++/* Enable large inode numbers on Mac OS X 10.5.  */
++#ifndef _DARWIN_USE_64_BIT_INODE
++# define _DARWIN_USE_64_BIT_INODE 1
++#endif
++
++/* Number of bits in a file offset, on hosts where this is settable. */
++#undef _FILE_OFFSET_BITS
++
++/* Define this if you are ISO C9X compliant */
++#undef _ISOC9X_SOURCE
++
++/* Define to 1 to make fseeko visible on some hosts (e.g. glibc 2.2). */
++#undef _LARGEFILE_SOURCE
++
++/* Define for large files, on AIX-style hosts. */
++#undef _LARGE_FILES
++
++/* Define to 1 if on MINIX. */
++#undef _MINIX
++
++/* Define to 2 if the system does not provide POSIX.1 features except with
++   this defined. */
++#undef _POSIX_1_SOURCE
++
++/* Define to 1 if you need to in order for `stat' and other things to work. */
++#undef _POSIX_SOURCE
++
++/* Define to empty if `const' does not conform to ANSI C. */
++#undef const
++
++/* Define to `__inline__' or `__inline' if that's what the C compiler
++   calls it, or to nothing if 'inline' is not supported under any name.  */
++#ifndef __cplusplus
++#undef inline
++#endif
++
++/* Define to `long int' if <sys/types.h> does not define. */
++#undef off_t
++
++/* Define to the equivalent of the C99 'restrict' keyword, or to
++   nothing if this is not supported.  Do not define if restrict is
++   supported directly.  */
++#undef restrict
++/* Work around a bug in Sun C++: it does not support _Restrict or
++   __restrict__, even though the corresponding Sun C compiler ends up with
++   "#define restrict _Restrict" or "#define restrict __restrict__" in the
++   previous line.  Perhaps some future version of Sun C++ will work with
++   restrict; if so, hopefully it defines __RESTRICT like Sun C does.  */
++#if defined __SUNPRO_CC && !defined __RESTRICT
++# define _Restrict
++# define __restrict__
++#endif
++
++/* Define to `unsigned int' if <sys/types.h> does not define. */
++#undef size_t
++
++/* Define the real type of socklen_t */
++#undef socklen_t
++
++/* define ssize_t to __int64 if it's missing in default includes */
++#undef ssize_t
++
++#ifdef ASMALIGN_1SLN
++# define ASMALIGN(ZEROBITS) ".align " #ZEROBITS "\n\t"
++#else
++# define ASMALIGN(ZEROBITS) ".align 1<<" #ZEROBITS "\n\t"
++#endif
++
++#endif  /* __XINE_LIB_CONFIG_H__ */
++
++
++
++#if defined (__FreeBSD__) && !defined (__FreeBSD_kernel__)
++#define __FreeBSD_kernel__ __FreeBSD__
++#endif
++
++#if defined (__FreeBSD_kernel__)
++#include <sys/param.h>
++# if defined (__FreeBSD_version) && !defined (__FreeBSD_kernel_version)
++# define __FreeBSD_kernel_version __FreeBSD_version
++# endif
++#endif
++
++
++#endif
++
+diff -urN xine-lib-1.2.4.org/include/Makefile xine-lib-1.2.4/include/Makefile
+--- xine-lib-1.2.4.org/include/Makefile	1970-01-01 01:00:00.000000000 +0100
++++ xine-lib-1.2.4/include/Makefile	2013-10-24 09:35:56.363188739 +0200
+@@ -0,0 +1,817 @@
++# Makefile.in generated by automake 1.11.6 from Makefile.am.
++# include/Makefile.  Generated from Makefile.in by configure.
++
++# Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002,
++# 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Free Software
++# Foundation, Inc.
++# This Makefile.in is free software; the Free Software Foundation
++# gives unlimited permission to copy and/or distribute it,
++# with or without modifications, as long as this notice is preserved.
++
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
++# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
++# PARTICULAR PURPOSE.
++
++
++
++
++am__make_dryrun = \
++  { \
++    am__dry=no; \
++    case $$MAKEFLAGS in \
++      *\\[\ \	]*) \
++        echo 'am--echo: ; @echo "AM"  OK' | $(MAKE) -f - 2>/dev/null \
++          | grep '^AM OK$$' >/dev/null || am__dry=yes;; \
++      *) \
++        for am__flg in $$MAKEFLAGS; do \
++          case $$am__flg in \
++            *=*|--*) ;; \
++            *n*) am__dry=yes; break;; \
++          esac; \
++        done;; \
++    esac; \
++    test $$am__dry = yes; \
++  }
++pkgdatadir = $(datadir)/xine-lib
++pkgincludedir = $(includedir)/xine-lib
++pkglibdir = $(libdir)/xine-lib
++pkglibexecdir = $(libexecdir)/xine-lib
++am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
++install_sh_DATA = $(install_sh) -c -m 644
++install_sh_PROGRAM = $(install_sh) -c
++install_sh_SCRIPT = $(install_sh) -c
++INSTALL_HEADER = $(INSTALL_DATA)
++transform = $(program_transform_name)
++NORMAL_INSTALL = :
++PRE_INSTALL = :
++POST_INSTALL = :
++NORMAL_UNINSTALL = :
++PRE_UNINSTALL = :
++POST_UNINSTALL = :
++build_triplet = x86_64-unknown-linux-gnu
++host_triplet = x86_64-unknown-linux-gnu
++DIST_COMMON = $(nobase_include_HEADERS) $(noinst_HEADERS) \
++	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
++	$(srcdir)/configure.h.in $(top_srcdir)/misc/Makefile.quiet
++subdir = include
++ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
++am__aclocal_m4_deps = $(top_srcdir)/m4/attributes.m4 \
++	$(top_srcdir)/m4/audio_out.m4 $(top_srcdir)/m4/decoders.m4 \
++	$(top_srcdir)/m4/directx.m4 $(top_srcdir)/m4/gas.m4 \
++	$(top_srcdir)/m4/getopt_long.m4 $(top_srcdir)/m4/gettext.m4 \
++	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/input.m4 \
++	$(top_srcdir)/m4/intlmacosx.m4 $(top_srcdir)/m4/lib-ld.m4 \
++	$(top_srcdir)/m4/lib-link.m4 $(top_srcdir)/m4/lib-prefix.m4 \
++	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
++	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
++	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/macosx.m4 \
++	$(top_srcdir)/m4/misc.m4 $(top_srcdir)/m4/nls.m4 \
++	$(top_srcdir)/m4/package.m4 $(top_srcdir)/m4/pkg.m4 \
++	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/programs.m4 \
++	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/pthreads.m4 \
++	$(top_srcdir)/m4/summary.m4 $(top_srcdir)/m4/symbol.m4 \
++	$(top_srcdir)/m4/types.m4 $(top_srcdir)/m4/video_out.m4 \
++	$(top_srcdir)/m4/xine.m4 $(top_srcdir)/m4/objc.m4 \
++	$(top_srcdir)/configure.ac
++am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
++	$(ACLOCAL_M4)
++mkinstalldirs = $(install_sh) -d
++CONFIG_HEADER = configure.h
++CONFIG_CLEAN_VPATH_FILES =
++AM_V_GEN = $(am__v_GEN_$(V))
++am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
++am__v_GEN_0 = @echo "  GEN   " $@;
++AM_V_at = $(am__v_at_$(V))
++am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))
++am__v_at_0 = @
++SOURCES =
++DIST_SOURCES =
++am__can_run_installinfo = \
++  case $$AM_UPDATE_INFO_DIR in \
++    n|no|NO) false;; \
++    *) (install-info --version) >/dev/null 2>&1;; \
++  esac
++am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
++am__vpath_adj = case $$p in \
++    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
++    *) f=$$p;; \
++  esac;
++am__strip_dir = f=`echo $$p | sed -e 's|^.*/||'`;
++am__install_max = 40
++am__nobase_strip_setup = \
++  srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*|]/\\\\&/g'`
++am__nobase_strip = \
++  for p in $$list; do echo "$$p"; done | sed -e "s|$$srcdirstrip/||"
++am__nobase_list = $(am__nobase_strip_setup); \
++  for p in $$list; do echo "$$p $$p"; done | \
++  sed "s| $$srcdirstrip/| |;"' / .*\//!s/ .*/ ./; s,\( .*\)/[^/]*$$,\1,' | \
++  $(AWK) 'BEGIN { files["."] = "" } { files[$$2] = files[$$2] " " $$1; \
++    if (++n[$$2] == $(am__install_max)) \
++      { print $$2, files[$$2]; n[$$2] = 0; files[$$2] = "" } } \
++    END { for (dir in files) print dir, files[dir] }'
++am__base_list = \
++  sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
++  sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
++am__uninstall_files_from_dir = { \
++  test -z "$$files" \
++    || { test ! -d "$$dir" && test ! -f "$$dir" && test ! -r "$$dir"; } \
++    || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
++         $(am__cd) "$$dir" && rm -f $$files; }; \
++  }
++am__installdirs = "$(DESTDIR)$(includedir)" "$(DESTDIR)$(includedir)"
++HEADERS = $(nobase_include_HEADERS) $(nodist_include_HEADERS) \
++	$(nodist_noinst_HEADERS) $(noinst_HEADERS)
++ETAGS = etags
++CTAGS = ctags
++DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
++A52DEC_CFLAGS = -I$(top_srcdir)/contrib/a52dec
++A52DEC_DEPS = $(top_builddir)/contrib/a52dec/liba52.la
++A52DEC_LIBS = $(top_builddir)/contrib/a52dec/liba52.la
++AALIB_CFLAGS = 
++AALIB_CONFIG = no
++AALIB_LIBS = 
++ACLOCAL = ${SHELL} /opt/devel/enigma2pc/xine-lib/missing --run aclocal-1.11
++ACLOCAL_DIR = 
++ALSA_CFLAGS = -I/usr/include/alsa  
++ALSA_LIBS = -lasound  
++AMTAR = $${TAR-tar}
++AM_DEFAULT_VERBOSITY = 1
++AR = ar
++AS = /usr/bin/as
++AUTOCONF = ${SHELL} /opt/devel/enigma2pc/xine-lib/missing --run autoconf
++AUTOHEADER = ${SHELL} /opt/devel/enigma2pc/xine-lib/missing --run autoheader
++AUTOMAKE = ${SHELL} /opt/devel/enigma2pc/xine-lib/missing --run automake-1.11
++AVUTIL_CFLAGS =  
++AVUTIL_LIBS = -lavutil  
++AWK = gawk
++CACA_CFLAGS =  
++CACA_LIBS = -lcaca  
++CC = gcc
++CCAS = gcc
++CCASDEPMODE = depmode=gcc3
++CCASFLAGS = -g 
++CCDEPMODE = depmode=gcc3
++CFLAGS =  $(MULTIPASS_CFLAGS)  -pipe  -Wall -Wformat=2 -Wno-format-zero-length -Wmissing-format-attribute -Werror-implicit-function-declaration -Wstrict-aliasing=2 -Wchar-subscripts -Wmissing-declarations -Wmissing-prototypes -Wwrite-strings -Wpointer-arith -g  -Wall -Wchar-subscripts -Wnested-externs -Wcast-align -Wmissing-declarations -Wmissing-prototypes -Wmissing-format-attribute -Wno-pointer-sign -Wformat=2 -Wno-format-zero-length -Wformat-security -Wstrict-aliasing=2 -Werror=implicit-function-declaration
++CPP = gcc -E
++CPPFLAGS = -DNDEBUG -D_REENTRANT -DXINE_COMPILE  
++CYGPATH_W = echo
++DEFAULT_OCFLAGS = $(O3_CFLAGS)
++DEFS = -DHAVE_CONFIG_H
++DEPDIR = .deps
++DEPMOD = 
++DIRECTFB_CFLAGS = 
++DIRECTFB_LIBS = 
++DIRECTX_AUDIO_LIBS =  -ldsound
++DIRECTX_CPPFLAGS = 
++DIRECTX_VIDEO_LIBS =  -lgdi32 -lddraw
++DLLTOOL = dlltool
++DSYMUTIL = 
++DUMPBIN = 
++DVDNAV_CFLAGS = 
++DVDNAV_CONFIG = 
++DVDNAV_LIBS = 
++DYNAMIC_LD_LIBS = -ldl
++ECHO_C = 
++ECHO_N = -n
++ECHO_T = 
++EGREP = /bin/grep -E
++ESD_CFLAGS = 
++ESD_LIBS = 
++EXEEXT = 
++FAAD_CFLAGS = -I$(top_srcdir)/contrib/libfaad
++FAAD_DEPS = $(top_builddir)/contrib/libfaad/libfaad.la
++FAAD_LIBS = $(top_builddir)/contrib/libfaad/libfaad.la
++FFMPEG_CFLAGS =  
++FFMPEG_LIBS = -lavcodec  
++FFMPEG_POSTPROC_CFLAGS =  
++FFMPEG_POSTPROC_LIBS = -lpostproc  
++FGREP = /bin/grep -F
++FONTCONFIG_CFLAGS = 
++FONTCONFIG_LIBS = 
++FT2_CFLAGS = 
++FT2_LIBS = 
++FUSIONSOUND_CFLAGS = 
++FUSIONSOUND_LIBS = 
++GCSECTIONS = -Wl,--gc-sections
++GDK_PIXBUF_CFLAGS = -pthread -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/libpng12 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include  
++GDK_PIXBUF_LIBS = -lgdk_pixbuf-2.0 -lgobject-2.0 -lglib-2.0  
++GETTEXT_MACRO_VERSION = 0.17
++GLU_LIBS = -lGLU
++GMSGFMT = /usr/bin/msgfmt
++GMSGFMT_015 = /usr/bin/msgfmt
++GNOME_VFS_CFLAGS = 
++GNOME_VFS_LIBS = 
++GOOM_LIBS = 
++GRAPHICSMAGICKWAND_CFLAGS = 
++GRAPHICSMAGICKWAND_LIBS = 
++GRAPHICSMAGICK_CFLAGS = 
++GRAPHICSMAGICK_LIBS = 
++GREP = /bin/grep
++IMPURE_TEXT_LDFLAGS = 
++INCLUDES = -I$(top_srcdir) -I$(top_builddir)/include -I$(top_srcdir)/include -I$(top_srcdir)/src -I$(top_builddir)/src/xine-engine -I$(top_srcdir)/src/xine-engine -I$(top_srcdir)/src/xine-utils $(INTLDIR) -I$(top_builddir)/src/input -I$(top_srcdir)/src/input $(WIN32_INCLUDES) -I$(top_builddir)/lib -I$(top_srcdir)/lib
++INSTALL = /usr/bin/install -c
++INSTALL_DATA = ${INSTALL} -m 644
++INSTALL_PROGRAM = ${INSTALL}
++INSTALL_SCRIPT = ${INSTALL}
++INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
++INTLLIBS = 
++INTL_MACOSX_LIBS = 
++IRIXAL_LIBS = 
++IRIXAL_STATIC_LIB = 
++JACK_CFLAGS = 
++JACK_LIBS = 
++JPEG_LIBS = -ljpeg
++KSTAT_LIBS = 
++LD = /usr/bin/ld -m elf_x86_64
++LDFLAGS =  -g 
++LDFLAGS_NOUNDEFINED = -Wl,-z,defs
++LIBBLURAY_CFLAGS =  
++LIBBLURAY_LIBS = -lbluray  
++LIBCDIO_CFLAGS =  
++LIBCDIO_LIBS = -lcdio -lm  
++LIBDTS_CFLAGS = -I$(top_srcdir)/contrib/libdca/include
++LIBDTS_DEPS = $(top_builddir)/contrib/libdca/libdca.la
++LIBDTS_LIBS = $(top_builddir)/contrib/libdca/libdca.la
++LIBFAME_CFLAGS = 
++LIBFAME_CONFIG = 
++LIBFAME_LIBS = 
++LIBFLAC_CFLAGS = 
++LIBFLAC_LIBS = 
++LIBICONV = 
++LIBINTL = 
++LIBMAD_CFLAGS = -I$(top_srcdir)/contrib/libmad
++LIBMAD_DEPS = $(top_builddir)/contrib/libmad/libmad.la
++LIBMAD_LIBS = $(top_builddir)/contrib/libmad/libmad.la
++LIBMODPLUG_CFLAGS = 
++LIBMODPLUG_LIBS = 
++LIBNAME = libxine2
++LIBOBJS = 
++LIBS = 
++LIBSMBCLIENT_LIBS = 
++LIBSTK_CFLAGS = 
++LIBSTK_LIBS = 
++LIBTOOL = $(SHELL) $(top_builddir)/libtool
++LIBTOOL_DESTDIR_DEFAULT = /
++LIBVA_CFLAGS = 
++LIBVA_LIBS = 
++LIBVCDINFO_CFLAGS =  
++LIBVCDINFO_LIBS = -lvcdinfo -liso9660 -lcdio -lm  
++LIBVCD_CFLAGS = 
++LIBVCD_LIBS = 
++LINUX_INCLUDE = 
++LIPO = 
++LN_S = ln -s
++LTLIBICONV = 
++LTLIBINTL = 
++LTLIBOBJS = 
++MAGICKWAND_CFLAGS = 
++MAGICKWAND_LIBS = 
++MAINT = #
++MAKEINFO = ${SHELL} /opt/devel/enigma2pc/xine-lib/missing --run makeinfo
++MANIFEST_TOOL = :
++MKDIR_P = /bin/mkdir -p
++MKNOD = 
++MLIB_CFLAGS = 
++MLIB_LIBS = 
++MNG_LIBS = 
++MPCDEC_CFLAGS = 
++MPCDEC_DEPS = 
++MPCDEC_LIBS = -lmpcdec
++MSGFMT = /usr/bin/msgfmt
++MSGFMT_015 = /usr/bin/msgfmt
++MSGMERGE = /usr/bin/msgmerge
++NET_LIBS = -lresolv -lnsl 
++NM = /usr/bin/nm -B
++NMEDIT = 
++NOUNDEF = -Wl,-z,defs
++O0_CFLAGS = -O0
++O1_CFLAGS = -O1  -ffast-math -fexpensive-optimizations 
++O2_CFLAGS = -O2  -ffast-math -fexpensive-optimizations 
++O3_CFLAGS = -O3  -ffast-math -fexpensive-optimizations 
++OBJC = gcc
++OBJCDEPMODE = depmode=gcc3
++OBJCFLAGS =   -pipe  -Wall -Wformat=2 -Wno-format-zero-length -Wmissing-format-attribute -Werror-implicit-function-declaration -Wstrict-aliasing=2 -Wchar-subscripts -Wmissing-declarations -Wmissing-prototypes -Wwrite-strings -Wpointer-arith -g 
++OBJDUMP = objdump
++OBJEXT = o
++OPENGL_CFLAGS = 
++OPENGL_LIBS = -lGL -lm
++OPTIPNG = no
++OTOOL = 
++OTOOL64 = 
++PACKAGE = xine-lib
++PACKAGE_BUGREPORT = xine-bugs@lists.sourceforge.net
++PACKAGE_NAME = xine-lib
++PACKAGE_STRING = xine-lib 1.2.3openpliPC-e2
++PACKAGE_TARNAME = xine-lib
++PACKAGE_URL = 
++PACKAGE_VERSION = 1.2.3openpliPC-e2
++PASS1_CFLAGS = -fprofile-arcs 
++PASS2_CFLAGS = -fbranch-probabilities 
++PATH_SEPARATOR = :
++PERL = /usr/bin/perl
++PKG_CONFIG = /usr/bin/pkg-config
++POSUB = po
++PTHREAD_CFLAGS = 
++PTHREAD_LIBS = -pthread
++PULSEAUDIO_CFLAGS = -D_REENTRANT  
++PULSEAUDIO_LIBS = -lpulse  
++RANLIB = ranlib
++RSVG = no
++RT_LIBS = -lrt
++SDL_CFLAGS = -D_GNU_SOURCE=1 -D_REENTRANT -I/usr/include/SDL  
++SDL_LIBS = -lSDL  
++SED = /bin/sed
++SET_MAKE = 
++SHELL = /bin/bash
++SNDIO_CFLAGS = 
++SNDIO_LIBS = 
++SPEEX_CFLAGS = 
++SPEEX_LIBS = 
++STRINGS = strings
++STRIP = strip
++SUNDGA_CPPFLAGS = 
++SUNDGA_LIBS = 
++THEORA_CFLAGS = 
++THEORA_LIBS = 
++UNIVERSAL_ARCHES = 
++USE_NLS = yes
++V4L2_CFLAGS = 
++V4L2_LIBS = 
++VDPAU_CFLAGS =  
++VDPAU_LIBS = -lvdpau  
++VERSION = 1.2.3openpliPC-e2
++VISIBILITY_FLAG = -fvisibility=hidden
++VORBIS_CFLAGS = 
++VORBIS_LIBS = 
++W32_NO_OPTIMIZE = 
++WAND_CFLAGS = 
++WAND_LIBS = 
++WAVPACK_CFLAGS = 
++WAVPACK_LIBS = 
++XCBSHM_CFLAGS = 
++XCBSHM_LIBS = 
++XCBXV_CFLAGS = 
++XCBXV_LIBS = 
++XCB_CFLAGS = 
++XCB_LIBS = 
++XDG_BASEDIR_CFLAGS = 
++XDG_BASEDIR_CPPFLAGS = -I$(top_srcdir)/contrib/libxdg-basedir
++XDG_BASEDIR_DEPS = $(top_builddir)/contrib/libxdg-basedir/libxdg-basedir.la
++XDG_BASEDIR_LIBS = $(top_builddir)/contrib/libxdg-basedir/libxdg-basedir.la
++XDG_BASEDIR_REQUIRES = 
++XGETTEXT = /usr/bin/xgettext
++XGETTEXT_015 = /usr/bin/xgettext
++XGETTEXT_EXTRA_OPTIONS = 
++XINERAMA_CFLAGS = 
++XINERAMA_LIBS = 
++XINE_ACFLAGS = -I ${prefix}/share/aclocal
++XINE_BUILD_CC = gcc version 4.7.3 (Ubuntu/Linaro 4.7.3-1ubuntu1) 
++XINE_BUILD_DATE = Sun 16 Jun 2013 09:56:49
++XINE_BUILD_OS = Linux 3.8.0-23-generic x86_64
++XINE_DATADIR = ${xinedatadir}
++XINE_FONTDIR = ${xinedatadir}/libxine1/fonts
++XINE_LOCALEDIR = ${datadir}/locale
++XINE_LT_AGE = 3
++XINE_LT_CURRENT = 5
++XINE_LT_REVISION = 0
++XINE_MAJOR = 1
++XINE_MINOR = 2
++XINE_PATCH = 
++XINE_PKGCONFIG_DIR = /usr/lib/pkgconfig
++XINE_PLUGINDIR = ${xinelibdir}/plugins/2.3
++XINE_SCRIPTPATH = ${xinedatadir}/scripts
++XINE_SERIES = 1.2
++XINE_SUB = 3
++XMKMF = 
++XMLTO = no
++XVMC_LIBS =  -lXvMCW
++XV_CFLAGS =  
++XV_LIBS = -lXv  
++XXMC_LIBS =  -lXvMCW
++X_CFLAGS = 
++X_EXTRA_LIBS = 
++X_LIBS =   -lSM -lICE -lX11  -lXext
++X_PRE_LIBS =  -lSM -lICE
++ZLIB_CPPFLAGS = 
++ZLIB_LIBS =  -lz
++abs_builddir = /opt/devel/enigma2pc/xine-lib/include
++abs_srcdir = /opt/devel/enigma2pc/xine-lib/include
++abs_top_builddir = /opt/devel/enigma2pc/xine-lib
++abs_top_srcdir = /opt/devel/enigma2pc/xine-lib
++ac_ct_AR = ar
++ac_ct_CC = gcc
++ac_ct_DUMPBIN = 
++ac_ct_OBJC = gcc
++am__include = include
++am__leading_dot = .
++am__quote = 
++am__tar = $${TAR-tar} chof - "$$tardir"
++am__untar = $${TAR-tar} xf -
++bindir = ${exec_prefix}/bin
++build = x86_64-unknown-linux-gnu
++build_alias = 
++build_cpu = x86_64
++build_os = linux-gnu
++build_vendor = unknown
++builddir = .
++datadir = ${datarootdir}
++datarootdir = ${prefix}/share
++docdir = ${datarootdir}/doc/${PACKAGE_TARNAME}
++dvidir = ${docdir}
++exec_prefix = ${prefix}
++host = x86_64-unknown-linux-gnu
++host_alias = 
++host_cpu = x86_64
++host_os = linux-gnu
++host_vendor = unknown
++htmldir = ${docdir}
++includedir = ${prefix}/include
++infodir = ${datarootdir}/info
++install_sh = ${SHELL} /opt/devel/enigma2pc/xine-lib/install-sh
++libdir = ${exec_prefix}/lib
++libexecdir = ${exec_prefix}/libexec
++localedir = ${datarootdir}/locale
++localstatedir = ${prefix}/var
++mandir = ${datarootdir}/man
++mkdir_p = /bin/mkdir -p
++oldincludedir = /usr/include
++pdfdir = ${docdir}
++pkgconfigdir = ${libdir}/pkgconfig
++prefix = /usr
++program_transform_name = s,x,x,
++psdir = ${docdir}
++sbindir = ${exec_prefix}/sbin
++sharedstatedir = ${prefix}/com
++srcdir = .
++sysconfdir = ${prefix}/etc
++target_alias = 
++top_build_prefix = ../
++top_builddir = ..
++top_srcdir = ..
++w32_path = /usr/lib/codecs
++xine_acflags = -I ${datarootdir}/aclocal
++xinedatadir = ${datadir}/xine
++xinelibdir = ${libdir}/xine
++GNU_VERBOSITY := $(if $(findstring GNU,$(shell $(MAKE) -v)),0,1)
++EXTRA_DIST = xine/version.h.in
++#inttypes_h = inttypes.h
++nobase_include_HEADERS = xine.h \
++	xine/alphablend.h	\
++	xine/array.h		\
++	xine/attributes.h	\
++	xine/audio_decoder.h	\
++	xine/audio_out.h	\
++	xine/broadcaster.h	\
++	xine/buffer.h		\
++	xine/compat.h		\
++	xine/configfile.h	\
++	xine/demux.h		\
++	xine/info_helper.h	\
++	xine/input_plugin.h	\
++	xine/io_helper.h	\
++	xine/list.h		\
++	xine/metronom.h		\
++	xine/os_types.h		\
++	xine/osd.h		\
++	xine/plugin_catalog.h	\
++	xine/pool.h		\
++	xine/post.h		\
++	xine/refcounter.h	\
++	xine/resample.h		\
++	xine/ring_buffer.h	\
++	xine/scratch.h		\
++	xine/sorted_array.h	\
++	xine/spu.h		\
++	xine/spu_decoder.h	\
++	xine/vdr.h		\
++	xine/version.h		\
++	xine/video_decoder.h	\
++	xine/video_out.h	\
++	xine/video_overlay.h	\
++	xine/vo_scale.h		\
++	xine/xine_buffer.h	\
++	xine/xine_internal.h	\
++	xine/xine_plugin.h	\
++	xine/xineintl.h		\
++	xine/xineutils.h	\
++	xine/xmllexer.h		\
++	xine/xmlparser.h
++
++noinst_HEADERS = config.h
++nodist_noinst_HEADERS = configure.h
++nodist_include_HEADERS = $(inttypes_h)
++CONFIG_CLEAN_FILES = $(inttypes_h)
++DISTCLEANFILES = xine/version.h
++all: configure.h
++	$(MAKE) $(AM_MAKEFLAGS) all-am
++
++.SUFFIXES:
++$(srcdir)/Makefile.in: # $(srcdir)/Makefile.am $(top_srcdir)/misc/Makefile.quiet $(am__configure_deps)
++	@for dep in $?; do \
++	  case '$(am__configure_deps)' in \
++	    *$$dep*) \
++	      ( cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh ) \
++	        && { if test -f $@; then exit 0; else break; fi; }; \
++	      exit 1;; \
++	  esac; \
++	done; \
++	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu include/Makefile'; \
++	$(am__cd) $(top_srcdir) && \
++	  $(AUTOMAKE) --gnu include/Makefile
++.PRECIOUS: Makefile
++Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
++	@case '$?' in \
++	  *config.status*) \
++	    cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh;; \
++	  *) \
++	    echo ' cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__depfiles_maybe)'; \
++	    cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__depfiles_maybe);; \
++	esac;
++$(top_srcdir)/misc/Makefile.quiet:
++
++$(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
++	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
++
++$(top_srcdir)/configure: # $(am__configure_deps)
++	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
++$(ACLOCAL_M4): # $(am__aclocal_m4_deps)
++	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
++$(am__aclocal_m4_deps):
++
++configure.h: stamp-h1
++	@if test ! -f $@; then rm -f stamp-h1; else :; fi
++	@if test ! -f $@; then $(MAKE) $(AM_MAKEFLAGS) stamp-h1; else :; fi
++
++stamp-h1: $(srcdir)/configure.h.in $(top_builddir)/config.status
++	@rm -f stamp-h1
++	cd $(top_builddir) && $(SHELL) ./config.status include/configure.h
++$(srcdir)/configure.h.in: # $(am__configure_deps) 
++	($(am__cd) $(top_srcdir) && $(AUTOHEADER))
++	rm -f stamp-h1
++	touch $@
++
++distclean-hdr:
++	-rm -f configure.h stamp-h1
++
++mostlyclean-libtool:
++	-rm -f *.lo
++
++clean-libtool:
++	-rm -rf .libs _libs
++install-nobase_includeHEADERS: $(nobase_include_HEADERS)
++	@$(NORMAL_INSTALL)
++	@list='$(nobase_include_HEADERS)'; test -n "$(includedir)" || list=; \
++	if test -n "$$list"; then \
++	  echo " $(MKDIR_P) '$(DESTDIR)$(includedir)'"; \
++	  $(MKDIR_P) "$(DESTDIR)$(includedir)" || exit 1; \
++	fi; \
++	$(am__nobase_list) | while read dir files; do \
++	  xfiles=; for file in $$files; do \
++	    if test -f "$$file"; then xfiles="$$xfiles $$file"; \
++	    else xfiles="$$xfiles $(srcdir)/$$file"; fi; done; \
++	  test -z "$$xfiles" || { \
++	    test "x$$dir" = x. || { \
++	      echo " $(MKDIR_P) '$(DESTDIR)$(includedir)/$$dir'"; \
++	      $(MKDIR_P) "$(DESTDIR)$(includedir)/$$dir"; }; \
++	    echo " $(INSTALL_HEADER) $$xfiles '$(DESTDIR)$(includedir)/$$dir'"; \
++	    $(INSTALL_HEADER) $$xfiles "$(DESTDIR)$(includedir)/$$dir" || exit $$?; }; \
++	done
++
++uninstall-nobase_includeHEADERS:
++	@$(NORMAL_UNINSTALL)
++	@list='$(nobase_include_HEADERS)'; test -n "$(includedir)" || list=; \
++	$(am__nobase_strip_setup); files=`$(am__nobase_strip)`; \
++	dir='$(DESTDIR)$(includedir)'; $(am__uninstall_files_from_dir)
++install-nodist_includeHEADERS: $(nodist_include_HEADERS)
++	@$(NORMAL_INSTALL)
++	@list='$(nodist_include_HEADERS)'; test -n "$(includedir)" || list=; \
++	if test -n "$$list"; then \
++	  echo " $(MKDIR_P) '$(DESTDIR)$(includedir)'"; \
++	  $(MKDIR_P) "$(DESTDIR)$(includedir)" || exit 1; \
++	fi; \
++	for p in $$list; do \
++	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
++	  echo "$$d$$p"; \
++	done | $(am__base_list) | \
++	while read files; do \
++	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(includedir)'"; \
++	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(includedir)" || exit $$?; \
++	done
++
++uninstall-nodist_includeHEADERS:
++	@$(NORMAL_UNINSTALL)
++	@list='$(nodist_include_HEADERS)'; test -n "$(includedir)" || list=; \
++	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
++	dir='$(DESTDIR)$(includedir)'; $(am__uninstall_files_from_dir)
++
++ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
++	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
++	unique=`for i in $$list; do \
++	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
++	  done | \
++	  $(AWK) '{ files[$$0] = 1; nonempty = 1; } \
++	      END { if (nonempty) { for (i in files) print i; }; }'`; \
++	mkid -fID $$unique
++tags: TAGS
++
++TAGS:  $(HEADERS) $(SOURCES) configure.h.in $(TAGS_DEPENDENCIES) \
++		$(TAGS_FILES) $(LISP)
++	set x; \
++	here=`pwd`; \
++	list='$(SOURCES) $(HEADERS) configure.h.in $(LISP) $(TAGS_FILES)'; \
++	unique=`for i in $$list; do \
++	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
++	  done | \
++	  $(AWK) '{ files[$$0] = 1; nonempty = 1; } \
++	      END { if (nonempty) { for (i in files) print i; }; }'`; \
++	shift; \
++	if test -z "$(ETAGS_ARGS)$$*$$unique"; then :; else \
++	  test -n "$$unique" || unique=$$empty_fix; \
++	  if test $$# -gt 0; then \
++	    $(ETAGS) $(ETAGSFLAGS) $(AM_ETAGSFLAGS) $(ETAGS_ARGS) \
++	      "$$@" $$unique; \
++	  else \
++	    $(ETAGS) $(ETAGSFLAGS) $(AM_ETAGSFLAGS) $(ETAGS_ARGS) \
++	      $$unique; \
++	  fi; \
++	fi
++ctags: CTAGS
++CTAGS:  $(HEADERS) $(SOURCES) configure.h.in $(TAGS_DEPENDENCIES) \
++		$(TAGS_FILES) $(LISP)
++	list='$(SOURCES) $(HEADERS) configure.h.in $(LISP) $(TAGS_FILES)'; \
++	unique=`for i in $$list; do \
++	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
++	  done | \
++	  $(AWK) '{ files[$$0] = 1; nonempty = 1; } \
++	      END { if (nonempty) { for (i in files) print i; }; }'`; \
++	test -z "$(CTAGS_ARGS)$$unique" \
++	  || $(CTAGS) $(CTAGSFLAGS) $(AM_CTAGSFLAGS) $(CTAGS_ARGS) \
++	     $$unique
++
++GTAGS:
++	here=`$(am__cd) $(top_builddir) && pwd` \
++	  && $(am__cd) $(top_srcdir) \
++	  && gtags -i $(GTAGS_ARGS) "$$here"
++
++distclean-tags:
++	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
++
++distdir: $(DISTFILES)
++	@srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
++	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
++	list='$(DISTFILES)'; \
++	  dist_files=`for file in $$list; do echo $$file; done | \
++	  sed -e "s|^$$srcdirstrip/||;t" \
++	      -e "s|^$$topsrcdirstrip/|$(top_builddir)/|;t"`; \
++	case $$dist_files in \
++	  */*) $(MKDIR_P) `echo "$$dist_files" | \
++			   sed '/\//!d;s|^|$(distdir)/|;s,/[^/]*$$,,' | \
++			   sort -u` ;; \
++	esac; \
++	for file in $$dist_files; do \
++	  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
++	  if test -d $$d/$$file; then \
++	    dir=`echo "/$$file" | sed -e 's,/[^/]*$$,,'`; \
++	    if test -d "$(distdir)/$$file"; then \
++	      find "$(distdir)/$$file" -type d ! -perm -700 -exec chmod u+rwx {} \;; \
++	    fi; \
++	    if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
++	      cp -fpR $(srcdir)/$$file "$(distdir)$$dir" || exit 1; \
++	      find "$(distdir)/$$file" -type d ! -perm -700 -exec chmod u+rwx {} \;; \
++	    fi; \
++	    cp -fpR $$d/$$file "$(distdir)$$dir" || exit 1; \
++	  else \
++	    test -f "$(distdir)/$$file" \
++	    || cp -p $$d/$$file "$(distdir)/$$file" \
++	    || exit 1; \
++	  fi; \
++	done
++check-am: all-am
++check: check-am
++all-am: Makefile $(HEADERS) configure.h
++installdirs:
++	for dir in "$(DESTDIR)$(includedir)" "$(DESTDIR)$(includedir)"; do \
++	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
++	done
++install: install-am
++install-exec: install-exec-am
++install-data: install-data-am
++uninstall: uninstall-am
++
++install-am: all-am
++	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
++
++installcheck: installcheck-am
++install-strip:
++	if test -z '$(STRIP)'; then \
++	  $(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
++	    install_sh_PROGRAM="$(INSTALL_STRIP_PROGRAM)" INSTALL_STRIP_FLAG=-s \
++	      install; \
++	else \
++	  $(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
++	    install_sh_PROGRAM="$(INSTALL_STRIP_PROGRAM)" INSTALL_STRIP_FLAG=-s \
++	    "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'" install; \
++	fi
++mostlyclean-generic:
++
++clean-generic:
++
++distclean-generic:
++	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
++	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
++	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
++
++maintainer-clean-generic:
++	@echo "This command is intended for maintainers to use"
++	@echo "it deletes files that may require special tools to rebuild."
++clean: clean-am
++
++clean-am: clean-generic clean-libtool mostlyclean-am
++
++distclean: distclean-am
++	-rm -f Makefile
++distclean-am: clean-am distclean-generic distclean-hdr distclean-tags
++
++dvi: dvi-am
++
++dvi-am:
++
++html: html-am
++
++html-am:
++
++info: info-am
++
++info-am:
++
++install-data-am: install-nobase_includeHEADERS \
++	install-nodist_includeHEADERS
++
++install-dvi: install-dvi-am
++
++install-dvi-am:
++
++install-exec-am:
++
++install-html: install-html-am
++
++install-html-am:
++
++install-info: install-info-am
++
++install-info-am:
++
++install-man:
++
++install-pdf: install-pdf-am
++
++install-pdf-am:
++
++install-ps: install-ps-am
++
++install-ps-am:
++
++installcheck-am:
++
++maintainer-clean: maintainer-clean-am
++	-rm -f Makefile
++maintainer-clean-am: distclean-am maintainer-clean-generic
++
++mostlyclean: mostlyclean-am
++
++mostlyclean-am: mostlyclean-generic mostlyclean-libtool
++
++pdf: pdf-am
++
++pdf-am:
++
++ps: ps-am
++
++ps-am:
++
++uninstall-am: uninstall-nobase_includeHEADERS \
++	uninstall-nodist_includeHEADERS
++
++.MAKE: all install-am install-strip
++
++.PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
++	clean-libtool ctags distclean distclean-generic distclean-hdr \
++	distclean-libtool distclean-tags distdir dvi dvi-am html \
++	html-am info info-am install install-am install-data \
++	install-data-am install-dvi install-dvi-am install-exec \
++	install-exec-am install-html install-html-am install-info \
++	install-info-am install-man install-nobase_includeHEADERS \
++	install-nodist_includeHEADERS install-pdf install-pdf-am \
++	install-ps install-ps-am install-strip installcheck \
++	installcheck-am installdirs maintainer-clean \
++	maintainer-clean-generic mostlyclean mostlyclean-generic \
++	mostlyclean-libtool pdf pdf-am ps ps-am tags uninstall \
++	uninstall-am uninstall-nobase_includeHEADERS \
++	uninstall-nodist_includeHEADERS
++
++V ?= $(GNU_VERBOSITY)
++
++# Tell versions [3.59,3.63) of GNU make to not export all variables.
++# Otherwise a system limit (for SysV at least) may be exceeded.
++.NOEXPORT:
+diff -urN xine-lib-1.2.4.org/include/Makefile.in xine-lib-1.2.4/include/Makefile.in
+--- xine-lib-1.2.4.org/include/Makefile.in	1970-01-01 01:00:00.000000000 +0100
++++ xine-lib-1.2.4/include/Makefile.in	2013-10-24 09:35:56.367188739 +0200
+@@ -0,0 +1,817 @@
++# Makefile.in generated by automake 1.11.6 from Makefile.am.
++# @configure_input@
++
++# Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002,
++# 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Free Software
++# Foundation, Inc.
++# This Makefile.in is free software; the Free Software Foundation
++# gives unlimited permission to copy and/or distribute it,
++# with or without modifications, as long as this notice is preserved.
++
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
++# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
++# PARTICULAR PURPOSE.
++
++@SET_MAKE@
++
++VPATH = @srcdir@
++am__make_dryrun = \
++  { \
++    am__dry=no; \
++    case $$MAKEFLAGS in \
++      *\\[\ \	]*) \
++        echo 'am--echo: ; @echo "AM"  OK' | $(MAKE) -f - 2>/dev/null \
++          | grep '^AM OK$$' >/dev/null || am__dry=yes;; \
++      *) \
++        for am__flg in $$MAKEFLAGS; do \
++          case $$am__flg in \
++            *=*|--*) ;; \
++            *n*) am__dry=yes; break;; \
++          esac; \
++        done;; \
++    esac; \
++    test $$am__dry = yes; \
++  }
++pkgdatadir = $(datadir)/@PACKAGE@
++pkgincludedir = $(includedir)/@PACKAGE@
++pkglibdir = $(libdir)/@PACKAGE@
++pkglibexecdir = $(libexecdir)/@PACKAGE@
++am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
++install_sh_DATA = $(install_sh) -c -m 644
++install_sh_PROGRAM = $(install_sh) -c
++install_sh_SCRIPT = $(install_sh) -c
++INSTALL_HEADER = $(INSTALL_DATA)
++transform = $(program_transform_name)
++NORMAL_INSTALL = :
++PRE_INSTALL = :
++POST_INSTALL = :
++NORMAL_UNINSTALL = :
++PRE_UNINSTALL = :
++POST_UNINSTALL = :
++build_triplet = @build@
++host_triplet = @host@
++DIST_COMMON = $(nobase_include_HEADERS) $(noinst_HEADERS) \
++	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
++	$(srcdir)/configure.h.in $(top_srcdir)/misc/Makefile.quiet
++subdir = include
++ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
++am__aclocal_m4_deps = $(top_srcdir)/m4/attributes.m4 \
++	$(top_srcdir)/m4/audio_out.m4 $(top_srcdir)/m4/decoders.m4 \
++	$(top_srcdir)/m4/directx.m4 $(top_srcdir)/m4/gas.m4 \
++	$(top_srcdir)/m4/getopt_long.m4 $(top_srcdir)/m4/gettext.m4 \
++	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/input.m4 \
++	$(top_srcdir)/m4/intlmacosx.m4 $(top_srcdir)/m4/lib-ld.m4 \
++	$(top_srcdir)/m4/lib-link.m4 $(top_srcdir)/m4/lib-prefix.m4 \
++	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/ltoptions.m4 \
++	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
++	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/macosx.m4 \
++	$(top_srcdir)/m4/misc.m4 $(top_srcdir)/m4/nls.m4 \
++	$(top_srcdir)/m4/package.m4 $(top_srcdir)/m4/pkg.m4 \
++	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/programs.m4 \
++	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/pthreads.m4 \
++	$(top_srcdir)/m4/summary.m4 $(top_srcdir)/m4/symbol.m4 \
++	$(top_srcdir)/m4/types.m4 $(top_srcdir)/m4/video_out.m4 \
++	$(top_srcdir)/m4/xine.m4 $(top_srcdir)/m4/objc.m4 \
++	$(top_srcdir)/configure.ac
++am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
++	$(ACLOCAL_M4)
++mkinstalldirs = $(install_sh) -d
++CONFIG_HEADER = configure.h
++CONFIG_CLEAN_VPATH_FILES =
++AM_V_GEN = $(am__v_GEN_@AM_V@)
++am__v_GEN_ = $(am__v_GEN_@AM_DEFAULT_V@)
++am__v_GEN_0 = @echo "  GEN   " $@;
++AM_V_at = $(am__v_at_@AM_V@)
++am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
++am__v_at_0 = @
++SOURCES =
++DIST_SOURCES =
++am__can_run_installinfo = \
++  case $$AM_UPDATE_INFO_DIR in \
++    n|no|NO) false;; \
++    *) (install-info --version) >/dev/null 2>&1;; \
++  esac
++am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
++am__vpath_adj = case $$p in \
++    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
++    *) f=$$p;; \
++  esac;
++am__strip_dir = f=`echo $$p | sed -e 's|^.*/||'`;
++am__install_max = 40
++am__nobase_strip_setup = \
++  srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*|]/\\\\&/g'`
++am__nobase_strip = \
++  for p in $$list; do echo "$$p"; done | sed -e "s|$$srcdirstrip/||"
++am__nobase_list = $(am__nobase_strip_setup); \
++  for p in $$list; do echo "$$p $$p"; done | \
++  sed "s| $$srcdirstrip/| |;"' / .*\//!s/ .*/ ./; s,\( .*\)/[^/]*$$,\1,' | \
++  $(AWK) 'BEGIN { files["."] = "" } { files[$$2] = files[$$2] " " $$1; \
++    if (++n[$$2] == $(am__install_max)) \
++      { print $$2, files[$$2]; n[$$2] = 0; files[$$2] = "" } } \
++    END { for (dir in files) print dir, files[dir] }'
++am__base_list = \
++  sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
++  sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
++am__uninstall_files_from_dir = { \
++  test -z "$$files" \
++    || { test ! -d "$$dir" && test ! -f "$$dir" && test ! -r "$$dir"; } \
++    || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
++         $(am__cd) "$$dir" && rm -f $$files; }; \
++  }
++am__installdirs = "$(DESTDIR)$(includedir)" "$(DESTDIR)$(includedir)"
++HEADERS = $(nobase_include_HEADERS) $(nodist_include_HEADERS) \
++	$(nodist_noinst_HEADERS) $(noinst_HEADERS)
++ETAGS = etags
++CTAGS = ctags
++DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
++A52DEC_CFLAGS = @A52DEC_CFLAGS@
++A52DEC_DEPS = @A52DEC_DEPS@
++A52DEC_LIBS = @A52DEC_LIBS@
++AALIB_CFLAGS = @AALIB_CFLAGS@
++AALIB_CONFIG = @AALIB_CONFIG@
++AALIB_LIBS = @AALIB_LIBS@
++ACLOCAL = @ACLOCAL@
++ACLOCAL_DIR = @ACLOCAL_DIR@
++ALSA_CFLAGS = @ALSA_CFLAGS@
++ALSA_LIBS = @ALSA_LIBS@
++AMTAR = @AMTAR@
++AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
++AR = @AR@
++AS = @AS@
++AUTOCONF = @AUTOCONF@
++AUTOHEADER = @AUTOHEADER@
++AUTOMAKE = @AUTOMAKE@
++AVUTIL_CFLAGS = @AVUTIL_CFLAGS@
++AVUTIL_LIBS = @AVUTIL_LIBS@
++AWK = @AWK@
++CACA_CFLAGS = @CACA_CFLAGS@
++CACA_LIBS = @CACA_LIBS@
++CC = @CC@
++CCAS = @CCAS@
++CCASDEPMODE = @CCASDEPMODE@
++CCASFLAGS = @CCASFLAGS@
++CCDEPMODE = @CCDEPMODE@
++CFLAGS = @CFLAGS@
++CPP = @CPP@
++CPPFLAGS = @CPPFLAGS@
++CYGPATH_W = @CYGPATH_W@
++DEFAULT_OCFLAGS = @DEFAULT_OCFLAGS@
++DEFS = @DEFS@
++DEPDIR = @DEPDIR@
++DEPMOD = @DEPMOD@
++DIRECTFB_CFLAGS = @DIRECTFB_CFLAGS@
++DIRECTFB_LIBS = @DIRECTFB_LIBS@
++DIRECTX_AUDIO_LIBS = @DIRECTX_AUDIO_LIBS@
++DIRECTX_CPPFLAGS = @DIRECTX_CPPFLAGS@
++DIRECTX_VIDEO_LIBS = @DIRECTX_VIDEO_LIBS@
++DLLTOOL = @DLLTOOL@
++DSYMUTIL = @DSYMUTIL@
++DUMPBIN = @DUMPBIN@
++DVDNAV_CFLAGS = @DVDNAV_CFLAGS@
++DVDNAV_CONFIG = @DVDNAV_CONFIG@
++DVDNAV_LIBS = @DVDNAV_LIBS@
++DYNAMIC_LD_LIBS = @DYNAMIC_LD_LIBS@
++ECHO_C = @ECHO_C@
++ECHO_N = @ECHO_N@
++ECHO_T = @ECHO_T@
++EGREP = @EGREP@
++ESD_CFLAGS = @ESD_CFLAGS@
++ESD_LIBS = @ESD_LIBS@
++EXEEXT = @EXEEXT@
++FAAD_CFLAGS = @FAAD_CFLAGS@
++FAAD_DEPS = @FAAD_DEPS@
++FAAD_LIBS = @FAAD_LIBS@
++FFMPEG_CFLAGS = @FFMPEG_CFLAGS@
++FFMPEG_LIBS = @FFMPEG_LIBS@
++FFMPEG_POSTPROC_CFLAGS = @FFMPEG_POSTPROC_CFLAGS@
++FFMPEG_POSTPROC_LIBS = @FFMPEG_POSTPROC_LIBS@
++FGREP = @FGREP@
++FONTCONFIG_CFLAGS = @FONTCONFIG_CFLAGS@
++FONTCONFIG_LIBS = @FONTCONFIG_LIBS@
++FT2_CFLAGS = @FT2_CFLAGS@
++FT2_LIBS = @FT2_LIBS@
++FUSIONSOUND_CFLAGS = @FUSIONSOUND_CFLAGS@
++FUSIONSOUND_LIBS = @FUSIONSOUND_LIBS@
++GCSECTIONS = @GCSECTIONS@
++GDK_PIXBUF_CFLAGS = @GDK_PIXBUF_CFLAGS@
++GDK_PIXBUF_LIBS = @GDK_PIXBUF_LIBS@
++GETTEXT_MACRO_VERSION = @GETTEXT_MACRO_VERSION@
++GLU_LIBS = @GLU_LIBS@
++GMSGFMT = @GMSGFMT@
++GMSGFMT_015 = @GMSGFMT_015@
++GNOME_VFS_CFLAGS = @GNOME_VFS_CFLAGS@
++GNOME_VFS_LIBS = @GNOME_VFS_LIBS@
++GOOM_LIBS = @GOOM_LIBS@
++GRAPHICSMAGICKWAND_CFLAGS = @GRAPHICSMAGICKWAND_CFLAGS@
++GRAPHICSMAGICKWAND_LIBS = @GRAPHICSMAGICKWAND_LIBS@
++GRAPHICSMAGICK_CFLAGS = @GRAPHICSMAGICK_CFLAGS@
++GRAPHICSMAGICK_LIBS = @GRAPHICSMAGICK_LIBS@
++GREP = @GREP@
++IMPURE_TEXT_LDFLAGS = @IMPURE_TEXT_LDFLAGS@
++INCLUDES = @INCLUDES@
++INSTALL = @INSTALL@
++INSTALL_DATA = @INSTALL_DATA@
++INSTALL_PROGRAM = @INSTALL_PROGRAM@
++INSTALL_SCRIPT = @INSTALL_SCRIPT@
++INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
++INTLLIBS = @INTLLIBS@
++INTL_MACOSX_LIBS = @INTL_MACOSX_LIBS@
++IRIXAL_LIBS = @IRIXAL_LIBS@
++IRIXAL_STATIC_LIB = @IRIXAL_STATIC_LIB@
++JACK_CFLAGS = @JACK_CFLAGS@
++JACK_LIBS = @JACK_LIBS@
++JPEG_LIBS = @JPEG_LIBS@
++KSTAT_LIBS = @KSTAT_LIBS@
++LD = @LD@
++LDFLAGS = @LDFLAGS@
++LDFLAGS_NOUNDEFINED = @LDFLAGS_NOUNDEFINED@
++LIBBLURAY_CFLAGS = @LIBBLURAY_CFLAGS@
++LIBBLURAY_LIBS = @LIBBLURAY_LIBS@
++LIBCDIO_CFLAGS = @LIBCDIO_CFLAGS@
++LIBCDIO_LIBS = @LIBCDIO_LIBS@
++LIBDTS_CFLAGS = @LIBDTS_CFLAGS@
++LIBDTS_DEPS = @LIBDTS_DEPS@
++LIBDTS_LIBS = @LIBDTS_LIBS@
++LIBFAME_CFLAGS = @LIBFAME_CFLAGS@
++LIBFAME_CONFIG = @LIBFAME_CONFIG@
++LIBFAME_LIBS = @LIBFAME_LIBS@
++LIBFLAC_CFLAGS = @LIBFLAC_CFLAGS@
++LIBFLAC_LIBS = @LIBFLAC_LIBS@
++LIBICONV = @LIBICONV@
++LIBINTL = @LIBINTL@
++LIBMAD_CFLAGS = @LIBMAD_CFLAGS@
++LIBMAD_DEPS = @LIBMAD_DEPS@
++LIBMAD_LIBS = @LIBMAD_LIBS@
++LIBMODPLUG_CFLAGS = @LIBMODPLUG_CFLAGS@
++LIBMODPLUG_LIBS = @LIBMODPLUG_LIBS@
++LIBNAME = @LIBNAME@
++LIBOBJS = @LIBOBJS@
++LIBS = @LIBS@
++LIBSMBCLIENT_LIBS = @LIBSMBCLIENT_LIBS@
++LIBSTK_CFLAGS = @LIBSTK_CFLAGS@
++LIBSTK_LIBS = @LIBSTK_LIBS@
++LIBTOOL = @LIBTOOL@
++LIBTOOL_DESTDIR_DEFAULT = @LIBTOOL_DESTDIR_DEFAULT@
++LIBVA_CFLAGS = @LIBVA_CFLAGS@
++LIBVA_LIBS = @LIBVA_LIBS@
++LIBVCDINFO_CFLAGS = @LIBVCDINFO_CFLAGS@
++LIBVCDINFO_LIBS = @LIBVCDINFO_LIBS@
++LIBVCD_CFLAGS = @LIBVCD_CFLAGS@
++LIBVCD_LIBS = @LIBVCD_LIBS@
++LINUX_INCLUDE = @LINUX_INCLUDE@
++LIPO = @LIPO@
++LN_S = @LN_S@
++LTLIBICONV = @LTLIBICONV@
++LTLIBINTL = @LTLIBINTL@
++LTLIBOBJS = @LTLIBOBJS@
++MAGICKWAND_CFLAGS = @MAGICKWAND_CFLAGS@
++MAGICKWAND_LIBS = @MAGICKWAND_LIBS@
++MAINT = @MAINT@
++MAKEINFO = @MAKEINFO@
++MANIFEST_TOOL = @MANIFEST_TOOL@
++MKDIR_P = @MKDIR_P@
++MKNOD = @MKNOD@
++MLIB_CFLAGS = @MLIB_CFLAGS@
++MLIB_LIBS = @MLIB_LIBS@
++MNG_LIBS = @MNG_LIBS@
++MPCDEC_CFLAGS = @MPCDEC_CFLAGS@
++MPCDEC_DEPS = @MPCDEC_DEPS@
++MPCDEC_LIBS = @MPCDEC_LIBS@
++MSGFMT = @MSGFMT@
++MSGFMT_015 = @MSGFMT_015@
++MSGMERGE = @MSGMERGE@
++NET_LIBS = @NET_LIBS@
++NM = @NM@
++NMEDIT = @NMEDIT@
++NOUNDEF = @NOUNDEF@
++O0_CFLAGS = @O0_CFLAGS@
++O1_CFLAGS = @O1_CFLAGS@
++O2_CFLAGS = @O2_CFLAGS@
++O3_CFLAGS = @O3_CFLAGS@
++OBJC = @OBJC@
++OBJCDEPMODE = @OBJCDEPMODE@
++OBJCFLAGS = @OBJCFLAGS@
++OBJDUMP = @OBJDUMP@
++OBJEXT = @OBJEXT@
++OPENGL_CFLAGS = @OPENGL_CFLAGS@
++OPENGL_LIBS = @OPENGL_LIBS@
++OPTIPNG = @OPTIPNG@
++OTOOL = @OTOOL@
++OTOOL64 = @OTOOL64@
++PACKAGE = @PACKAGE@
++PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
++PACKAGE_NAME = @PACKAGE_NAME@
++PACKAGE_STRING = @PACKAGE_STRING@
++PACKAGE_TARNAME = @PACKAGE_TARNAME@
++PACKAGE_URL = @PACKAGE_URL@
++PACKAGE_VERSION = @PACKAGE_VERSION@
++PASS1_CFLAGS = @PASS1_CFLAGS@
++PASS2_CFLAGS = @PASS2_CFLAGS@
++PATH_SEPARATOR = @PATH_SEPARATOR@
++PERL = @PERL@
++PKG_CONFIG = @PKG_CONFIG@
++POSUB = @POSUB@
++PTHREAD_CFLAGS = @PTHREAD_CFLAGS@
++PTHREAD_LIBS = @PTHREAD_LIBS@
++PULSEAUDIO_CFLAGS = @PULSEAUDIO_CFLAGS@
++PULSEAUDIO_LIBS = @PULSEAUDIO_LIBS@
++RANLIB = @RANLIB@
++RSVG = @RSVG@
++RT_LIBS = @RT_LIBS@
++SDL_CFLAGS = @SDL_CFLAGS@
++SDL_LIBS = @SDL_LIBS@
++SED = @SED@
++SET_MAKE = @SET_MAKE@
++SHELL = @SHELL@
++SNDIO_CFLAGS = @SNDIO_CFLAGS@
++SNDIO_LIBS = @SNDIO_LIBS@
++SPEEX_CFLAGS = @SPEEX_CFLAGS@
++SPEEX_LIBS = @SPEEX_LIBS@
++STRINGS = @STRINGS@
++STRIP = @STRIP@
++SUNDGA_CPPFLAGS = @SUNDGA_CPPFLAGS@
++SUNDGA_LIBS = @SUNDGA_LIBS@
++THEORA_CFLAGS = @THEORA_CFLAGS@
++THEORA_LIBS = @THEORA_LIBS@
++UNIVERSAL_ARCHES = @UNIVERSAL_ARCHES@
++USE_NLS = @USE_NLS@
++V4L2_CFLAGS = @V4L2_CFLAGS@
++V4L2_LIBS = @V4L2_LIBS@
++VDPAU_CFLAGS = @VDPAU_CFLAGS@
++VDPAU_LIBS = @VDPAU_LIBS@
++VERSION = @VERSION@
++VISIBILITY_FLAG = @VISIBILITY_FLAG@
++VORBIS_CFLAGS = @VORBIS_CFLAGS@
++VORBIS_LIBS = @VORBIS_LIBS@
++W32_NO_OPTIMIZE = @W32_NO_OPTIMIZE@
++WAND_CFLAGS = @WAND_CFLAGS@
++WAND_LIBS = @WAND_LIBS@
++WAVPACK_CFLAGS = @WAVPACK_CFLAGS@
++WAVPACK_LIBS = @WAVPACK_LIBS@
++XCBSHM_CFLAGS = @XCBSHM_CFLAGS@
++XCBSHM_LIBS = @XCBSHM_LIBS@
++XCBXV_CFLAGS = @XCBXV_CFLAGS@
++XCBXV_LIBS = @XCBXV_LIBS@
++XCB_CFLAGS = @XCB_CFLAGS@
++XCB_LIBS = @XCB_LIBS@
++XDG_BASEDIR_CFLAGS = @XDG_BASEDIR_CFLAGS@
++XDG_BASEDIR_CPPFLAGS = @XDG_BASEDIR_CPPFLAGS@
++XDG_BASEDIR_DEPS = @XDG_BASEDIR_DEPS@
++XDG_BASEDIR_LIBS = @XDG_BASEDIR_LIBS@
++XDG_BASEDIR_REQUIRES = @XDG_BASEDIR_REQUIRES@
++XGETTEXT = @XGETTEXT@
++XGETTEXT_015 = @XGETTEXT_015@
++XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
++XINERAMA_CFLAGS = @XINERAMA_CFLAGS@
++XINERAMA_LIBS = @XINERAMA_LIBS@
++XINE_ACFLAGS = @XINE_ACFLAGS@
++XINE_BUILD_CC = @XINE_BUILD_CC@
++XINE_BUILD_DATE = @XINE_BUILD_DATE@
++XINE_BUILD_OS = @XINE_BUILD_OS@
++XINE_DATADIR = @XINE_DATADIR@
++XINE_FONTDIR = @XINE_FONTDIR@
++XINE_LOCALEDIR = @XINE_LOCALEDIR@
++XINE_LT_AGE = @XINE_LT_AGE@
++XINE_LT_CURRENT = @XINE_LT_CURRENT@
++XINE_LT_REVISION = @XINE_LT_REVISION@
++XINE_MAJOR = @XINE_MAJOR@
++XINE_MINOR = @XINE_MINOR@
++XINE_PATCH = @XINE_PATCH@
++XINE_PKGCONFIG_DIR = @XINE_PKGCONFIG_DIR@
++XINE_PLUGINDIR = @XINE_PLUGINDIR@
++XINE_SCRIPTPATH = @XINE_SCRIPTPATH@
++XINE_SERIES = @XINE_SERIES@
++XINE_SUB = @XINE_SUB@
++XMKMF = @XMKMF@
++XMLTO = @XMLTO@
++XVMC_LIBS = @XVMC_LIBS@
++XV_CFLAGS = @XV_CFLAGS@
++XV_LIBS = @XV_LIBS@
++XXMC_LIBS = @XXMC_LIBS@
++X_CFLAGS = @X_CFLAGS@
++X_EXTRA_LIBS = @X_EXTRA_LIBS@
++X_LIBS = @X_LIBS@
++X_PRE_LIBS = @X_PRE_LIBS@
++ZLIB_CPPFLAGS = @ZLIB_CPPFLAGS@
++ZLIB_LIBS = @ZLIB_LIBS@
++abs_builddir = @abs_builddir@
++abs_srcdir = @abs_srcdir@
++abs_top_builddir = @abs_top_builddir@
++abs_top_srcdir = @abs_top_srcdir@
++ac_ct_AR = @ac_ct_AR@
++ac_ct_CC = @ac_ct_CC@
++ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
++ac_ct_OBJC = @ac_ct_OBJC@
++am__include = @am__include@
++am__leading_dot = @am__leading_dot@
++am__quote = @am__quote@
++am__tar = @am__tar@
++am__untar = @am__untar@
++bindir = @bindir@
++build = @build@
++build_alias = @build_alias@
++build_cpu = @build_cpu@
++build_os = @build_os@
++build_vendor = @build_vendor@
++builddir = @builddir@
++datadir = @datadir@
++datarootdir = @datarootdir@
++docdir = @docdir@
++dvidir = @dvidir@
++exec_prefix = @exec_prefix@
++host = @host@
++host_alias = @host_alias@
++host_cpu = @host_cpu@
++host_os = @host_os@
++host_vendor = @host_vendor@
++htmldir = @htmldir@
++includedir = @includedir@
++infodir = @infodir@
++install_sh = @install_sh@
++libdir = @libdir@
++libexecdir = @libexecdir@
++localedir = @localedir@
++localstatedir = @localstatedir@
++mandir = @mandir@
++mkdir_p = @mkdir_p@
++oldincludedir = @oldincludedir@
++pdfdir = @pdfdir@
++pkgconfigdir = @pkgconfigdir@
++prefix = @prefix@
++program_transform_name = @program_transform_name@
++psdir = @psdir@
++sbindir = @sbindir@
++sharedstatedir = @sharedstatedir@
++srcdir = @srcdir@
++sysconfdir = @sysconfdir@
++target_alias = @target_alias@
++top_build_prefix = @top_build_prefix@
++top_builddir = @top_builddir@
++top_srcdir = @top_srcdir@
++w32_path = @w32_path@
++xine_acflags = @xine_acflags@
++xinedatadir = @xinedatadir@
++xinelibdir = @xinelibdir@
++GNU_VERBOSITY := $(if $(findstring GNU,$(shell $(MAKE) -v)),0,1)
++EXTRA_DIST = xine/version.h.in
++@GENERATED_INTTYPES_H_TRUE@inttypes_h = inttypes.h
++nobase_include_HEADERS = xine.h \
++	xine/alphablend.h	\
++	xine/array.h		\
++	xine/attributes.h	\
++	xine/audio_decoder.h	\
++	xine/audio_out.h	\
++	xine/broadcaster.h	\
++	xine/buffer.h		\
++	xine/compat.h		\
++	xine/configfile.h	\
++	xine/demux.h		\
++	xine/info_helper.h	\
++	xine/input_plugin.h	\
++	xine/io_helper.h	\
++	xine/list.h		\
++	xine/metronom.h		\
++	xine/os_types.h		\
++	xine/osd.h		\
++	xine/plugin_catalog.h	\
++	xine/pool.h		\
++	xine/post.h		\
++	xine/refcounter.h	\
++	xine/resample.h		\
++	xine/ring_buffer.h	\
++	xine/scratch.h		\
++	xine/sorted_array.h	\
++	xine/spu.h		\
++	xine/spu_decoder.h	\
++	xine/vdr.h		\
++	xine/version.h		\
++	xine/video_decoder.h	\
++	xine/video_out.h	\
++	xine/video_overlay.h	\
++	xine/vo_scale.h		\
++	xine/xine_buffer.h	\
++	xine/xine_internal.h	\
++	xine/xine_plugin.h	\
++	xine/xineintl.h		\
++	xine/xineutils.h	\
++	xine/xmllexer.h		\
++	xine/xmlparser.h
++
++noinst_HEADERS = config.h
++nodist_noinst_HEADERS = configure.h
++nodist_include_HEADERS = $(inttypes_h)
++CONFIG_CLEAN_FILES = $(inttypes_h)
++DISTCLEANFILES = xine/version.h
++all: configure.h
++	$(MAKE) $(AM_MAKEFLAGS) all-am
++
++.SUFFIXES:
++$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am $(top_srcdir)/misc/Makefile.quiet $(am__configure_deps)
++	@for dep in $?; do \
++	  case '$(am__configure_deps)' in \
++	    *$$dep*) \
++	      ( cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh ) \
++	        && { if test -f $@; then exit 0; else break; fi; }; \
++	      exit 1;; \
++	  esac; \
++	done; \
++	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu include/Makefile'; \
++	$(am__cd) $(top_srcdir) && \
++	  $(AUTOMAKE) --gnu include/Makefile
++.PRECIOUS: Makefile
++Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
++	@case '$?' in \
++	  *config.status*) \
++	    cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh;; \
++	  *) \
++	    echo ' cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__depfiles_maybe)'; \
++	    cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__depfiles_maybe);; \
++	esac;
++$(top_srcdir)/misc/Makefile.quiet:
++
++$(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
++	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
++
++$(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
++	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
++$(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
++	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
++$(am__aclocal_m4_deps):
++
++configure.h: stamp-h1
++	@if test ! -f $@; then rm -f stamp-h1; else :; fi
++	@if test ! -f $@; then $(MAKE) $(AM_MAKEFLAGS) stamp-h1; else :; fi
++
++stamp-h1: $(srcdir)/configure.h.in $(top_builddir)/config.status
++	@rm -f stamp-h1
++	cd $(top_builddir) && $(SHELL) ./config.status include/configure.h
++$(srcdir)/configure.h.in: @MAINTAINER_MODE_TRUE@ $(am__configure_deps) 
++	($(am__cd) $(top_srcdir) && $(AUTOHEADER))
++	rm -f stamp-h1
++	touch $@
++
++distclean-hdr:
++	-rm -f configure.h stamp-h1
++
++mostlyclean-libtool:
++	-rm -f *.lo
++
++clean-libtool:
++	-rm -rf .libs _libs
++install-nobase_includeHEADERS: $(nobase_include_HEADERS)
++	@$(NORMAL_INSTALL)
++	@list='$(nobase_include_HEADERS)'; test -n "$(includedir)" || list=; \
++	if test -n "$$list"; then \
++	  echo " $(MKDIR_P) '$(DESTDIR)$(includedir)'"; \
++	  $(MKDIR_P) "$(DESTDIR)$(includedir)" || exit 1; \
++	fi; \
++	$(am__nobase_list) | while read dir files; do \
++	  xfiles=; for file in $$files; do \
++	    if test -f "$$file"; then xfiles="$$xfiles $$file"; \
++	    else xfiles="$$xfiles $(srcdir)/$$file"; fi; done; \
++	  test -z "$$xfiles" || { \
++	    test "x$$dir" = x. || { \
++	      echo " $(MKDIR_P) '$(DESTDIR)$(includedir)/$$dir'"; \
++	      $(MKDIR_P) "$(DESTDIR)$(includedir)/$$dir"; }; \
++	    echo " $(INSTALL_HEADER) $$xfiles '$(DESTDIR)$(includedir)/$$dir'"; \
++	    $(INSTALL_HEADER) $$xfiles "$(DESTDIR)$(includedir)/$$dir" || exit $$?; }; \
++	done
++
++uninstall-nobase_includeHEADERS:
++	@$(NORMAL_UNINSTALL)
++	@list='$(nobase_include_HEADERS)'; test -n "$(includedir)" || list=; \
++	$(am__nobase_strip_setup); files=`$(am__nobase_strip)`; \
++	dir='$(DESTDIR)$(includedir)'; $(am__uninstall_files_from_dir)
++install-nodist_includeHEADERS: $(nodist_include_HEADERS)
++	@$(NORMAL_INSTALL)
++	@list='$(nodist_include_HEADERS)'; test -n "$(includedir)" || list=; \
++	if test -n "$$list"; then \
++	  echo " $(MKDIR_P) '$(DESTDIR)$(includedir)'"; \
++	  $(MKDIR_P) "$(DESTDIR)$(includedir)" || exit 1; \
++	fi; \
++	for p in $$list; do \
++	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
++	  echo "$$d$$p"; \
++	done | $(am__base_list) | \
++	while read files; do \
++	  echo " $(INSTALL_HEADER) $$files '$(DESTDIR)$(includedir)'"; \
++	  $(INSTALL_HEADER) $$files "$(DESTDIR)$(includedir)" || exit $$?; \
++	done
++
++uninstall-nodist_includeHEADERS:
++	@$(NORMAL_UNINSTALL)
++	@list='$(nodist_include_HEADERS)'; test -n "$(includedir)" || list=; \
++	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
++	dir='$(DESTDIR)$(includedir)'; $(am__uninstall_files_from_dir)
++
++ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
++	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
++	unique=`for i in $$list; do \
++	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
++	  done | \
++	  $(AWK) '{ files[$$0] = 1; nonempty = 1; } \
++	      END { if (nonempty) { for (i in files) print i; }; }'`; \
++	mkid -fID $$unique
++tags: TAGS
++
++TAGS:  $(HEADERS) $(SOURCES) configure.h.in $(TAGS_DEPENDENCIES) \
++		$(TAGS_FILES) $(LISP)
++	set x; \
++	here=`pwd`; \
++	list='$(SOURCES) $(HEADERS) configure.h.in $(LISP) $(TAGS_FILES)'; \
++	unique=`for i in $$list; do \
++	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
++	  done | \
++	  $(AWK) '{ files[$$0] = 1; nonempty = 1; } \
++	      END { if (nonempty) { for (i in files) print i; }; }'`; \
++	shift; \
++	if test -z "$(ETAGS_ARGS)$$*$$unique"; then :; else \
++	  test -n "$$unique" || unique=$$empty_fix; \
++	  if test $$# -gt 0; then \
++	    $(ETAGS) $(ETAGSFLAGS) $(AM_ETAGSFLAGS) $(ETAGS_ARGS) \
++	      "$$@" $$unique; \
++	  else \
++	    $(ETAGS) $(ETAGSFLAGS) $(AM_ETAGSFLAGS) $(ETAGS_ARGS) \
++	      $$unique; \
++	  fi; \
++	fi
++ctags: CTAGS
++CTAGS:  $(HEADERS) $(SOURCES) configure.h.in $(TAGS_DEPENDENCIES) \
++		$(TAGS_FILES) $(LISP)
++	list='$(SOURCES) $(HEADERS) configure.h.in $(LISP) $(TAGS_FILES)'; \
++	unique=`for i in $$list; do \
++	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
++	  done | \
++	  $(AWK) '{ files[$$0] = 1; nonempty = 1; } \
++	      END { if (nonempty) { for (i in files) print i; }; }'`; \
++	test -z "$(CTAGS_ARGS)$$unique" \
++	  || $(CTAGS) $(CTAGSFLAGS) $(AM_CTAGSFLAGS) $(CTAGS_ARGS) \
++	     $$unique
++
++GTAGS:
++	here=`$(am__cd) $(top_builddir) && pwd` \
++	  && $(am__cd) $(top_srcdir) \
++	  && gtags -i $(GTAGS_ARGS) "$$here"
++
++distclean-tags:
++	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
++
++distdir: $(DISTFILES)
++	@srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
++	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
++	list='$(DISTFILES)'; \
++	  dist_files=`for file in $$list; do echo $$file; done | \
++	  sed -e "s|^$$srcdirstrip/||;t" \
++	      -e "s|^$$topsrcdirstrip/|$(top_builddir)/|;t"`; \
++	case $$dist_files in \
++	  */*) $(MKDIR_P) `echo "$$dist_files" | \
++			   sed '/\//!d;s|^|$(distdir)/|;s,/[^/]*$$,,' | \
++			   sort -u` ;; \
++	esac; \
++	for file in $$dist_files; do \
++	  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
++	  if test -d $$d/$$file; then \
++	    dir=`echo "/$$file" | sed -e 's,/[^/]*$$,,'`; \
++	    if test -d "$(distdir)/$$file"; then \
++	      find "$(distdir)/$$file" -type d ! -perm -700 -exec chmod u+rwx {} \;; \
++	    fi; \
++	    if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
++	      cp -fpR $(srcdir)/$$file "$(distdir)$$dir" || exit 1; \
++	      find "$(distdir)/$$file" -type d ! -perm -700 -exec chmod u+rwx {} \;; \
++	    fi; \
++	    cp -fpR $$d/$$file "$(distdir)$$dir" || exit 1; \
++	  else \
++	    test -f "$(distdir)/$$file" \
++	    || cp -p $$d/$$file "$(distdir)/$$file" \
++	    || exit 1; \
++	  fi; \
++	done
++check-am: all-am
++check: check-am
++all-am: Makefile $(HEADERS) configure.h
++installdirs:
++	for dir in "$(DESTDIR)$(includedir)" "$(DESTDIR)$(includedir)"; do \
++	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
++	done
++install: install-am
++install-exec: install-exec-am
++install-data: install-data-am
++uninstall: uninstall-am
++
++install-am: all-am
++	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
++
++installcheck: installcheck-am
++install-strip:
++	if test -z '$(STRIP)'; then \
++	  $(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
++	    install_sh_PROGRAM="$(INSTALL_STRIP_PROGRAM)" INSTALL_STRIP_FLAG=-s \
++	      install; \
++	else \
++	  $(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
++	    install_sh_PROGRAM="$(INSTALL_STRIP_PROGRAM)" INSTALL_STRIP_FLAG=-s \
++	    "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'" install; \
++	fi
++mostlyclean-generic:
++
++clean-generic:
++
++distclean-generic:
++	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
++	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
++	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
++
++maintainer-clean-generic:
++	@echo "This command is intended for maintainers to use"
++	@echo "it deletes files that may require special tools to rebuild."
++clean: clean-am
++
++clean-am: clean-generic clean-libtool mostlyclean-am
++
++distclean: distclean-am
++	-rm -f Makefile
++distclean-am: clean-am distclean-generic distclean-hdr distclean-tags
++
++dvi: dvi-am
++
++dvi-am:
++
++html: html-am
++
++html-am:
++
++info: info-am
++
++info-am:
++
++install-data-am: install-nobase_includeHEADERS \
++	install-nodist_includeHEADERS
++
++install-dvi: install-dvi-am
++
++install-dvi-am:
++
++install-exec-am:
++
++install-html: install-html-am
++
++install-html-am:
++
++install-info: install-info-am
++
++install-info-am:
++
++install-man:
++
++install-pdf: install-pdf-am
++
++install-pdf-am:
++
++install-ps: install-ps-am
++
++install-ps-am:
++
++installcheck-am:
++
++maintainer-clean: maintainer-clean-am
++	-rm -f Makefile
++maintainer-clean-am: distclean-am maintainer-clean-generic
++
++mostlyclean: mostlyclean-am
++
++mostlyclean-am: mostlyclean-generic mostlyclean-libtool
++
++pdf: pdf-am
++
++pdf-am:
++
++ps: ps-am
++
++ps-am:
++
++uninstall-am: uninstall-nobase_includeHEADERS \
++	uninstall-nodist_includeHEADERS
++
++.MAKE: all install-am install-strip
++
++.PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
++	clean-libtool ctags distclean distclean-generic distclean-hdr \
++	distclean-libtool distclean-tags distdir dvi dvi-am html \
++	html-am info info-am install install-am install-data \
++	install-data-am install-dvi install-dvi-am install-exec \
++	install-exec-am install-html install-html-am install-info \
++	install-info-am install-man install-nobase_includeHEADERS \
++	install-nodist_includeHEADERS install-pdf install-pdf-am \
++	install-ps install-ps-am install-strip installcheck \
++	installcheck-am installdirs maintainer-clean \
++	maintainer-clean-generic mostlyclean mostlyclean-generic \
++	mostlyclean-libtool pdf pdf-am ps ps-am tags uninstall \
++	uninstall-am uninstall-nobase_includeHEADERS \
++	uninstall-nodist_includeHEADERS
++
++V ?= $(GNU_VERBOSITY)
++
++# Tell versions [3.59,3.63) of GNU make to not export all variables.
++# Otherwise a system limit (for SysV at least) may be exceeded.
++.NOEXPORT:
+diff -urN xine-lib-1.2.4.org/include/stamp-h1 xine-lib-1.2.4/include/stamp-h1
+--- xine-lib-1.2.4.org/include/stamp-h1	1970-01-01 01:00:00.000000000 +0100
++++ xine-lib-1.2.4/include/stamp-h1	2013-10-24 09:35:56.367188739 +0200
+@@ -0,0 +1 @@
++timestamp for include/configure.h
+diff -urN xine-lib-1.2.4.org/include/xine/audio_decoder.h xine-lib-1.2.4/include/xine/audio_decoder.h
+--- xine-lib-1.2.4.org/include/xine/audio_decoder.h	2013-10-24 09:12:51.827164972 +0200
++++ xine-lib-1.2.4/include/xine/audio_decoder.h	2013-10-24 09:35:56.371188739 +0200
+@@ -44,7 +44,7 @@
+   /*
+    * open a new instance of this plugin class
+    */
+-  audio_decoder_t* (*open_plugin) (audio_decoder_class_t *this, xine_stream_t *stream);
++  audio_decoder_t* (*open_plugin) (audio_decoder_class_t *self, xine_stream_t *stream);
+ 
+   /**
+    * @brief short human readable identifier for this plugin class
+@@ -67,7 +67,7 @@
+    * free all class-related resources
+    */
+ 
+-  void (*dispose) (audio_decoder_class_t *this);
++  void (*dispose) (audio_decoder_class_t *self);
+ };
+ 
+ #define default_audio_decoder_class_dispose (void (*) (audio_decoder_class_t *this))free
+@@ -78,24 +78,24 @@
+    * decode data from buf and feed decoded samples to
+    * audio output
+    */
+-  void (*decode_data) (audio_decoder_t *this, buf_element_t *buf);
++  void (*decode_data) (audio_decoder_t *self, buf_element_t *buf);
+ 
+   /*
+    * reset decoder after engine flush (prepare for new
+    * audio data not related to recently decoded data)
+    */
+-  void (*reset) (audio_decoder_t *this);
++  void (*reset) (audio_decoder_t *self);
+ 
+   /*
+    * inform decoder that a time reference discontinuity has happened.
+    * that is, it must forget any currently held pts value
+    */
+-  void (*discontinuity) (audio_decoder_t *this);
++  void (*discontinuity) (audio_decoder_t *self);
+ 
+   /*
+    * close down, free all resources
+    */
+-  void (*dispose) (audio_decoder_t *this);
++  void (*dispose) (audio_decoder_t *self);
+ 
+   /**
+    * @brief Pointer to the loaded plugin node.
+diff -urN xine-lib-1.2.4.org/include/xine/broadcaster.h xine-lib-1.2.4/include/xine/broadcaster.h
+--- xine-lib-1.2.4.org/include/xine/broadcaster.h	2013-10-24 09:12:51.827164972 +0200
++++ xine-lib-1.2.4/include/xine/broadcaster.h	2013-10-24 09:35:56.371188739 +0200
+@@ -30,8 +30,8 @@
+ typedef struct broadcaster_s broadcaster_t;
+ 
+ broadcaster_t *_x_init_broadcaster(xine_stream_t *stream, int port) XINE_MALLOC XINE_PROTECTED;
+-void _x_close_broadcaster(broadcaster_t *this) XINE_PROTECTED;
+-int _x_get_broadcaster_port(broadcaster_t *this) XINE_PROTECTED;
++void _x_close_broadcaster(broadcaster_t *self) XINE_PROTECTED;
++int _x_get_broadcaster_port(broadcaster_t *self) XINE_PROTECTED;
+ 
+ 
+ #ifdef __cplusplus
+diff -urN xine-lib-1.2.4.org/include/xine/demux.h xine-lib-1.2.4/include/xine/demux.h
+--- xine-lib-1.2.4.org/include/xine/demux.h	2013-10-24 09:12:51.823164972 +0200
++++ xine-lib-1.2.4/include/xine/demux.h	2013-10-24 09:35:56.367188739 +0200
+@@ -49,7 +49,7 @@
+   /*
+    * open a new instance of this plugin class
+    */
+-  demux_plugin_t* (*open_plugin) (demux_class_t *this, xine_stream_t *stream, input_plugin_t *input);
++  demux_plugin_t* (*open_plugin) (demux_class_t *self, xine_stream_t *stream, input_plugin_t *input);
+ 
+   /**
+    * @brief short human readable identifier for this plugin class
+@@ -85,7 +85,7 @@
+   /*
+    * close down, free all resources
+    */
+-  void (*dispose) (demux_class_t *this);
++  void (*dispose) (demux_class_t *self);
+ };
+ 
+ #define default_demux_class_dispose (void (*) (demux_class_t *this))free
+@@ -101,7 +101,7 @@
+    * fifos, then return. do not start demux thread (yet)
+    */
+ 
+-  void (*send_headers) (demux_plugin_t *this);
++  void (*send_headers) (demux_plugin_t *self);
+ 
+   /*
+    * ask demux to seek
+@@ -122,7 +122,7 @@
+    *                           starting the demuxer)
+    */
+ 
+-  int (*seek) (demux_plugin_t *this,
++  int (*seek) (demux_plugin_t *self,
+ 	       off_t start_pos, int start_time, int playing );
+ 
+   /*
+@@ -135,37 +135,37 @@
+    * the demux current status
+    */
+ 
+-  int (*send_chunk) (demux_plugin_t *this);
++  int (*send_chunk) (demux_plugin_t *self);
+ 
+   /*
+    * free resources
+    */
+ 
+-  void (*dispose) (demux_plugin_t *this) ;
++  void (*dispose) (demux_plugin_t *self) ;
+ 
+   /*
+    * returns DEMUX_OK or  DEMUX_FINISHED
+    */
+ 
+-  int (*get_status) (demux_plugin_t *this) ;
++  int (*get_status) (demux_plugin_t *self) ;
+ 
+   /*
+    * gets stream length in miliseconds (might be estimated)
+    * may return 0 for non-seekable streams
+    */
+ 
+-  int (*get_stream_length) (demux_plugin_t *this);
++  int (*get_stream_length) (demux_plugin_t *self);
+ 
+   /*
+    * return capabilities of demuxed stream
+    */
+ 
+-  uint32_t (*get_capabilities) (demux_plugin_t *this);
++  uint32_t (*get_capabilities) (demux_plugin_t *self);
+ 
+   /*
+    * request optional data from input plugin.
+    */
+-  int (*get_optional_data) (demux_plugin_t *this, void *data, int data_type);
++  int (*get_optional_data) (demux_plugin_t *self, void *data, int data_type);
+ 
+   /*
+    * "backwards" link to plugin class
+@@ -186,7 +186,7 @@
+ #endif
+ } ;
+ 
+-#define default_demux_plugin_dispose (void (*) (demux_plugin_t *this))free
++#define default_demux_plugin_dispose (void (*) (demux_plugin_t *self))free
+ 
+ /*
+  * possible capabilites a demux plugin can have:
+diff -urN xine-lib-1.2.4.org/include/xine/input_plugin.h xine-lib-1.2.4/include/xine/input_plugin.h
+--- xine-lib-1.2.4.org/include/xine/input_plugin.h	2013-10-24 09:12:51.823164972 +0200
++++ xine-lib-1.2.4/include/xine/input_plugin.h	2013-10-24 09:35:56.367188739 +0200
+@@ -43,7 +43,7 @@
+    * create a new instance of this plugin class
+    * return NULL if the plugin does'nt handle the given mrl
+    */
+-  input_plugin_t* (*get_instance) (input_class_t *this, xine_stream_t *stream, const char *mrl);
++  input_plugin_t* (*get_instance) (input_class_t *self, xine_stream_t *stream, const char *mrl);
+ 
+   /**
+    * @brief short human readable identifier for this plugin class
+@@ -66,28 +66,28 @@
+    * ls function, optional: may be NULL
+    * return value: NULL => filename is a file, **char=> filename is a dir
+    */
+-  xine_mrl_t ** (*get_dir) (input_class_t *this, const char *filename, int *nFiles);
++  xine_mrl_t ** (*get_dir) (input_class_t *self, const char *filename, int *nFiles);
+ 
+   /*
+    * generate autoplay list, optional: may be NULL
+    * return value: list of MRLs
+    */
+-  const char * const * (*get_autoplay_list) (input_class_t *this, int *num_files);
++  const char * const * (*get_autoplay_list) (input_class_t *self, int *num_files);
+ 
+   /*
+    * close down, free all resources
+    */
+-  void (*dispose) (input_class_t *this);
++  void (*dispose) (input_class_t *self);
+ 
+   /*
+    * eject/load the media (if possible), optional: may be NULL
+    *
+    * returns 0 for temporary failures
+    */
+-  int (*eject_media) (input_class_t *this);
++  int (*eject_media) (input_class_t *self);
+ };
+ 
+-#define default_input_class_dispose (void (*) (input_class_t *this))free
++#define default_input_class_dispose (void (*) (input_class_t *self))free
+ 
+ struct input_plugin_s {
+ 
+@@ -95,7 +95,7 @@
+    * open the stream
+    * return 0 if an error occured
+    */
+-  int (*open) (input_plugin_t *this);
++  int (*open) (input_plugin_t *self);
+ 
+   /*
+    * return capabilities of the current playable entity. See
+@@ -113,14 +113,14 @@
+    * make a best-effort attempt to seek, e.g. at least
+    * relative forward seeking should work.
+    */
+-  uint32_t (*get_capabilities) (input_plugin_t *this);
++  uint32_t (*get_capabilities) (input_plugin_t *self);
+ 
+   /*
+    * read nlen bytes, return number of bytes read
+    * Should block until some bytes available for read;
+    * a return value of 0 indicates no data available
+    */
+-  off_t (*read) (input_plugin_t *this, void *buf, off_t nlen);
++  off_t (*read) (input_plugin_t *self, void *buf, off_t nlen);
+ 
+ 
+   /*
+@@ -128,7 +128,7 @@
+    * for blocked input sources len must be == blocksize
+    * the fifo parameter is only used to get access to the buffer_pool_alloc function
+    */
+-  buf_element_t *(*read_block)(input_plugin_t *this, fifo_buffer_t *fifo, off_t len);
++  buf_element_t *(*read_block)(input_plugin_t *self, fifo_buffer_t *fifo, off_t len);
+ 
+ 
+   /*
+@@ -136,7 +136,7 @@
+    *
+    * if seeking failed, -1 is returned
+    */
+-  off_t (*seek) (input_plugin_t *this, off_t offset, int origin);
++  off_t (*seek) (input_plugin_t *self, off_t offset, int origin);
+ 
+ 
+   /*
+@@ -148,14 +148,14 @@
+    * note: only SEEK_SET (0) is currently supported as origin
+    * note: may be NULL is not supported
+    */
+-  off_t (*seek_time) (input_plugin_t *this, int time_offset, int origin);
++  off_t (*seek_time) (input_plugin_t *self, int time_offset, int origin);
+ 
+ 
+   /*
+    * get current position in stream.
+    *
+    */
+-  off_t (*get_current_pos) (input_plugin_t *this);
++  off_t (*get_current_pos) (input_plugin_t *self);
+ 
+ 
+   /*
+@@ -163,7 +163,7 @@
+    *
+    * note: may be NULL is not supported
+    */
+-  int (*get_current_time) (input_plugin_t *this);
++  int (*get_current_time) (input_plugin_t *self);
+ 
+ 
+   /*
+@@ -183,7 +183,7 @@
+    * absolute or relative play position or possibly calculating the
+    * bit rate.
+    */
+-  off_t (*get_length) (input_plugin_t *this);
++  off_t (*get_length) (input_plugin_t *self);
+ 
+ 
+   /*
+@@ -199,25 +199,25 @@
+    * make this function simply return 0 if unsure.
+    */
+ 
+-  uint32_t (*get_blocksize) (input_plugin_t *this);
++  uint32_t (*get_blocksize) (input_plugin_t *self);
+ 
+ 
+   /*
+    * return current MRL
+    */
+-  const char * (*get_mrl) (input_plugin_t *this);
++  const char * (*get_mrl) (input_plugin_t *self);
+ 
+ 
+   /*
+    * request optional data from input plugin.
+    */
+-  int (*get_optional_data) (input_plugin_t *this, void *data, int data_type);
++  int (*get_optional_data) (input_plugin_t *self, void *data, int data_type);
+ 
+ 
+   /*
+    * close stream, free instance resources
+    */
+-  void (*dispose) (input_plugin_t *this);
++  void (*dispose) (input_plugin_t *self);
+ 
+   /*
+    * "backward" link to input plugin class struct
+diff -urN xine-lib-1.2.4.org/include/xine/osd.h xine-lib-1.2.4/include/xine/osd.h
+--- xine-lib-1.2.4.org/include/xine/osd.h	2013-10-24 09:12:51.823164972 +0200
++++ xine-lib-1.2.4/include/xine/osd.h	2013-10-24 09:35:56.367188739 +0200
+@@ -91,7 +91,7 @@
+    * A default palette is initialized (i sugest keeping color 0 as transparent
+    * for the sake of simplicity)
+    */
+-  osd_object_t* (*new_object) (osd_renderer_t *this, int width, int height);
++  osd_object_t* (*new_object) (osd_renderer_t *self, int width, int height);
+ 
+   /*
+    * free osd object
+@@ -194,7 +194,7 @@
+    * loaded fonts are unloaded
+    * osd objects are closed
+    */
+-  void (*close) (osd_renderer_t *this);
++  void (*close) (osd_renderer_t *self);
+ 
+   /*
+    * clear an osd object (empty drawing area)
+@@ -215,6 +215,10 @@
+    */
+   int (*show_unscaled) (osd_object_t *osd, int64_t vpts );
+ 
++
++
++  int (*show_scaled) (osd_object_t *osd, int64_t vpts );
++
+   /*
+    * see xine.h for defined XINE_OSD_CAP_ values.
+    */
+diff -urN xine-lib-1.2.4.org/include/xine/scratch.h xine-lib-1.2.4/include/xine/scratch.h
+--- xine-lib-1.2.4.org/include/xine/scratch.h	2013-10-24 09:12:51.827164972 +0200
++++ xine-lib-1.2.4/include/xine/scratch.h	2013-10-24 09:35:56.371188739 +0200
+@@ -33,11 +33,11 @@
+ struct scratch_buffer_s {
+ 
+   void         XINE_FORMAT_PRINTF(2, 0)
+-               (*scratch_printf) (scratch_buffer_t *this, const char *format, va_list ap);
++               (*scratch_printf) (scratch_buffer_t *self, const char *format, va_list ap);
+ 
+-  char       **(*get_content) (scratch_buffer_t *this);
++  char       **(*get_content) (scratch_buffer_t *self);
+ 
+-  void         (*dispose) (scratch_buffer_t *this);
++  void         (*dispose) (scratch_buffer_t *self);
+ 
+   char         **lines;
+   char         **ordered;
+diff -urN xine-lib-1.2.4.org/include/xine/spu_decoder.h xine-lib-1.2.4/include/xine/spu_decoder.h
+--- xine-lib-1.2.4.org/include/xine/spu_decoder.h	2013-10-24 09:12:51.827164972 +0200
++++ xine-lib-1.2.4/include/xine/spu_decoder.h	2013-10-24 09:35:56.371188739 +0200
+@@ -45,7 +45,7 @@
+   /*
+    * open a new instance of this plugin class
+    */
+-  spu_decoder_t* (*open_plugin) (spu_decoder_class_t *this, xine_stream_t *stream);
++  spu_decoder_t* (*open_plugin) (spu_decoder_class_t *self, xine_stream_t *stream);
+ 
+   /**
+    * @brief short human readable identifier for this plugin class
+@@ -67,7 +67,7 @@
+   /*
+    * free all class-related resources
+    */
+-  void (*dispose) (spu_decoder_class_t *this);
++  void (*dispose) (spu_decoder_class_t *self);
+ };
+ 
+ #define default_spu_decoder_class_dispose (void (*) (spu_decoder_class_t *this))free
+@@ -77,24 +77,24 @@
+   /*
+    * decode data from buf and feed the overlay to overlay manager
+    */
+-  void (*decode_data) (spu_decoder_t *this, buf_element_t *buf);
++  void (*decode_data) (spu_decoder_t *self, buf_element_t *buf);
+ 
+   /*
+    * reset decoder after engine flush (prepare for new
+    * SPU data not related to recently decoded data)
+    */
+-  void (*reset) (spu_decoder_t *this);
++  void (*reset) (spu_decoder_t *self);
+ 
+   /*
+    * inform decoder that a time reference discontinuity has happened.
+    * that is, it must forget any currently held pts value
+    */
+-  void (*discontinuity) (spu_decoder_t *this);
++  void (*discontinuity) (spu_decoder_t *self);
+ 
+   /*
+    * close down, free all resources
+    */
+-  void (*dispose) (spu_decoder_t *this);
++  void (*dispose) (spu_decoder_t *self);
+ 
+   /*
+    * When the SPU decoder also handles data used in user interaction,
+@@ -106,7 +106,7 @@
+    * This function pointer may be NULL, if the plugin does not have
+    * such functionality.
+    */
+-  int  (*get_interact_info) (spu_decoder_t *this, void *data);
++  int  (*get_interact_info) (spu_decoder_t *self, void *data);
+ 
+   /*
+    * When the SPU decoder also handles menu overlays for user inter-
+diff -urN xine-lib-1.2.4.org/include/xine/vdr.h xine-lib-1.2.4/include/xine/vdr.h
+--- xine-lib-1.2.4.org/include/xine/vdr.h	2013-10-24 09:12:51.823164972 +0200
++++ xine-lib-1.2.4/include/xine/vdr.h	2013-10-24 09:35:56.367188739 +0200
+@@ -22,7 +22,7 @@
+ #define __VDR_H
+ 
+ 
+-#define XINE_VDR_VERSION 905
++#define XINE_VDR_VERSION 901
+ 
+ 
+ enum funcs
+@@ -62,7 +62,6 @@
+   , func_get_version
+   , func_discontinuity
+   , func_query_capabilities
+-  , func_grab_image_v2
+ };
+ 
+ enum keys
+@@ -422,19 +421,6 @@
+ 
+ 
+ 
+-typedef struct __attribute__((packed)) data_grab_image_v2_s
+-{
+-  data_header_t header;
+-
+-  uint16_t width;
+-  uint16_t height;
+-  uint16_t jpeg;
+-  uint16_t quality;
+-}
+-data_grab_image_v2_t;
+-
+-
+-
+ typedef struct __attribute__((packed)) result_grab_image_s
+ {
+   result_header_t header;
+@@ -632,7 +618,6 @@
+   data_wait_t               wait;
+   data_setup_t              setup;
+   data_grab_image_t         grab_image;
+-  data_grab_image_v2_t      grab_image_v2;
+   data_get_pts_t            get_pts;
+   data_first_frame_t        first_frame;
+   data_still_frame_t        still_frame;
+diff -urN xine-lib-1.2.4.org/include/xine/version.h xine-lib-1.2.4/include/xine/version.h
+--- xine-lib-1.2.4.org/include/xine/version.h	1970-01-01 01:00:00.000000000 +0100
++++ xine-lib-1.2.4/include/xine/version.h	2013-10-24 09:35:56.367188739 +0200
+@@ -0,0 +1,25 @@
++/*
++ * Copyright (C) 2007 the xine project
++ *
++ * This file is part of xine, a free video player.
++ *
++ * xine is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * xine is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110, USA
++ */
++
++/* static info - which libxine release this header came from */
++#define XINE_MAJOR_VERSION 1
++#define XINE_MINOR_VERSION 2
++#define XINE_SUB_VERSION   3
++#define XINE_VERSION       "1.2.3openpliPC-e2"
+diff -urN xine-lib-1.2.4.org/include/xine/video_decoder.h xine-lib-1.2.4/include/xine/video_decoder.h
+--- xine-lib-1.2.4.org/include/xine/video_decoder.h	2013-10-24 09:12:51.823164972 +0200
++++ xine-lib-1.2.4/include/xine/video_decoder.h	2013-10-24 09:35:56.367188739 +0200
+@@ -45,7 +45,7 @@
+   /*
+    * open a new instance of this plugin class
+    */
+-  video_decoder_t* (*open_plugin) (video_decoder_class_t *this, xine_stream_t *stream);
++  video_decoder_t* (*open_plugin) (video_decoder_class_t *self, xine_stream_t *stream);
+ 
+   /**
+    * @brief short human readable identifier for this plugin class
+@@ -67,7 +67,7 @@
+   /*
+    * free all class-related resources
+    */
+-  void (*dispose) (video_decoder_class_t *this);
++  void (*dispose) (video_decoder_class_t *self);
+ };
+ 
+ #define default_video_decoder_class_dispose (void (*) (video_decoder_class_t *this))free
+@@ -78,29 +78,29 @@
+    * decode data from buf and feed decoded frames to
+    * video output
+    */
+-  void (*decode_data) (video_decoder_t *this, buf_element_t *buf);
++  void (*decode_data) (video_decoder_t *self, buf_element_t *buf);
+ 
+   /*
+    * reset decoder after engine flush (prepare for new
+    * video data not related to recently decoded data)
+    */
+-  void (*reset) (video_decoder_t *this);
++  void (*reset) (video_decoder_t *self);
+ 
+   /*
+    * inform decoder that a time reference discontinuity has happened.
+    * that is, it must forget any currently held pts value
+    */
+-  void (*discontinuity) (video_decoder_t *this);
++  void (*discontinuity) (video_decoder_t *self);
+ 
+   /*
+    * flush out any frames that are still stored in the decoder
+    */
+-  void (*flush) (video_decoder_t *this);
++  void (*flush) (video_decoder_t *self);
+ 
+   /*
+    * close down, free all resources
+    */
+-  void (*dispose) (video_decoder_t *this);
++  void (*dispose) (video_decoder_t *self);
+ 
+   /**
+    * @brief Pointer to the loaded plugin node.
+diff -urN xine-lib-1.2.4.org/include/xine/video_out.h xine-lib-1.2.4/include/xine/video_out.h
+--- xine-lib-1.2.4.org/include/xine/video_out.h	2013-10-24 09:12:51.823164972 +0200
++++ xine-lib-1.2.4/include/xine/video_out.h	2013-10-24 09:35:56.367188739 +0200
+@@ -268,7 +268,10 @@
+ #define VO_PROP_BUFS_FREE             27 /* read-only */
+ #define VO_PROP_MAX_VIDEO_WIDTH       28 /* read-only */
+ #define VO_PROP_MAX_VIDEO_HEIGHT      29 /* read-only */
+-#define VO_NUM_PROPERTIES             30
++#define VO_PROP_LAST_PTS              30
++#define VO_PROP_DEINTERLACE_SD        31
++#define VO_PROP_DEINTERLACE_HD        32
++#define VO_NUM_PROPERTIES             33
+ 
+ /* number of colors in the overlay palette. Currently limited to 256
+    at most, because some alphablend functions use an 8-bit index into
+diff -urN xine-lib-1.2.4.org/include/xine/xine_internal.h xine-lib-1.2.4/include/xine/xine_internal.h
+--- xine-lib-1.2.4.org/include/xine/xine_internal.h	2013-10-24 09:12:51.823164972 +0200
++++ xine-lib-1.2.4/include/xine/xine_internal.h	2013-10-24 09:35:56.367188739 +0200
+@@ -490,7 +490,7 @@
+  * load a specific video output plugin
+  */
+ 
+-vo_driver_t *_x_load_video_output_plugin(xine_t *this,
++vo_driver_t *_x_load_video_output_plugin(xine_t *self,
+ 					 char *id, int visual_type, void *visual) XINE_PROTECTED;
+ 
+ /*

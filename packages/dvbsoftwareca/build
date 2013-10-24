@@ -2,7 +2,10 @@
 
 . config/options
 
+moddir="." 
 $SCRIPTS/build linux
 
 cd $BUILD/$1*
 make KDIR="$(kernel_path)"
+strip_kmods "$moddir"
+

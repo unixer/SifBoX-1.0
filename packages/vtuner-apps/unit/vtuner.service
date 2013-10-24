@@ -1,0 +1,11 @@
+[Unit]
+Description=Virtual Tuner client/server
+
+[Service]
+EnvironmentFile=/etc/vtunerc.conf
+Requires=vdr.service
+ExecStart=/usr/sbin/vtuner.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

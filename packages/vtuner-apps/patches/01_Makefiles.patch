@@ -1,0 +1,81 @@
+--- vtuner-apps-2.1/build/i686/Makefile.org	2013-10-24 15:34:32.927558086 +0200
++++ vtuner-apps-2.1/build/i686/Makefile	2013-10-24 15:34:38.075558175 +0200
+@@ -1,7 +1,7 @@
+ ARCH=i686
+ -include ../../Make.config
+ 
+-CC=$(CC-$(ARCH))
++#CC=$(CC-$(ARCH))
+ CFLAGS=-m32 -DHAVE_DVB_API_VERSION=5 $(INCLUDE-i686) $(DBGFLAGS)
+ LDFLAGS=-lpthread -lrt
+ DRIVER=vtuner-dvb-3
+--- vtuner-apps-2.1/build/arm/Makefile.org	2013-10-24 15:49:52.103573866 +0200
++++ vtuner-apps-2.1/build/arm/Makefile	2013-10-24 15:50:09.271574160 +0200
+@@ -1,8 +1,8 @@
+ ARCH=arm
+ -include ../../Make.config
+ 
+-CC=$(CC-$(ARCH))
+-CXX=$(CXX-$(ARCH))
++#CC=$(CC-$(ARCH))
++#CXX=$(CXX-$(ARCH))
+ CFLAGS=-fpic -DHAVE_DVB_API_VERSION=5
+ LDFLAGS=-lpthread -lrt
+ DRIVER=vtuner-dvb-3
+--- vtuner-apps-2.1/build/db2/Makefile.org	2013-10-24 15:50:19.383574334 +0200
++++ vtuner-apps-2.1/build/db2/Makefile	2013-10-24 15:50:23.731574408 +0200
+@@ -1,7 +1,7 @@
+ ARCH=db2
+ -include ../../Make.config
+ 
+-CC=$(CC-$(ARCH))
++#CC=$(CC-$(ARCH))
+ CFLAGS=-m32 -DHAVE_DVB_API_VERSION=3 $(DBGFLAGS)
+ LDFLAGS=-lpthread -lrt
+ DRIVER=vtuner-dvb-3
+--- vtuner-apps-2.1/build/mipsel/Makefile.org	2013-10-24 15:50:34.967574600 +0200
++++ vtuner-apps-2.1/build/mipsel/Makefile	2013-10-24 15:50:40.251574692 +0200
+@@ -1,8 +1,8 @@
+ ARCH=mipsel
+ -include ../../Make.config
+ 
+-CC=$(CC-$(ARCH))
+-CXX=$(CXX-$(ARCH))
++#CC=$(CC-$(ARCH))
++#CXX=$(CXX-$(ARCH))
+ CFLAGS=-fpic -DHAVE_DVB_API_VERSION=5 -DHAVE_DREAMBOX_HARDWARE $(INCLUDE-$(ARCH)) $(DBGFLAGS)
+ LDFLAGS=-lpthread -lrt
+ DRIVER=vtuner-dmm-3
+--- vtuner-apps-2.1/build/sh4/Makefile.org	2013-10-24 15:51:12.715575248 +0200
++++ vtuner-apps-2.1/build/sh4/Makefile	2013-10-24 15:51:19.439575362 +0200
+@@ -1,7 +1,7 @@
+ ARCH=sh4
+ -include ../../Make.config
+ 
+-CC=$(CC-$(ARCH))
++#CC=$(CC-$(ARCH))
+ CFLAGS=-DHAVE_DVB_API_VERSION=5 $(INCLUDE-$(ARCH)) $(DBGFLAGS)
+ LDFLAGS=-lpthread -lrt
+ DRIVER=vtuner-dvb-3
+--- vtuner-apps-2.1/build/ppc/Makefile.org	2013-10-24 15:51:01.731575060 +0200
++++ vtuner-apps-2.1/build/ppc/Makefile	2013-10-24 15:51:07.403575158 +0200
+@@ -1,7 +1,7 @@
+ ARCH=ppc
+ -include ../../Make.config
+ 
+-CC=$(CC-$(ARCH))
++#CC=$(CC-$(ARCH))
+ CFLAGS=-DHAVE_DREAMBOX_HARDWARE -DHAVE_DVB_API_VERSION=2 $(INCLUDE-ppc) $(DBGFLAGS)
+ LDFLAGS=-lpthread -lrt
+ DRIVER=vtuner-dmm-2
+--- vtuner-apps-2.1/build/x86_64/Makefile.org	2013-10-24 15:51:24.163575446 +0200
++++ vtuner-apps-2.1/build/x86_64/Makefile	2013-10-24 15:51:28.335575515 +0200
+@@ -1,7 +1,7 @@
+ ARCH=x86_64
+ -include ../../Make.config
+ 
+-CC=$(CC-$(ARCH))
++#CC=$(CC-$(ARCH))
+ CFLAGS=-m64 -fPIC -DHAVE_DVB_API_VERSION=5 $(INCLUDE-$(ARCH)) $(DBGFLAGS)
+ LDFLAGS=-lpthread -lrt
+ DRIVER=vtuner-dvb-3
