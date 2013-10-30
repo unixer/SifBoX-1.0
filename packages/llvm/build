@@ -2,22 +2,28 @@
 
 . config/options
 
-export MAKEFLAGS=-j1
-
 get_meta $1
 
 cd $PKG_BUILD_DIR
+
+cd autoconf
+aclocal --force --verbose -I m4
+autoconf -v -f -I m4 -o ../configure
+cd ..
 
 mkdir -p objdir-target 
 cd objdir-target
 
 [ "$TARGET_ARCH" = i386 ] && ARCH=x86 || ARCH=$TARGET_ARCH
 
-do_configure --enable-polly \
+do_configure --host=$HOST_NAME \
+             --build=$HOST_NAME \
+             --enable-polly \
              --enable-optimized \
              --disable-profiling \
              --disable-assertions \
              --disable-expensive-checks \
+             --enable-experimental-targets=R600 \
              --disable-debug-runtime \
              --disable-debug-symbols \
              --enable-jit \
@@ -40,6 +46,14 @@ CFLAGS=`echo $CFLAGS | sed -e "s|-mtune=atom||g"`
 CXXFLAGS=`echo $CXXFLAGS | sed -e "s|-mtune=atom||g"`
 LDFLAGS=`echo $LDFLAGS | sed -e "s|-mtune=atom||g"`
 GCC_FLAGS=`echo $GCC_FLAGS | sed -e "s|-mtune=atom||g"`
+CFLAGS=`echo $CFLAGS | sed -e "s|-flto||g"`
+CXXFLAGS=`echo $CXXFLAGS | sed -e "s|-flto||g"`
+LDFLAGS=`echo $LDFLAGS | sed -e "s|-flto||g"`
+#sed -e "s|-mtune=atom||g" Makefile.config
+sed -i "s|-mtune=atom||" Makefile.config
 
-make
+echo "REA"
+read enterKey
+
+make -j4
 make_install

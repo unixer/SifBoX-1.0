@@ -9,14 +9,14 @@ config.misc.startCounter=140
 config.misc.languageselected=false
 config.misc.defaultchosen=false
 config.misc.videowizardenabled=false
-config.timezone.val=(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi
+config.timezone.val=(GMT+01:00) Brussels, Copenhagen, Madrid, Paris
 config.Nims.0.diseqcMode=single
 config.Nims.0.configMode=advanced
 config.Nims.0.advanced.sats=1155
 config.seek.selfdefined_46=60
 config.seek.selfdefined_13=15
 config.seek.selfdefined_79=300
-config.osd.language=zh_CN
+config.osd.language=it_IT
 config.tv.lastroot=1:7:1:0:0:0:0:0:0:0:(type == 1) || (type == 17) || (type == 22) || (type == 25) || (type == 134) || (type == 195) ORDER BY name;
 config.tv.lastservice=-1:0:0:0:0:0:0:0:0:0:
 config.pc.default_fullscreen=true

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+. config/options
+
+get_meta $1
+mkdir $PKG_BUILD_DIR
+cd $PKG_BUILD_DIR
+mkdir -p .install/etc/enigma2
+cp -a $ROOT/$PACKAGES/$1/config/* .install/etc/enigma2
+

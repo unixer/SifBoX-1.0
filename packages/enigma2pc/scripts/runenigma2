@@ -5,6 +5,10 @@ exec_prefix=${prefix}
 datarootdir=${prefix}/share
 export VDPAU_NVIDIA_NO_OVERLAY=1
 
+if [ ! -L /dev/dvb/adapter0/demux1 ]; then
+        /usr/bin/dvb_my.sh
+fi
+
 if [ -x ${exec_prefix}/bin/showiframe ]; then
 	if [ -f /etc/enigma2/backdrop.mvi ]; then
 		${exec_prefix}/bin/showiframe /etc/enigma2/backdrop.mvi

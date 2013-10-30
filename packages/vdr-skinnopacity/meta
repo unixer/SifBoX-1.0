@@ -1,11 +1,13 @@
 PKG_NAME=vdr-skinnopacity
 #PKG_URL_REV=798024416 #1.2
 #PKG_VERSION=0.1.2
-PKG_URL_REV=8cac48f16 #1.4
-PKG_VERSION=0.1.4
+#PKG_URL_REV=8cac48f16 #1.4
+#PKG_VERSION=0.1.4
+PKG_URL_REV=5934ae0c8
+PKG_VERSION=0.9.0
 PKG_URL_PROTO=git
 PKG_URL="git://projects.vdr-developer.org/skin-nopacity.git"
-PKG_REV=6
+PKG_REV=1
 PKG_DEPENDS="$TARGET_LIBC"
 PKG_BUILD_DEPENDS="toolchain vdr ImageMagick"
 PKG_RUN_DEPENDS="$TARGET_LIBC vdr ImageMagick"

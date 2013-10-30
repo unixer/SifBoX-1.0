@@ -6,6 +6,8 @@ $SCRIPTS/build linux
 
 cd $BUILD/$1*
 
+echo "make KDIR=$(kernel_path) KERNELRELEASE=$(kernel_version) SRCDIR=$(kernel_path)  OUTDIR=$(kernel_path)"
+echo "make install DESTDIR=$install_dir KERNELRELEASE=$(kernel_version)"
 make \
   KDIR=$(kernel_path) \
   KERNELRELEASE=$(kernel_version) \
@@ -22,6 +24,7 @@ make install \
   KERNELRELEASE=$(kernel_version) \
 
 mv $install_dir/lib/firmware $install_dir/firmware
+cp $ROOT/$PACKAGES/$1/firmware/* $install_dir/firmware
 rm -f $install_dir/lib/modules/$(kernel_version)/modules.*
 
 strip_kmods "$install_dir/lib/modules/$(kernel_version)" "$debug_dir"

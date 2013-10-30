@@ -9,6 +9,9 @@ if [ -c /dev/ttyACM0 ]; then
   systemctl start libcec-daemon.service
 fi
 
+chvt 1
+sync
+
 #/usr/bin/wait_fornet.sh
 export TERM=linux
 export LANG="it_IT.UTF8"
