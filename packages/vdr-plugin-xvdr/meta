@@ -1,17 +1,12 @@
 PKG_NAME=vdr-plugin-xvdr
 PKG_URL_PROTO=git
-#PKG_URL_REV=c43033c1ca # OK 
-PKG_URL_REV=33afe5905d
-#PKG_URL_REV=935a294 problemi
+PKG_URL_REV=00bb4449
 PKG_URL="git://github.com/pipelka/vdr-plugin-xvdr.git"
-#PKG_VERSION=0.9.6
-PKG_VERSION=0.9.9
+PKG_VERSION=0.9.9+r${PKG_URL_REV}
 PKG_REV=1
-PKG_BUILD_DEPENDS="toolchain zlib linux-headers"
+PKG_BUILD_DEPENDS="toolchain zlib"
 PKG_DEPENDS="vdr"
 PKG_PRIORITY=optional
 PKG_SECTION=multimedia
 PKG_SHORTDESC="VDR plugin to handle XBMC clients"
 PKG_LONGDESC="The vdr-plugin-xvdr is able to handle serveral XBMC clients connecting via the XVDR addon."
-
-

@@ -2,47 +2,10 @@
 
 . config/options
 
-get_meta vdr
-VDR_VERSION=$PKG_VERSION
-
-get_meta linux
-verlte 3.6.11 $PKG_VERSION && INSDVB="yes" || INSDVB="no"
-if [ $INSDVB = "no" ]; then
-   DVB_DIR="$SYSROOT_PREFIX/usr/include"
-else
-   DVB_DIR="../linux"
-fi
-
-get_meta vdr
-VDR_VERSION=$PKG_VERSION
-
 get_meta $1
 
 cd $PKG_BUILD_DIR
-make all \
-  VDRDIR="../vdr-${VDR_VERSION}" \
-  LIBDIR="." \
-  LOCALEDIR="./locale"
-
-#  DVBDIR=$DVB_DIR \
-
-
-
-#do_strip bin lib$1.so.*
-#do_strip bin lib*.so.*
-get_meta vdr
-#VDRINS="no"
-verlte 1.7.36 $PKG_VERSION && VDRINS="no" || VDRINS="yes"
-if [ $VDRINS = "yes" ]; then
-  make_install
-  rm -rf .install-debuginfo || true
-else
-  do_strip bin lib$1.so.*
-  do_strip bin lib*.so.*
-fi
-
-
-#  VDRDIR="$ROOT/$BUILD/vdr-${VDR_VERSION}" \
-#  LIBDIR="."
-
-
+make all
+make_install
+mkdir -p .install/usr
+#mv .install/$LIB_PREFIX/lib .install/usr
