@@ -11,6 +11,7 @@ cd objdir-target
 
 [ "$TARGET_ARCH" = i386 ] && ARCH=x86 || ARCH=$TARGET_ARCH
 
+GCC_NO_LTO=1 GCC_NO_ATOM=1 \
 do_configure --enable-polly \
              --enable-optimized \
              --disable-profiling \
@@ -34,14 +35,14 @@ do_configure --enable-polly \
 
 
 # strip out LTO optimization from *FLAGS
-CFLAGS=`echo $CFLAGS | sed -e "s|-mtune=atom||g"`
-CXXFLAGS=`echo $CXXFLAGS | sed -e "s|-mtune=atom||g"`
-LDFLAGS=`echo $LDFLAGS | sed -e "s|-mtune=atom||g"`
-GCC_FLAGS=`echo $GCC_FLAGS | sed -e "s|-mtune=atom||g"`
-CFLAGS=`echo $CFLAGS | sed -e "s|-flto||g"`
-CXXFLAGS=`echo $CXXFLAGS | sed -e "s|-flto||g"`
-LDFLAGS=`echo $LDFLAGS | sed -e "s|-flto||g"`
-sed -i "s|-mtune=atom||" Makefile.config
+#CFLAGS=`echo $CFLAGS | sed -e "s|-mtune=atom||g"`
+#CXXFLAGS=`echo $CXXFLAGS | sed -e "s|-mtune=atom||g"`
+#LDFLAGS=`echo $LDFLAGS | sed -e "s|-mtune=atom||g"`
+#GCC_FLAGS=`echo $GCC_FLAGS | sed -e "s|-mtune=atom||g"`
+#CFLAGS=`echo $CFLAGS | sed -e "s|-flto||g"`
+#CXXFLAGS=`echo $CXXFLAGS | sed -e "s|-flto||g"`
+#LDFLAGS=`echo $LDFLAGS | sed -e "s|-flto||g"`
+#sed -i "s|-mtune=atom||" Makefile.config
 
 make
 make_install
