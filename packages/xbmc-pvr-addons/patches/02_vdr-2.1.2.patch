@@ -1,0 +1,14 @@
+--- xbmc-pvr-addons-git+b51b6ff4e1a3b68ba08749594dcb6cc09044a542/addons/pvr.vdr.vnsi/vdr-plugin-vnsiserver/vnsiclient.c.org	2013-11-08 18:41:05.311832811 +0100
++++ xbmc-pvr-addons-git+b51b6ff4e1a3b68ba08749594dcb6cc09044a542/addons/pvr.vdr.vnsi/vdr-plugin-vnsiserver/vnsiclient.c	2013-11-08 18:41:56.127833683 +0100
+@@ -1274,7 +1274,11 @@
+ bool cVNSIClient::processRECORDINGS_GetDiskSpace() /* OPCODE 100 */
+ {
+   int FreeMB;
++#if VDRVERSNUM >= 20102
++  int Percent = cVideoDirectory::VideoDiskSpace(&FreeMB);
++#else
+   int Percent = VideoDiskSpace(&FreeMB);
++#endif
+   int Total   = (FreeMB / (100 - Percent)) * 100;
+ 
+   m_resp->add_U32(Total);
