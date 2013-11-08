@@ -5,7 +5,9 @@
 do_shutdown()
 {
   sleep 0
-  systemctl stop libcec-daemon.service
+  if [ -c /dev/ttyACM0 ]; then
+     systemctl stop libcec-daemon.service
+  fi
   if [ -s "/var/log/syslog" ]; then
      sdim=`ls -al /var/log/syslog | awk '{print $5}'`
      if [ "$sdim" -gt "10240000" ]; then
@@ -38,7 +40,9 @@ do_shutdown()
   fi
 
   sleep .5
-  echo 'standby 0' | cec-client -s /dev/ttyACM0
+  if [ -c /dev/ttyACM0 ]; then
+     echo 'standby 0' | cec-client -s /dev/ttyACM0
+  fi
   sync
   poweroff -d -f -h
 }

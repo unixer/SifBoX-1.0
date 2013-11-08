@@ -13,4 +13,7 @@ fi
 do_install usr/lib/libvlc*.so*
 #do_install usr/lib/vlc/plugins/*/*.so
 do_install usr/lib/vlc/plugins
-do_install usr/share
+do_install usr/share/applications
+do_install usr/share/icons
+do_install usr/share/kde4
+do_install usr/share/vlc

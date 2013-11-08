@@ -35,3 +35,5 @@ else
   do_strip bin libvdr-quickepgsearch*.so.*
   do_strip bin lib$1.so.*
 fi
+
+

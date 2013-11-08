@@ -1,0 +1,14 @@
+--- vdr-hddarchive-0.0.1/mymenu.c.org	2013-11-08 18:08:21.255799096 +0100
++++ vdr-hddarchive-0.0.1/mymenu.c	2013-11-08 18:21:14.227812363 +0100
+@@ -112,7 +112,11 @@
+ 
+ cString cMyMenuRecordings::DirectoryName(void)
+ {
++#if APIVERSNUM > 20101
++   cString d(cVideoDirectory::Name());
++#else
+    cString d(VideoDirectory);
++#endif
+    if (base) {
+       char *s = ExchangeChars(strdup(base), true);
+       d = AddDirectory(d, s);

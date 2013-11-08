@@ -13,3 +13,5 @@ PKG_PRIORITY=optional
 PKG_SECTION=multimedia
 PKG_SHORTDESC="VDR -- epgsearch plugin"
 PKG_LONGDESC="vdr-epgsearch is a plugin for VDR, the Video Disk Recorder."
+
+

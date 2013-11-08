@@ -11,4 +11,5 @@ cd $PKG_BUILD_DIR
 
 mkdir -p $dir
 #cp $BUILD/$1*/dvbsoftwareca.ko $dir
-cp dvbsoftwareca.ko $INSTALL/lib/modules/$VER/kernel/extra
+#cp dvbsoftwareca.ko $INSTALL/lib/modules/$VER/kernel/extra
+cp dvbsoftwareca.ko $dir

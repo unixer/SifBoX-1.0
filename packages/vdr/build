@@ -5,6 +5,7 @@ get_meta $1
 export MAKEFLAGS=-j1
 require_cxx $1
 
+read enterKey
 #ACTIVE_EXTENSIONS="liemiext"
 #VDR_PLUGINS="`echo "$ROOTFS_PACKAGES $OPK_PACKAGES" | tr ' ' '\n' | grep 'vdr-'`" || true
 #for plugin in $VDR_PLUGINS; do

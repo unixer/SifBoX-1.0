@@ -42,6 +42,10 @@ fi
 cd $BUILD/$1*
 export LDFLAGS="$LDFLAGS -lm -ldl -lavcodec -lavformat -lavutil -lpostproc -lswscale"
 [ "$TARGET_LIBC" = "uclibc" ] && export LDFLAGS="$LDFLAGS -lintl -liconv"
+if [ "TARGET_ARCH" = "arm" ]; then
+   export MAKEFLAGS=-j1
+fi
+  
 export CPP=${TARGET_PREFIX}cpp
 do_autoconf
 do_configure \
