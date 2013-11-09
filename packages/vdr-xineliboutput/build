@@ -2,6 +2,8 @@
 
 . config/options
 
+export MAKEFLAGS=-j1
+
 get_meta vdr
 VDR_VERSION=$PKG_VERSION
 
