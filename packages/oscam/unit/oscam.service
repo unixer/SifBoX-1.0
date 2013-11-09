@@ -2,7 +2,6 @@
 Description=Oscam Services
 
 [Service]
-#ExecStart=/usr/bin/oscam -d 128 -c /usr/local/etc
 ExecStart=/usr/bin/oscam.sh
 Restart=always
 

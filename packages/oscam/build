@@ -22,5 +22,5 @@ cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
       ..
 
 make
-do_strip bin 
+do_strip bin build/.install/usr/bin
 make_install
