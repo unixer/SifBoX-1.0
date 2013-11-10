@@ -3,13 +3,19 @@
 . config/options
 
 cd $BUILD/$1*
-make $TARGET_SUBARCH
-do_strip bin dist/$TARGET_SUBARCH/vtunerc.$TARGET_SUBARCH
-do_strip bin dist/$TARGET_SUBARCH/vtunerd.$TARGET_SUBARCH
+
+if [ "$TARGET_SUBARCH" = "i586" ]; then
+  ARCH="i686"
+else
+  ARCH=$TARGET_SUBARCH
+fi
+make $ARCH
+do_strip bin dist/$ARCH/vtunerc.$ARCH
+do_strip bin dist/$ARCH/vtunerd.$ARCH
 mkdir -p .install/usr/sbin
 cd .install/usr/sbin
-cp ../../../dist/$TARGET_SUBARCH/vtunerc.$TARGET_SUBARCH .
-cp ../../../dist/$TARGET_SUBARCH/vtunerd.$TARGET_SUBARCH .
-ln -s vtunerd.$TARGET_SUBARCH vtunerd
-ln -s vtunerc.$TARGET_SUBARCH vtunerc
+cp ../../../dist/$ARCH/vtunerc.$ARCH .
+cp ../../../dist/$ARCH/vtunerd.$ARCH .
+ln -s vtunerd.$ARCH vtunerd
+ln -s vtunerc.$ARCH vtunerc
 cd ../../../ 
