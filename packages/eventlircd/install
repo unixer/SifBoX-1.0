@@ -13,10 +13,11 @@ echo $INSTALL
 
 cp $ROOT/$PACKAGES/$1/config/eventlircd.conf $INSTALL/etc
 cp $ROOT/$PACKAGES/$1/config/evmap/* $INSTALL/etc/eventlircd.d
+
 mkdir -p $INSTALL/etc/lirc
 cp $ROOT/$PACKAGES/$1/config/lircrc $INSTALL/etc/lirc
 cp $ROOT/$PACKAGES/$1/config/irexec $INSTALL/etc/lirc
-cp $ROOT/$PACKAGES/$1/config/98-eventlircd.rules $INSTALL/lib/udev/rules.d/
+#cp $ROOT/$PACKAGES/$1/config/98-eventlircd.rules $INSTALL/lib/udev/rules.d/
 #mkdir -p $INSTALL/etc/rc_keymaps
 #cp $ROOT/$PACKAGES/$1/remotes/imon* $INSTALL/etc/rc_keymaps
 mkdir -p $INSTALL/usr/bin
