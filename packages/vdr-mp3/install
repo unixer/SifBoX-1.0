@@ -14,6 +14,12 @@ mkdir -p $INSTALL/etc/vdr/plugins.d
 echo "PLUGIN=${NAME}" > $INSTALL/etc/vdr/plugins.d/50_$NAME
 echo "ENABLED=yes" >> $INSTALL/etc/vdr/plugins.d/50_$NAME
 
+mkdir -p $INSTALL/etc/vdr/plugins/
+cp $ROOT/$PACKAGES/$1/config/mp3sources.conf $INSTALL/etc/vdr/plugins/
+mkdir -P $INSTALL/usr/share/vdr-plugin-mp3
+cp $ROOT/$PACKAGES/$1/scripts/* $INSTALL/usr/share/vdr-plugin-mp3
+
+
 if [ $VDRINS = "no" ]; then
   mkdir -p $INSTALL/usr/lib/vdr/plugins
   cp -a lib$1*.so.* $INSTALL/usr/lib/vdr/plugins
