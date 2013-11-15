@@ -18,6 +18,10 @@ mkdir -p $INSTALL/etc/vdr/plugins/
 cp $ROOT/$PACKAGES/$1/config/mp3sources.conf $INSTALL/etc/vdr/plugins/
 mkdir -p $INSTALL/usr/share/vdr-plugin-mp3
 cp $ROOT/$PACKAGES/$1/scripts/* $INSTALL/usr/share/vdr-plugin-mp3
+mkdir -p $INSTALL/var/cache/vdr-plugin-mp3/images
+mkdir -p $INSTALL/var/lib/vdr/plugins
+cp $ROOT/$PACKAGES/$1/config/mp3source.conf $INSTALL/var/lib/vdr/plugins
+
 
 
 if [ $VDRINS = "no" ]; then
