@@ -76,6 +76,7 @@ do_configure target \
   $VDPAU \
   $XVMC \
   $OSMESA \
+  --disable-r600-llvm-compiler \
 
 # now build Mesa for target
 if ! make -j3 ; then

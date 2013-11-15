@@ -7,6 +7,7 @@ cd $BUILD/$1*
 #do_install usr/lib/libxine.so*
 do_install usr/lib/libxine*
 do_install usr/lib/xine/plugins/2.3
+do_install usr/bin
 
 
 mkdir -p $INSTALL/etc/xine

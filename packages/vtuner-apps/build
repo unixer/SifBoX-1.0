@@ -16,6 +16,6 @@ mkdir -p .install/usr/sbin
 cd .install/usr/sbin
 cp ../../../dist/$ARCH/vtunerc.$ARCH .
 cp ../../../dist/$ARCH/vtunerd.$ARCH .
-ln -s vtunerd.$ARCH vtunerd
-ln -s vtunerc.$ARCH vtunerc
+ln -s vtunerd.$ARCH vtunerd ||true
+ln -s vtunerc.$ARCH vtunerc ||true
 cd ../../../ 

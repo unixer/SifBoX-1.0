@@ -62,6 +62,7 @@ do_configure \
             $CONSOLE_CONFIG \
             $SDL_CONFIG \
 	    $VDPAU_CONFIG \
+	    --enable-vaapi \
             $VDR_CONFIG
 make
 make_install
