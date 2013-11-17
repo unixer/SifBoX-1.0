@@ -1,10 +1,7 @@
 PKG_NAME=vdr-extrecmenu
-#PKG_VERSION=1.2.2
-#PKG_URL="http://projects.vdr-developer.org/attachments/download/936/vdr-extrecmenu-${PKG_VERSION}.tgz"
 PKG_URL_PROTO=git
-#PKG_URL_REV=16da1f
-#PKG_URL_REV=977c52
-PKG_URL_REV=66c39bab
+#PKG_URL_REV=66c39bab
+PKG_URL_REV=8e43c917
 PKG_VERSION=1.2.2
 PKG_URL="git://projects.vdr-developer.org/vdr-plugin-extrecmenu.git"
 PKG_REV=1

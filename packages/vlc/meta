@@ -1,6 +1,6 @@
 PKG_NAME=vlc
 #PKG_VERSION=2.0.5
-PKG_VERSION=2.0.8
+PKG_VERSION=2.1.1
 #PKG_URL="$SFNET_SRCS/vlc/vlc-$PKG_VERSION.tar.xz"
 PKG_URL="http://download.videolan.org/pub/videolan/vlc/$PKG_VERSION/vlc-$PKG_VERSION.tar.xz"
 PKG_REV=1
