@@ -5,7 +5,7 @@ PKG_URL_PROTO=git
 #PKG_URL_REV=d133592
 PKG_URL_REV=37cd9ac
 PKG_URL="git://anongit.freedesktop.org/mesa/mesa"
-PKG_VERSION=9.3
+PKG_VERSION=10.0
 #+git-${PKG_URL_REV}
 PKG_REV=1
 PKG_USE="gallium3d egl opengles openvg osmesa intel radeon nouveau vmwgfx vdpau xvmc wayland"
