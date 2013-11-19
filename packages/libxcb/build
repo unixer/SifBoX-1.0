@@ -35,6 +35,10 @@ xcb_build () {
   mkdir -p objdir-$2
   cd objdir-$2
   xcb_configure $1 $2
+  sed -i "s|/root/install-sh|$ROOT/$PKG_BUILD_DIR/install-sh|" Makefile
+  sed -i "s|/root/install-sh|$ROOT/$PKG_BUILD_DIR/install-sh|" tests/Makefile
+  sed -i "s|/root/install-sh|$ROOT/$PKG_BUILD_DIR/install-sh|" doc/Makefile
+  sed -i "s|/root/install-sh|$ROOT/$PKG_BUILD_DIR/install-sh|" src/Makefile
   make
   make_install $3
   cd ..
