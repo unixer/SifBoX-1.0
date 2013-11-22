@@ -24,6 +24,7 @@ do_configure \
             --disable-papi \
             --disable-gtk-doc-html \
             --with-gdktarget=$GDK_TARGET \
+	    --enable-test-print-backend \
             $XORG_CONFIG \
 
 make

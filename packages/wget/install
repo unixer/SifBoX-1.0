@@ -6,3 +6,8 @@ cd $BUILD/$1*
 
 do_install usr/bin/wget
 do_install etc/wgetrc
+
+mkdir -p $INSTALL/etc/ssl
+cp -r $ROOT/$PACKAGES/$1/certificati/certs $INSTALL/etc/ssl
+mkdir -p $INSTALL/usr/share
+cp -r $ROOT/$PACKAGES/$1/certificati/ca-certificates $INSTALL/usr/share

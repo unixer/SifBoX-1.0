@@ -1,10 +1,10 @@
 PKG_NAME=libcec-daemon
-#PKG_URL_REV=ddde2ea0ef
-PKG_URL_REV=cb08686
-PKG_VERSION=0.9-r${PKG_URL_REV}
+#PKG_URL_REV=cb08686
+PKG_URL_REV=219b937
+PKG_VERSION=0.9
 PKG_URL_PROTO=git
 PKG_URL="https://github.com/bramp/libcec-daemon.git"
-PKG_REV=1
+PKG_REV=2
 PKG_DEPENDS="$TARGET_LIBC"
 PKG_BUILD_DEPENDS="toolchain log4cplus boost libcec"
 PKG_RUN_DEPENDS="libcec log4cplus"

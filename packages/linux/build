@@ -30,8 +30,6 @@ case $TARGET_ARCH in
     [ -n "$MACHINE_UBOOT_CONFIG" ] && IMAGE=uImage || IMAGE=zImage
     ;;
 esac
-#patch -p1 < $ROOT/$PACKAGES/$1/999_enabletun.patch
-#patch -p1 < $ROOT/$PACKAGES/$1/99_disablemeida.diff
 
 make $IMAGE
 

@@ -5,7 +5,6 @@
 cd $BUILD/$1*
 
 do_install usr/bin/mplayer
-do_install /usr/bin/mencoder
 
 mkdir -p $INSTALL/etc/mplayer
 cp $ROOT/$PACKAGES/$1/config/mplayer.enna $INSTALL/etc/mplayer/mplayer.conf

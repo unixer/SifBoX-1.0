@@ -4,14 +4,20 @@
 
 cd $BUILD/$1*
 do_configure \
-            --disable-opie \
-            --disable-digest \
-            --disable-ntlm \
-            --disable-debug \
-            --disable-ipv6 \
-            --disable-nls \
-            --disable-rpath \
+	    --prefix=/usr      \
+            --sysconfdir=/etc  \
+            --with-ssl=openssl
 
+
+
+#            --disable-opie \
+##            --disable-digest \
+#            --disable-ntlm \
+#            --disable-debug \
+#            --disable-ipv6 \
+#            --disable-nls \
+#            --disable-rpath \
+#	    --with-ssl=openssl \
 
 #            --without-ssl \
 #            --without-libssl-prefix \
