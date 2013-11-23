@@ -10,4 +10,5 @@ fi
 
 [ "$VERBOSE" = yes ] && V="-v"
 
-opkg-make-index $V -l /home/unixer/Dropbox/Public/1.1/binaries/$TARGET_ARCH/latest/packages/Packages.filelist -p /home/unixer/Dropbox/Public/1.1/binaries/$TARGET_ARCH/latest/packages/Packages /home/unixer/Dropbox/Public/1.1/binaries/$TARGET_ARCH/latest/packages
+mkdir -p /home/unixer/Dropbox/Public/1.2/binaries/$TARGET_ARCH/latest/packages/
+opkg-make-index $V -l /home/unixer/Dropbox/Public/1.2/binaries/$TARGET_ARCH/latest/packages/Packages.filelist -p /home/unixer/Dropbox/Public/1.2/binaries/$TARGET_ARCH/latest/packages/Packages /home/unixer/Dropbox/Public/1.2/binaries/$TARGET_ARCH/latest/packages
