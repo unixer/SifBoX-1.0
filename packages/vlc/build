@@ -198,7 +198,6 @@ do_configure \
             --disable-jack \
             --disable-cyberlink \
             --disable-upnp \
-            --disable-skins2 \
             --disable-hildon \
             --disable-qt4 \
             --disable-macosx \
@@ -228,6 +227,8 @@ do_configure \
             $CFG_DEVTOOLS \
             --disable-activex \
             --disable-mozilla \
+
+#            --disable-skins2 \
 
 make
 make_install

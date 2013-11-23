@@ -8,6 +8,7 @@ if pkg_uses $1 devtools; then
   do_install usr/bin/vlc
   do_install usr/bin/cvlc
   do_install usr/bin/rvlc
+  do_install usr/bin/vlc-wrapper
 fi
 
 do_install usr/lib/libvlc*.so*
@@ -17,3 +18,5 @@ do_install usr/share/applications
 do_install usr/share/icons
 do_install usr/share/kde4
 do_install usr/share/vlc
+do_install usr/include
+do_install usr/lib/vlc/vlc-cache-gen
