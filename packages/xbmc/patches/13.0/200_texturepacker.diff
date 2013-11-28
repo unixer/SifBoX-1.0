@@ -1,0 +1,10 @@
+--- xbmc-13.0/tools/TexturePacker/Makefile.in.orig	2013-11-25 08:37:40.000000000 +0100
++++ xbmc-13.0/tools/TexturePacker/Makefile.in	2013-11-25 15:00:48.421106905 +0100
+@@ -24,6 +24,7 @@
+ 
+ ifeq ($(findstring Darwin,$(shell uname -s)),Darwin)
+ DEFINES += -DTARGET_DARWIN
++NATIVE_LIBS    += -lSDL_image -lSDL -llzo2 -lpthread -ljpeg -lpng -lz
+ NATIVE_ARCH=@DARWIN_NATIVE_ARCH@
+ endif
+ 

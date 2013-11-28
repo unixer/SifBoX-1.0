@@ -4,7 +4,7 @@
 
 #!/bin/sh
 
-DBG_FILE=/tmp/geexbox-debug.txt
+DBG_FILE=/tmp/sifbox-debug.txt
 
 clean_log () {
   echo "" > $DBG_FILE

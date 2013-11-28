@@ -79,3 +79,19 @@
  CFLAGS=-m64 -fPIC -DHAVE_DVB_API_VERSION=5 $(INCLUDE-$(ARCH)) $(DBGFLAGS)
  LDFLAGS=-lpthread -lrt
  DRIVER=vtuner-dvb-3
+--- vtuner-apps-2.1/build/arm/Makefile.org	2013-11-26 17:50:09.502351448 +0100
++++ vtuner-apps-2.1/build/arm/Makefile	2013-11-26 17:51:09.058350279 +0100
+@@ -8,8 +8,11 @@
+ DRIVER=vtuner-dvb-3
+ STRIP=$(STRIP-$(ARCH))
+ 
+-all: ../../dist/$(ARCH)/vtunerd.$(ARCH) 
+-	$(STRIP) ../../dist/$(ARCH)/vtunerd.$(ARCH) 
++#all: ../../dist/$(ARCH)/vtunerd.$(ARCH) 
++#	$(STRIP) ../../dist/$(ARCH)/vtunerd.$(ARCH) 
++
++all: ../../dist/$(ARCH)/vtunerd.$(ARCH) ../../dist/$(ARCH)/vtunerc.$(ARCH)
++
+ 	
+ -include ../../Make.rules
+ 	

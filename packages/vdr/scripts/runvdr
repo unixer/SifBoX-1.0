@@ -59,6 +59,8 @@ if dmesg | tail -n 250 | grep -i "error while loading driver" > /dev/null; then
    modprobe dvb-usb-af9035          
    sleep 1                
 fi
+/bin/systemctl restart mixer.service                                            
+sleep 1       
 
 #eval vdr -g /tmp -L /usr/lib/vdr/plugins --log=3 -p 6419 --vfat --no-kbd $PLUGINS -v /media/video -c /etc/vdr -w 0 --lirc -s /usr/bin/vdrshutdown
  

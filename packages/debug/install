@@ -3,4 +3,4 @@
 . config/options
 
 mkdir -p $INSTALL/sbin
-cp $PACKAGES/$1/scripts/$1.sh $INSTALL/sbin/geexbox-debug
+cp $PACKAGES/$1/scripts/$1.sh $INSTALL/sbin/sifbox-debug
