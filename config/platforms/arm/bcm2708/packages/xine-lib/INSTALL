@@ -1,0 +1,24 @@
+#!/bin/sh
+
+case "$1" in
+	install)
+		. /etc/init.d/rc.functions
+
+		#update_setting "VDR_SXFE_ARGS" "--fullscreen --hud --reconnect xvdr://localhost -V rpi" "Argumente mit denen vdr-sxfe gestartet werden soll"
+		#update_setting "VDR_FBFE_ARGS" "--reconnect xvdr://localhost -V rpi" "Argumente mit denen vdr-sxfe gestartet werden soll"
+
+		test ! -e /etc/vdr/setup.conf || sed "/xineliboutput.Video.Deinterlace/d" -i /etc/vdr/setup.conf
+		test ! -e /etc/vdr/setup.conf.add || sed "/xineliboutput.Video.Deinterlace/d" -i /etc/vdr/setup.conf.add
+		echo "xineliboutput.OSD.ColorDepth = LUT8" >> /etc/vdr/setup.conf.add
+		;;
+	uninstall)
+		;;
+	depend)
+		echo lib-xine
+		echo vc
+		;;
+	*)
+		echo "Usage $0 {install | uninstall | delend}" >&2
+		exit 1
+esac
+
