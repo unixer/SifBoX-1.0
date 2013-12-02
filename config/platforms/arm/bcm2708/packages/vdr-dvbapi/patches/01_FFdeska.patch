@@ -1,13 +1,11 @@
---- vdr-dvbapi-1.0.4/Makefile.org	2013-02-17 16:05:13.000000000 +0100
-+++ vdr-dvbapi-1.0.4/Makefile	2013-05-27 10:50:42.307851337 +0200
-@@ -85,8 +85,8 @@
+--- vdr-dvbapi-1.0.4/Makefile.rasp	2013-12-01 16:57:10.749942381 +0100
++++ vdr-dvbapi-1.0.4/Makefile	2013-12-01 16:57:18.777942225 +0100
+@@ -82,7 +82,7 @@
+ ### The object files (add further files here):
  
+ OBJS = CAPMT.o DeCSA.o DeCsaTSBuffer.o dll.o DVBAPI.o DVBAPISetup.o SCDeviceProbe.o simplelist.o device.o deviceplugin.o UDPSocket.o SCCIAdapter.o Frame.o SCCAMSlot.o
+-
++LIBDVBCSA=1
  ifndef LIBDVBCSA
  # FFdeCSA
--PARALLEL   ?= PARALLEL_128_SSE2
--CSAFLAGS   ?= -fexpensive-optimizations -funroll-loops -mmmx -msse -msse2 -msse3
-+PARALLEL   ?= PARALLEL_64_MMX
-+CSAFLAGS   ?= -O3 -fPIC -fexpensive-optimizations -fomit-frame-pointer -funroll-loops
- FFDECSADIR  = FFdecsa
- FFDECSA     = $(FFDECSADIR)/FFdecsa.o
- DECSALIB    = $(FFDECSA)
+ PARALLEL   ?= PARALLEL_128_SSE2
