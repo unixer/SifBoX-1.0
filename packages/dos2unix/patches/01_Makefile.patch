@@ -1,0 +1,17 @@
+--- dos2unix-6.0.3/Makefile.org	2013-11-29 23:44:04.536852195 +0100
++++ dos2unix-6.0.3/Makefile	2013-11-29 23:44:25.680851779 +0100
+@@ -36,10 +36,10 @@
+ include version.mk
+ 
+ 
+-CC		= gcc
+-CPP		= cpp
+-CPP_FLAGS_POD	= ALL
+-STRIP		= strip
++#CC		= gcc
++#CPP		= cpp
++#CPP_FLAGS_POD	= ALL
++#STRIP		= strip
+ 
+ PACKAGE		= dos2unix
+ UNIX2DOS	= unix2dos

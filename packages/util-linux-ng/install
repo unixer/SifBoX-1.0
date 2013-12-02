@@ -22,5 +22,8 @@ do_install sbin/swapon
 do_install sbin/swapoff
 mkdir -p $INSTALL/etc
 cp $ROOT/$PACKAGES/$1/config/swap.conf $INSTALL/etc
+#if [ "$TARGET_MACHINE" = raspberrypi ]; then
+#   sed -i 's|SWAPON="on"|SWAPON="off"|' $INSTALL/etc/swap.conf
+#fi
 mkdir -p $INSTALL/usr/bin
 cp $ROOT/$PACKAGES/$1/scripts/swapfile.sh $INSTALL/usr/bin

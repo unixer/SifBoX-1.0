@@ -7,6 +7,7 @@ cd $PKG_BUILD_DIR
 
 xorg_drv_configure_prepend
 do_configure \
+	    --enable-glamor \
             --with-xorg-module-dir=$XORG_PATH_MODULES
 
 make

@@ -2,6 +2,7 @@ PKG_NAME=vdr-rpihddevice
 PKG_VERSION=0.0.5
 PKG_URL_PROTO=svn
 PKG_URL="http://www.minidvblinux.de/svn-3/rpihddevice/trunk/src/rpihddevice-0.0.5/"
+#PKG_URL="https://dl.dropboxusercontent.com/u/23897246/sifbox/vdr-rpihddevice-0.0.5.tgz"
 #PKG_URL="https://dl.dropboxusercontent.com/u/23897246/vdr-rpihddevice-0.0.1.tgz"
 PKG_REV=1
 PKG_DEPENDS="$TARGET_LIBC vdr"

@@ -76,6 +76,7 @@ do_configure target \
   $VDPAU \
   $XVMC \
   $OSMESA \
+  --enable-gbm \
 
 # now build Mesa for target
 if ! make -j3 ; then

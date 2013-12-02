@@ -13,11 +13,19 @@ cp -P $ROOT/$PACKAGES/$1/scripts/runxbmc .install/usr/bin
 cp -P $ROOT/$PACKAGES/$1/scripts/setwakeup.sh .install/usr/bin
 cp -P $ROOT/$PACKAGES/$1/scripts/menuorg-appswitcher .install/usr/bin
 #cp -P $ROOT/$PACKAGES/$1/config/RssFeeds.xml .install/usr/share/xbmc/userdata
-cp -P $ROOT/$PACKAGES/$1/scripts/xbmc .install/usr/bin
+if [ "$TARGET_MACHINE" = raspberrypi ]; then
+   cp -P $ROOT/$PACKAGES/$1/scripts/runxbmc .install/usr/bin/xbmc
+else
+   cp -P $ROOT/$PACKAGES/$1/scripts/xbmc .install/usr/bin
+fi
 cp -P $ROOT/$PACKAGES/$1/scripts/cputemp .install/usr/bin
 cp -P $ROOT/$PACKAGES/$1/scripts/gputemp .install/usr/bin
 mkdir -p .install/usr/share/xbmc/system/
-cp -P $ROOT/$PACKAGES/$1/config/advancedsettings.xml .install/usr/share/xbmc/system/
+if [ "$TARGET_MACHINE" = raspberrypi ]; then
+   cp $PLATFORM_PACKAGES/$1/config/advancedsettings.xml .install/usr/share/xbmc/system/
+else
+   cp -P $ROOT/$PACKAGES/$1/config/advancedsettings.xml .install/usr/share/xbmc/system/
+fi
 
 #Prova copia configurazione di default
 mkdir -p $INSTALL/root

@@ -26,12 +26,17 @@ cd $PKG_BUILD_DIR
 #if [ $TARGET_PLATFORM = "ion" ]; then
 #  patch -p1 < $ROOT/$PACKAGES/$1/patches/02_machines.patch.ion
 #fi
+if [ "$TARGET_MACHINE" = raspberrypi ]; then
+   MAKEFLAGS=-j1
+   LIBCSA="LIBDVBCSA=1"
+fi 
 
 make \
   VDRDIR="../$VDR_DIR" \
   LIBDIR="." \
   DVBDIR=$DVB_DIR \
-  LOCALEDIR="./locale"
+  LOCALEDIR="./locale" \
+  $LIBCSA
 
 get_meta vdr
 verlte 1.7.36 $PKG_VERSION && VDRINS="no" || VDRINS="yes"

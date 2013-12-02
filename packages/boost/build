@@ -33,3 +33,5 @@ bjam -d2 --toolset=gcc  link=shared \
 			--with-program_options \
                         install
 
+ln -sf .install .install-unstripped
+

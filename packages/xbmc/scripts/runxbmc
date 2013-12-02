@@ -4,10 +4,11 @@ pre_umount () {
   [ -f /lib/systemd/system/automounter-nfs.service ] && systemctl stop automounter-nfs.service
   [ -f /lib/systemd/system/automounter-smb.service ] && systemctl stop automounter-smb.service
 }
-
+/bin/systemctl stop libcec-daemon.service
 [ -n "$LOGFILE" ] || LOGFILE="/dev/null"
 /usr/lib/xbmc/xbmc.bin $@
 EXIT_CODE=$?
+/bin/systemctl start libcec-daemon.service
 
 case "$EXIT_CODE" in
   64) # 64=powerdown
@@ -24,5 +25,6 @@ case "$EXIT_CODE" in
   ;;
   *) # 0=quit, 65=restart-app; let systemd restart the service
     echo "xbmc exited with EXIT_CODE=$EXIT_CODE at $(date). Returning -1 to systemd..." >>$LOGFILE
+    /bin/systemctl stop xbmc.service --force
     exit 1
 esac

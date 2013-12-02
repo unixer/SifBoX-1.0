@@ -1,5 +1,5 @@
 PKG_NAME=vtuner-driver
-PKG_VERSION=14
+PKG_VERSION=1.4
 PKG_URL_PROTO=hg
 PKG_URL_REV=3ab5e05d0518
 PKG_URL="https://code.google.com/p/vtuner.linux-driver/"

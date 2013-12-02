@@ -37,6 +37,36 @@ cd $PKG_BUILD_DIR
 
 do_gcc_strip_lto
 do_gcc_strip_gold
+case "$TARGET_ARCH" in
+  arm)
+      FFMPEG_CPU=""
+      FFMPEG_TABLES="--enable-hardcoded-tables"
+      FFMPEG_PIC="--enable-pic"
+  ;;
+  i?86)
+      FFMPEG_CPU=""
+      FFMPEG_TABLES="--disable-hardcoded-tables"
+      FFMPEG_PIC="--disable-pic"
+  ;;
+  x86_64)
+      FFMPEG_CPU=""
+      FFMPEG_TABLES="--disable-hardcoded-tables"
+      FFMPEG_PIC="--enable-pic"
+  ;;
+esac
+
+case "$TARGET_FPU" in
+  neon*)
+      FFMPEG_FPU="--enable-neon"
+  ;;
+  vfp*)
+      FFMPEG_FPU=""
+  ;;
+  *)
+      FFMPEG_FPU=""
+  ;;
+esac
+
 #export LIBRARY_PATH=$XORG_PREFIX/lib
 sed -i 's/-lflite"/-lflite -lasound"/' configure &&
 ./configure --enable-cross-compile \
@@ -75,20 +105,21 @@ sed -i 's/-lflite"/-lflite -lasound"/' configure &&
             $VDPAU_CONFIG \
             $VAAPI_CONFIG \
             $FPU_CONFIG \
-            --enable-gpl         \
-            --enable-version3    \
+	    $FFMPEG_TABLES \
+	    $FFMPEG_PIC \
+	    --enable-gpl         \
+	    --enable-version3    \
             --enable-nonfree     \
             --enable-shared      \
-            --enable-gpl         \
-            --enable-version3    \
-            --enable-nonfree     \
-            --enable-shared      \
-            --enable-x11grab     \
-            --enable-libspeex    \
+	    --enable-libspeex    \
             --enable-libtheora   \
             --enable-libvorbis   \
             --enable-openssl     \
-			--disable-symver     \
+            --disable-symver     \
+	    $FFMPEG_CPU \
+            $FFMPEG_FPU \
+
+#            --enable-x11grab     \
 
 
 [ $TARGET_LIBC = "uclibc" ] && ! pkg_uses $1 ipv6 && \
