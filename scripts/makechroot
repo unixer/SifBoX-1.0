@@ -66,7 +66,7 @@ make_chroot() {
 }
 
 make_archive() {
-  sudo tar -cjvf ${DOWNLOAD_DIR}${ARCHIVE} -C ${DOWNLOAD_DIR} ${TARGET}
+  sudo tar -cJvf ${DOWNLOAD_DIR}${ARCHIVE} -C ${DOWNLOAD_DIR} ${TARGET}
   sudo rm -rf ${DOWNLOAD_DIR}${TARGET}
   sudo chmod a+rw ${DOWNLOAD_DIR}${ARCHIVE}
 }
@@ -103,7 +103,7 @@ done
 TARGET="${SUITE}_obricks_${ARCH}"
 
 # archive name
-ARCHIVE="${TARGET}_${DATE}.tar.bz2"
+ARCHIVE="${TARGET}_${DATE}.tar.xz"
 
 mkdir -p ${DOWNLOAD_DIR} 
 
