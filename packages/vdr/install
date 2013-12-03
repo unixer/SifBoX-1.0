@@ -48,7 +48,11 @@ mkdir -p $INSTALL/etc/vdr/plugins.d
 
 cp $ROOT/$PACKAGES/$1/config/wakeup $INSTALL/etc
 cp $ROOT/$PACKAGES/$1/config/channels.conf $INSTALL/etc/vdr/channels.conf
-cp $ROOT/$PACKAGES/$1/config/setup.conf $INSTALL/etc/vdr
+if [ "$TARGET_MACHINE" = raspberrypi ]; then
+   cp $ROOT/$PACKAGES/$1/config/setup.conf.rasp $INSTALL/etc/vdr/setup.conf
+else
+   cp $ROOT/$PACKAGES/$1/config/setup.conf $INSTALL/etc/vdr
+fi
 cp $ROOT/$PACKAGES/$1/config/remote.conf $INSTALL/etc/vdr
 cp $ROOT/$PACKAGES/$1/config/keymacros.conf $INSTALL/etc/vdr
 cp $ROOT/$PACKAGES/$1/config/scr.conf $INSTALL/etc/vdr

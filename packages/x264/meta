@@ -1,6 +1,7 @@
 PKG_NAME=x264
 PKG_VERSION=1
 PKG_URL_PROTO=git
+PKG_URL_REV=1ca7bb943d
 #PKG_URL="http://fill-in-x264--download-url.invalid"
 PKG_URL="git://git.videolan.org/x264.git"
 PKG_REV=1

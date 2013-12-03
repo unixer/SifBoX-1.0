@@ -6,11 +6,12 @@ cd $BUILD/$1*
 
 if [ "$TARGET_SUBARCH" = "i586" ]; then
   ARCH="i686"
-else [ "$TARGET_SUBARCH" = "armv6" ];
+elif [ "$TARGET_SUBARCH" = "armv6" ]; then
   ARCH="arm"
-#else
-#  ARCH=$TARGET_SUBARCH
+else
+  ARCH=$TARGET_SUBARCH
 fi
+echo $ARCH
 echo $TARGET_SUBARCH $ARCH
 make $ARCH
 do_strip bin dist/$ARCH/vtunerc.$ARCH
