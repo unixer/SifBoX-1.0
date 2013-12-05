@@ -7,8 +7,8 @@
 #export ac_default_prefix="$SYSROOT_PREFIX/usr/local/lib"
 #export CFLAGS="$CFLAGS -I$LIB_PREFIX/include/mysql"
 #export CFLAGS="$CFLAGS -I$SYSROOT_PREFIX/usr/local/include/mysql"
-export MYSQL_CFLAGS="-I$SYSROOT_PREFIX/usr/local"
-export CPPFLAGS="$CPPFLAGS -I$SYSROOT_PREFIX/usr/local"
+##export MYSQL_CFLAGS="-I$SYSROOT_PREFIX/usr/local"
+##export CPPFLAGS="$CPPFLAGS -I$SYSROOT_PREFIX/usr/local"
 
 cd $BUILD/$1*
 [ "$TARGET_CPU" = "generic" ] && MARCH="i686" 

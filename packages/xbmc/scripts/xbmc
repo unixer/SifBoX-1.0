@@ -186,7 +186,10 @@ fi
 if [ -f /lib/systemd/system/libcec-daemon.service ]; then
         systemctl start libcec-daemon.service
 	if [ -f /etc/vdr/plugins.d/50_remote ]; then
-		systemctl restart vdr.service
+	        /bin/systemctl stop vdr.service
+		sleep 3
+		killall -9 vdr || true
+		/bin/systemctl start vdr.service
 	fi
 fi
 systemctl stop xbmc.service --force

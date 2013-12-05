@@ -18,6 +18,7 @@ get_meta $1
 VDR_DIR=`basename $BUILD/vdr-$VDR_VERSION`
 
 cd $PKG_BUILD_DIR
+export MAKEFLAGS=-j1
 
 make all \
   VDRDIR="../$VDR_DIR" \
