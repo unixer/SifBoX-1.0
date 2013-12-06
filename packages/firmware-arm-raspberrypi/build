@@ -43,4 +43,4 @@ EOF
 fi
 echo "$CMDLINE" > .install/boot/cmdline.txt
 
-cp $ROOT/$PACKAGES/$1/bootloader/config.txt .install/boot
+cp $ROOT/$PACKAGES/$1/bootloader/* .install/boot

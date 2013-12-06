@@ -17,6 +17,11 @@ cp $PACKAGES/$1/config/syslog.conf $INSTALL/etc
 cp $PACKAGES/$1/config/shells $INSTALL/etc
 cp $PACKAGES/$1/config/adjtime $INSTALL/etc
 cp $PACKAGES/$1/scripts/assign-ip $INSTALL/bin
+if [ "$TARGET_MACHINE" = raspberrypi ]; then
+   mkdir -p $INSTALL/splash
+   SPLASH_FILE="$ROOT/$CONFIG/flavours/$FLAVOUR/splash.png"
+   [ -f "$SPLASH_FILE" ] && cp -P "$SPLASH_FILE" $INSTALL/splash
+fi
 #cp $PACKAGES/$1/scripts/pre-umount-* $INSTALL/bin
 #ln -s ../bin/pre-umount-poweroff $INSTALL/sbin/poweroff
 #ln -s ../bin/pre-umount-reboot $INSTALL/sbin/reboot
