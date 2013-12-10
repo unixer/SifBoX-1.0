@@ -90,10 +90,21 @@ export LIB_P=$LIB_PREFIX
 #Openelec
 # xbmc fails to build with LTO optimization
   strip_lto
+  export CFLAGS="$CFLAGS $XBMC_CFLAGS"
+  export CXXFLAGS="$CXXFLAGS $XBMC_CXXFLAGS"
+  #export LDFLAGS_FOR_BUILD="$LDFLAGS_FOR_BUILD -Wl,-rpath,$ROOT/$TOOLCHAIN/lib -L$ROOT/$TOOLCHAIN/lib"
+  #export CXX_FOR_BUILD=$CXX
+  #export CC_FOR_BUILD=$CC
 
 # dont use some optimizations because of build problems
   LDFLAGS=`echo $LDFLAGS | sed -e "s|-Wl,--as-needed||"`
 #Fine
+
+export CXX_FOR_BUILD="$HOST_CXX"
+export CC_FOR_BUILD="$HOST_CC"
+export CXXFLAGS_FOR_BUILD="$HOST_CXXFLAGS"
+export CFLAGS_FOR_BUILD="$HOST_CFLAGS -I$ROOT/$TOOLCHAIN/include"
+export LDFLAGS_FOR_BUILD="$HOST_LDFLAGS -Wl,-rpath,$ROOT/$TOOLCHAIN/lib -L$ROOT/$TOOLCHAIN/lib"
 
 export PYTHON_VERSION=2.7
 export PYTHON_CPPFLAGS=-I$LIB_PREFIX/include/python2.7
@@ -163,29 +174,30 @@ do_configure \
   --disable-libusb \
   --enable-rtmp \
   --enable-optical-drive \
-  --enable-texturepacker --with-texturepacker-root="$SYSROOT_PREFIX/usr/local/include/" \
+  --enable-texturepacker --with-texturepacker-root="$ROOT/$TOOLCHAIN/include" \
   --disable-external-libraries \
   $CFG_TEGRA \
   $EXTRA_CONFIG \
   $XBMC_PLAYER \
-  --disable-texturepacker \
+
+#--enable-texturepacker --with-texturepacker-root="$SYSROOT_PREFIX/usr/include" \
+#  --disable-texturepacker \
 
 # leaked host includes break the Python components build
-sed -i Makefile.include -e "s:-I$ROOT/$TOOLCHAIN/include::"
+## sed -i Makefile.include -e "s:-I$ROOT/$TOOLCHAIN/include::"
 
 # leaked host includes also break libdvdnav
 sed -i lib/libdvd/libdvdnav/config.mak \
     -e "s:^DVDREAD_CFLAGS=.*$:DVDREAD_CFLAGS=-I$LIB_PREFIX/include:" \
     -e "s:^DVDREAD_LIBS=.*$:DVDREAD_LIBS=-L$LIB_PREFIX/lib -ldvdread:" \
 
-#export MAKEFLAGS=-j1
+#export MAKEFLAGS=-j4
+
 make externals
 make xbmc.bin
 make xbmc-xrandr
-#sed -i '19a\  -I/root/openbricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/local/include \\' tools/TexturePacker/Makefile
-#sed -i '23a\ LDFLAGS_FOR_BUILD    += -L/root/openbricks/build/build.i386.eglibc/toolchain/i686-openbricks-linux-gnu/sysroot/usr/local/lib ' tools/TexturePacker/Makefile
-#make -C tools/TexturePacker
-#cp -PR tools/TexturePacker/TexturePacker $ROOT/$TOOLCHAIN/bin
+make -C tools/TexturePacker
+cp -PR tools/TexturePacker/TexturePacker $ROOT/$TOOLCHAIN/bin
 
 make skins
 make_install
