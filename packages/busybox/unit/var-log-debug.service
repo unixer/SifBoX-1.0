@@ -6,7 +6,7 @@ Before=systemd-journal-flush.service
 
 ConditionKernelCommandLine=!installer
 ConditionKernelCommandLine=|debugging
-ConditionPathExists=|/storage/.cache/debug.openelec
+ConditionPathExists=|/var/log
 
 [Service]
 Type=oneshot

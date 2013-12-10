@@ -15,6 +15,9 @@ mkdir -p $INSTALL/usr/sbin
 mkdir -p $INSTALL/usr/share/fonts/truetype
 cp -r $ROOT/$PACKAGES/$1/fonts $INSTALL/usr/share/
 cp $ROOT/$PACKAGES/$1/scripts/runvdr $INSTALL/usr/sbin
+if [ "$TARGET_MACHINE" = raspberrypi ]; then
+   sed -i "s|/bin/systemctl restart mixer.service||" $INSTALL/usr/sbin/runvdr
+fi
 if [ "$PKG_VERSION" = "2.1.2" ]; then
    sed -i "s|#eval vdr -g /tmp -L /usr/lib/vdr/plugins --log=3|eval vdr -g /tmp -L /usr/lib/vdr/plugins --log=3|" $INSTALL/usr/sbin/runvdr
    sed -i "s|eval vdr -g /tmp -L /usr/lib/vdr/plugins --buffer=/media/video|#eval vdr -g /tmp -L /usr/lib/vdr/plugins --buffer=/media/video|" $INSTALL/usr/sbin/runvdr

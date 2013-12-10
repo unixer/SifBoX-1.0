@@ -214,4 +214,14 @@ echo -e "$mixer_cmds" | amixer -c $ALSA_CARD -s >> $log
 [ -f /usr/bin/aplay ] && aplay -l >> $log
 echo "Sound setup : stop $(date +%Y%M%d%H%M%S)" >> $log
 
+if [ "$HAVE_AMPLY" = 1 ]; then
+  cat > /etc/asound.conf << EOF
+ pcm.!default {
+	type hw
+	card $ALSA_CARD
+	$DEVICE_HDMI
+}
+EOF
+fi
+
 exit 0

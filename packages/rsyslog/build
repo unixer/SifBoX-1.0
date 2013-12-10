@@ -23,11 +23,11 @@ do_configure \
 	--sbindir=/sbin \
 	--enable-mysql \
 	MYSQL_CFLAGS="-ISYSROOT_PREFIX/usr/local/include" \
-	
-#	--enable-mmnormalize \
-#	--with-gnu-ld \
-#	--enable-gnutls \
-#	--enable-static \
+	--enable-mmnormalize \
+	--with-gnu-ld \
+	--enable-gnutls \
+	--enable-static \
+	--disable-libgcrypt
 
 sed -i "s|#include <mysql.h>|#include <$SYSROOT_PREFIX/usr/local/include/mysql/mysql.h>|" plugins/ommysql/ommysql.c
 
