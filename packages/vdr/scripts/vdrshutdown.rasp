@@ -5,13 +5,9 @@
 do_shutdown()
 {
   sleep 0
-  if [ -c /dev/ttyACM0 ]; then
-     killall -9 libcec-daemon && systemctl stop libcec-daemon.service --force
-  fi
+  killall -9 libcec-daemon && systemctl stop libcec-daemon.service --force
   sleep .5
-  if [ -c /dev/ttyACM0 ]; then
-     echo 'standby 0' | cec-client -s /dev/ttyACM0
-  fi
+  echo 'standby 0' | cec-client -s
   sync
   poweroff -d -f -h
 }

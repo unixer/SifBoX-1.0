@@ -3,11 +3,9 @@
 . /etc/pvr.conf
 
 #Accendi il televisore
-if [ -c /dev/ttyACM0 ]; then
-  killall -9 libcec-daemon && systemctl stop libcec-daemon.service --force
-  echo 'on 0' | cec-client -s /dev/ttyACM0
-  systemctl start libcec-daemon.service
-fi
+killall -9 libcec-daemon && systemctl stop libcec-daemon.service --force
+echo 'on 0' | cec-client -s
+systemctl start libcec-daemon.service
 
 chvt 1
 sync
@@ -61,8 +59,9 @@ if dmesg | tail -n 250 | grep -i "error while loading driver" > /dev/null; then
 fi
 /bin/systemctl restart mixer.service                                            
 sleep 1       
+/usr/bin/ply-image /usr/share/plymouth/black.png 
 
-#eval vdr -g /tmp -L /usr/lib/vdr/plugins --log=3 -p 6419 --vfat --no-kbd $PLUGINS -v /media/video -c /etc/vdr -w 0 --lirc -s /usr/bin/vdrshutdown
+eval vdr -g /tmp -L /usr/lib/vdr/plugins --log=3 -p 6419 --vfat --no-kbd $PLUGINS -v /media/video -c /etc/vdr -w 0 --lirc -s /usr/bin/vdrshutdown
  
-eval vdr -g /tmp -L /usr/lib/vdr/plugins --buffer=/media/video --log=3 -p 6419 --vfat --no-kbd $PLUGINS -v /media/video -c /etc/vdr -w 0 --lirc -s /usr/bin/vdrshutdown
+#eval vdr -g /tmp -L /usr/lib/vdr/plugins --buffer=/media/video --log=3 -p 6419 --vfat --no-kbd $PLUGINS -v /media/video -c /etc/vdr -w 0 --lirc -s /usr/bin/vdrshutdown
 

@@ -76,7 +76,7 @@ description of the config file format.
                <command name="Aggiorna elenco registrazioni VDR" execute="/usr/bin/vdr-dbus-send /Recording recording.Update &amp;> /dev/null " />
                <command name="Riavvia VDR" confirm="yes" execute="systemctl restart vdr.service" />
                <command name="Riavvia sistema" confirm="yes" execute="reboot" />
-	       <command name="Arresta sistema" confirm="yes" execute="poweroff" />
+	       <command name="Arresta sistema" confirm="yes" execute="/usr/bin/vdrshutdown" />
 
 	<menu name="Informazioni di sistema">
 		    <plugin name="systeminfo" />

@@ -46,7 +46,7 @@ if [ -f /etc/vdr/plugins.d/50_xine ]; then
 fi
 
 if [ -f /lib/systemd/system/libcec-daemon.service ]; then
-	systemctl stop libcec-daemon.service
+	killall -9 libcec-daemon && systemctl stop libcec-daemon.service --force
 fi
 
 exec_prefix="${prefix}"

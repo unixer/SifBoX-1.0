@@ -13,16 +13,26 @@ do_install usr/bin/vdr
 do_install usr/lib
 mkdir -p $INSTALL/usr/sbin
 mkdir -p $INSTALL/usr/share/fonts/truetype
+mkdir -p $INSTALL/usr/bin
 cp -r $ROOT/$PACKAGES/$1/fonts $INSTALL/usr/share/
-cp $ROOT/$PACKAGES/$1/scripts/runvdr $INSTALL/usr/sbin
+#cp $ROOT/$PACKAGES/$1/scripts/runvdr $INSTALL/usr/sbin
 if [ "$TARGET_MACHINE" = raspberrypi ]; then
+   cp $ROOT/$PACKAGES/$1/scripts/runvdr.rasp $INSTALL/usr/sbin/runvdr
+   cp $ROOT/$PACKAGES/$1/scripts/vdrshutdown.rasp $INSTALL/usr/bin/vdrshutdown 
    sed -i "s|/bin/systemctl restart mixer.service||" $INSTALL/usr/sbin/runvdr
+   SPLASH_FILE="$ROOT/$CONFIG/flavours/$FLAVOUR/black.png"
+   mkdir -p $INSTALL/usr/share/plymouth/
+   cp $SPLASH_FILE $INSTALL/usr/share/plymouth/
+else
+   cp $ROOT/$PACKAGES/$1/scripts/runvdr $INSTALL/usr/sbin/runvdr
+   cp $ROOT/$PACKAGES/$1/scripts/vdrshutdown $INSTALL/usr/bin/vdrshutdown
 fi
+
 if [ "$PKG_VERSION" = "2.1.2" ]; then
    sed -i "s|#eval vdr -g /tmp -L /usr/lib/vdr/plugins --log=3|eval vdr -g /tmp -L /usr/lib/vdr/plugins --log=3|" $INSTALL/usr/sbin/runvdr
    sed -i "s|eval vdr -g /tmp -L /usr/lib/vdr/plugins --buffer=/media/video|#eval vdr -g /tmp -L /usr/lib/vdr/plugins --buffer=/media/video|" $INSTALL/usr/sbin/runvdr
 fi
-cp $ROOT/$PACKAGES/$1/scripts/vdrshutdown $INSTALL/usr/bin
+#cp $ROOT/$PACKAGES/$1/scripts/vdrshutdown $INSTALL/usr/bin
 cp svdrpsend $INSTALL/usr/bin/svdrpsend
 
 mkdir -p $INSTALL/usr/lib/vdr

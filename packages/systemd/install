@@ -85,6 +85,15 @@ if [ "$TARGET_MACHINE" = raspberrypi ]; then
   ln -s /dev/null $INSTALL/etc/systemd/system/hwclock-sync.service
 fi
 
+# disable Journal on these machines/platforms
+if [ "$TARGET_MACHINE" = cubox ] || \
+   [ "$TARGET_MACHINE" = raspberrypi ] || \
+   [ "$TARGET_PLATFORM" = a10 ]; then
+  mkdir -p $INSTALL/etc/systemd/system
+  ln -s /dev/null $INSTALL/etc/systemd/system/systemd-journald.service
+  ln -s /dev/null $INSTALL/etc/systemd/system/syslog.socket
+fi
+
 # disable "Predictable Network Interface Names"
 ln -s /dev/null $INSTALL/etc/udev/rules.d/80-net-name-slot.rules
 
