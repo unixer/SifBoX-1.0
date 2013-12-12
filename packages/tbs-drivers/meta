@@ -4,7 +4,7 @@ PKG_NAME=tbs-drivers
 #PKG_VERSION=v130802
 PKG_VERSION=v130927
 #130729
-PKG_REV=141
+PKG_REV=2141
 PKG_URL="http://www.tbsdtv.com/download/document/common/tbs-linux-drivers_${PKG_VERSION}.zip"
 #PKG_URL="http://support.tbs-technology.de/attachments/download/129/tbs-linux-drivers_${PKG_VERSION}.tar.gz"
 PKG_ARCH="i386 x86_64"
