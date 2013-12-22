@@ -8,7 +8,7 @@ Subject: [PATCH] [backport] fixed ffmpeg not keep custom http headers when
  libavformat/hls.c | 9 +++++++++
  1 file changed, 9 insertions(+)
 
-diff --git a/libavformat/hls.c b/lib/ffmpeg/libavformat/hls.c
+diff --git a/libavformat/hls.c b/libavformat/hls.c
 index 7de6059..2e3fd00 100644
 --- a/libavformat/hls.c
 +++ b/libavformat/hls.c
@@ -51,5 +51,3 @@ index 7de6059..2e3fd00 100644
      if ((ret = parse_playlist(c, s->filename, NULL, s->pb)) < 0)
 -- 
 1.8.4
-
-

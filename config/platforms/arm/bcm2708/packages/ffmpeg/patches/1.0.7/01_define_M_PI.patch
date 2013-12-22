@@ -1,0 +1,10 @@
+--- ffmpeg-1.0.7/libavcodec/cos_tablegen.c.org	2013-12-15 08:33:24.780286956 +0100
++++ ffmpeg-1.0.7/libavcodec/cos_tablegen.c	2013-12-15 08:33:54.316287463 +0100
+@@ -27,6 +27,7 @@
+ #define BITS 16
+ #define FLOATFMT "%.18e"
+ #define FIXEDFMT "%6d"
++#define M_PI 3.14159265358979323846
+ 
+ static int clip_f15(int v)
+ {
