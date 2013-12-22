@@ -1,0 +1,5 @@
+#!/bin/sh
+echo "Post install:"
+cp -r /tmp/cpopkg/* /usr/local/etc/
+rm -rf /tmp/cpopkg
+echo "Done"

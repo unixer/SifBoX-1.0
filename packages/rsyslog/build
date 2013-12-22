@@ -11,14 +11,11 @@
 ##export CPPFLAGS="$CPPFLAGS -I$SYSROOT_PREFIX/usr/local"
 
 cd $BUILD/$1*
-[ "$TARGET_CPU" = "generic" ] && MARCH="i686" 
+#[ "$TARGET_CPU" = "generic" ] && MARCH="i686" 
 #[ "$TARGET_CPU" <> "generic" ] && MARCH=$TARGET_CPU 
 do_autoreconf -fvi
 
-do_configure \
-        --host=$HOST_NAME \
-        --build=$TARGET_NAME \
-	--target=$TARGET_NAME \
+do_configure target \
 	--libdir=/usr/lib \
 	--sbindir=/sbin \
 	--enable-mysql \
@@ -27,7 +24,16 @@ do_configure \
 	--with-gnu-ld \
 	--enable-gnutls \
 	--enable-static \
-	--disable-libgcrypt
+	--enable-extended-tests \
+	--enable-valgrind \
+	--enable-memcheck \
+	--enable-diagtools \
+	--enable-mysql \
+	--enable-omprog \
+	
+
+
+#	--disable-libgcrypt
 
 sed -i "s|#include <mysql.h>|#include <$SYSROOT_PREFIX/usr/local/include/mysql/mysql.h>|" plugins/ommysql/ommysql.c
 

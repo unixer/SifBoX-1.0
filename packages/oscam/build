@@ -19,6 +19,7 @@ cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
       -DWEBIF=1 \
       -DOPTIONAL_INCLUDE_DIR=$SYSROOT_PREFIX/usr/local/include \
       -DSTATIC_LIBUSB=1 \
+      -DCS_CONFDIR:STRING=/usr/local/etc \
       ..
 
 make

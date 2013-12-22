@@ -1,10 +1,10 @@
 PKG_NAME=vdr-tvguide
-#PKG_URL_REV=c545f6b4cfc
-PKG_URL_REV=9eabdcd2096
-PKG_VERSION=1.0.0
+#PKG_URL_REV=9eabdcd2096
+PKG_VERSION=1.2.0
+PKG_URL_REV=4c6110467
 PKG_URL_PROTO=git
 PKG_URL="git://projects.vdr-developer.org/vdr-plugin-tvguide.git"
-PKG_REV=1
+PKG_REV=2
 PKG_DEPENDS="$TARGET_LIBC ImageMagick vdr"
 PKG_BUILD_DEPENDS="toolchain vdr ImageMagick"
 PKG_RUN_DEPENDS="$TARGET_LIBC vdr vdr-skinnopacity"

@@ -1,0 +1,6 @@
+#!/bin/sh
+echo "Pre install:"
+mkdir -p /tmp/cpopkg
+cp -r /usr/local/etc/* /tmp/cpopkg
+echo "Done"
+

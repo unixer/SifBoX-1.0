@@ -16,12 +16,14 @@ fi
 $SCRIPTS/build vdr
 
 VDR_DIR=`basename $BUILD/vdr-$VDR_VERSION`
+VDR_DIR=$ROOT/$BUILD/vdr-${VDR_VERSION}
 
 cd $BUILD/$1*
 
 echo $VDR_DIR
+sed -i "s|\$(VDRDIR)/menu.c|$VDR_DIR/menu.c|" Makefile
 make all \
-  VDRDIR="../$VDR_DIR" \
+  VDRDIR=$ROOT/$BUILD/vdr-${VDR_VERSION} \
   DVBDIR=$DVB_DIR \
   LIBDIR="." \
   LOCALEDIR="./locale" \

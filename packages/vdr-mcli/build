@@ -20,7 +20,7 @@ get_meta $1
 VDR_DIR=`basename $BUILD/vdr-$VDR_VERSION`
 
 cd $PKG_BUILD_DIR
-
+sed -i "s|XML_INC := -I/usr/arm-linux-gnueabi/include/libxml2|XML_INC := -I$SYSROOT_PREFIX/usr/local/include/libxml2|" Makefile
 make all \
   VDRDIR="../$VDR_DIR" \
   DVBDIR=$DVB_DIR \

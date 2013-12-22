@@ -1,0 +1,35 @@
+#!/bin/sh
+
+if test -d /.root && touch /.root/testfile 2>/dev/null; then
+  cachedir=/.root
+  rm /.root/testfile
+else
+  cachedir=/var/cache/vdr
+fi
+
+if [ -f $cachedir/epg.dat ]; then
+  a=`find $cachedir -mmin +480 -name epg.dat -print`
+  [ X$a = "X" ] && exit 0
+fi
+
+#zh_epgurl=http://epg.xltvrobbs.net/epg/dm800/gemini800.tgz
+zh_epgurl=http://epg.xltvrobbs.net/epg/G/gemini.tgz
+
+. /etc/locale.conf
+
+case $LANG in
+  zh*)
+    for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+      if wget $zh_epgurl -O /tmp/epg.tgz; then
+        break
+      else
+        sleep 1
+      fi
+    done
+    tar zvfx /tmp/epg.tgz -C /tmp || exit
+    epgen -i /tmp/gemini.epg.dat -o $cachedir/epg.dat -v7le
+    rm /tmp/epg.tgz /tmp/gemini.epg.dat
+    ;;
+  *)
+    exit
+esac

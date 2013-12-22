@@ -3,8 +3,6 @@ Description=Video Disk Recorder
 After=lircd.service
 
 [Service]
-Requires=xorg.service
-Before=xorg.service
 ExecStart=/usr/sbin/runvdr
 Restart=always
 

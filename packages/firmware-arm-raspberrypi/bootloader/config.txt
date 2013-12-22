@@ -87,7 +87,10 @@
 
 # Force HDMI even if unplugged or powered off
 # hdmi_force_hotplug=1
-
+hdmi_mode=20
+hdmi_drive=2
+sdtv_mode=2
+sdtv_aspect=3
 ################################################################################
 # License keys to enable GPU hardware decoding for various codecs
 # to obtain keys visit the shop at http://www.raspberrypi.com
