@@ -21,7 +21,8 @@ do_configure \
 	--disable-xmlto \
 	--disable-alsaloop \
 	--enable-alsatest \
-	--disable-nls
+	--disable-nls \
+	$DEVTOOLS_CONFIG \
 
 make
 make_install

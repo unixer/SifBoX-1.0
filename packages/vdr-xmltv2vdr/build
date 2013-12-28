@@ -25,14 +25,14 @@ make all \
   LIBDIR="." \
   LOCALEDIR="./locale" \
 
-#cp libvdr-xmltv2vdr.so lib$1.so.${VDR_VERSION}
-#do_strip bin lib$1.so.*
-get_meta vdr
-verlte 1.7.36 $PKG_VERSION && VDRINS="no" || VDRINS="yes"
-if [ $VDRINS = "yes" ]; then
-  make_install
-  rm -rf .install-debuginfo || true
-else
-  do_strip bin lib$1.so.*
-fi
+cp libvdr-xmltv2vdr.so lib$1.so.${VDR_VERSION}
+do_strip bin lib$1.so.*
+#get_meta vdr
+#verlte 1.7.36 $PKG_VERSION && VDRINS="no" || VDRINS="yes"
+#if [ $VDRINS = "yes" ]; then
+#  make_install
+#  rm -rf .install-debuginfo || true
+#else
+#  do_strip bin lib$1.so.*
+#fi
 

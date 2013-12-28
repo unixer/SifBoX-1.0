@@ -1,7 +1,7 @@
 PKG_NAME=netceiver
 PKG_VERSION=dkms_0.9.4
 PKG_URL="http://95.225.138.70/sifbox/dvbloop-${PKG_VERSION}.tar.bz2"
-PKG_REV=12141
+PKG_REV=212141
 PKG_DEPENDS="$TARGET_LIBC"
 PKG_BUILD_DEPENDS="toolchain libxml2-dev vdr"
 PKG_RUN_DEPENDS="$TARGET_LIBC linux kmod"

@@ -6,6 +6,9 @@ $SCRIPTS/build vdr
 
 cd $BUILD/$1*
 
+export MAKEFLAGS=-j1
+
+
 export MALLOC_CHECK_=0
 make ECPPC=$ROOT/$TOOLCHAIN/bin/ecppc \
 	LIBDIR="." \

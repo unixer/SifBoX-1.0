@@ -13,7 +13,7 @@ mkdir -p $INSTALL/etc/vdr/plugins.d
 echo "PLUGIN=${NAME}" > $INSTALL/etc/vdr/plugins.d/50_$NAME
 echo "ENABLED=yes" >> $INSTALL/etc/vdr/plugins.d/50_$NAME
 
-if [ $VDRINS = "no" ]; then
+#if [ $VDRINS = "no" ]; then
   mkdir -p $INSTALL/usr/lib/vdr/plugins
   cp -a lib$1*.so.* $INSTALL/usr/lib/vdr/plugins
   for loc in $INCLUDED_LOCALES; do
@@ -23,7 +23,7 @@ if [ $VDRINS = "no" ]; then
       cp -a locale/$LOCALE/* $INSTALL/usr/share/locale/$LOCALE/
     fi
   done
-else
-  do_install usr
-fi
+#else
+#  do_install usr
+#fi
 

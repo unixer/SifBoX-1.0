@@ -12,20 +12,20 @@ CFLAGS="-fPIC -DPIC"
 
 
 
-#do_configure \
-#            --with-plugindir=/usr/lib/alsa \
-#            --with-debug=no \
-#            --with-versioned=no \
-#            --disable-python \
-#            --disable-dependency-tracking \
-#	    --enable-symbolic-functions \
-#	    --enable-debug \
-
 do_configure \
-	    --with-plugindir=/usr/lib/alsa \
-	    --disable-python \
-	    --without-debug \
-	    --disable-dependency-tracking
+            --with-plugindir=/usr/lib/alsa \
+            --with-debug=no \
+            --with-versioned=no \
+            --disable-python \
+            --disable-dependency-tracking \
+	    --enable-symbolic-functions \
+	    --enable-debug \
+
+#do_configure \
+#	    --with-plugindir=/usr/lib/alsa \
+#	    --disable-python \
+#	    --without-debug \
+#	    --disable-dependency-tracking
 
 sed -i 's/.*PKGLIBDIR.*/#define PKGLIBDIR ""/' include/config.h
 

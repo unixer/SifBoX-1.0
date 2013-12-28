@@ -1,7 +1,8 @@
 PKG_NAME=vdr-tvguide
 #PKG_URL_REV=9eabdcd2096
 PKG_VERSION=1.2.0
-PKG_URL_REV=4c6110467
+#PKG_URL_REV=4c6110467
+PKG_URL_REV=53fa2c70
 PKG_URL_PROTO=git
 PKG_URL="git://projects.vdr-developer.org/vdr-plugin-tvguide.git"
 PKG_REV=2

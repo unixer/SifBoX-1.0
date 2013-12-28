@@ -2,7 +2,7 @@
 Description=System Logging Service
 
 [Service]
-ExecStart=/sbin/rsyslogd -n -c5
+ExecStart=/sbin/rsyslogd -n
 Sockets=syslog.socket
 StandardOutput=null
 

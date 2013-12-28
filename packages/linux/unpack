@@ -18,6 +18,9 @@ do_unselect () {
 #LINUX=`ls -d $ROOT/$BUILD/$1-[0-9]*`
 LINUX=`ls -d $ROOT/$BUILD/${PKG_NAME}-${PKG_VERSION}`
 CONF_VERSION=`echo $PKG_VERSION | cut -c 1-3`
+#CONF_VERSION=version_strip_minor [$PKG_VERSION]
+  version="$PKG_VERSION"
+  caz=`echo $version | sed 's/^\(.*\)\.[0-9]$/\1/'`
 
 case $TARGET_ARCH in
   i386|x86_64)
