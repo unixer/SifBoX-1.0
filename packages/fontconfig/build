@@ -33,5 +33,7 @@ do_configure target \
             --disable-dependency-tracking \
             --disable-docs \
 
+#            --with-freetype-config=$LIB_PREFIX/bin/freetype-config \
+
 make
 make_install

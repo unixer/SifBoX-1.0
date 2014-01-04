@@ -8,6 +8,7 @@ $SCRIPTS/unpack mesa
 
 cd $PKG_BUILD_DIR
 
+#export MAKEFLAGS=-j1
 do_autoconf
 
 # xorg-server needs some mesa includes to build
@@ -47,9 +48,9 @@ do_configure \
             --enable-screensaver \
             --disable-xdmcp \
             --disable-xdm-auth-1 \
-            --enable-glx \
             --enable-dri \
             --enable-dri2 \
+	    --enable-glx \
             --enable-gestures \
             --enable-xinerama \
             --enable-xf86vidmode \
@@ -79,7 +80,7 @@ do_configure \
             --disable-install-setuid \
             --disable-secure-rpc \
             --disable-ipv6 \
-            --with-os-vendor="OpenBricks" \
+            --with-os-vendor="SifBoX" \
             --with-int10=x86emu \
             --with-module-dir=$XORG_PATH_MODULES \
             --with-xkb-path=$XORG_PATH_XKB \
