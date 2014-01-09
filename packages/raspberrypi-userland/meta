@@ -3,6 +3,7 @@ PKG_URL_PROTO=git
 #PKG_URL_VERSION=d2c9f912da
 #PKG_URL_REV=40f174657f
 #PKG_URL_REV=d2c9f912da
+PKG_URL_REV=aee3ec8
 PKG_URL="git://github.com/raspberrypi/userland.git"
 PKG_VERSION=2013.11+${PKG_URL_VERSION}
 PKG_REV=1

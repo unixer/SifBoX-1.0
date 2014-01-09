@@ -1,6 +1,6 @@
 PKG_NAME=vdr-ttxtsubs
-#PKG_URL_REV=a47f8e7da
-PKG_URL_REV=a16fd1d9d
+#PKG_URL_REV=a16fd1d9d
+PKG_URL_REV=b2ae94da
 PKG_VERSION=0.3.0
 PKG_URL_PROTO=git
 PKG_URL="git://projects.vdr-developer.org/vdr-plugin-ttxtsubs.git"

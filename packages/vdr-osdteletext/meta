@@ -1,5 +1,6 @@
 PKG_NAME=vdr-osdteletext
-PKG_URL_REV=7d08b6e
+#PKG_URL_REV=7d08b6e
+PKG_URL_REV=ad71c0b
 PKG_VERSION=0.9.4
 PKG_URL_PROTO=git
 PKG_URL="git://projects.vdr-developer.org/vdr-plugin-osdteletext.git"

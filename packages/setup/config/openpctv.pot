@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-17 18:35+0100\n"
+"POT-Creation-Date: 2014-01-06 09:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: packages/setup/scripts/audio-config:8
 #: packages/setup/scripts/audio-config:48
-#: packages/setup/scripts/audio-config:67 packages/setup/scripts/setup.sh:102
+#: packages/setup/scripts/audio-config:67 packages/setup/scripts/setup.sh:90
 msgid "Soundcard Configuration"
 msgstr ""
 
@@ -364,7 +364,21 @@ msgstr ""
 msgid "Finished"
 msgstr ""
 
-#: packages/setup/scripts/getcam:62 packages/setup/scripts/setup.sh:105
+#: packages/setup/scripts/diseqcsetup:94
+msgid "device is detected"
+msgstr ""
+
+#: packages/setup/scripts/diseqcsetup:95
+#: packages/setup/scripts/update-channels:8
+msgid ""
+"No DVB devices has been discovered. Please check whether the device is ready."
+msgstr ""
+
+#: packages/setup/scripts/diseqcsetup:96
+msgid "This tuner is empty/unused"
+msgstr ""
+
+#: packages/setup/scripts/getcam:62 packages/setup/scripts/setup.sh:93
 msgid "Select a software emulated CAM"
 msgstr ""
 
@@ -446,7 +460,7 @@ msgid ""
 msgstr ""
 
 #: packages/setup/scripts/install-drivers:67
-#: packages/setup/scripts/setup.sh:99
+#: packages/setup/scripts/setup.sh:87
 msgid "Install additional V4L and DVB drive"
 msgstr ""
 
@@ -739,7 +753,7 @@ msgid "Submit"
 msgstr ""
 
 #: packages/setup/scripts/monitor.sh:19 packages/setup/scripts/monitor.sh:33
-#: packages/setup/scripts/setup.sh:101
+#: packages/setup/scripts/setup.sh:89
 msgid "Set the monitor's best resolution"
 msgstr ""
 
@@ -867,7 +881,7 @@ msgid ""
 "a default device as Lirc support."
 msgstr ""
 
-#: packages/setup/scripts/select-target:8 packages/setup/scripts/setup.sh:97
+#: packages/setup/scripts/select-target:8 packages/setup/scripts/setup.sh:85
 msgid "Set the default target"
 msgstr ""
 
@@ -890,83 +904,92 @@ msgid ""
 "card"
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:12
+#: packages/setup/scripts/setup.sh:14
 msgid "Press any key to enter setup,"
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:12
+#: packages/setup/scripts/setup.sh:14
 msgid "or 3 seconds after enter XBMC automatically."
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:86
+#: packages/setup/scripts/setup.sh:74
 msgid ""
 "Would you like to scan channels for VDR/XBMC(It'll take quiet long to do "
 "it)?  You can also scan channels with vdr reelscanchannels plugin in vdr."
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:95
+#: packages/setup/scripts/setup.sh:83
 msgid "OpenPCTV configurator"
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:95
+#: packages/setup/scripts/setup.sh:83
 msgid "Main menu"
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:96
+#: packages/setup/scripts/setup.sh:84
 msgid "Set global locale and language"
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:98
+#: packages/setup/scripts/setup.sh:86
 msgid "Configure Network Environment"
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:100
+#: packages/setup/scripts/setup.sh:88
 msgid "Select IR device"
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:103
+#: packages/setup/scripts/setup.sh:91
 msgid "Update Satellite Transponders"
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:104
+#: packages/setup/scripts/setup.sh:92
 msgid "Update EPG data"
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:106
+#: packages/setup/scripts/setup.sh:94
 msgid "DiSEqC configurator"
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:107
+#: packages/setup/scripts/setup.sh:95
 msgid "Auto scan channels"
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:108
+#: packages/setup/scripts/setup.sh:96
 msgid "Start XBMC with VDR"
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:109
+#: packages/setup/scripts/setup.sh:97
 msgid "Reboot OpenPCTV"
 msgstr ""
 
-#: packages/setup/scripts/setup.sh:110
+#: packages/setup/scripts/setup.sh:98
 msgid "Exit to login shell"
 msgstr ""
 
-#: packages/setup/scripts/update-channels:47
+#: packages/setup/scripts/update-channels:28
 msgid "Scan channels for VDR"
 msgstr ""
 
-#: packages/setup/scripts/update-channels:47
+#: packages/setup/scripts/update-channels:28
 msgid "Select Satellite"
 msgstr ""
 
-#: packages/setup/scripts/update-channels:47
+#: packages/setup/scripts/update-channels:28
 msgid ""
 "Please select the satellite you want to scan, noted that the scanning "
 "process may be quite long, please be patient."
 msgstr ""
 
-#: packages/setup/scripts/update-channels:61
+#: packages/setup/scripts/update-channels:47
+msgid "We'll use w_scan to scan channels, are you ready?"
+msgstr ""
+
+#: packages/setup/scripts/update-channels:54
+msgid ""
+"Please put the transponders list in /etc/dvbt for scan-s2, Are you ready?"
+msgstr ""
+
+#: packages/setup/scripts/update-channels:89
 msgid "Split channels in TV and Radio..."
 msgstr ""
 
@@ -975,26 +998,33 @@ msgid "Download transponders for scan-s2"
 msgstr ""
 
 #: packages/setup/scripts/update-transponders:9
-#: packages/setup/scripts/update-transponders:11
+#: packages/setup/scripts/update-transponders:31
 msgid "Can't download,Please check your network settings"
 msgstr ""
 
-#: packages/setup/scripts/update-transponders:10
-msgid "Download transponders for enigma2"
-msgstr ""
-
-#: packages/setup/scripts/update-transponders:15
-msgid "Update /etc/enigma2/satellites.xml..."
-msgstr ""
-
-#: packages/setup/scripts/update-transponders:19
+#: packages/setup/scripts/update-transponders:14
 msgid "update transponders for vdr-reelchannelscan"
 msgstr ""
 
-#: packages/setup/scripts/update-transponders:21
+#: packages/setup/scripts/update-transponders:16
 msgid "Convert transponders data sheet and update transponders for scan-s2..."
 msgstr ""
 
-#: packages/setup/scripts/update-transponders:30
+#: packages/setup/scripts/update-transponders:25
+#: packages/setup/scripts/update-transponders:36
 msgid "Done!"
+msgstr ""
+
+#: packages/setup/scripts/update-transponders:30
+msgid "Download transponders for enigma2"
+msgstr ""
+
+#: packages/setup/scripts/update-transponders:32
+msgid "Update /etc/enigma2/satellites.xml..."
+msgstr ""
+
+#: packages/setup/scripts/update-transponders:39
+msgid ""
+"Do you want to update the satellite transponders from fastsatfinder.com? If "
+"you do not update it, your transponder parameters may not be the latest."
 msgstr ""

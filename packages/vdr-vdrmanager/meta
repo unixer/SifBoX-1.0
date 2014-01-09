@@ -1,9 +1,8 @@
 PKG_NAME=vdr-vdrmanager
-#PKG_URL_REV=3b02fe45
-PKG_URL_REV=ba898328
-#PKG_URL_REV=d39b27a9c
-#PKG_VERSION=0.9
-PKG_VERSION=10.-beta3
+#PKG_URL_REV=ba898328
+#PKG_VERSION=10.-beta3
+PKG_URL_REV=fda8bbda
+PKG_VERSION=11.1
 PKG_URL_PROTO=git
 PKG_URL="git://projects.vdr-developer.org/vdr-manager.git"
 #PKG_URL="http://dl.dropbox.com/u/23897246/vdr-vdrmanager.tar.xz"

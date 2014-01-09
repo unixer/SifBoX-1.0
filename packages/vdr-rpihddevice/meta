@@ -1,8 +1,10 @@
 PKG_NAME=vdr-rpihddevice
 PKG_VERSION=0.0.7
-PKG_URL_PROTO=svn
-PKG_URL="http://www.minidvblinux.de/svn-3/rpihddevice/trunk/src/rpihddevice-0.0.7/"
-#PKG_URL="https://dl.dropboxusercontent.com/u/23897246/vdr-rpihddevice-0.0.6a.tgz"
+#PKG_URL_PROTO=svn
+#PKG_URL="http://www.minidvblinux.de/svn-3/rpihddevice/trunk/src/rpihddevice-0.0.7/"
+PKG_URL_PROTO=git
+PKG_URL_REV=88f137d19
+PKG_URL="https://projects.vdr-developer.org/vdr-plugin-rpihddevice.git"
 PKG_REV=4
 PKG_DEPENDS="$TARGET_LIBC vdr ffmpeg libav"
 PKG_RUN_DEPENDS="vdr ffmpeg"

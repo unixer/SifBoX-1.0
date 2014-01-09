@@ -7,10 +7,12 @@ export TEXTDOMAIN=openpctv
 
 source /etc/profile
 
+grep -q BCM2708 /proc/cpuinfo && sleep 2
+
 if grep -q -i arm /proc/cpuinfo; then
   ARCH=arm
   echo -e -n "\e[31m$(gettext "Press any key to enter setup,")\e[0m \e[32m$(gettext "or 3 seconds after enter XBMC automatically.")\e[0m"
-  read -s -n1 -t3
+  read -s -n1 -t4
   result=$?
   if [ $result = 142 -o $result = 130 ]; then
     systemctl start getty\@ttymxc0
@@ -18,7 +20,6 @@ if grep -q -i arm /proc/cpuinfo; then
     systemctl start xbmc
     exit 0
   elif [ $result = 0 ]; then
-    chvt 1
     clear
   fi
 else
@@ -54,35 +55,22 @@ function updatelocale
 
 function setupinit
 {
-if [ X$ARCH = arm ]; then
-  $RUN_LANG
-  updatelocale
-  $RUN_NET
-  systemctl stop vdr
-  systemctl stop vdr-backend
-  $RUN_AUDIO init
-  $RUN_CAM
-  $RUN_EPG
-  $RUN_TRANS
-  $RUN_DISEQC
-else
-  $RUN_LANG
-  updatelocale
-  $RUN_TARGET
-  $RUN_NET
-  $RUN_DRV
-  $RUN_IR
-  systemctl restart lircd
-  systemctl stop vdr
-  systemctl stop vdr-backend
-  $RUN_MONITOR
-  $RUN_AUDIO init
-  $RUN_CAM
-  $RUN_EPG
-  $RUN_TRANS
-  $RUN_DVB
-  $RUN_DISEQC
-fi
+[ -f $RUN_LANG ] && $RUN_LANG
+updatelocale
+[ -f $RUN_TARGET ] && $RUN_TARGET
+[ -f $RUN_NET ] && $RUN_NET
+[ -f $RUN_DRV ] && $RUN_DRV
+[ -f $RUN_IR ] && $RUN_IR
+systemctl restart lircd
+systemctl stop vdr
+systemctl stop vdr-backend
+[ -f $RUN_MONITOR ] && $RUN_MONITOR
+[ -f $RUN_AUDIO ] && $RUN_AUDIO init
+[ -f $RUN_CAM ] && $RUN_CAM
+[ -f $RUN_EPG ] && $RUN_EPG
+[ -f $RUN_TRANS ] && $RUN_TRANS
+[ -f $RUN_DVB ] && $RUN_DVB
+[ -f $RUN_DISEQC ] && $RUN_DISEQC
 dialog --defaultno --clear --yesno "$(gettext "Would you like to scan channels for VDR/XBMC(It'll take quiet long to do it)?  You can also scan channels with vdr reelscanchannels plugin in vdr.")" 7 70
 if [ $? -eq 0 ]; then
   $RUN_CHANNELS

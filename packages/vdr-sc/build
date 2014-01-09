@@ -7,32 +7,13 @@ VDR_VERSION=$PKG_VERSION
 
 get_meta $1
 
-#VDR_DIR=`basename $BUILD/vdr-1*`
-
-cd $PKG_BUILD_DIR
-
 CFLAGS="$CFLAGS -fPIC"
 CXXFLAGS="$CXXFLAGS -fPIC"
 LDFLAGS="$LDFLAGS -fPIC"
 MAKEFLAGS=-j1
-if [ "$TARGET_ARCH" = x86_64 ]; then
-  sed -i "s|PARALLEL   ?= PARALLEL_32_INT|PARALLEL   ?= PARALLEL_128_SSE|" Makefile
-  sed -i "s|CSAFLAGS   ?= -Wall -fPIC -g -O3 -fomit-frame-pointer -fexpensive-optimizations -funroll-loops|CSAFLAGS   ?= -fPIC -O3 -fexpensive-optimizations -funroll-loops -mmmx -msse -msse2 -msse3|" Makefile
-fi
 
-
-echo "ENTER"
-read enterKey
+cd $PKG_BUILD_DIR
 make \
   VDRDIR="$ROOT/$BUILD/vdr-${VDR_VERSION}" \
   LIBDIR="." \
   LOCALEDIR="./locale"
-
-do_strip bin lib$1.so.*
-
-ENABLED_PLUGINS="cardclient conax constcw cryptoworks irdeto nagra nds sc-conax sc-cryptoworks sc-irdeto sc-nagra sc-seca sc-viaccess sc-videoguard2 seca shl viaccess"
-
-for plugin in $ENABLED_PLUGINS; do
-  do_strip bin systems/$plugin/libsc-*.so.*
-done
-

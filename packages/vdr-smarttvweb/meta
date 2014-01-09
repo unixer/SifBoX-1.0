@@ -1,9 +1,8 @@
 PKG_NAME=vdr-smarttvweb
-#PKG_URL_REV=a3cab0b0
-#PKG_VERSION=0.92
-#PKG_URL_REV=bd7d535d
-PKG_URL_REV=3ac54dc3
-PKG_VERSION=0.98
+#PKG_URL_REV=3ac54dc3
+#PKG_VERSION=0.98
+PKG_URL_REV=20ceec13
+PKG_VERSION=0.99
 PKG_URL_PROTO=git
 PKG_URL="git://projects.vdr-developer.org/vdr-plugin-smarttvweb.git"
 PKG_REV=2
