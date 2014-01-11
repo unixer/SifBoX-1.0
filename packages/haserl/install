@@ -7,4 +7,7 @@ cd $PKG_BUILD_DIR
 
 cd objdir-target
 
-do_install usr/bin
+do_install bin
+mkdir -p $INSTALL/usr/share/www
+cp -r $ROOT/$PACKAGES/$1/config/* $INSTALL/
+

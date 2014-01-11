@@ -27,6 +27,7 @@ cp -r ../src .
 do_configure \
 	--with-lua-headers=$SYSROOT_PREFIX \
 	--with-lua=$SYSROOT_PREFIX \
+	--prefix=/
 
 
 
@@ -39,5 +40,5 @@ sed -i "s|if ! ./lua2c|if ! $ROOT/$TOOLCHAIN/bin/lua2c|" src/Makefile
 make
 do_strip src/lua2c src/haserl 
 make_install
-cp src/lua2c .install/usr/bin
+cp src/lua2c .install/bin
 
