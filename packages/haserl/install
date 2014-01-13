@@ -9,5 +9,9 @@ cd objdir-target
 
 do_install bin
 mkdir -p $INSTALL/usr/share/www
-cp -r $ROOT/$PACKAGES/$1/config/* $INSTALL/
+cp -r $ROOT/$PACKAGES/$1/config/usr $INSTALL/
+mkdir -p $INSTALL/etc
+cp $ROOT/$PACKAGES/$1/config/httpd.conf $INSTALL/etc
+mkdir -p $INSTALL/etc/default
+cp $ROOT/$PACKAGES/$1/config/config $INSTALL/etc/default
 

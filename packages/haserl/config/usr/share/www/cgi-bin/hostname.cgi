@@ -11,14 +11,14 @@ then
     NEWHOSTNAME=$(echo ${FORM_hostname} | cut -d ' ' -f 1)
     set_hostname $NEWHOSTNAME 
     echo "Storage Name changed to <b>$NEWHOSTNAME</b>.<br> "                        
-    echo "Please restart the SNAKE device.<br>"   
+    echo "Please restart your HTPC.<br>"   
 fi
 %>
 <center>
 
    <form action="<%= ${SCRIPT_NAME} %>" method="POST">
      <TABLE border="0" >
-     <TR><TH>Storage Name:</TH><TD><input type="text" name="hostname" size=20 value=<% hostname %></TD></TR>
+     <TR><TH>Storage Name:</TH><TD><input type="text" name="hostname" size=20 value=<%= $(cat /etc/hostname)%>
      </TABLE>
    <input type="submit" name="newhost" value="Apply">
 </form>

@@ -22,7 +22,7 @@ if [ $SWAPON -eq 1 ] ; then
     SWAPBAR=$(($FREE_PCT_SWAP*5/4))
 fi
 
-FREE_CPU=$(top -b -d 1 -n 3 | grep "^CPU" | tail -1 | tr -s ' ' | cut -d ' ' -f 8 | tr -d %)
+FREE_CPU=$(top -b -d 1 -n 3 | grep "^CPU" | tail -n -1 | tr -s ' ' | cut -d ' ' -f 8 | tr -d %)
 CPU_LOAD=$((100-$FREE_CPU))
 CPUBAR=$(($FREE_CPU*5/4))
 

@@ -16,15 +16,15 @@ then
     ACTION=$(echo ${FORM_action} | cut -d ' ' -f 1)
     case "$ACTION" in
       Start)
-      	/etc/init.d/samba start > /dev/null
+      	/bin/systemctl start smbd.service > /dev/null
       	sleep 2
     	;;
       Stop)
-      	/etc/init.d/samba stop > /dev/null
+      	/bin/systemctl stop smbd.service > /dev/null
       	sleep 2
     	;;
       Restart)
-      	/etc/init.d/samba restart > /dev/null
+      	/bin/systemctl restart smbd.service > /dev/null
       	sleep 2
     	;;
       Apply)
@@ -38,7 +38,7 @@ then
 			set_config smbworkgroup ${WORKGROUP}
 	      	sed -ri "s/workgroup = .*/workgroup = ${WORKGROUP}/g" /etc/smb.conf
 		fi
-      	/etc/init.d/samba restart > /dev/null
+      	/bin/systemctl restart smbd.service > /dev/null
       	sleep 2
     	;;
     	

@@ -14,6 +14,8 @@ cp -r ../src .
 do_configure host \
 	--with-lua-headers=$SYSROOT_PREFIX \
 	--with-lua=$TOOLCHAIN/bin \
+	--enable-bashshell \
+        --enable-bash-extensions \
 
 make
 make_install toolchain
@@ -25,16 +27,15 @@ mkdir -p objdir-target && cd objdir-target
 cp -r ../src .
 
 do_configure \
+	--prefix=/ \
 	--with-lua-headers=$SYSROOT_PREFIX \
 	--with-lua=$SYSROOT_PREFIX \
+	--enable-bashshell \
+	--enable-bash-extensions \
+	--enable-luashell \
+	--enable-luacshell \
 	--prefix=/
 
-
-
-
-
-
-#	--with-lua-headers=$SYSROOT_PREFIX
 
 sed -i "s|if ! ./lua2c|if ! $ROOT/$TOOLCHAIN/bin/lua2c|" src/Makefile
 make

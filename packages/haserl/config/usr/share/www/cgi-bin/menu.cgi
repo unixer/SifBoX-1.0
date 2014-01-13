@@ -25,16 +25,9 @@ Content-type: text/html
 		
 		d.add(1,0,'Device','','','','');
 			d.add(2,1,'Hostname','hostname.cgi','Change hostname','','');
-			d.add(3,1,'Admin','admin.cgi','Change admin password','','');
-			d.add(4,1,'LAN Settings','network.cgi','Network settings','','');
-			d.add(5,1,'Web Interface','http.cgi','Change web interface settings','','');
-			d.add(6,1,'Time','time.cgi','Timezone, NTP and manual time config','','');
-
-		d.add(10,0,'Disks','','','','');
-			d.add(11,10,'Diskname','diskname.cgi','Manage disk or partition names','','');
-			d.add(12,10,'Format','format.cgi','Format disks','','');
-			d.add(13,10,'Partition','partition.cgi','Partition utilities','','');
-			
+			d.add(3,1,'LAN Settings','network.cgi','Network settings','','');
+			d.add(4,1,'Disk Info','diskinfo.cgi','Disk Information','','');
+					
 		d.add(20,0,'Services','','','','');
 			d.add(21,20,'DDNS','mg-ddns.cgi','Manage DDNS service','','');
 			d.add(22,20,'FTP','mg-ftp.cgi','Manage FTP service','','');

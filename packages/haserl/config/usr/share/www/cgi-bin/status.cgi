@@ -16,6 +16,7 @@ function validateAction(form) {
 } 
 
 
+
 // -->
 </script>
 <meta http-equiv='refresh' content='90'>
@@ -35,13 +36,13 @@ fi
 %>
 <TABLE border="0">
 <TR><TH>Kernel version:</TH><TD><%= $(uname -r)%></TD></TR>
-<TR><TH>NAS version:</TH><TD><%= $(cat /etc/version)%> (<%= $(cat /etc/build)%>)</TD></TR>
-<TR><TH>Storage Name:</TH><TD><%= $(hostname)%></TD></TR>
+<TR><TH>Sifbox version:</TH><TD><%= $(cat /etc/version | cut -d "-" -f 1) %></TD></TR>
+<TR><TH>Vdr Version:</TH><TD><%= $(vdr -V | grep "^vdr " | cut -d "-" -f 1 | cut -d "/" -f 2 | cut -d ")" -f 1)%></TD></TR>
 <TR><TH>LAN IP Address:</TH><TD><% get_ipaddress %></TD></TR>
 <TR><TH>LAN MAC Address:</TH><TD><%= $(ifconfig eth0 | grep HWa | awk '{print $5}')%></TD></TR>
 <TR><TH>Physical RAM:</TH><TD><%= $(cat /proc/meminfo | tr '\n' ' ' | awk '{print "Total: "$2"KB - Free: "$5"KB - Buffers: "$8"KB - Cached: "$11"KB"}')%></TD></TR>
-<TR><TH>Swapfile:</TH><TD><%= $(free | grep Swap | awk '{print "Total: "$2"KB - Free: "$4"KB"}')%></TD></TR>
-<TR><TH>Uptime:</TH><TD><%= $(uptime | cut -d p -f 2 | awk -F', l' '{ print $1}') %></TD></TR>
+<TR><TH>Uptime:</TH><TD><%= $(uptime | cut -d p -f 2 | awk -F', l' '{ print $1}' | cut -d "," -f 1)%></TD></TR>
+<TR><TH>Vdr Plugin:</TH><TD><%= $(opkg list-installed | grep vdr- | cut -d "-" -f 2)%></TD></TR>
 </TABLE>
 <form action="<%= ${SCRIPT_NAME} %>" method="POST" onsubmit="return validateAction(this);">
 <input type="submit" name="reboot" value="Reboot"  title="Click here to reboot this device."/>
