@@ -1,8 +1,8 @@
 PKG_NAME=vdr-plugin-xvdr
 PKG_URL_PROTO=git
 #PKG_URL_REV=00bb4449
-PKG_URL_REV=ae7c45d
-#PKG_URL_REV=6249892
+#PKG_URL_REV=ae7c45d
+PKG_URL_REV=6249892
 PKG_URL="git://github.com/pipelka/vdr-plugin-xvdr.git"
 PKG_VERSION=0.9.9
 PKG_REV=3

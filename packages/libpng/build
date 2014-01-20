@@ -7,26 +7,17 @@ get_meta $1
 cd $PKG_BUILD_DIR
 
 fix_png_config () {
-  for i in libpng libpng16; do
+  for i in libpng libpng15; do
     sed -i "s%^libdir=.*%libdir=\"$LIB_PREFIX/lib\"%" \
       .install/usr/bin/$i-config
-    sed -i "s%^includedir=.*%includedir=\"$LIB_PREFIX/include/libpng16\"%" \
+    sed -i "s%^includedir=.*%includedir=\"$LIB_PREFIX/include/libpng15\"%" \
       .install/usr/bin/$i-config
   done
 }
 
 mkdir -p objdir-host
-setup_toolchain host
-
 cd objdir-host
-export CPPFLAGS="$CPPFLAGS -I$ROOT/$TOOLCHAIN/include"
-
-../configure --host=$HOST_NAME \
-             --build=$HOST_NAME \
-	     --prefix=/usr \
-             --disable-static \
-             --enable-shared \
-
+do_configure host
 
 make
 make_install toolchain

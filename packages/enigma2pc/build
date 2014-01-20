@@ -5,15 +5,18 @@
 get_meta swig
 SWIG_VER=$PKG_VERSION
 
-#export MAKEFLAGS=-j1
-
 get_meta $1
 
 require_cxx $1
 
 cd $BUILD/$1*
 
+sed -i 's/^video.output.vdpau_enable_inverse_telecine:0/video.output.vdpau_enable_inverse_telecine:1/' \
+	data/xine.conf
+
 do_autoconf
+
+export CXXFLAGS="$CXXFLAGS -I../linux-3.*/include/uapi/"
 
 export PYTHON_VERSION=2.7
 export PYTHON_CPPFLAGS=-I$LIB_PREFIX/include/python2.7
@@ -24,13 +27,10 @@ export PYTHON_EXTRA_LDFLAGS="-Xlinker -export-dynamic"
 
 export SWIG_LIB=$ROOT/$TOOLCHAIN/share/swig/$SWIG_VER
 
-#do_autoreconf -i
-
 do_configure \
              --with-arch=$TARGET_ARCH \
              --with-cpu=$TARGET_CPU \
              --with-xlib
-
 
 make
 make_install

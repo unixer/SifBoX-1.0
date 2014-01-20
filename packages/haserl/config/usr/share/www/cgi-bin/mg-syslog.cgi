@@ -22,19 +22,19 @@ then
 		    	set_config syslog_addr ${SYSLOG_ADDR}
 			fi
 
-			/etc/init.d/syslog restart > /dev/null
+			/bin/systemctl restart rsyslog.service > /dev/null
 			sleep 1
 		;;
 		Start)
-	      	/etc/init.d/syslog start > /dev/null
+	      	/bin/systemctl start rsyslog.service > /dev/null
 			sleep 1
     	;;
 		Stop)
-      		/etc/init.d/syslog stop > /dev/null
+      		/bin/systemctl stop  rsyslog.service > /dev/null
 			sleep 1
 		;;
 		Restart)
-      		/etc/init.d/syslog restart > /dev/null
+      		/bin/systemctl restart rsyslog.service > /dev/null
 			sleep 1
 		;;
 		*)
@@ -82,20 +82,38 @@ function validateAll(form) {
 	return true; 
 }
 
+function validateAction(form) {
+    var action = btnAction.value;
+    var question = "";
+    if ( action == 'Start' )
+        return true;
+    else if ( action == 'Stop' )
+        question = "This action stop Syslog service. Do you want to continue?";
+    else if  ( action == 'Restart' )
+        question = "This action restart Syslog service. Do you want to continue?";
+    else if  ( action == 'Apply' )
+        return true;
+    var answer = confirm (question);
+    if (answer)
+        return true;
+    else
+        return false;
+}
+
 // -->
 </script>
 </head>
 <body onload="checkSyslogNet();">                            
 
 <center>
+<form action="<%= ${SCRIPT_NAME} %>" method="POST"  onsubmit="return validateAction(this);">
 <TABLE border="0" >
 <form id=syslog name=syslog action="<%= ${SCRIPT_NAME} %>" method="POST" onsubmit="return validateAll(this);">
 
 	<TR><TH>Syslog Local Path:</TH><TD><input type="text" name="syslog_path" size=30 value="<% get_config syslog_path %>" <% is_checked $(get_config webserver_enable) %> "/></TD></TR>
 	<TR><TH>Network Syslog Enable:</TH><TD><input type="checkbox" name="syslog_net" value="1" <% is_checked $(get_config syslog_net) %> onclick="setReadSyslog(this);"/></TD></TR>
 	<TR><TH>Network Syslog Address:</TH><TD><input type="text" name="syslog_addr" size=30 value="<% get_config syslog_addr %>" title="Enter an IP -preferred- or HOSTNAME address, or specify the port using ADDRESS:PORT to send syslog messages to."></TD></TR>
-
-	<TR><TH>Syslog status: </TH><TD><% /etc/init.d/syslog webstatus %></TD></TR>
+	<TR><TH>Syslog status: <TD><%= $(/bin/systemctl status rsyslog.service | grep active | cut -d ":" -f 2 | cut -d "(" -f 1) %></TD></TH>
     </TABLE>
 	<input type="submit" name="action" value="Apply" onclick="btnAction=this">
 	<input type="submit" name="action" value="Start" onclick="btnAction=this">

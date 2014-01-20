@@ -29,10 +29,8 @@ function validateAction(form) {
     else if ( action == 'Start' )
     	return true;
     else if ( action == 'Stop' )
-        question = "This action could disconnect remote users. Are you sure that you want to stop SFTP/SSH service?";
+        question = "This action could disconnect remote users. Are you sure that you want to stop SSH/Telnet service?";
     else if  ( action == 'Restart' )
-        question = "This action could disconnect remote users. Are you sure that you want to restart SFTP/SSH service?";
-    else if  ( action == 'Recreate keys' )
         question = "This action will invalidate previous ssh keys, and may take a few minutes to complete. Are you sure?";
     var answer = confirm (question);
     if (answer)                                                      
@@ -73,7 +71,6 @@ function validateTimeout(time,description){
 	return true;                                                 
 }
 
-
 // -->
 </script>
 </head>
@@ -100,25 +97,19 @@ then
       	WEAKKEX=$(echo ${FORM_ssh_weakkex} | cut -d ' ' -f 1)
       	set_config ssh_weakkex ${WEAKKEX:-0}
 
-      	/etc/init.d/sshd restart > /dev/null
+      	/bin/systemctl restart sshd.socket > /dev/null
       	sleep 2
     	;;
       Start)
-      	/etc/init.d/sshd start > /dev/null
+      	/bin/systemctl start sshd.socket  > /dev/null
       	sleep 2
     	;;
       Stop)
-      	/etc/init.d/sshd stop > /dev/null
+      	/bin/systemctl stop sshd.socket > /dev/null
       	sleep 2
     	;;
       Restart)
-      	/etc/init.d/sshd restart > /dev/null
-      	sleep 2
-    	;;
-      Recreate)
-      	echo "<center><h2>Regeneration of SFTP/SSH keys in progress... Please wait for the page to reload, it may take up to several minutes...</h2></center>"
-      	echo "<center>If the page stops without showing the service status, reload and try again.</center>"
-      	/etc/init.d/sshd recreate-key > /dev/null
+      	/bin/systemctl restart sshd.socket > /dev/null
       	sleep 2
     	;;
       *)
@@ -131,19 +122,30 @@ fi
 	<TR><TH>SSH Server Port:</TH><TD><input type="text" name="ssh_port" size=4 value="<% get_config ssh_port %>" title="Enter a the SSH Server port. Accepted port numbers are between 1 and 65535."></TD></TR>
 	<TR><TH>Session timeout:</TH><TD><input type="text" name="ssh_timeout" size=4 value="<% get_config ssh_timeout %>" title="Enter the session timeout. Accepted values are between 0 and 99999 (0 to disable)."></TD></TR>     
 	<TR><TH>Keepalive:</TH><TD><input type="text" name="ssh_keepalive" size=4 value="<% get_config ssh_keepalive %>" title="Enter the keepalive delay. Accepted values are between 0 and 99999 (0 to disable)."></TD></TR>     
-	<TR><TH>Use Diffie-Hellman Group 1 only (reduces login times):</TH><TD><input type="checkbox" name="ssh_weakkex" value="1" <% is_checked $(get_config ssh_weakkex) %> /></TD></TR>
-
-	<TR><TH>Status:</TH><TD><% /etc/init.d/sshd webstatus %></TD></TR>
+	<TR><TH>Status:</TH><TD><%= $(/bin/systemctl status sshd.socket | grep active | cut -d ":" -f 2 | cut -d "(" -f 1) %></TD>
 </TABLE>
 
    <input type="submit" name="action" value="Apply" onclick="btnAction=this">
    <input type="submit" name="action" value="Start" onclick="btnAction=this">
    <input type="submit" name="action" value="Stop" onclick="btnAction=this">
    <input type="submit" name="action" value="Restart" onclick="btnAction=this">
-   <input type="submit" name="action" value="Recreate keys" onclick="btnAction=this">
       
 </form>
 
+<form action="<%= Telnet_Services %>" method="POST"  onsubmit="return validateActionT(this);">
+     <TABLE border="0" >
+
+
+<TR><TH>Enalbe Telnet Services:</TH><TD><input type="checkbox" name="telnet_enable" value="1" <% is_checked $(get_config telnet_enable) %> /></TD></TR>
+
+</TABLE>
+
+   <input type="submit" name="action" value="Apply" onclick="btnAction=this">
+   <input type="submit" name="action" value="Start" onclick="btnAction=this">
+   <input type="submit" name="action" value="Stop" onclick="btnAction=this">
+   <input type="submit" name="action" value="Restart" onclick="btnAction=this">
+
+</form>
 
 </body>
 </html>

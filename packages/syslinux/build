@@ -25,13 +25,9 @@ cp -P \
   core/isolinux.bin \
   com32/menu/vesamenu.c32 \
   core/pxelinux.0 \
+  mbr/mbr.bin \
+  mtools/syslinux \
+  win32/syslinux.exe \
   .install/boot
 
-#Modifica con Syslinux 5.01
-cp -P \
-  com32/elflink/ldlinux/ldlinux.c32 \
-  com32/modules/*.c32 \
-  com32/hdt/hdt.c32 \
-  .install/boot
-#######################
 cp -P core/ldlinux.sys core/ldlinux.bss .install/usr/share/syslinux

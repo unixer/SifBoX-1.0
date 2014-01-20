@@ -41,6 +41,7 @@ main_menu() {
 
 
 do_install() {
+
   device_menu || main_menu
 
   efi_menu
@@ -48,6 +49,19 @@ do_install() {
 
   has_ssd_with_tirm $INSTALL_DEV
   INSTALL_SSD=$?
+
+  # Stabilisce il numero di partizioni dell'HD
+
+  PARTITION_SIZE=$(echo $DEVICE_SIZE | tr -d MB)
+  DEV=$(echo $INSTALL_DEV | cut -d "/" -f 3)
+  PART_SIZE=$(cat /sys/block/$DEV/size)
+  SPACE=$(($PART_SIZE * 512 / 1024 / 1024))
+  MINOR="8589"
+  if [ "$SPACE" -gt "$MINOR" ]; then
+     select_partitions_menu || main_menu
+  else
+     NUM_PARTITION="1"
+  fi
 
   start_install_menu || main_menu
 
@@ -76,7 +90,13 @@ do_install() {
     parted -s --align=opt $INSTALL_DEV mkpart primary $INSTALL_ESP_SIZE 100% >> $LOGFILE 2>&1
   else
     # Otherwise create a full partition on whole device
-    parted -s --align=opt $INSTALL_DEV mkpart primary 0% 100% >> $LOGFILE 2>&1
+    if [ $NUM_PARTITION = "1" ] ;then
+       parted -s --align=opt $INSTALL_DEV mkpart primary 0% 100% >> $LOGFILE 2>&1
+    else
+       parted -s --align=cylind $INSTALL_DEV mkpart primary 0 500cyl >> $LOGFILE 2>&1
+       parted -s --align=cylind $INSTALL_DEV mkpart primary ext4 500cyl 100% >> $LOGFILE 2>&1
+   fi
+
   fi
   # Setting boot flag is important especially for the ESP with GPT table
   parted -s $INSTALL_DEV set 1 boot on >> $LOGFILE 2>&1
@@ -90,15 +110,41 @@ do_install() {
   mkdir -p /tmp/installator
   blkid -o udev $INSTALL_PART > /tmp/installator/blkid
   . /tmp/installator/blkid
-
+  if [ $NUM_PARTITION = "2" ] ;then
+       mkfs.$INSTALL_FSYS -L "Video" -m 0 ${INSTALL_DEV}2  >> $LOGFILE 2>&1
+       tune2fs -c 0 -i 0 ${INSTALL_DEV}2 >> $LOGFILE 2>&1
+  fi
 
   progress_install 40 "Copying files"
   INSTALL_MOUNT="/tmp/installator/target"
   mkdir -p $INSTALL_MOUNT >> $LOGFILE 2>&1
   mount -t $INSTALL_FSYS $INSTALL_PART $INSTALL_MOUNT >> $LOGFILE 2>&1
   cp -PR /.squashfs/* $INSTALL_MOUNT >> $LOGFILE 2>&1
-  
+  if [ $NUM_PARTITION = "2" ]; then
+     cat > $INSTALL_MOUNT/lib/systemd/system/media-video.mount << "EOF" 
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
 
+[Unit]
+Description=Video Directory
+Documentation=man:hier(7)
+Documentation=http://www.freedesktop.org/wiki/Software/systemd/APIFileSystems
+DefaultDependencies=no
+Conflicts=umount.target
+Before=local-fs.target umount.target
+
+[Mount]
+What=INSTALL_DEV
+Where=/media/video
+Type=ext4
+EOF
+  sed -i "s|INSTALL_DEV|${INSTALL_DEV}2|" $INSTALL_MOUNT/lib/systemd/system/media-video.mount
+  ln -s ../media-video.mount $INSTALL_MOUNT/lib/systemd/system/local-fs.target.wants/media-video.mount
+  fi
   progress_install 70 "Creating fstab"
   echo "proc /proc proc defaults 0 0" > $INSTALL_MOUNT/etc/fstab
   echo "UUID=${ID_FS_UUID} / $INSTALL_FSYS relatime,errors=remount-ro 0 1" >> $INSTALL_MOUNT/etc/fstab
@@ -216,11 +262,13 @@ efi_menu() {
 
 
 start_install_menu() {
+  NUM
   TXT="\nDo you want to start the installtation with this parameters? \n \
        \n\ZbDevice:\Zn            $INSTALL_DEV \
+       \n\ZbNumbers partition:\Zn $NUM_PARTITION \
        \n\ZbEFI Support:\Zn       $([ "$INSTALL_EFI" = 0 ] && echo "Yes" || echo "No") \
        \n\ZbSSD Trim Support:\Zn  $([ "$INSTALL_SSD" = 0 ] && echo "Yes" || echo "No") \
-       \n\n\Z1\ZbWARNING:\Zn The contents of the selected device will be erased! "
+       \n\n\Z1\ZbWARNING:\Zn The contents of the selected device will be erased! " 
 
   dialog --colors \
     --backtitle "$BACKTITLE_TXT" \
@@ -231,6 +279,27 @@ start_install_menu() {
   return $RETVAL
 }
 
+
+select_partitions_menu() {
+MENU_PART=""
+TXT="\nSelect numbers of partition for \Zb$DISTRO\Zn \
+       \n\n\Z1\ZbWARNING:\Zn The contents of the selected device will be erased! \
+       \n\n\nPlease choose:"
+
+  dialog --colors \
+    --title "\Z7- Partitions -" \
+    --cancel-label "Back" \
+    --ok-label "Continue" \
+    --menu "$TXT" 15 70 2 \
+      1 "Select 1 partition" \
+      2 "Select 2 partitions (root and video)" \
+   $MENU_PART 2> ${ANSWER}_partitions
+   RETVAL=$?
+
+  NUM_PARTITION=$(cat "${ANSWER}_partitions")
+
+  return $RETVAL
+}
 
 get_device_details() {
   DEVICE_MODEL=$(parted -s $1 -m print | grep $1 | cut -f7 -d ":" | sed "s/;//")

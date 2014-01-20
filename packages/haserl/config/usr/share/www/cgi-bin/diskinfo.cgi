@@ -22,7 +22,7 @@ get_devinfoall(){
    
     for PART in $(get_allparts $DEV) ; do
         MOUNTINFO=$(cat /proc/mounts | grep "$PART")
-        MOUNTED=$(echo $MOUNTINFO | cut -d ' ' -f 2 | cut -d '/' -f 3)
+        MOUNTED=$(echo $MOUNTINFO | cut -d ' ' -f 2 ) 
         MOUNTED=${MOUNTED:-none}
         if [ "$MOUNTED" = "none" ] ; then
             TYPE= && DFSIZE= && DFUSED= && DFAVAIL= && DFPCT= 
@@ -32,13 +32,13 @@ get_devinfoall(){
             if [ "$TYPE" = "fuseblk" ] ; then
                 TYPE=ntfs
             fi
-            DF=$(df -h /dev/$MOUNTED | grep "^/" |  tr -s ' ')
-            DFSIZE=$(echo $DF | cut -d ' ' -f 2)
-            DFUSED=$(echo $DF | cut -d ' ' -f 3)
-            DFAVAIL=$(echo $DF | cut -d ' ' -f 4)
-            DFPCT=$(echo $DF | cut -d ' ' -f 5)
+            DF=$(df -h $MOUNTED | tr -s ' ')
+            DFSIZE=$(echo $DF | cut -d ' ' -f 9)
+            DFUSED=$(echo $DF | cut -d ' ' -f 10)
+            DFAVAIL=$(echo $DF | cut -d ' ' -f 11)
+            DFPCT=$(echo $DF | cut -d ' ' -f 12)
             ACTION="<input type=\"submit\" name=\"mount\" value=\"Umount $PART\" title=\"Click here to dismount. If it does not work, may have a service using the disk.\"/>"
-			if [ "$TYPE" = "ext2" -o "$TYPE" = "ext3" ] ; then
+			if [ "$TYPE" = "ext2" -o "$TYPE" = "ext3" = "ext4" ] ; then
 				ACTION="${ACTION}<input type=\"submit\" name=\"mount\" value=\"Check $PART\" title=\"Check partition integrity. No changes will be done.\"/>"
 				ACTION="${ACTION}<input type=\"submit\" name=\"mount\" value=\"Fix $PART\" title=\"Attempt to fix partition integrity. It will umount the partition during this procedure.\"/>"
 			fi

@@ -14,4 +14,6 @@ mkdir -p $INSTALL/etc
 cp $ROOT/$PACKAGES/$1/config/httpd.conf $INSTALL/etc
 mkdir -p $INSTALL/etc/default
 cp $ROOT/$PACKAGES/$1/config/config $INSTALL/etc/default
+mkdir -p $INSTALL/usr/local/bin
+cp $ROOT/$PACKAGES/$1/scripts/* $INSTALL/usr/local/bin
 

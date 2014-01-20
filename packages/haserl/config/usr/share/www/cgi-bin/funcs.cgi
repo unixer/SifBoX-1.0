@@ -16,6 +16,14 @@ get_config(){
 	echo -n $(sed -n "s/^\(${1}\)=\(.*\)$/\2/p" /etc/default/config)
 }
 
+set_config_mixer(){
+	sed -ri "s%^${1}=.*%${1}=\"${2}\"%g" /etc/audio
+}
+
+get_config_mixer(){
+	echo -n $(sed -n "s/^\(${1}\)=\(.*\)$/\2/p" /etc/audio) | tr -d \"
+}
+
 is_checked(){
     if [ ${1} = 1 ] ; then
       echo -n "checked"                                            
