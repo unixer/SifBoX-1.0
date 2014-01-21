@@ -1,5 +1,6 @@
 PKG_NAME=libpng
-PKG_VERSION=1.5.14
+#PKG_VERSION=1.5.14
+PKG_VERSION=1.5.17
 #PKG_VERSION=1.6.8
 PKG_URL="${SFNET_SRCS}/${PKG_NAME}/${PKG_NAME}-${PKG_VERSION}.tar.xz"
 #PKG_URL="http://www.imagemagick.org/download/delegates/${PKG_NAME}-${PKG_VERSION}.tar.bz2"
