@@ -58,7 +58,7 @@ for s in $FILES; do
         zcat $f | patch -d $3 -p1
         ;;
       *.zip)
-       unzip $f -d $3
+       unzip -o $f -d $3
         ;;
       *.deb)
         DEB_DATA=data.tar.gz
