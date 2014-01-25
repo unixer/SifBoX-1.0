@@ -179,6 +179,11 @@ do_configure \
   $CFG_TEGRA \
   $EXTRA_CONFIG \
   $XBMC_PLAYER \
+  --enable-ssh \
+  --enable-openmax \
+  --enable-player=omxplayer \
+  --with-platform=raspberry-pi \
+  --enable-ffmpeg-libvorbis \
 
 
 # leaked host includes break the Python components build
