@@ -1,6 +1,6 @@
-diff -ruN 1/config.c 2/config.c
---- 1/config.c	2013-10-25 14:26:42.000000000 +0200
-+++ 2/config.c	2013-10-25 14:28:01.000000000 +0200
+diff -ruN vdr/config.c vdr-1/config.c
+--- vdr/config.c	2014-01-08 21:49:36.000000000 +0100
++++ vdr-1/config.c	2014-01-08 21:51:00.000000000 +0100
 @@ -398,6 +398,7 @@
    PositionerLastLon = 0;
    SetSystemTime = 0;
@@ -25,9 +25,9 @@ diff -ruN 1/config.c 2/config.c
    Store("StandardCompliance", StandardCompliance);
    Store("MarginStart",        MarginStart);
    Store("MarginStop",         MarginStop);
-diff -ruN 1/config.h 2/config.h
---- 1/config.h	2013-10-25 14:26:42.000000000 +0200
-+++ 2/config.h	2013-10-25 14:28:01.000000000 +0200
+diff -ruN vdr/config.h vdr-1/config.h
+--- vdr/config.h	2014-01-08 21:49:36.000000000 +0100
++++ vdr-1/config.h	2014-01-08 21:51:00.000000000 +0100
 @@ -284,6 +284,7 @@
    int SetSystemTime;
    int TimeSource;
@@ -36,10 +36,10 @@ diff -ruN 1/config.h 2/config.h
    int StandardCompliance;
    int MarginStart, MarginStop;
    int JumpSeconds, JumpSecondsSlow, JumpSecondsRepeat;
-diff -ruN 1/dvbdevice.c 2/dvbdevice.c
---- 1/dvbdevice.c	2013-10-13 16:41:57.000000000 +0200
-+++ 2/dvbdevice.c	2013-10-25 14:28:01.000000000 +0200
-@@ -1509,6 +1509,10 @@
+diff -ruN vdr/dvbdevice.c vdr-1/dvbdevice.c
+--- vdr/dvbdevice.c	2014-01-02 11:30:15.000000000 +0100
++++ vdr-1/dvbdevice.c	2014-01-08 21:51:00.000000000 +0100
+@@ -1510,6 +1510,10 @@
  
  bool cDvbDevice::ProvidesSource(int Source) const
  {
@@ -50,10 +50,10 @@ diff -ruN 1/dvbdevice.c 2/dvbdevice.c
    int type = Source & cSource::st_Mask;
    return type == cSource::stNone
        || type == cSource::stAtsc  && ProvidesDeliverySystem(SYS_ATSC)
-diff -ruN 1/menu.c 2/menu.c
---- 1/menu.c	2013-10-25 14:26:42.000000000 +0200
-+++ 2/menu.c	2013-10-25 14:28:01.000000000 +0200
-@@ -3269,6 +3269,7 @@
+diff -ruN vdr/menu.c vdr-1/menu.c
+--- vdr/menu.c	2014-01-08 21:49:36.000000000 +0100
++++ vdr-1/menu.c	2014-01-08 21:51:00.000000000 +0100
+@@ -3290,6 +3290,7 @@
       Add(new cMenuEditIntItem( tr("Setup.DVB$Subtitle background transparency"), &data.SubtitleBgTransparency, 0, 10));
       }
    Add(new cMenuEditBoolItem(tr("Setup.DVB$Enable teletext support"), &data.SupportTeletext));
@@ -61,9 +61,9 @@ diff -ruN 1/menu.c 2/menu.c
  
    SetCurrent(Get(current));
    Display();
-diff -ruN 1/po/de_DE.po 2/po/de_DE.po
---- 1/po/de_DE.po	2013-10-25 14:26:42.000000000 +0200
-+++ 2/po/de_DE.po	2013-10-25 14:28:01.000000000 +0200
+diff -ruN vdr/po/de_DE.po vdr-1/po/de_DE.po
+--- vdr/po/de_DE.po	2014-01-08 21:49:36.000000000 +0100
++++ vdr-1/po/de_DE.po	2014-01-08 21:51:00.000000000 +0100
 @@ -966,6 +966,9 @@
  msgid "Setup.EPG$Preferred language"
  msgstr "Bevorzugte Sprache"

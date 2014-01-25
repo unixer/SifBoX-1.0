@@ -1,6 +1,6 @@
-diff -ruN 1/config.c 2/config.c
---- 1/config.c	2013-08-31 14:41:28.000000000 +0200
-+++ 2/config.c	2013-10-25 14:01:12.000000000 +0200
+diff -ruN vdr-1/config.c vdr/config.c
+--- vdr-1/config.c	2013-08-31 14:41:28.000000000 +0200
++++ vdr/config.c	2014-01-08 21:21:17.000000000 +0100
 @@ -471,6 +471,9 @@
    ProgressDisplayTime = 0;
    PauseOnMarkSet = 0;
@@ -31,9 +31,9 @@ diff -ruN 1/config.c 2/config.c
    Store("CurrentChannel",     CurrentChannel);
    Store("CurrentVolume",      CurrentVolume);
    Store("CurrentDolby",       CurrentDolby);
-diff -ruN 1/config.h 2/config.h
---- 1/config.h	2013-10-19 13:32:15.000000000 +0200
-+++ 2/config.h	2013-10-25 14:01:12.000000000 +0200
+diff -ruN vdr-1/config.h vdr/config.h
+--- vdr-1/config.h	2013-10-20 11:32:23.000000000 +0200
++++ vdr/config.h	2014-01-08 21:21:17.000000000 +0100
 @@ -36,6 +36,8 @@
  // plugins to work with newer versions of the core VDR as long as no
  // VDR header files have changed.
@@ -53,9 +53,9 @@ diff -ruN 1/config.h 2/config.h
    int CurrentChannel;
    int CurrentVolume;
    int CurrentDolby;
-diff -ruN 1/dvbplayer.c 2/dvbplayer.c
---- 1/dvbplayer.c	2013-10-25 14:00:27.000000000 +0200
-+++ 2/dvbplayer.c	2013-10-25 14:01:12.000000000 +0200
+diff -ruN vdr-1/dvbplayer.c vdr/dvbplayer.c
+--- vdr-1/dvbplayer.c	2014-01-08 21:16:30.000000000 +0100
++++ vdr/dvbplayer.c	2014-01-08 21:21:17.000000000 +0100
 @@ -211,6 +211,7 @@
    cNonBlockingFileReader *nonBlockingFileReader;
    cRingBufferFrame *ringBuffer;
@@ -193,10 +193,10 @@ diff -ruN 1/dvbplayer.c 2/dvbplayer.c
  
            // Handle hitting begin/end of recording:
  
-diff -ruN 1/MANUAL 2/MANUAL
---- 1/MANUAL	2013-10-10 14:03:23.000000000 +0200
-+++ 2/MANUAL	2013-10-25 14:01:12.000000000 +0200
-@@ -948,6 +948,25 @@
+diff -ruN vdr-1/MANUAL vdr/MANUAL
+--- vdr-1/MANUAL	2013-11-03 14:40:49.000000000 +0100
++++ vdr/MANUAL	2014-01-08 21:21:17.000000000 +0100
+@@ -949,6 +949,25 @@
                           0 resulting in a file named 'resume', and any other
                           value resulting in 'resume.n'.
  
@@ -222,10 +222,10 @@ diff -ruN 1/MANUAL 2/MANUAL
    Miscellaneous:
  
    Min. event timeout = 30
-diff -ruN 1/menu.c 2/menu.c
---- 1/menu.c	2013-10-25 14:00:27.000000000 +0200
-+++ 2/menu.c	2013-10-25 14:01:12.000000000 +0200
-@@ -3534,6 +3534,9 @@
+diff -ruN vdr-1/menu.c vdr/menu.c
+--- vdr-1/menu.c	2014-01-08 21:16:30.000000000 +0100
++++ vdr/menu.c	2014-01-08 21:21:17.000000000 +0100
+@@ -3555,6 +3555,9 @@
    Add(new cMenuEditIntItem( tr("Setup.Replay$Progress display time (s)"), &data.ProgressDisplayTime, 0, 60));
    Add(new cMenuEditBoolItem(tr("Setup.Replay$Pause replay when setting mark"), &data.PauseOnMarkSet));
    Add(new cMenuEditIntItem(tr("Setup.Replay$Resume ID"), &data.ResumeID, 0, 99));
@@ -235,7 +235,7 @@ diff -ruN 1/menu.c 2/menu.c
  }
  
  void cMenuSetupReplay::Store(void)
-@@ -5240,8 +5243,17 @@
+@@ -5261,8 +5264,17 @@
    if (GetIndex(Current, Total)) {
       if (marks.Count()) {
          if (cMark *m = Forward ? marks.GetNext(Current) : marks.GetPrev(Current)) {
@@ -255,7 +255,7 @@ diff -ruN 1/menu.c 2/menu.c
             return;
             }
          }
-@@ -5302,7 +5314,7 @@
+@@ -5325,7 +5337,7 @@
       if (!m)
          m = marks.GetNext(Current);
       if (m) {
@@ -264,9 +264,9 @@ diff -ruN 1/menu.c 2/menu.c
             m = marks.Next(m);
          if (m) {
             Goto(m->Position() - SecondsToFrames(3, FramesPerSecond()));
-diff -ruN 1/po/de_DE.po 2/po/de_DE.po
---- 1/po/de_DE.po	2013-10-14 11:59:04.000000000 +0200
-+++ 2/po/de_DE.po	2013-10-25 14:01:12.000000000 +0200
+diff -ruN vdr-1/po/de_DE.po vdr/po/de_DE.po
+--- vdr-1/po/de_DE.po	2014-01-05 12:06:56.000000000 +0100
++++ vdr/po/de_DE.po	2014-01-08 21:21:17.000000000 +0100
 @@ -1186,6 +1186,15 @@
  msgid "Replay"
  msgstr "Wiedergabe"
@@ -283,9 +283,9 @@ diff -ruN 1/po/de_DE.po 2/po/de_DE.po
  msgid "Setup.Replay$Multi speed mode"
  msgstr "Mehrstufiger Vor-/Rücklauf"
  
-diff -ruN 1/po/fr_FR.po 2/po/fr_FR.po
---- 1/po/fr_FR.po	2013-10-14 11:56:31.000000000 +0200
-+++ 2/po/fr_FR.po	2013-10-25 14:01:12.000000000 +0200
+diff -ruN vdr-1/po/fr_FR.po vdr/po/fr_FR.po
+--- vdr-1/po/fr_FR.po	2014-01-05 12:06:56.000000000 +0100
++++ vdr/po/fr_FR.po	2014-01-08 21:21:17.000000000 +0100
 @@ -1196,6 +1196,15 @@
  msgid "Replay"
  msgstr "Lecture"
@@ -302,9 +302,9 @@ diff -ruN 1/po/fr_FR.po 2/po/fr_FR.po
  msgid "Setup.Replay$Multi speed mode"
  msgstr "Mode multi-vitesses"
  
-diff -ruN 1/README.jumpplay 2/README.jumpplay
---- 1/README.jumpplay	1970-01-01 01:00:00.000000000 +0100
-+++ 2/README.jumpplay	2013-10-25 14:01:12.000000000 +0200
+diff -ruN vdr-1/README.jumpplay vdr/README.jumpplay
+--- vdr-1/README.jumpplay	1970-01-01 01:00:00.000000000 +0100
++++ vdr/README.jumpplay	2014-01-08 21:21:17.000000000 +0100
 @@ -0,0 +1,92 @@
 +JumpPlay patch for VDR
 +----------------------

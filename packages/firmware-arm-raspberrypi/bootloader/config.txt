@@ -27,7 +27,9 @@
 ################################################################################
 
 # default GPU memory split (do not change if you do not know what you are doing)
-  gpu_mem=128
+#  gpu_mem=128
+   gpu_mem=384
+   gpu_freq=350
 
 # SDRAM size based GPU memory split, uncomment and setup to override 'gpu_mem'
   gpu_mem_256=100
@@ -55,9 +57,12 @@
 # core_freq=250
 # sdram_freq=400
 # over_voltage=0
+arm_freq=900
+core_freq=333
+sdram_freq=450
 
 # set to 'force_turbo=1' to disable dynamic overclocking (you can lose your warranty!)
-  force_turbo=0
+force_turbo=1
 
 # If you have any data corruption using Turbo Mode and overclocking
 # try with this setting uncommented
@@ -73,7 +78,7 @@
 # Make display smaller to stop text spilling off the screen
 # see also http://www.raspberrypi.org/phpBB3/viewtopic.php?f=67&t=15700
 # overscan_scale=1
-# disable_overscan=1
+disable_overscan=1
 
 # Adapt overscan values to your needs
 # overscan_left=57
@@ -86,9 +91,9 @@
 ################################################################################
 
 # Force HDMI even if unplugged or powered off
-# hdmi_force_hotplug=1
-hdmi_mode=20
-hdmi_drive=2
+hdmi_force_hotplug=1
+# hdmi_mode=20
+# hdmi_drive=2
 sdtv_mode=2
 sdtv_aspect=3
 ################################################################################

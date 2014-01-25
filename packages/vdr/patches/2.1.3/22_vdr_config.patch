@@ -44,7 +44,7 @@ diff -ruN 1.7.41_24/Make.config 1.7.41_25/Make.config
 +RESDIR    = /etc/vdr
 +DVBDIR    = $(MLDDIR)/dvb/include/uapi
 +
-+VIDEODIR  = /data/tv/tv0
++VIDEODIR  = /data/tv
 +#CONFDIR   = /var/lib/vdr
 +#CACHEDIR  = /var/cache/vdr
 +
@@ -62,7 +62,7 @@ diff -ruN 1.7.41_24/Make.config 1.7.41_25/Make.config
 +
 +# Use 'make ONEDIR=1' to have all data in one single directory:
 +ifdef ONEDIR
-+VIDEODIR     = /data/tv/tv0
++VIDEODIR     = /data/tv
 +CACHEDIR     = $(VIDEODIR)
 +CONFDIR      = $(VIDEODIR)
 +RESDIR       = $(VIDEODIR)

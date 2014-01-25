@@ -8,7 +8,7 @@ PKG_VERSION="319.76"
 [ "$TARGET_ARCH" = "i386" ] && PKG_URL="http://us.download.nvidia.com/XFree86/Linux-x86/$PKG_VERSION/NVIDIA-Linux-x86-$PKG_VERSION.run"
 [ "$TARGET_ARCH" = "x86_64" ] && PKG_URL="http://us.download.nvidia.com/XFree86/Linux-x86_64/$PKG_VERSION/NVIDIA-Linux-x86_64-$PKG_VERSION-no-compat32.run"
 
-PKG_REV=1
+PKG_REV=1091
 PKG_FORCE_CHECK="true"
 PKG_ARCH="i386 x86_64"
 PKG_LICENSE=non-free

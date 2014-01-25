@@ -6,13 +6,13 @@ get_meta $1
 mkdir -p $PKG_BUILD_DIR || true
 
 cd $PKG_BUILD_DIR
-if [ -f Logopack_Update.zip ]; then
-  echo "OK"
-else
+#if [ -f Logopack_Update.zip ]; then
+#  echo "OK"
+#else
   #wget http://www.dvbviewer.tv/download/markus/Logopack/Logopack_Update.zip
-  wget http://dl.dropbox.com/u/23897246/Logopack_Update.zip
-fi
-unzip -o Logopack_Update.zip
+#  wget http://dl.dropbox.com/u/23897246/Logopack_Update.zip
+#fi
+#unzip -o Logopack_Update.zip
 mkdir -p .install/etc/vdr/plugins/skinnopacity/logos/ || true
 #git clone https://github.com/3PO/Senderlogos
 ln -s "canale5.png" "canale 5.png" || true

@@ -1,6 +1,6 @@
-diff -ruN vdr-2.1.1-5/skinlcars.c vdr-2.1.1-6/skinlcars.c
---- vdr-2.1.1-5/skinlcars.c	2013-08-18 15:45:36.000000000 +0200
-+++ vdr-2.1.1-6/skinlcars.c	2013-08-25 20:35:53.793667354 +0200
+diff -ruN vdr/skinlcars.c vdr-1/skinlcars.c
+--- vdr/skinlcars.c	2013-11-16 14:20:19.000000000 +0100
++++ vdr-1/skinlcars.c	2014-01-08 21:28:03.000000000 +0100
 @@ -31,6 +31,19 @@
  #include "themes.h"
  #include "videodir.h"
@@ -21,7 +21,7 @@ diff -ruN vdr-2.1.1-5/skinlcars.c vdr-2.1.1-6/skinlcars.c
  #include "symbols/arrowdown.xpm"
  #include "symbols/arrowup.xpm"
  #include "symbols/audio.xpm"
-@@ -1235,12 +1248,25 @@
+@@ -1244,12 +1257,25 @@
  
  void cSkinLCARSDisplayMenu::DrawTimers(void)
  {
@@ -48,7 +48,7 @@ diff -ruN vdr-2.1.1-5/skinlcars.c vdr-2.1.1-6/skinlcars.c
       cVector<int> FreeDeviceSlots;
       int NumDevices = 0;
       int y = ys04;
-@@ -1252,7 +1278,7 @@
+@@ -1261,7 +1287,7 @@
                 if (y + lineHeight > ys05)
                    break;
                 if (const cTimer *Timer = SortedTimers[i]) {
@@ -57,7 +57,7 @@ diff -ruN vdr-2.1.1-5/skinlcars.c vdr-2.1.1-6/skinlcars.c
                       if (cRecordControl *RecordControl = cRecordControls::GetRecordControl(Timer)) {
                          if (!Device || Device == RecordControl->Device()) {
                             DrawTimer(Timer, y, NumTimers > 0);
-@@ -1310,6 +1336,8 @@
+@@ -1319,6 +1345,8 @@
           }
       osd->DrawText(xs02, ys00, itoa(NumTimers), Theme.Color(clrMenuFrameFg), frameColor, font, xs03 - xs02, ys01 - ys00, taBottom | taLeft | taBorder);
       osd->DrawText(xs08, ys00, itoa(NumDevices), Theme.Color(clrMenuFrameFg), frameColor, font, xs09 - xs08, ys01 - ys00, taBottom | taRight | taBorder);
