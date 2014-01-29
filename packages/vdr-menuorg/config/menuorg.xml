@@ -89,7 +89,7 @@ description of the config file format.
                     <command name="ECM Info" execute="/usr/local/bin/ecm.sh" />
 	      </menu>
          </menu>
-	 <command name="Aggiorna Canali SKY" execute="/usr/bin/menuorg-appswitcher standalone=yes app=listasky &amp;> /dev/null " />
+	 <command name="Aggiorna Canali SKY" confirm="yes" execute="/usr/bin/menuorg-appswitcher standalone=yes app=listasky &amp;> /dev/null " />
          <system name="Setup" />
 
          <plugin name="femon" />

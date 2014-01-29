@@ -55,7 +55,7 @@ export DISPLAY=":0.0"
 
 canalisky="/etc/vdr/plugins/channelssky/channels.sky.conf"
 #[ $# -eq 0 ] && { echo "Usage: $0 filename"; }
-[ ! -f "$canalisky" ] && { echo "Error: $0 file not found."; }
+#[ ! -f "$canalisky" ] && { echo "Error: $0 file not found."; }
 
 if [ -s "$canalisky" ]; then
    `mv /etc/vdr/plugins/channelssky/channels.sky.conf /etc/vdr/channels.conf`
