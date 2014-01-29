@@ -33,9 +33,9 @@ is_checked(){
 set_hostname(){
     hostname ${1}
     echo ${1} > /etc/hostname
-    sed -ri "s,hostname=.*,hostname=${1},g" /etc/default/config
+    sed -ri "s,hostname=.*,hostname=${1},g" /etc/hostname
     sed -ri "s,server string = .*,server string = ${1},g" /etc/smb.conf 
-    /etc/init.d/samba reload > /dev/null
+    /bin/systemctl restart smbd.service > /dev/null
     echo "127.0.0.1 localhost" > /etc/hosts
     echo $(get_ipaddress) ${1} >> /etc/hosts
 }

@@ -77,13 +77,19 @@ description of the config file format.
                <command name="Riavvia VDR" confirm="yes" execute="systemctl restart vdr.service" />
                <command name="Riavvia sistema" confirm="yes" execute="reboot" />
 	       <command name="Arresta sistema" confirm="yes" execute="/usr/bin/vdrshutdown" />
-
 	<menu name="Informazioni di sistema">
 		    <plugin name="systeminfo" />
                     <plugin name="mlist" />
                     <command name="Lista pacchetti" execute="opkg list | grep vdr"/>
+	      	    <command name="Oscam Last Log" execute="tail -n 40 /var/log/oscam/oscam.log" />
+                    <command name="Diritti Scheda (da impl.)" execute="dbclient -y -i /root/.ssh/id_rsa root /usr/local/bin/OscamRight.sh" />
+                    <command name="Restart Emu" execute="systemctl restart oscam.service" />
+                    <command name="STOP OScam" execute="systemctl stop oscam.service" />
+                    <command name="START OScam" execute="systemctl start oscam.service" />
+                    <command name="ECM Info" execute="/usr/local/bin/ecm.sh" />
 	      </menu>
          </menu>
+	 <command name="Aggiorna Canali SKY" execute="/usr/bin/menuorg-appswitcher standalone=yes app=listasky &amp;> /dev/null " />
          <system name="Setup" />
 
          <plugin name="femon" />

@@ -10,7 +10,8 @@ require_glibc $1
 cd $PKG_BUILD_DIR
 
 ATI_PKG="`basename $PKG_URL | sed 's/.zip//'`.run"
-ATI_PKG="amd-driver-installer-catalyst-13-4-x86.x86_64.run"
+ATI_PKG="amd-catalyst-13.11-betaV9.95-linux-x86.x86_64.run"
+#amd-driver-installer-catalyst-13-12-x86.x86_64.run"
 sh $ATI_PKG --extract .
 cd -
 

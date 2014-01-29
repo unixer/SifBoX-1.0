@@ -1,5 +1,5 @@
---- vdr-smarttvweb-0.98/Makefile.old	2013-09-17 17:43:07.905659899 +0200
-+++ vdr-smarttvweb-0.98/Makefile	2013-09-17 17:41:14.821657958 +0200
+--- vdr-smarttvweb-0.99/Makefile.org	2014-01-28 10:33:31.224312781 +0100
++++ vdr-smarttvweb-0.99/Makefile	2014-01-28 10:34:47.132314084 +0100
 @@ -16,22 +16,24 @@
  
  
@@ -32,11 +32,12 @@
  
  ### read standlone settings if there
  -include .standalone
-@@ -55,7 +57,7 @@
+@@ -55,7 +57,8 @@
  
  ### The object files (add further files here):
  
--OBJS = $(PLUGIN).o smarttvfactory.o httpresource.o httpclient.o mngurls.o log.o url.o stvw_cfg.o responsebase.o responsefile.o responsevdrdir.o responsememblk.o
+-OBJS = $(PLUGIN).o smarttvfactory.o httpresource.o httpclient.o mngurls.o log.o url.o stvw_cfg.o responsebase.o responsefile.o responsevdrdir.o responsememblk.o responselive.o httpresource_base.o
++#OBJS = $(PLUGIN).o smarttvfactory.o httpresource.o httpclient.o mngurls.o log.o url.o stvw_cfg.o responsebase.o responsefile.o responsevdrdir.o responsememblk.o responselive.o httpresource_base.o
 +OBJS = $(PLUGIN).o smarttvfactory.o httpresource.o log.o url.o stvw_cfg.o
  
  OBJS2 = 
