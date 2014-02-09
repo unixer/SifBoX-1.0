@@ -44,6 +44,8 @@ for i in $MESA_LIBS; do
   fi
 done
 
-do_install etc/drirc
+if [ -f .install/etc/drirc ]; then 
+  do_install etc/drirc
+fi
 
 exit 0

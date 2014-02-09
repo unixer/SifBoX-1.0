@@ -87,8 +87,15 @@ else
   CFG_CRYSTALHD="--disable-crystalhd"
 fi
 
-cd $BUILD/$1*
-./bootstrap
+if pkg_uses $1 cedarx; then
+  CFG_CEDARX="--enable-cedar"
+else
+  CFG_CEDARX="--disable-cedar"
+fi
+
+get_meta $1
+cd $PKG_BUILD_DIR
+
 do_configure \
             --enable-silent-rules \
             --disable-dependency-tracking \
@@ -198,6 +205,7 @@ do_configure \
             --disable-jack \
             --disable-cyberlink \
             --disable-upnp \
+            --disable-skins2 \
             --disable-hildon \
             --disable-qt4 \
             --disable-macosx \
@@ -223,12 +231,11 @@ do_configure \
             --disable-osso_screensaver \
             --disable-update-check \
             --enable-sqlite \
-            --disable-loader \
+            --enable-loader \
             $CFG_DEVTOOLS \
             --disable-activex \
             --disable-mozilla \
-
-#            --disable-skins2 \
+            $CFG_CEDARX
 
 make
 make_install

@@ -51,6 +51,8 @@ if [ -n "$MACHINE_UBOOT_CONFIG_EXTRA" ]; then
   fi
 fi
 
+BOOT_CFG="$CONFIG_MACHINE/boot.cfg"
+
 cp $BOOT_CFG boot.cfg
 [ $TARGET_PLATFORM = "omap4" ] && \
   sed -i "s%_DISPLAY_%$OMAP_DISPLAY%" boot.cfg

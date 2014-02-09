@@ -1,0 +1,20 @@
+--- ../Scaricati/w_scan-20100529/dump-vdr.c	2010-03-16 16:57:39.000000000 +0100
++++ dump-vdr.c	2010-06-11 19:31:42.345603541 +0200
+@@ -368,6 +368,7 @@
+ 
+ void dump_param_vdr_1_7(FILE * f, struct extended_dvb_frontend_parameters * p, struct w_scan_flags * flags) {
+ 
++
+ switch (flags->fe_type) {
+ 	case FE_ATSC:
+ 		fprintf (f, ":%i:",   p->frequency / 1000);		
+@@ -468,7 +469,8 @@
+ 	    (p->u.qpsk.modulation_system == SYS_DVBS2))
+ 		/* delivery system not supported by vdr version */
+ 		return;
+-
++	if(channel_num>0)
++	fprintf(f,":@%d\n",channel_num);
+ 	fprintf (f, "%s", service_name);
+ 
+ 	if (flags->dump_provider)

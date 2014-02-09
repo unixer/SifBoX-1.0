@@ -2,21 +2,14 @@
 
 . config/options
 
-cd $BUILD/$1*
+get_meta $1
+cd $PKG_BUILD_DIR
 
 if pkg_uses $1 devtools; then
   do_install usr/bin/vlc
   do_install usr/bin/cvlc
   do_install usr/bin/rvlc
-  do_install usr/bin/vlc-wrapper
 fi
 
 do_install usr/lib/libvlc*.so*
-#do_install usr/lib/vlc/plugins/*/*.so
-do_install usr/lib/vlc/plugins
-do_install usr/share/applications
-do_install usr/share/icons
-do_install usr/share/kde4
-do_install usr/share/vlc
-do_install usr/include
-do_install usr/lib/vlc/vlc-cache-gen
+do_install usr/lib/vlc/plugins/*/*.so

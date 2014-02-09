@@ -1,6 +1,9 @@
 #!/bin/sh
 
-#
-# A dummy install - the real package is in config/platforms/arm/ux500/packages
-#
+. config/options
 
+get_meta $1
+
+cd $PKG_BUILD_DIR
+
+do_install usr/lib

@@ -1,6 +1,6 @@
 PKG_NAME=bitstream
 PKG_URL_PROTO=git
-PKG_URL_REV=a794bdb
+PKG_URL_REV=846029
 PKG_URL="git://git.videolan.org/bitstream.git"
 PKG_VERSION=r${PKG_URL_REV}
 PKG_REV=1
