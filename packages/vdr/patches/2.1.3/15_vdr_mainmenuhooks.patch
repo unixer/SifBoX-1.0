@@ -1,6 +1,6 @@
-diff -ruN vdr-1/config.h vdr/config.h
---- vdr-1/config.h	2014-01-08 21:24:05.000000000 +0100
-+++ vdr/config.h	2014-01-08 21:26:06.000000000 +0100
+diff -ruN 1/config.h 2/config.h
+--- 1/config.h	2013-10-25 14:02:57.000000000 +0200
++++ 2/config.h	2013-10-25 14:05:07.000000000 +0200
 @@ -38,6 +38,10 @@
  
  #define JUMPPLAYVERSNUM 110
@@ -12,10 +12,10 @@ diff -ruN vdr-1/config.h vdr/config.h
  #define MAXPRIORITY       99
  #define MINPRIORITY       (-MAXPRIORITY)
  #define LIVEPRIORITY      0                  // priority used when selecting a device for live viewing
-diff -ruN vdr-1/menu.c vdr/menu.c
---- vdr-1/menu.c	2014-01-08 21:24:05.000000000 +0100
-+++ vdr/menu.c	2014-01-08 21:26:06.000000000 +0100
-@@ -3770,15 +3770,31 @@
+diff -ruN 1/menu.c 2/menu.c
+--- 1/menu.c	2013-10-25 14:02:57.000000000 +0200
++++ 2/menu.c	2013-10-25 14:05:07.000000000 +0200
+@@ -3749,15 +3749,31 @@
  
    // Initial submenus:
  
@@ -53,7 +53,7 @@ diff -ruN vdr-1/menu.c vdr/menu.c
  }
  
  cOsdObject *cMenuMain::PluginOsdObject(void)
-@@ -3886,13 +3902,34 @@
+@@ -3865,13 +3881,34 @@
    eOSState state = cOsdMenu::ProcessKey(Key);
    HadSubMenu |= HasSubMenu();
  
@@ -94,7 +94,7 @@ diff -ruN vdr-1/menu.c vdr/menu.c
      case osStopRecord: if (Interface->Confirm(tr("Stop recording?"))) {
                            cOsdItem *item = Get(Current());
                            if (item) {
-@@ -3944,6 +3981,12 @@
+@@ -3923,6 +3960,12 @@
                 default:      break;
                 }
      }

@@ -1,6 +1,6 @@
-diff -ruN vdr/dvbplayer.c vdr-1/dvbplayer.c
---- vdr/dvbplayer.c	2013-12-25 14:24:07.000000000 +0100
-+++ vdr-1/dvbplayer.c	2014-01-08 21:16:30.000000000 +0100
+diff -ruN 1/vdr-2.1.2/dvbplayer.c 2/vdr-2.1.2/dvbplayer.c
+--- vdr-2.1.2/dvbplayer.c	2013-03-08 14:44:19.000000000 +0100
++++ vdr-2.1.2/dvbplayer.c	2013-10-25 13:56:48.000000000 +0200
 @@ -217,6 +217,7 @@
    double framesPerSecond;
    bool isPesRecording;
@@ -66,9 +66,9 @@ diff -ruN vdr/dvbplayer.c vdr-1/dvbplayer.c
  {
  }
  
-diff -ruN vdr/dvbplayer.h vdr-1/dvbplayer.h
---- vdr/dvbplayer.h	2012-02-19 12:40:36.000000000 +0100
-+++ vdr-1/dvbplayer.h	2014-01-08 21:16:30.000000000 +0100
+diff -ruN 1/vdr-2.1.2/dvbplayer.h 2/vdr-2.1.2/dvbplayer.h
+--- vdr-2.1.2/dvbplayer.h	2012-02-19 12:40:36.000000000 +0100
++++ vdr-2.1.2/dvbplayer.h	2013-10-25 13:56:48.000000000 +0200
 @@ -19,7 +19,7 @@
  private:
    cDvbPlayer *player;
@@ -78,10 +78,10 @@ diff -ruN vdr/dvbplayer.h vdr-1/dvbplayer.h
         // Sets up a player for the given file.
         // If PauseLive is true, special care is taken to make sure the index
         // file of the recording is long enough to allow the player to display
-diff -ruN vdr/menu.c vdr-1/menu.c
---- vdr/menu.c	2013-12-27 10:00:24.000000000 +0100
-+++ vdr-1/menu.c	2014-01-08 21:16:30.000000000 +0100
-@@ -4714,7 +4714,7 @@
+diff -ruN 1/vdr-2.1.2/menu.c 2/vdr-2.1.2/menu.c
+--- vdr-2.1.2/menu.c	2013-10-16 11:15:36.000000000 +0200
++++ vdr-2.1.2/menu.c	2013-10-25 13:56:48.000000000 +0200
+@@ -4693,7 +4693,7 @@
  cRecordControl *cRecordControls::RecordControls[MAXRECORDCONTROLS] = { NULL };
  int cRecordControls::state = 0;
  
@@ -90,7 +90,7 @@ diff -ruN vdr/menu.c vdr-1/menu.c
  {
    static time_t LastNoDiskSpaceMessage = 0;
    int FreeMB = 0;
-@@ -4733,6 +4733,13 @@
+@@ -4712,6 +4712,13 @@
       }
    LastNoDiskSpaceMessage = 0;
  
@@ -104,7 +104,7 @@ diff -ruN vdr/menu.c vdr-1/menu.c
    ChangeState();
    int ch = Timer ? Timer->Channel()->Number() : cDevice::CurrentChannel();
    cChannel *channel = Channels.GetByNumber(ch);
-@@ -4785,12 +4792,53 @@
+@@ -4764,12 +4771,53 @@
        }
  }
  
@@ -160,7 +160,7 @@ diff -ruN vdr/menu.c vdr-1/menu.c
       cControl::Launch(rc);
       cControl::Attach();
       Skins.Message(mtStatus, NULL);
-@@ -4833,6 +4881,23 @@
+@@ -4812,6 +4860,23 @@
    return NULL;
  }
  
@@ -184,7 +184,7 @@ diff -ruN vdr/menu.c vdr-1/menu.c
  void cRecordControls::Process(time_t t)
  {
    for (int i = 0; i < MAXRECORDCONTROLS; i++) {
-@@ -4862,12 +4927,13 @@
+@@ -4841,12 +4906,13 @@
        }
  }
  
@@ -202,7 +202,7 @@ diff -ruN vdr/menu.c vdr-1/menu.c
    return false;
  }
  
-@@ -4891,8 +4957,8 @@
+@@ -4870,8 +4936,8 @@
  cReplayControl *cReplayControl::currentReplayControl = NULL;
  cString cReplayControl::fileName;
  
@@ -213,10 +213,10 @@ diff -ruN vdr/menu.c vdr-1/menu.c
  {
    cDevice::PrimaryDevice()->SetKeepTracks(PauseLive);
    currentReplayControl = this;
-diff -ruN vdr/menu.h vdr-1/menu.h
---- vdr/menu.h	2013-12-25 13:06:03.000000000 +0100
-+++ vdr-1/menu.h	2014-01-08 21:16:30.000000000 +0100
-@@ -252,8 +252,11 @@
+diff -ruN 1/vdr-2.1.2/menu.h 2/vdr-2.1.2/menu.h
+--- vdr-2.1.2/menu.h	2013-10-16 11:14:58.000000000 +0200
++++ vdr-2.1.2/menu.h	2013-10-25 13:56:48.000000000 +0200
+@@ -243,8 +243,11 @@
  private:
    static cRecordControl *RecordControls[];
    static int state;
@@ -229,7 +229,7 @@ diff -ruN vdr/menu.h vdr-1/menu.h
    static void Stop(const char *InstantId);
    static bool PauseLiveVideo(void);
    static const char *GetInstantId(const char *LastInstantId);
-@@ -261,9 +264,14 @@
+@@ -252,9 +255,14 @@
    static cRecordControl *GetRecordControl(const cTimer *Timer);
           ///< Returns the cRecordControl for the given Timer.
           ///< If there is no cRecordControl for Timer, NULL is returned.
@@ -245,7 +245,7 @@ diff -ruN vdr/menu.h vdr-1/menu.h
    static void Shutdown(void);
    static void ChangeState(void) { state++; }
    static bool StateChanged(int &State);
-@@ -295,7 +303,7 @@
+@@ -286,7 +294,7 @@
    void EditCut(void);
    void EditTest(void);
  public:
@@ -254,9 +254,9 @@ diff -ruN vdr/menu.h vdr-1/menu.h
    virtual ~cReplayControl();
    void Stop(void);
    virtual cOsdObject *GetInfo(void);
-diff -ruN vdr/shutdown.c vdr-1/shutdown.c
---- vdr/shutdown.c	2013-10-02 11:02:01.000000000 +0200
-+++ vdr-1/shutdown.c	2014-01-08 21:16:30.000000000 +0100
+diff -ruN 1/vdr-2.1.2/shutdown.c 2/vdr-2.1.2/shutdown.c
+--- vdr-2.1.2/shutdown.c	2013-10-02 11:02:01.000000000 +0200
++++ vdr-2.1.2/shutdown.c	2013-10-25 13:56:48.000000000 +0200
 @@ -172,11 +172,11 @@
          return false;
       }
@@ -271,9 +271,9 @@ diff -ruN vdr/shutdown.c vdr-1/shutdown.c
       // VPS recordings in timer end margin may cause Delta <= 0
       if (!Interactive || !Interface->Confirm(tr("Recording - shut down anyway?")))
          return false;
-diff -ruN vdr/timers.c vdr-1/timers.c
---- vdr/timers.c	2013-12-28 12:33:08.000000000 +0100
-+++ vdr-1/timers.c	2014-01-08 21:16:30.000000000 +0100
+diff -ruN 1/vdr-2.1.2/timers.c 2/vdr-2.1.2/timers.c
+--- vdr-2.1.2/timers.c	2013-03-29 16:37:16.000000000 +0100
++++ vdr-2.1.2/timers.c	2013-10-25 13:56:48.000000000 +0200
 @@ -754,12 +754,12 @@
    return t;
  }
@@ -289,9 +289,9 @@ diff -ruN vdr/timers.c vdr-1/timers.c
           t0 = ti;
        }
    return t0;
-diff -ruN vdr/timers.h vdr-1/timers.h
---- vdr/timers.h	2013-03-11 11:35:53.000000000 +0100
-+++ vdr-1/timers.h	2014-01-08 21:16:30.000000000 +0100
+diff -ruN 1/vdr-2.1.2/timers.h 2/vdr-2.1.2/timers.h
+--- vdr-2.1.2/timers.h	2013-03-11 11:35:53.000000000 +0100
++++ vdr-2.1.2/timers.h	2013-10-25 13:56:48.000000000 +0200
 @@ -117,7 +117,7 @@
    cTimer *GetTimer(cTimer *Timer);
    cTimer *GetMatch(time_t t);

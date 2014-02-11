@@ -17,7 +17,7 @@ do_configure --enable-polly \
              --disable-profiling \
              --disable-assertions \
              --disable-expensive-checks \
-	     --enable-experimental-targets=R600 \
+             --enable-experimental-targets=R600 \
              --disable-debug-runtime \
              --disable-debug-symbols \
              --enable-jit \
@@ -32,7 +32,6 @@ do_configure --enable-polly \
              --enable-targets=$ARCH \
              --disable-libffi \
              --disable-ltdl-install \
-
 
 # strip out LTO optimization from *FLAGS
 #CFLAGS=`echo $CFLAGS | sed -e "s|-mtune=atom||g"`
