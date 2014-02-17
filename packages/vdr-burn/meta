@@ -1,7 +1,7 @@
 PKG_NAME=vdr-burn
 PKG_VERSION=0.2.0
 PKG_URL="http://projects.vdr-developer.org/attachments/download/832/vdr-burn-${PKG_VERSION}.tgz"
-PKG_REV=10
+PKG_REV=20
 PKG_DEPENDS="$TARGET_LIBC vdr"
 PKG_BUILD_DEPENDS="toolchain vdr"
 PKG_PRIORITY=optional

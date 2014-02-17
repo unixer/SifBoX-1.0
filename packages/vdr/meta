@@ -1,12 +1,12 @@
 PKG_NAME=vdr
-PKG_VERSION=2.1.4
-#PKG_VERSION=2.0.5
+#PKG_VERSION=2.1.4
+PKG_VERSION=2.0.5
 if [ "$PKG_VERSION" = "2.1.4" ]; then
    PKG_URL="ftp://ftp.tvdr.de/vdr/Developer/vdr-${PKG_VERSION}.tar.bz2"
 else
    PKG_URL="ftp://ftp.tvdr.de/vdr/vdr-${PKG_VERSION}.tar.bz2"
 fi
-PKG_REV=10
+PKG_REV=20
 PKG_BUILD_DEPENDS="toolchain linux-headers fribidi"
 PKG_RUN_DEPENDS="$TARGET_LIBC nvram-wakeup linux"
 PKG_USE="uclibc cxx"
