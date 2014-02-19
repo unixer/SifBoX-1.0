@@ -1,9 +1,0 @@
-#!/bin/sh
-
-. config/options
-
-require_glibc $1
-
-cd $BUILD/tegra-drivers-*/nv_tegra
-
-do_install usr/lib/libnvomx*.so

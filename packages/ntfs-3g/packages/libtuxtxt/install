@@ -1,7 +1,0 @@
-#!/bin/sh
-
-. config/options
-
-cd $BUILD/$1*/libtuxtxt
-
-do_install usr/lib/*so*

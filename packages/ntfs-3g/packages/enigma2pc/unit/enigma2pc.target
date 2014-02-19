@@ -1,9 +1,0 @@
-[Unit]
-Description=Enigma2PC (openpliPC project)
-Requires=graphical.target
-Conflicts=rescue.service rescue.target
-After=graphical.target
-AllowIsolate=yes
-
-[Install]
-Alias=default.target

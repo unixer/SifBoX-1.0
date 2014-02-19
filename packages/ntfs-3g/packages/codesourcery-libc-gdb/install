@@ -1,7 +1,0 @@
-#!/bin/sh
-
-. config/options
-
-mkdir -p $INSTALL/lib
-
-cp -PR $CODESOURCERY_SYSROOT/lib/libthread_db* $INSTALL/lib
