@@ -1,0 +1,17 @@
+#!/bin/sh
+
+. config/options
+
+cd $BUILD/$1*
+
+sed -i '/gets is a security hole/d' lib/stdio.in.h
+
+do_configure \
+            --disable-mtrace \
+            --disable-debug \
+            --disable-nls \
+            --disable-pc98 \
+            --disable-Werror \
+            --enable-largefile
+make
+make_install

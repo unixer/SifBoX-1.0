@@ -20,7 +20,8 @@ fi
 mkdir -p $INSTALL/usr/bin
 # symlinks to udevadm
 ln -sf /bin/udevadm $INSTALL/usr/bin/udevadm
-ln -sf /usr/bin/udevadm $INSTALL/usr/bin/udevinfo
+#ln -sf /usr/bin/udevadm $INSTALL/usr/bin/udevinfo
+ln -sf /bin/udevadm $INSTALL/usr/bin/udevinfo
 do_install usr/share/dbus-1
 do_install usr/share/polkit-1
 do_install usr/lib/systemd

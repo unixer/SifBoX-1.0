@@ -1,0 +1,47 @@
+#!/bin/sh
+
+. /etc/automountd.conf
+. /etc/locale.conf
+export LANG
+
+TYPE="$1"
+DEVICE="$2"
+MP="$3"
+FSTYPE="$4"
+
+#[ $FSTYPE = "ntfs" ] && MOUNT_MODE="ro,locale=$LANG,defaults,umask=007,gid=95"
+
+do_mount () {
+  MNT=`echo $1 | sed 's#dev#media#'`
+  [ -z "$3" ] && FSOPT= || FSOPT="-t $3"
+  if ! grep -q "$MNT" /etc/mtab || ! grep -q $1 /etc/mtab; then 
+    mkdir -p "$MNT"
+    mount -o $MOUNT_MODE $FSOPT $1 "$MNT" && echo "$1	$MNT	$3" >> /var/mnts
+  fi
+}
+
+case $TYPE in
+  HDD)
+    do_mount "$DEVICE" "$MP" "$FSTYPE"
+    hdparm -S24 "$DEVICE" >/dev/null 2>&1
+    ;;
+
+  CD)
+    do_mount "$DEVICE" "$MP"
+    ;;
+
+  CDDA)
+    # Audio CDs can't be mounted
+    ;;
+
+  VCD|SVCD)
+    do_mount "$DEVICE" "$MP"
+    ;;
+
+  DVD)
+    # VideoDVD do not require being mounted to be played
+    ;;
+
+  *)
+    ;;
+esac
