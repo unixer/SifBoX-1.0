@@ -126,4 +126,7 @@ sed -i 's/-lflite"/-lflite -lasound"/' configure &&
   sed "s%#define HAVE_STRUCT_IPV6_MREQ.*%#define HAVE_STRUCT_IPV6_MREQ 0%" -i config.h
 
 make
+$TARGET_CC tools/qt-faststart.c -o tools/qt-faststart
+unset LIBRARY_PATH
 make_install
+cp tools/qt-faststart .install/usr/bin

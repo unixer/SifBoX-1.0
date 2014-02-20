@@ -1,9 +1,11 @@
 PKG_NAME=xf86-video-fglrx
 #PKG_VERSION="13-4"
 #PKG_URL="http://www2.ati.com/drivers/linux/amd-driver-installer-catalyst-${PKG_VERSION}-linux-x86.x86_64.zip"
-PKG_VERSION="13.11"
-PKG_URL="http://www2.ati.com/drivers/beta/amd-catalyst-13.11-betav9.95-linux-x86.x86_64.zip"
+##PKG_VERSION="13.11"
+##PKG_URL="http://www2.ati.com/drivers/beta/amd-catalyst-13.11-betav9.95-linux-x86.x86_64.zip"
 #PKG_URL="http://www2.ati.com/drivers/linux/amd-catalyst-13.12-linux-x86.x86_64.zip"
+PKG_VERSION="13.12"
+PKG_URL="http://www2.ati.com/drivers/linux/amd-catalyst-13.12-linux-x86.x86_64.zip"
 PKG_REV=1
 PKG_ARCH="i386 x86_64"
 PKG_LICENSE=non-free

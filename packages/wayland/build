@@ -15,8 +15,10 @@ cd ..
 mkdir -p objdir-target
 cd objdir-target
 do_configure \
-  --disable-scanner \
   --disable-documentation
+
+
+#--disable-scanner \
 
 make
 make_install

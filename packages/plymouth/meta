@@ -1,10 +1,10 @@
 PKG_NAME=plymouth
 PKG_VERSION=0.8.6
 #PKG_VERSION=0.8.8
-#PKG_URL="http://www.freedesktop.org/software/plymouth/releases/${PKG_NAME}-${PKG_VERSION}.tar.bz2"
-PKG_URL="http://pkgs.fedoraproject.org/repo/pkgs/plymouth/plymouth-0.8.6.tar.bz2/e798e29a137d439ff04376b3685066b2/plymouth-0.8.6.tar.bz2"
+PKG_URL="http://www.freedesktop.org/software/plymouth/releases/${PKG_NAME}-${PKG_VERSION}.tar.bz2"
+#PKG_URL="http://pkgs.fedoraproject.org/repo/pkgs/plymouth/plymouth-0.8.6.tar.bz2/e798e29a137d439ff04376b3685066b2/plymouth-0.8.6.tar.bz2"
 PKG_REV=1
-PKG_DEPENDS="$TARGET_LIBC pango gtk"
+PKG_DEPENDS="$TARGET_LIBC pango gtk-2"
 PKG_BUILD_DEPENDS="toolchain pango"
 PKG_PRIORITY=optional
 PKG_SECTION=misc

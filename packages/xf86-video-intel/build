@@ -8,6 +8,7 @@ cd $PKG_BUILD_DIR
 
 xorg_drv_configure_prepend
 
+#do_autoreconf -vi
 #do_configure \
 #            --enable-dri \
 #            --enable-kms-only \
@@ -16,19 +17,34 @@ xorg_drv_configure_prepend
 #            --disable-glamor \
 #            --disable-debug \
 #            --with-xorg-module-dir=$XORG_PATH_MODULES
+#do_configure \
+#		           --enable-udev \
+#                           --enable-dri \
+#                           --enable-kms-only \
+#                           --disable-xvmc \
+#                           --disable-ums-only \
+#                           --enable-sna \
+#                           --enable-uxa \
+#                           --disable-glamor \
+#                           --disable-xaa \
+#                           --disable-dga \
+#                           --disable-async-swap \
+#                           --with-xorg-module-dir=$XORG_PATH_MODULES
+
 do_configure \
 		           --enable-udev \
                            --enable-dri \
-                           --enable-kms-only \
-                           --disable-xvmc \
-                           --disable-ums-only \
+                           --enable-kms --enable-kms-only \
+                           --disable-ums --disable-ums-only \
                            --enable-sna \
                            --enable-uxa \
+                           --disable-xvmc \
                            --disable-glamor \
                            --disable-xaa \
                            --disable-dga \
                            --disable-async-swap \
                            --with-xorg-module-dir=$XORG_PATH_MODULES
+
 
 
 make
