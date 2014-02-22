@@ -11,4 +11,4 @@ PKG_BUILD_DEPENDS="toolchain xorg-server"
 PKG_PRIORITY=optional
 PKG_SECTION=x11
 PKG_SHORTDESC="X.Org X server -- modesetting display driver"
-PKG_LONGDESC=""
+PKG_LONGDESC="Please see https://wiki.archlinux.org/index.php/Poulsbo#Kernel.27s_gma500_gfx_module"
