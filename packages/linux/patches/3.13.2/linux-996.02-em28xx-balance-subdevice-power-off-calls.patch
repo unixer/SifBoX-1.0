@@ -1,0 +1,43 @@
+diff --git a/drivers/media/usb/em28xx/em28xx-cards.c b/drivers/media/usb/em28xx/em28xx-cards.c
+index dc65742..d2d3b06 100644
+--- a/drivers/media/usb/em28xx/em28xx-cards.c
++++ b/drivers/media/usb/em28xx/em28xx-cards.c
+@@ -3066,6 +3066,7 @@ static int em28xx_init_dev(struct em28xx *dev, struct usb_device *udev,
+ 	}
+ 
+ 	/* wake i2c devices */
++	v4l2_device_call_all(&dev->v4l2_dev, 0, core, s_power, 1);
+ 	em28xx_wake_i2c(dev);
+ 
+ 	/* init video dma queues */
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index 9d10334..283fa26 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -1589,15 +1589,18 @@ static int em28xx_v4l2_open(struct file *filp)
+ 	fh->type = fh_type;
+ 	filp->private_data = fh;
+ 
+-	if (fh->type == V4L2_BUF_TYPE_VIDEO_CAPTURE && dev->users == 0) {
+-		em28xx_set_mode(dev, EM28XX_ANALOG_MODE);
+-		em28xx_resolution_set(dev);
++	if (dev->users == 0) {
++		v4l2_device_call_all(&dev->v4l2_dev, 0, core, s_power, 1);
+ 
+-		/* Needed, since GPIO might have disabled power of
+-		   some i2c device
+-		 */
+-		em28xx_wake_i2c(dev);
++		if (fh->type == V4L2_BUF_TYPE_VIDEO_CAPTURE) {
++			em28xx_set_mode(dev, EM28XX_ANALOG_MODE);
++			em28xx_resolution_set(dev);
+ 
++			/* Needed, since GPIO might have disabled power of
++			   some i2c device
++			*/
++			em28xx_wake_i2c(dev);
++		}
+ 	}
+ 
+ 	if (vdev->vfl_type == VFL_TYPE_RADIO) {
+

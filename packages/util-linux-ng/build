@@ -21,7 +21,8 @@ do_configure host \
             --disable-login \
             --disable-sulogin \
             --disable-su \
-
+            --disable-more \
+            
 
 make
 make_install toolchain

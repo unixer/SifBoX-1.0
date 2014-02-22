@@ -1,0 +1,20 @@
+diff --git a/drivers/media/usb/em28xx/em28xx-cards.c b/drivers/media/usb/em28xx/em28xx-cards.c
+index 4d97a76cc3b0..e8eedd35eea5 100644
+--- a/drivers/media/usb/em28xx/em28xx-cards.c
++++ b/drivers/media/usb/em28xx/em28xx-cards.c
+@@ -3329,10 +3329,11 @@ static int em28xx_usb_probe(struct usb_interface *interface,
+ 
+ 	/* Select USB transfer types to use */
+ 	if (has_video) {
+-	    if (!dev->analog_ep_isoc || (try_bulk && dev->analog_ep_bulk))
+-		dev->analog_xfer_bulk = 1;
+-		em28xx_info("analog set to %s mode.\n",
+-			    dev->analog_xfer_bulk ? "bulk" : "isoc");
++		if (!dev->analog_ep_isoc || (try_bulk && dev->analog_ep_bulk)) {
++			dev->analog_xfer_bulk = 1;
++			em28xx_info("analog set to %s mode.\n",
++				    dev->analog_xfer_bulk ? "bulk" : "isoc");
++		}
+ 	}
+ 	if (has_dvb) {
+ 	    if (!dev->dvb_ep_isoc || (try_bulk && dev->dvb_ep_bulk))
