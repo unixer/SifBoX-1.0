@@ -1,8 +1,0 @@
---- linux-3.13.2/Kconfig.org	2014-02-22 11:45:12.203220808 +0100
-+++ linux-3.13.2/Kconfig	2014-02-22 11:45:23.627220464 +0100
-@@ -9,3 +9,5 @@
- 	option env="SRCARCH"
- 
- source "arch/$SRCARCH/Kconfig"
-+
-+source "staging/cdv/Kconfig"
