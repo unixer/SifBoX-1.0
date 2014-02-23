@@ -109,6 +109,7 @@ $INSTALL_RULE $1 >&$VERBOSE_OUT
 
 add_control "Package" "$PKG_NAME"
 add_control "Version" "${PKG_VERSION}-${PKG_REV}"
+add_control "Revision" "${PKG_URL_REV}"
 add_control "Architecture" "$PKG_OPK_ARCH"
 add_control "Depends" "$PKG_OPK_DEPENDS"
 add_control "Priority" "$PKG_PRIORITY"
@@ -156,6 +157,7 @@ if [ -d "$DEBUGINFO" ]; then
   # build opk package
   add_control "Package" "${PKG_NAME}-dbg"
   add_control "Version" "${PKG_VERSION}-${PKG_REV}"
+  add_control "Revision" "${PKG_URL_REV}"
   add_control "Architecture" "$PKG_OPK_ARCH"
   add_control "Depends" "$PKG_NAME"
   add_control "Priority" "extra"
@@ -176,6 +178,7 @@ if [ -d "$DEBUGINFO" ]; then
   # build opk package
   add_control "Package" "${PKG_NAME}-dbg"
   add_control "Version" "${PKG_VERSION}-${PKG_REV}dev${PKG_OPK_ARCH}"
+  add_control "Revision" "${PKG_URL_REV}"
   add_control "Architecture" "`uname -m`"
   add_control "Priority" "extra"
   add_control "Section" "debug"
