@@ -12,7 +12,7 @@ fi
 
 cd $BUILD/$1*
 
-cfgfile=sys_config/a20/$MACHINE_BOARD_CONFIG
+cfgfile=sys_config/$TARGET_PLATFORM/$MACHINE_BOARD_CONFIG
 outfile=script.bin
 
 $ROOT/$TOOLCHAIN/share/sunxi-tools/fex2bin $cfgfile $outfile
