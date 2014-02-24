@@ -26,4 +26,3 @@ echo "ENABLED=yes" >> $INSTALL/etc/vdr/plugins.d/50_$NAME
 #else
 #  do_install usr
 #fi
-
