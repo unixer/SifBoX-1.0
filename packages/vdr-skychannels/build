@@ -7,7 +7,7 @@ get_meta $1
 
 cd $PKG_BUILD_DIR
 
-cp $ROOT/$PACKAGES/$1/source/get_channels_sky.c .
+cp $ROOT/$PACKAGES/$1/sources/get_channels_sky.c .
 
 
 $TARGET_CXX get_channels_sky.c -o get_channels_sky
