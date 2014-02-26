@@ -1,9 +1,14 @@
 PKG_NAME=tvheadend
-PKG_URL_REV=819627e
-PKG_VERSION=3.6+${PKG_URL_REV}
-PKG_URL_PROTO=git
-PKG_URL="https://github.com/tvheadend/tvheadend.git"
-PKG_REV=1
+#PKG_URL_REV=819627e
+#PKG_VERSION=3.6+${PKG_URL_REV}
+#PKG_URL_REV=7d8d81a
+#PKG_VERSION=3.6+${PKG_URL_REV}	
+#PKG_URL_PROTO=git
+#PKG_URL="https://github.com/tvheadend/tvheadend.git"
+PKG_VERSION=3.4.27
+PKG_URL="http://sources.openelec.tv/devel/tvheadend-3.4.27.tar.gz"
+
+PKG_REV=2
 PKG_DEPENDS="$TARGET_LIBC openssl curl"
 PKG_BUILD_DEPENDS="toolchain"
 PKG_USE="zeroconf dvbcsa"

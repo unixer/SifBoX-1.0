@@ -1,0 +1,18 @@
+syntax: regexp
+\.orig
+\.new
+^\.stamps
+^sources
+^build
+^binaries
+^overlays
+
+^geexbox-.*\.tar
+
+^DOCS/docbook-xsl\.css
+^DOCS/.*\.html
+^DOCS/.*\.pdf
+
+# Vim swap files.
+^\.sw.$
+.[^/]*\.sw.$

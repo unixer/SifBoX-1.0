@@ -1,7 +1,7 @@
 *.orig
 *.new
 .stamps
-sources
+/sources
 /build
 binaries
 unixer
