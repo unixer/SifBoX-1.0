@@ -27,15 +27,21 @@ case $TARGET_ARCH in
   powerpc64)    IMAGE=zImage   ;;
   arm)
     . $CONFIG_MACHINE/meta
-    [ -n "$MACHINE_UBOOT_CONFIG" ] && IMAGE=uImage || IMAGE=zImage
+    [ -n "$MACHINE_UBOOT_CONFIG" -a -z "$MACHINE_UBOOT_ZIMAGE" ] && IMAGE=uImage || IMAGE=zImage
     ;;
 esac
 
 make $IMAGE
-
-
-
+#make modules
 make CONFIG_DEBUG_SECTION_MISMATCH=y modules
+if [ -n "$MACHINE_DTS" ] ; then
+  for i in $MACHINE_DTS ; do
+    make $i.dtb
+  done
+fi
+
+
+#make CONFIG_DEBUG_SECTION_MISMATCH=y modules
 install_dir="`pwd`/.install"
 debug_dir="`pwd`/.install-debuginfo/usr/lib/debug"
 rm -rf $install_dir $debug_dir
