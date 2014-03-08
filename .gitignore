@@ -21,3 +21,4 @@ geexbox-*.tar
 *.iso
 *.prova
 *.mie
+rootfs.tar.bz2
