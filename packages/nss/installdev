@@ -2,8 +2,8 @@
 
 . config/options
 
-cd $BUILD/$1*/objdir-target
-#pwd
-#do_installdev usr/include toolchain
-#do_installdev usr/lib toolchain
-#do_installdev public/nss toolchain
+get_meta $1
+cd $PKG_BUILD_DIR
+
+do_installdev usr/include
+do_installdev usr/lib
