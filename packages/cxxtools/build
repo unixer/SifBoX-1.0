@@ -20,6 +20,8 @@ cd ..
 
 [ "$TARGET_MACHINE" = cubieboard ] && EXTRA_CONFIG="--with-atomictype=pthread"
 [ "$TARGET_MACHINE" = sabresd ] && EXTRA_CONFIG="--with-atomictype=pthread"
+[ "$TARGET_MACHINE" = tbs2910 ] && EXTRA_CONFIG="--with-atomictype=pthread"
+
 
 mkdir -p objdir-target && cd objdir-target
 do_configure target \

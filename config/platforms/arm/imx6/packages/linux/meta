@@ -4,13 +4,5 @@
 # Refer to Freescale Compass for updates
 #
 
-#PKG_VERSION=3.0.35-imx-12.08.00
-#PKG_VERSION=3.0.35-20131111
-PKG_VERSION=3.0.35-20131226
-PKG_URL="$SFNET_SRCS/openpctv/sources/imx/linux-${PKG_VERSION}.tar.bz2"
-#PKG_VERSION=3.0.35
-#PKG_URL_PROTO=git
-#PKG_URL="https://github.com/mtx512/linux-imx.git"
-#PKG_URL_REV=dbf364b
-#PKG_VERSION=3.10.9-1.0.0-alpha-r${PKG_URL_REV}
-#PKG_URL="http://git.freescale.com/git/cgit.cgi/imx/linux-2.6-imx.git"
+PKG_VERSION=3.0.35-imx-12.08.00
+PKG_URL="$DISTRO_SRCS/linux-${PKG_VERSION}.tar.bz2"

@@ -16,4 +16,7 @@ do_installdev usr/lib
 
 ln -sf libuuid.so.1 $INSTALL/$TARGET_NAME/sysroot/usr/local/lib/libuuid.so
 ln -sf libblkid.so.1 $INSTALL/$TARGET_NAME/sysroot/usr/local/lib/libblkid.so
+if [ $TARGET_ARCH = "arm" ]; then
+   ln -sf libmount.so.1.1.0 $INSTALL/$TARGET_NAME/sysroot/usr/local/lib/libmount.so
+fi
 cd ..

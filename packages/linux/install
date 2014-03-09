@@ -22,11 +22,11 @@ mkdir -p $INSTALL/firmware
 cp -r $ROOT/$PACKAGES/$1/firmware/* $INSTALL/firmware/
 
 #PROVA CPUPOWER
-if [ ! "$TARGET_MACHINE" = "sabresd" ]; then
+#if [ ! "$TARGET_MACHINE" = "tbs2910" ]; then
 mkdir -p $INSTALL/usr/lib
   cp -P tools/power/cpupower/libcpupower.so* $INSTALL/usr/lib
 
 mkdir -p $INSTALL/usr/bin
   cp -P tools/power/cpupower/cpupower $INSTALL/usr/bin
-fi
+#fi
 #FINE

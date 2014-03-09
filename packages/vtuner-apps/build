@@ -6,7 +6,7 @@ cd $BUILD/$1*
 
 if [ "$TARGET_SUBARCH" = "i586" ]; then
   ARCH="i686"
-elif [ "$TARGET_SUBARCH" = "armv6" ]; then
+elif [ "$TARGET_SUBARCH" = "armv7" ]; then
   ARCH="arm"
 elif [ "$TARGET_SUBARCH" = "i486" ]; then
   ARCH="i686"

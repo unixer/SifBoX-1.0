@@ -27,6 +27,17 @@ fi
 
 tar cpaf $XZ_NAME -C $TARBALL_DIR .
 
+if [ "$TARGET_MACHINE" = "tbs2910" ]; then
+   #mkdir -p $BINROOT/install_dir
+   cp -r $CONFIG_MACHINE/TBS-MatrixTV $BINROOT
+   cp $ROOT/$TOOLCHAIN/share/u-boot/u-boot.bin "$BINROOT/TBS-MatrixTV/Profiles/MX6Q Linux Update/OS Firmware/files/u-boot-mx6q-sabresd.bin"
+   cp $TARBALL_DIR/boot/uImage "$BINROOT/TBS-MatrixTV/Profiles/MX6Q Linux Update/OS Firmware/files/"
+   mv $XZ_NAME "$BINROOT/TBS-MatrixTV/Profiles/MX6Q Linux Update/OS Firmware/files/"
+   XZ_NAME=$TARBALL_NAME.xz
+   tar cpaf $XZ_NAME -C $BINROOT/TBS-MatrixTV .
+   rm -rf $BINROOT/TBS-MatrixTV
+fi
+
 rm -rf $TARBALL_DIR
 
 exit 0

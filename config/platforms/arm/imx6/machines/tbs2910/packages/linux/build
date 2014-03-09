@@ -48,4 +48,20 @@ else
   cp arch/$TARGET_ARCH/boot/$IMAGE .install/boot
 fi
   
+#PROVA CPUPOWER
+if [ ! "$TARGET_MACHINE" = "sabresd" ]; then
+( cd tools/power/cpupower
+
+  # dont use some optimizations because of build problems
+  LDFLAGS=`echo $LDFLAGS | sed -e "s|-Wl,--as-needed||"`
+  export CFLAGS="$CFLAGS -I$SYSROOT_PREFIX/usr/include"
+  export LDFLAGS="$LDFLAGS -L$SYSROOT_PREFIX/lib -L$SYSROOT_PREFIX/usr/lib -L$SYSROOT_PREFIX/usr/local/lib -lpci -lintl"
+  make CROSS="$TARGET_PREFIX" \
+       V=1 \
+       DEBUG=false \
+       NLS=false \
+)
+fi
+# FINE
+
 exit 0

@@ -1,0 +1,61 @@
+diff -urN vtuner-driver-9/modules.order vtuner-driver-9.mod/modules.order
+--- vtuner-driver-9/modules.order	1970-01-01 01:00:00.000000000 +0100
++++ vtuner-driver-9.mod/modules.order	2013-01-09 18:04:28.435039659 +0100
+@@ -0,0 +1 @@
++kernel//usr/local/src/openbricks.beta7/build/build.i386.eglibc/vtuner-driver-9/vtunerc.ko
+diff -urN vtuner-driver-9/vtunerc_main.c vtuner-driver-9.mod/vtunerc_main.c
+--- vtuner-driver-9/vtunerc_main.c	2012-02-09 09:47:18.000000000 +0100
++++ vtuner-driver-9.mod/vtunerc_main.c	2013-01-09 18:04:28.435039659 +0100
+@@ -23,12 +23,12 @@
+ #include <asm/uaccess.h>
+ #include <linux/delay.h>
+ 
+-#include "demux.h"
+-#include "dmxdev.h"
+-#include "dvb_demux.h"
+-#include "dvb_frontend.h"
+-#include "dvb_net.h"
+-#include "dvbdev.h"
++#include "../linux/drivers/media/dvb-core/dmxdev.h"
++#include "../linux/drivers/media/dvb-core/dmxdev.h"
++#include "../linux/drivers/media/dvb-core/dvb_demux.h"
++#include "../linux/drivers/media/dvb-core/dvb_frontend.h"
++#include "../linux/drivers/media/dvb-core/dvb_net.h"
++#include "../linux/drivers/media/dvb-core/dvbdev.h"
+ 
+ #include "vtunerc_priv.h"
+ 
+diff -urN vtuner-driver-9/vtunerc_priv.h vtuner-driver-9.mod/vtunerc_priv.h
+--- vtuner-driver-9/vtunerc_priv.h	2012-02-09 09:47:18.000000000 +0100
++++ vtuner-driver-9.mod/vtunerc_priv.h	2013-01-09 18:04:28.435039659 +0100
+@@ -21,12 +21,12 @@
+ #include <linux/kernel.h>	/* We're doing kernel work */
+ #include <linux/cdev.h>
+ 
+-#include "demux.h"
+-#include "dmxdev.h"
+-#include "dvb_demux.h"
+-#include "dvb_frontend.h"
+-#include "dvb_net.h"
+-#include "dvbdev.h"
++#include "../linux/drivers/media/dvb-core/demux.h"
++#include "../linux/drivers/media/dvb-core/dmxdev.h"
++#include "../linux/drivers/media/dvb-core/dvb_demux.h"
++#include "../linux/drivers/media/dvb-core/dvb_frontend.h"
++#include "../linux/drivers/media/dvb-core/dvb_net.h"
++#include "../linux/drivers/media/dvb-core/dvbdev.h"
+ 
+ #include "vtuner.h"
+ 
+diff -urN vtuner-driver-9/vtunerc_proxyfe.c vtuner-driver-9.mod/vtunerc_proxyfe.c
+--- vtuner-driver-9/vtunerc_proxyfe.c	2013-01-09 18:10:05.727029606 +0100
++++ vtuner-driver-9.mod/vtunerc_proxyfe.c	2013-01-09 18:04:28.435039659 +0100
+@@ -19,7 +19,7 @@
+ #include <linux/string.h>
+ #include <linux/slab.h>
+ 
+-#include "dvb_frontend.h"
++#include "../linux/drivers/media/dvb-core/dvb_frontend.h"
+ 
+ #include "vtunerc_priv.h"
+ 

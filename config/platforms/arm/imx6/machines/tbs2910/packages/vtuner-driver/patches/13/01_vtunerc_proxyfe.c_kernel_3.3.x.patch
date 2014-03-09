@@ -1,0 +1,332 @@
+--- vtuner-driver-9/vtunerc_proxyfe.c.org	2012-02-09 09:47:18.000000000 +0100
++++ vtuner-driver-9/vtunerc_proxyfe.c	2012-06-05 10:00:24.145556427 +0200
+@@ -1,7 +1,7 @@
+ /*
+  * vtunerc: Driver for Proxy Frontend
+  *
+- * Copyright (C) 2010-11 Honza Petrous <jpetrous@smartimp.cz>
++ * Copyright (C) 2010-12 Honza Petrous <jpetrous@smartimp.cz>
+  * [Inspired on proxy frontend by Emard <emard@softhome.net>]
+  *
+  * This program is free software; you can redistribute it and/or
+@@ -23,6 +23,10 @@
+ 
+ #include "vtunerc_priv.h"
+ 
++#if DVB_API_VERSION < 5 || DVB_API_VERSION_MINOR < 5
++#error At least DVB API 5.5 is required
++#endif
++
+ struct dvb_proxyfe_state {
+ 	struct dvb_frontend frontend;
+ 	struct vtunerc_ctx *ctx;
+@@ -100,9 +104,9 @@
+ 	return 0;
+ }
+ 
+-static int dvb_proxyfe_get_frontend(struct dvb_frontend *fe,
+-					struct dvb_frontend_parameters *p)
++static int dvb_proxyfe_get_frontend(struct dvb_frontend *fe)
+ {
++	struct dtv_frontend_properties *c = &fe->dtv_property_cache;
+ 	struct dvb_proxyfe_state *state = fe->demodulator_priv;
+ 	struct vtunerc_ctx *ctx = state->ctx;
+ 	struct vtuner_message msg;
+@@ -115,33 +119,33 @@
+ 	case VT_S2:
+ 		/*FIXME*/
+ 		{
+-			struct dvb_qpsk_parameters *op = &p->u.qpsk;
++			//struct dvb_qpsk_parameters *op = &p->u.qpsk;
+ 
+-			op->symbol_rate = msg.body.fe_params.u.qpsk.symbol_rate;
+-			op->fec_inner = msg.body.fe_params.u.qpsk.fec_inner;
++			c->symbol_rate = msg.body.fe_params.u.qpsk.symbol_rate;
++			c->fec_inner = msg.body.fe_params.u.qpsk.fec_inner;
+ 		}
+ 		break;
+ 	case VT_T:
+ 		{
+-			struct dvb_ofdm_parameters *op = &p->u.ofdm;
++			//struct dvb_ofdm_parameters *op = &p->u.ofdm;
+ 
+-			op->bandwidth = msg.body.fe_params.u.ofdm.bandwidth;
+-			op->code_rate_HP = msg.body.fe_params.u.ofdm.code_rate_HP;
+-			op->code_rate_LP = msg.body.fe_params.u.ofdm.code_rate_LP;
+-			op->constellation = msg.body.fe_params.u.ofdm.constellation;
+-			op->transmission_mode = msg.body.fe_params.u.ofdm.transmission_mode;
+-			op->guard_interval = msg.body.fe_params.u.ofdm.guard_interval;
+-			op->hierarchy_information = msg.body.fe_params.u.ofdm.hierarchy_information;
++			c->bandwidth_hz = msg.body.fe_params.u.ofdm.bandwidth;
++			c->code_rate_HP = msg.body.fe_params.u.ofdm.code_rate_HP;
++			c->code_rate_LP = msg.body.fe_params.u.ofdm.code_rate_LP;
++			c->modulation = msg.body.fe_params.u.ofdm.constellation;
++			c->transmission_mode = msg.body.fe_params.u.ofdm.transmission_mode;
++			c->guard_interval = msg.body.fe_params.u.ofdm.guard_interval;
++			c->hierarchy = msg.body.fe_params.u.ofdm.hierarchy_information;
+ 		}
+ 		break;
+ 	case VT_C:
+ 		/* FIXME: untested */
+ 		{
+-			struct dvb_qam_parameters *op = &p->u.qam;
++			//struct dvb_qam_parameters *op = &p->u.qam;
+ 
+-			op->symbol_rate = msg.body.fe_params.u.qam.symbol_rate;
+-			op->fec_inner = msg.body.fe_params.u.qam.fec_inner;
+-			op->modulation = msg.body.fe_params.u.qam.modulation;
++			c->symbol_rate = msg.body.fe_params.u.qam.symbol_rate;
++			c->fec_inner = msg.body.fe_params.u.qam.fec_inner;
++			c->modulation = msg.body.fe_params.u.qam.modulation;
+ 		}
+ 		break;
+ 	default:
+@@ -149,131 +153,117 @@
+ 				ctx->vtype);
+ 		return -EINVAL;
+ 	}
+-	p->frequency = msg.body.fe_params.frequency;
+-	p->inversion = msg.body.fe_params.inversion;
++	c->frequency = msg.body.fe_params.frequency;
++	c->inversion = msg.body.fe_params.inversion;
+ 	return 0;
+ }
+ 
+-static int dvb_proxyfe_set_frontend(struct dvb_frontend *fe,
+-					struct dvb_frontend_parameters *p)
++static int dvb_proxyfe_set_frontend(struct dvb_frontend *fe)
+ {
++	struct dtv_frontend_properties *c = &fe->dtv_property_cache;
+ 	struct dvb_proxyfe_state *state = fe->demodulator_priv;
+ 	struct vtunerc_ctx *ctx = state->ctx;
+ 	struct vtuner_message msg;
+ 
+ 	memset(&msg, 0, sizeof(msg));
+-	msg.body.fe_params.frequency = p->frequency;
+-	msg.body.fe_params.inversion = p->inversion;
++	msg.body.fe_params.frequency = c->frequency;
++	msg.body.fe_params.inversion = c->inversion;
+ 
+ 	switch (ctx->vtype) {
+ 	case VT_S:
+ 	case VT_S2:
+-		{
+-			struct dvb_qpsk_parameters *op = &p->u.qpsk;
+-			struct dtv_frontend_properties *props = &fe->dtv_property_cache;
++		msg.body.fe_params.u.qpsk.symbol_rate = c->symbol_rate;
++		msg.body.fe_params.u.qpsk.fec_inner = c->fec_inner;
++
++		if (ctx->vtype == VT_S2 && c->delivery_system == SYS_DVBS2) {
++			/* DELIVERY SYSTEM: S2 delsys in use */
++			msg.body.fe_params.u.qpsk.fec_inner = 9;
++
++			/* MODULATION */
++			if (c->modulation == PSK_8)
++				/* signal PSK_8 modulation used */
++				msg.body.fe_params.u.qpsk.fec_inner += 9;
++
++			/* FEC */
++			switch (c->fec_inner) {
++			case FEC_1_2:
++				msg.body.fe_params.u.qpsk.fec_inner += 1;
++				break;
++			case FEC_2_3:
++				msg.body.fe_params.u.qpsk.fec_inner += 2;
++				break;
++			case FEC_3_4:
++				msg.body.fe_params.u.qpsk.fec_inner += 3;
++				break;
++			case FEC_4_5:
++				msg.body.fe_params.u.qpsk.fec_inner += 8;
++				break;
++			case FEC_5_6:
++				msg.body.fe_params.u.qpsk.fec_inner += 4;
++				break;
++			/*case FEC_6_7: // undefined
++				msg.body.fe_params.u.qpsk.fec_inner += 2;
++				break;*/
++			case FEC_7_8:
++				msg.body.fe_params.u.qpsk.fec_inner += 5;
++				break;
++			case FEC_8_9:
++				msg.body.fe_params.u.qpsk.fec_inner += 6;
++				break;
++			/*case FEC_AUTO: // undefined
++				msg.body.fe_params.u.qpsk.fec_inner += 2;
++				break;*/
++			case FEC_3_5:
++				msg.body.fe_params.u.qpsk.fec_inner += 7;
++				break;
++			case FEC_9_10:
++				msg.body.fe_params.u.qpsk.fec_inner += 9;
++				break;
++			default:
++				; /*FIXME: what now? */
++				break;
++			}
+ 
+-			msg.body.fe_params.u.qpsk.symbol_rate = op->symbol_rate;
+-			msg.body.fe_params.u.qpsk.fec_inner = op->fec_inner;
++			/* ROLLOFF */
++			switch (c->rolloff) {
++			case ROLLOFF_20:
++				msg.body.fe_params.inversion |= 0x08;
++				break;
++			case ROLLOFF_25:
++				msg.body.fe_params.inversion |= 0x04;
++				break;
++			case ROLLOFF_35:
++			default:
++				break;
++			}
+ 
+-			if (ctx->vtype == VT_S2 && props->delivery_system == SYS_DVBS2) {
+-				/* DELIVERY SYSTEM: S2 delsys in use */
+-				msg.body.fe_params.u.qpsk.fec_inner = 9;
+-
+-				/* MODULATION */
+-				if (props->modulation == PSK_8)
+-					/* signal PSK_8 modulation used */
+-					msg.body.fe_params.u.qpsk.fec_inner += 9;
+-
+-				/* FEC */
+-				switch (props->fec_inner) {
+-				case FEC_1_2:
+-					msg.body.fe_params.u.qpsk.fec_inner += 1;
+-					break;
+-				case FEC_2_3:
+-					msg.body.fe_params.u.qpsk.fec_inner += 2;
+-					break;
+-				case FEC_3_4:
+-					msg.body.fe_params.u.qpsk.fec_inner += 3;
+-					break;
+-				case FEC_4_5:
+-					msg.body.fe_params.u.qpsk.fec_inner += 8;
+-					break;
+-				case FEC_5_6:
+-					msg.body.fe_params.u.qpsk.fec_inner += 4;
+-					break;
+-				/*case FEC_6_7: // undefined
+-					msg.body.fe_params.u.qpsk.fec_inner += 2;
+-					break;*/
+-				case FEC_7_8:
+-					msg.body.fe_params.u.qpsk.fec_inner += 5;
+-					break;
+-				case FEC_8_9:
+-					msg.body.fe_params.u.qpsk.fec_inner += 6;
+-					break;
+-				/*case FEC_AUTO: // undefined
+-					msg.body.fe_params.u.qpsk.fec_inner += 2;
+-					break;*/
+-				case FEC_3_5:
+-					msg.body.fe_params.u.qpsk.fec_inner += 7;
+-					break;
+-				case FEC_9_10:
+-					msg.body.fe_params.u.qpsk.fec_inner += 9;
+-					break;
+-				default:
+-					; /*FIXME: what now? */
+-					break;
+-				}
+-
+-				/* ROLLOFF */
+-				switch (props->rolloff) {
+-				case ROLLOFF_20:
+-					msg.body.fe_params.inversion |= 0x08;
+-					break;
+-				case ROLLOFF_25:
+-					msg.body.fe_params.inversion |= 0x04;
+-					break;
+-				case ROLLOFF_35:
+-				default:
+-					break;
+-				}
+-
+-				/* PILOT */
+-				switch (props->pilot) {
+-				case PILOT_ON:
+-					msg.body.fe_params.inversion |= 0x10;
+-					break;
+-				case PILOT_AUTO:
+-					msg.body.fe_params.inversion |= 0x20;
+-					break;
+-				case PILOT_OFF:
+-				default:
+-					break;
+-				}
++			/* PILOT */
++			switch (c->pilot) {
++			case PILOT_ON:
++				msg.body.fe_params.inversion |= 0x10;
++				break;
++			case PILOT_AUTO:
++				msg.body.fe_params.inversion |= 0x20;
++				break;
++			case PILOT_OFF:
++			default:
++				break;
+ 			}
+ 		}
+ 		break;
+ 	case VT_T:
+-		{
+-			struct dvb_ofdm_parameters *op = &p->u.ofdm;
+-
+-			msg.body.fe_params.u.ofdm.bandwidth = op->bandwidth;
+-			msg.body.fe_params.u.ofdm.code_rate_HP = op->code_rate_HP;
+-			msg.body.fe_params.u.ofdm.code_rate_LP = op->code_rate_LP;
+-			msg.body.fe_params.u.ofdm.constellation = op->constellation;
+-			msg.body.fe_params.u.ofdm.transmission_mode = op->transmission_mode;
+-			msg.body.fe_params.u.ofdm.guard_interval = op->guard_interval;
+-			msg.body.fe_params.u.ofdm.hierarchy_information = op->hierarchy_information;
+-		}
++		msg.body.fe_params.u.ofdm.bandwidth = c->bandwidth_hz;
++		msg.body.fe_params.u.ofdm.code_rate_HP = c->code_rate_HP;
++		msg.body.fe_params.u.ofdm.code_rate_LP = c->code_rate_LP;
++		msg.body.fe_params.u.ofdm.constellation = c->modulation;
++		msg.body.fe_params.u.ofdm.transmission_mode = c->transmission_mode;
++		msg.body.fe_params.u.ofdm.guard_interval = c->guard_interval;
++		msg.body.fe_params.u.ofdm.hierarchy_information = c->hierarchy;
+ 		break;
+ 	case VT_C:
+-		/* FIXME: untested */
+-		{
+-			struct dvb_qam_parameters *op = &p->u.qam;
+-
+-			msg.body.fe_params.u.qam.symbol_rate = op->symbol_rate;
+-			msg.body.fe_params.u.qam.fec_inner = op->fec_inner;
+-			msg.body.fe_params.u.qam.modulation = op->modulation;
+-		}
++		msg.body.fe_params.u.qam.symbol_rate = c->symbol_rate;
++		msg.body.fe_params.u.qam.fec_inner = c->fec_inner;
++		msg.body.fe_params.u.qam.modulation = c->modulation;
+ 		break;
+ 	default:
+ 		printk(KERN_ERR "vtunerc%d: unregognized tuner vtype = %d\n",
+@@ -446,7 +436,7 @@
+ }
+ 
+ static struct dvb_frontend_ops dvb_proxyfe_ofdm_ops = {
+-
++	.delsys = { SYS_DVBT },
+ 	.info = {
+ 		.name			= "vTuner proxyFE DVB-T",
+ 		.type			= FE_OFDM,
+@@ -478,7 +468,7 @@
+ };
+ 
+ static struct dvb_frontend_ops dvb_proxyfe_qam_ops = {
+-
++	.delsys = { SYS_DVBC_ANNEX_A },
+ 	.info = {
+ 		.name			= "vTuner proxyFE DVB-C",
+ 		.type			= FE_QAM,
+@@ -508,7 +498,7 @@
+ };
+ 
+ static struct dvb_frontend_ops dvb_proxyfe_qpsk_ops = {
+-
++	.delsys = { SYS_DVBS },
+ 	.info = {
+ 		.name			= "vTuner proxyFE DVB-S",
+ 		.type			= FE_QPSK,

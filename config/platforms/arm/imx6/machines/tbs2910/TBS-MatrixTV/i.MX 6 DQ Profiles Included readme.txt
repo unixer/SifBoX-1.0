@@ -1,0 +1,36 @@
+Profile Name:ubuntu-SabreSD-eMMC
+Board Name: SabreSD
+Description:Download the u-boot, kernel and Ubuntu rootfs to the eMMC
+
+Profile Name:ubuntu-SabreSD-SD
+Board Name: SabreSD
+Description:Download the u-boot, kernel and Ubuntu rootfs to the SD
+
+
+Profile Name:ubuntu-SabreARD-SD
+Board Name: SabreARD
+Description:Download the u-boot, kernel and Ubuntu rootfs to the SD
+
+
+Profile Name:SabreSD-eMMC
+Board Name: SabreSD
+Description:Download the u-boot, kernel and Linux rootfs to the eMMC
+
+Profile Name:Sabre-SD
+Board Name: SabreSD
+Description:Download the u-boot, kernel and Linux rootfs to the SD
+
+
+Profile Name:MX6Q-Sabreauto-SPI_NOR & SD card
+Board Name: SabreARD
+Description:Download the u-boot to the SPI NOR and the Kernel and the Linux rootfs to the SD
+
+
+Profile Name:MX6Q-Sabreauto-Parallel_NOR
+Board Name: SabreARD
+Description:Download the u-boot, kernel and Linux rootfs to the Parallel NOR
+
+
+Profile Name:MX6Q-Sabreauto-NAND
+Board Name: SabreARD
+Description:Download the u-boot, kernel and Linux rootfs to the Parallel NAND
