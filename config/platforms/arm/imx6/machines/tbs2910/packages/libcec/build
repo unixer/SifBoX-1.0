@@ -14,9 +14,9 @@ else
 fi
 
 if [ "$TARGET_PLATFORM" = imx6 ]; then
-  IMX_FLAGS="--enable-imx6"
+  CUBOX_FLAGS="--enable-imx6"
 else
-  IMX_FLAGS="--disable-imx6"
+  CUBOX_FLAGS="--disable-imx6"
 fi
 
 if [ "$TARGET_MACHINE" = raspberrypi ]; then
@@ -28,7 +28,6 @@ fi
 
 do_configure \
   $CUBOX_FLAGS \
-  $IMX_FLAGS \
   $RPI_FLAGS \
 
 make

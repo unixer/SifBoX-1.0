@@ -1,11 +1,6 @@
 PKG_NAME=libcdio
-PKG_URL_PROTO=git
-#PKG_URL_REV=ff7ad5e24 #0.90
-#PKG_VERSION=0.90
-PKG_URL_REV=7f33c7a01 #0.83
-PKG_VERSION=0.83
-#PKG_URL="http://ftp.gnu.org/gnu/${PKG_NAME}/${PKG_NAME}-${PKG_VERSION}.tar.gz"
-PKG_URL="git://git.sv.gnu.org/libcdio.git"
+PKG_VERSION=0.90
+PKG_URL="http://ftp.gnu.org/gnu/${PKG_NAME}/${PKG_NAME}-${PKG_VERSION}.tar.gz"
 PKG_REV=1
 PKG_BUILD_DEPENDS="toolchain"
 PKG_RUN_DEPENDS="$TARGET_LIBC"

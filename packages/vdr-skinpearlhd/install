@@ -8,7 +8,7 @@ do_install usr
 do_install etc
 mkdir -p .install/etc/vdr/plugins/text2skin/PearlHD
 cd .install/etc/vdr/plugins/text2skin/PearlHD
-ln -s ../../picon hqlogos
+ln -s ../../picon hqlogos || true
 cd ../../../../../../
 do_install etc/vdr/plugins/text2skin/PearlHD/hqlogos
 

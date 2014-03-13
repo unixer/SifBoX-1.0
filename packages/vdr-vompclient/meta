@@ -1,5 +1,6 @@
 PKG_NAME=vdr-vompclient
-PKG_VERSION=0.4.0rc
+#PKG_VERSION=0.4.0rc
+PKG_VERSION=0.4.1
 PKG_URL_PROTO=git
 PKG_URL="http://git.vomp.tv/vompclient.git"
 PKG_REV=20

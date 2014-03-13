@@ -2,7 +2,7 @@ PKG_NAME=vdr-skinsoppalusikka
 #PKG_VERSION=1.7.1
 #PKG_URL="$DISTRO_SRCS/vdr-skinsoppalusikka-${PKG_VERSION}.tar.bz2"
 #VDR 1.7.27
-PKG_VERSION=1.7.8
+PKG_VERSION=2.0.3
 #
 PKG_URL="http://www.saunalahti.fi/~rahrenbe/vdr/soppalusikka/files/vdr-skinsoppalusikka-${PKG_VERSION}.tgz"
 PKG_REV=20
