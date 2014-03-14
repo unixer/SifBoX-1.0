@@ -50,7 +50,7 @@ mkdir -p $install_dir $debug_dir
 make modules_install \
   INSTALL_MOD_PATH=.install \
   DEPMOD=$ROOT/$TOOLCHAIN/bin/depmod \
-kmod_dir="$install_dir/lib/modules/$(kernel_version)"
+  kmod_dir="$install_dir/lib/modules/$(kernel_version)"
 
 #PROVA CPUPOWER
 if [ ! "$TARGET_MACHINE" = "sabresd" ]; then
@@ -67,6 +67,8 @@ if [ ! "$TARGET_MACHINE" = "sabresd" ]; then
 )
 fi
 # FINE
+kmod_dir="$install_dir/lib/modules/$(kernel_version)"
+
 if [ -d .install/lib/firmware ]; then
   mv .install/lib/firmware .install/firmware
 else
@@ -75,7 +77,7 @@ fi
 #mona66
 #rm -f $kmod_dir/build $kmod_dir/source $kmod_dir/modules.*
 
-rm -Rf $kmod_dir/build $kmod_dir/source $kmod_dir/modules.*
+rm -Rf $kmod_dir/build $kmod_dir/source ##$kmod_dir/modules.*
 strip_kmods "$kmod_dir" "$debug_dir"
 
 mkdir -p .install/boot
