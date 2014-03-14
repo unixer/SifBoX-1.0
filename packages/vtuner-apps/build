@@ -11,7 +11,7 @@ elif [ "$TARGET_SUBARCH" = "armv7" ]; then
 elif [ "$TARGET_SUBARCH" = "i486" ]; then
   ARCH="i686"
 elif [ "$TARGET_ARCH" = "arm" ]; then
-  ARCH = "arm"
+  ARCH="arm"
 else
   ARCH=$TARGET_SUBARCH
 fi

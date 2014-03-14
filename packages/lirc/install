@@ -2,7 +2,10 @@
 
 . config/options
 
-cd $BUILD/$1-[0-9]*
+get_meta $1
+
+#cd $BUILD/$1-[0-9]*
+cd $PKG_BUILD_DIR
 
 do_install usr/lib/liblirc_client.so*
 do_install usr/sbin/lircd

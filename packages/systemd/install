@@ -92,7 +92,8 @@ fi
 # disable Journal on these machines/platforms
 if [ "$TARGET_MACHINE" = cubox ] || \
    [ "$TARGET_MACHINE" = raspberrypi ] || \
-   [ "$TARGET_PLATFORM" = a10 ]; then
+   [ "$TARGET_PLATFORM" = a10 ] || \
+   [ "$TARGET_MACHINE" = tbs2910 ]; then
   mkdir -p $INSTALL/etc/systemd/system
   ln -s /dev/null $INSTALL/etc/systemd/system/systemd-journald.service
   ln -s /dev/null $INSTALL/etc/systemd/system/syslog.socket

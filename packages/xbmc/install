@@ -15,6 +15,8 @@ cp -P $ROOT/$PACKAGES/$1/scripts/menuorg-appswitcher .install/usr/bin
 #cp -P $ROOT/$PACKAGES/$1/config/RssFeeds.xml .install/usr/share/xbmc/userdata
 if [ "$TARGET_MACHINE" = raspberrypi ]; then
    cp -P $ROOT/$PACKAGES/$1/scripts/runxbmc .install/usr/bin/xbmc
+elif [ "$TARGET_MACHINE" = tbs2910 ]; then
+   cp -P $ROOT/$PACKAGES/$1/scripts/runxbmc .install/usr/bin/xbmc
 else
    cp -P $ROOT/$PACKAGES/$1/scripts/xbmc .install/usr/bin
 fi
