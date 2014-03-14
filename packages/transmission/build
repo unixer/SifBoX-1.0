@@ -1,0 +1,21 @@
+#!/bin/sh
+
+. config/options
+
+get_meta $1
+cd $PKG_BUILD_DIR
+do_configure \
+	--enable-utp \
+        --enable-largefile \
+        --disable-nls \
+        --disable-cli \
+        --disable-mac \
+        --enable-lightweight \
+        --enable-daemon \
+        --with-gnu-ld \
+	--with-sysroot=$SYSROOT_PREFIX \
+	--with-systemd-daemon
+
+make
+do_strip bin libtransmission.so.*
+make_install
