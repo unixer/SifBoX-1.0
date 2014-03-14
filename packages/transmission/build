@@ -17,5 +17,4 @@ do_configure \
 	--with-systemd-daemon
 
 make
-do_strip bin libtransmission.so.*
 make_install
