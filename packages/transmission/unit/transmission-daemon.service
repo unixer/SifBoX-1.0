@@ -4,8 +4,7 @@ After=network.target
 
 [Service]
 User=root
-Type=notify
-ExecStart=/usr/bin/transmission-daemon -g /etc/transmission -f --log-error
+ExecStart=/usr/bin/transmission-daemon --log-error -f -g /etc/transmission 
 
 [Install]
 WantedBy=multi-user.target
