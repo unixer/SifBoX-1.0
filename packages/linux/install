@@ -18,8 +18,8 @@ do_install boot
 #fi
 
 #Firmware
-mkdir -p $INSTALL/firmware
-cp -r $ROOT/$PACKAGES/$1/firmware/* $INSTALL/firmware/
+#mkdir -p $INSTALL/firmware
+#cp -r $ROOT/$PACKAGES/$1/firmware/* $INSTALL/firmware/
 
 #PROVA CPUPOWER
 #if [ ! "$TARGET_MACHINE" = "tbs2910" ]; then
