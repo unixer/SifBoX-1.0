@@ -1,0 +1,7 @@
+#!/bin/sh
+echo "Post install:"
+if [ ! -d "/media/BitTorrent/Incomplete" ]; then
+   mkdir -p /media/BitTorrent/Incomplete
+   mkdir -p /media/BitTorrent/sources
+fi
+echo "Done"

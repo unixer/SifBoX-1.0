@@ -7,3 +7,5 @@ cd $PKG_BUILD_DIR
 
 do_install usr/bin
 do_install usr/share
+mkdir -p $INSTALL//etc/transmission
+cp $ROOT/$PACKAGES/$1/config/* $INSTALL/etc/transmission 
