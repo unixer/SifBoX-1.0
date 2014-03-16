@@ -16,5 +16,5 @@ Wants=NetworkManager-wait-online.service
 #Options=nolock
 
 [Install]
-WantedBy=network.target.wants
+WantedBy=network.target
 

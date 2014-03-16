@@ -9,5 +9,5 @@ ExecStart=/usr/lib/xorg/video-card-detect
 RemainAfterExit=yes
 
 [Install]
-#WantedBy=multi-user.target
-WantedBy=graphical.target
+WantedBy=multi-user.target
+#WantedBy=graphical.target

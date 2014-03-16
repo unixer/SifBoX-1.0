@@ -1,6 +1,7 @@
 PKG_NAME=busybox
-PKG_URL_REV=891b98c9bcb
-PKG_VERSION=1.23
+#PKG_URL_REV=891b98c9bcb
+PKG_URL_REV=ac03a40cbac
+PKG_VERSION=1.23.0
 #+${PKG_URL_REV}
 PKG_URL_PROTO=git
 PKG_URL="git://git.busybox.net/busybox"

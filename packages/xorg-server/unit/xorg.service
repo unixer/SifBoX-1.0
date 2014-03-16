@@ -10,5 +10,5 @@ ExecStartPost=/usr/lib/xorg/xorg-post-start
 Restart=always
 
 [Install]
-#WantedBy=multi-user.target
-WantedBy=graphical.target
+WantedBy=multi-user.target
+#WantedBy=graphical.target
