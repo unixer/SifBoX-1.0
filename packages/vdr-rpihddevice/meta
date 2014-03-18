@@ -1,8 +1,8 @@
 PKG_NAME=vdr-rpihddevice
 PKG_VERSION=0.0.8
 PKG_URL_PROTO=git
-#PKG_URL_REV=4c8dffd4f  # Ottimo
-PKG_URL_REV=caf886208
+#PKG_URL_REV=caf886208
+PKG_URL_REV=f9b1bcff8
 PKG_URL="git://projects.vdr-developer.org/vdr-plugin-rpihddevice.git"
 PKG_REV=22
 PKG_DEPENDS="$TARGET_LIBC vdr ffmpeg" # libav"

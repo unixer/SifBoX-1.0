@@ -33,7 +33,7 @@ cp $ROOT/$PACKAGES/$1/scripts/vdrfrontend.sh $INSTALL/usr/bin
 mkdir -p $INSTALL/etc/systemd/system/multi-user-target-wants
 cd $INSTALL/etc/systemd/system/multi-user-target-wants
 ln -s /lib/systemd/system/vdr-xine.service vdr-xine.service
-mkdir -p $INSTALL/lib/systemd/system/VDR.target.wants
-cd $INSTALL/lib/systemd/system/VDR.target.wants
-ln -s /lib/systemd/system/vdr-xine.service vdr-xine.service
+#mkdir -p $INSTALL/lib/systemd/system/VDR.target.wants
+#cd $INSTALL/lib/systemd/system/VDR.target.wants
+#ln -s /lib/systemd/system/vdr-xine.service vdr-xine.service
 

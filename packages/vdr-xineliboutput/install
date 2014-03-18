@@ -57,9 +57,9 @@ cp $ROOT/$PACKAGES/$1/config/$XINECONFIG $INSTALL/etc/vdr-sxfe/config_xinelibout
 mkdir -p $INSTALL/etc/systemd/system/multi-user.target.wants
 cd $INSTALL/etc/systemd/system/multi-user.target.wants
 ln -s /lib/systemd/system/vdr-sxfe.service vdr-sxfe.service
-mkdir -p $INSTALL/lib/systemd/system/VDR.target.wants
-mkdir -p $INSTALL/lib/systemd/system/multi-user.target.wants
+#mkdir -p $INSTALL/lib/systemd/system/VDR.target.wants
+##mkdir -p $INSTALL/lib/systemd/system/multi-user.target.wants
 #cd $INSTALL/lib/systemd/system/VDR.target.wants
-ln -s /lib/systemd/system/vdr-sxfe.service $INSTALL/lib/systemd/system/VDR.target.wants/vdr-sxfe.service
-ln -s /lib/systemd/system/vdr-sxfe.service $INSTALL/lib/systemd/system/multi-user.target.wants/vdr-sxfe.service || true 
+#ln -s /lib/systemd/system/vdr-sxfe.service $INSTALL/lib/systemd/system/VDR.target.wants/vdr-sxfe.service
+##ln -s /lib/systemd/system/vdr-sxfe.service $INSTALL/lib/systemd/system/multi-user.target.wants/vdr-sxfe.service || true 
 exit 0

@@ -42,4 +42,11 @@ if [ "$TARGET_PLATFORM" = omap3 -o "$TARGET_PLATFORM" = omap4 ]; then
   cp -P $ROOT/$PACKAGES/$PKG_NAME/config/90-omapfb.conf $INSTALL/etc/X11/gpu
 fi
 
+# Dopo le modifiche alle unit di vdr vdr-sxfe e xorg 
+# sia bilita xorg-server all'avvio automatico
+mkdir -p $INSTALL/etc/systemd/system/multi-user.target.wants
+cd $INSTALL/etc/systemd/system/multi-user.target.wants
+ln -s /lib/systemd/system/xorg.service xorg.service
+# fine
+
 exit 0

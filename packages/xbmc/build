@@ -180,7 +180,6 @@ do_configure \
   $EXTRA_CONFIG \
   $XBMC_PLAYER \
 
-
 # leaked host includes break the Python components build
 ## sed -i Makefile.include -e "s:-I$ROOT/$TOOLCHAIN/include::"
 
