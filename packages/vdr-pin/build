@@ -34,4 +34,8 @@ if [ $VDRINS = "yes" ]; then
 else
   do_strip bin lib$1.so.*
 fi
-
+mkdir -p .install/usr/bin
+cp -p scripts/*.sh .install/usr/bin
+cp -p fskcheck .install/usr/bin
+mkdir -p .install/etc/vdr/command-hooks
+cp -p $ROOT/$PACKAGES/$1/scripts/reccmds.pin.conf .install/etc/vdr/command-hooks

@@ -59,8 +59,8 @@ rm $INSTALL/etc/systemd/system/getty.target.wants/getty@tty1.service
 if [ -n "$DEFAULT_SYSTEMD_TARGET" ]; then
   mkdir -p $INSTALL/etc/systemd/system
   #ln -s /lib/systemd/system/${DEFAULT_SYSTEMD_TARGET}.target \
-  ln -s /lib/systemd/system/multi-user.target.wants \
-    $INSTALL/etc/systemd/system/default.target
+  #ln -s /lib/systemd/system/multi-user.target.wants \
+  #  $INSTALL/etc/systemd/system/default.target
 fi
 
 # reduce verbosity a bit

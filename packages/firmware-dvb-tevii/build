@@ -6,4 +6,6 @@ cd $BUILD/$1*
 
 rm -rf .install
 mkdir -p .install/firmware
+cp -PR $ROOT/$PACKAGES/$1/firmware/* .install/firmware
 cp -PR dvb* .install/firmware
+

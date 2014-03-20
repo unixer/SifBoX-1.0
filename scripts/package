@@ -75,9 +75,11 @@ if [ "$SYSTEMD" = yes -a -d $PACKAGES/$1/unit ]; then
     cp $unit $INSTALL/lib/systemd/system
     systemctl_enable `basename $unit` $INSTALL
   done
+fi
+if [ "$SYSTEMD" = yes -a -d $PLATFORM_PACKAGES/$1/unit ]; then
   for unit in $PLATFORM_PACKAGES/$1/unit/*; do
     cp $unit $INSTALL/lib/systemd/system
-    systemctl_enable `basename $unit` $INSTALL
+    systemctl_enable `basename $unit` $INSTALL || true
   done
 fi
 
