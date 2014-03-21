@@ -26,5 +26,10 @@ else
   do_install etc
 fi
 
+NAME=`echo ${PKG_NAME}| sed s/vdr-//`
 
-mkdir -p $INSTALL/etc/vdr/plugins/pin
+mkdir -p $INSTALL/etc/vdr/plugins/$NAME
+
+mkdir -p $INSTALL/etc/vdr/plugins.d
+echo "PLUGIN=${NAME}" > $INSTALL/etc/vdr/plugins.d/50_$NAME
+echo "ENABLED=yes" >> $INSTALL/etc/vdr/plugins.d/50_$NAME
