@@ -47,6 +47,7 @@ fi
 mkdir -p $INSTALL/etc/systemd/system/multi-user.target.wants
 cd $INSTALL/etc/systemd/system/multi-user.target.wants
 ln -s /lib/systemd/system/xorg.service xorg.service
+ln -s /lib/systemd/system/video-card.service video-card.service
 # fine
 
 exit 0

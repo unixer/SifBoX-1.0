@@ -13,29 +13,25 @@ cd objdir-host
 
 export ac_cv_path_SDL_CONFIG=$ROOT/$TOOLCHAIN/bin/host-sdl-config
 do_configure host \
-	     --sysconfdir=$ROOT/$TOOLCHAIN/etc \
-             --localstatedir=/var \
-             --enable-shared \
-             --disable-static \
-             --disable-bmp \
-             --disable-gif \
-             --enable-jpg \
-             --disable-jpg-shared \
-             --disable-lbm \
-             --disable-pcx \
-             --enable-png \
-             --disable-png-shared \
-             --disable-pnm \
-             --disable-tga \
-             --disable-tif \
-             --disable-tif-shared \
-             --disable-webp \
-             --disable-webp-shared \
-             --disable-xcf \
-             --disable-xpm \
-             --disable-xv \
-             --with-sdl-prefix=$ROOT/$TOOLCHAIN \
-
+                  --disable-bmp \
+                  --disable-gif \
+                  --enable-jpg \
+                  --disable-jpg-shared \
+                  --disable-lbm \
+                  --disable-pcx \
+                  --enable-png \
+                  --disable-png-shared \
+                  --disable-pnm \
+                  --disable-tga \
+                  --disable-tif \
+                  --disable-tif-shared \
+                  --disable-webp \
+                  --disable-webp-shared \
+                  --disable-xcf \
+                  --disable-xpm \
+                  --disable-xv \
+                  --with-sdl-prefix=$ROOT/$TOOLCHAIN \
+                  --enable-shared \
 
 make
 make_install toolchain
