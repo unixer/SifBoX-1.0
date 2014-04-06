@@ -30,8 +30,12 @@ else
 fi
 
 #Prova copia configurazione di default
-mkdir -p $INSTALL/root
-cp -r $ROOT/$PACKAGES/$1/defconfig/.xbmc $INSTALL/root/
+mkdir -p $INSTALL/root/.xbmc
+if [ "$PKG_VERSION" = "frodo-12.3" ]; then
+   cp -r $ROOT/$PACKAGES/$1/defconfig/.xbmc $INSTALL/root/
+else
+   cp -r $ROOT/$PACKAGES/$1/defconfig/.xbmc13/* $INSTALL/root/.xbmc 
+fi
 #Fine
 cp -P $ROOT/$PACKAGES/$1/config/advancedsettings.xml $INSTALL/root/.xbmc/userdata/
 cp -P $ROOT/$PACKAGES/$1/config/*.xml .install/etc/xbmc

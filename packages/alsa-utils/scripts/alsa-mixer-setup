@@ -186,6 +186,14 @@ else
   mixer 'Analog Center/LFE' 100%
 fi
 
+# Required for ASUS
+if dmesg | grep "HDA NVidia HDMI" ; then
+  amixer set -c $ALSA_CARD IEC958,1 unmute
+  amixer set -c $ALSA_CARD IEC958,2 unmute
+  amixer set -c $ALSA_CARD IEC958,3 unmute
+  amixer set -c $ALSA_CARD IEC958,4 unmute
+fi
+
 # Required for HP Pavilion dv7 Notebook
 mixer Speaker 100% unmute
 
