@@ -1,5 +1,5 @@
 PKG_NAME=xf86-video-intel
-PKG_VERSION=2.99.910
+PKG_VERSION=2.99.911
 PKG_URL="http://xorg.freedesktop.org/archive/individual/driver/$PKG_NAME-$PKG_VERSION.tar.bz2"
 #PKG_URL_PROTO=git
 #PKG_URL_REV=2fb2cd09
