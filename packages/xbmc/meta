@@ -6,7 +6,8 @@ if [ "$TARGET_MACHINE" = cubieboard2 ]; then
 else 
    PKG_VERSION=gotham-13.0-beta.4
    #PKG_URL_REV=ce52900
-   PKG_URL_REV=74ec17d
+   #PKG_URL_REV=74ec17d
+   PKG_URL_REV=7f24c56
 fi
 PKG_URL="https://github.com/xbmc/xbmc.git"
 PKG_REV=2
