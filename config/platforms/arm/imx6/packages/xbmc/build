@@ -190,9 +190,9 @@ for i in .install/usr/share/xbmc/addons/skin.*; do
   fi
 done
 
-mkdir .install/root
+mkdir .install/root/.xbmc -p
 tar afx $ROOT/$PACKAGES/$1/config/xbmc_userdata.tar.xz -C \
-  .install/root
+  .install/root/.xbmc
 
 
 exit 0

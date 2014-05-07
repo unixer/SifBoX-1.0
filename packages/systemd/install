@@ -105,4 +105,8 @@ ln -s /dev/null $INSTALL/etc/udev/rules.d/80-net-name-slot.rules
 mkdir -p $INSTALL/lib/systemd/system/network.target.wants
 cp $ROOT/$PACKAGES/$1/config/wake-on-lan.service $INSTALL/lib/systemd/system/
 ln -s ../wake-on-lan.service $INSTALL/lib/systemd/system/network.target.wants
+
+# Da system 210 in avanti
+ln -s /bin/systemctl $INSTALL/usr/bin/systemctl
+####
 exit 0

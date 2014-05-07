@@ -15,6 +15,7 @@ case "$EXIT_CODE" in
   64) # 64=powerdown
     echo "xbmc exited with EXIT_CODE=$EXIT_CODE at $(date). Shutting down..." >>$LOGFILE
     pre_umount
+    echo 0 > /proc/sys/kernel/printk
     systemctl poweroff
     exit 0
   ;;

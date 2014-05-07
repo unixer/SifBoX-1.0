@@ -1,7 +1,7 @@
 PKG_NAME=vdr-channels
 PKG_VERSION=20131218
 #PKG_URL="http://fill-in-vdr-channels--download-url.invalid"
-PKG_REV=30
+PKG_REV=33
 PKG_DEPENDS="$TARGET_LIBC"
 PKG_BUILD_DEPENDS="toolchain"
 PKG_PRIORITY=optional

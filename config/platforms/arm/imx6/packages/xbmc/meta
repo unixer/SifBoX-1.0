@@ -1,8 +1,9 @@
 PKG_NAME=xbmc
 PKG_URL_PROTO=git
-PKG_RECURSIVE=yes
-PKG_URL_REV=d73d40892b
-PKG_VERSION=gotham-beta3-imx-r${PKG_URL_REV}
+#PKG_URL_REV=78ab1ea
+PKG_URL_REV=5f53e0d
+#PKG_URL_REV=04f006c
+PKG_VERSION=13.beta1-imx-r${PKG_URL_REV}
 PKG_URL="https://github.com/xbmc-imx6/xbmc.git"
-PKG_DEPENDS="$PKG_DEPENDS libxslt"
+#PKG_URL="https://github.com/wolfgar/xbmc.git"
 PKG_REV=1

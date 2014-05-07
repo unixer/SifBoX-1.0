@@ -53,7 +53,7 @@ make modules_install \
   kmod_dir="$install_dir/lib/modules/$(kernel_version)"
 
 #PROVA CPUPOWER
-if [ ! "$TARGET_MACHINE" = "sabresd" ]; then
+if [ ! "$TARGET_MACHINE" = "iiitbs2910" ]; then
 ( cd tools/power/cpupower
 
   # dont use some optimizations because of build problems
