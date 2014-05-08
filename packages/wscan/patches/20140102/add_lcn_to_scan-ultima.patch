@@ -1,0 +1,118 @@
+--- w_scan-20140102/scan.c.org	2014-05-08 11:36:22.795783227 +0200
++++ w_scan-20140102/scan.c	2014-05-08 11:36:44.239783595 +0200
+@@ -115,7 +115,7 @@
+ static int committed_switch = 0;                // 20090320: DVB-S/S2, DISEQC committed switch position
+ static int uncommitted_switch = 0;              // 20090320: DVB-S/S2, DISEQC uncommitted switch position
+ static struct lnb_types_st this_lnb;            // 20090320: DVB-S/S2, LNB type, initialized in main to 'UNIVERSAL'
+-static struct scr scr_config = {0,0,0,0xFFFF};  // 20140101: DVB-S/S2, satellite channel routing. (EN50494)
++static struct scr scr_config = {0,0,0,0xFFFF,0};// 20140101: DVB-S/S2, satellite channel routing. (EN50494)
+ time_t start_time = 0;
+ 
+ static enum fe_spectral_inversion caps_inversion        = INVERSION_AUTO;
+@@ -553,7 +553,38 @@
+         }
+         return 0;
+ }
+-
++/*
++ * Parse LCN for Italian DVBT
++ */
++void parser_lcn(const unsigned char *buf){
++	int i, n, channel_num, service_id;
++	struct list_head *p1, *p2;
++	struct transponder *t;
++	struct service *s;
++
++	// 32 bits per record
++	n = buf[1] / 4;
++	debug("LCN Len: %d\n",n);
++	if (n < 1)
++		return;
++	// desc id, desc len, (service id, service number)
++	buf += 2;
++	for (i = 0; i < n; i++) {
++		//UK= ((buf[2] & 0x03) << 8) | buf[3];
++		service_id=(buf[0] << 8) | buf[1];
++		channel_num=((buf[2]&0x03)<<8)|(buf[3]&0xff);
++		debug("Service ID 0x%x has buffer2 0x%X and buffer3 0x%X and has channel number %d\n", service_id, buf[2],buf[3],channel_num);
++		list_for_each(p1, &scanned_transponders) {
++			t = list_entry(p1, struct transponder, list);
++			list_for_each(p2, &t->services) {
++				s = list_entry(p2, struct service, list);
++				if (s->service_id == service_id)
++					s->channel_num = channel_num;
++			}
++		}
++		buf += 4;
++	}
++}
+ static void parse_descriptors(enum table_id t, const unsigned char *buf,
+                               int descriptors_loop_len, void *data, scantype_t scantype) {
+         while (descriptors_loop_len > 0) {
+@@ -716,7 +747,9 @@
+                         case dts_descriptor:
+                         case aac_descriptor:
+                                 break;                
+-                        case 0x83:
++                        case logical_channel_descriptor:
++                        	//LCN
++                        	parser_lcn(buf);
+                         case 0xF2: // 0xF2 Private DVB Descriptor  Premiere.de, Content Transmission Descriptor
+                                 break;                     
+                         default:
+@@ -1713,11 +1746,13 @@
+ 
+                         if (scr_config.user_frequency > 0) {
+                                 // satellite channel routing.
+-                                intermediate_freq = scr_config.user_frequency * 1000UL; // tune dvb card to users freq. NOTE: MHz -> kHz.
+-                                setup_scr(frontend_fd, &(t->param), &this_lnb, &scr_config);
+-                                // repeat diseqc sequence after 150msec, because it may fail and we cannot check here.
+-                                usleep(150000);                                
+-                                setup_scr(frontend_fd, &(t->param), &this_lnb, &scr_config);
++                                if (setup_scr(frontend_fd, &(t->param), &this_lnb, &scr_config) != 0)
++                                   return -2;
++                                // repeat diseqc sequence after 100msec, because it may fail and we cannot check here.
++                                usleep(100000);                                
++                                if (setup_scr(frontend_fd, &(t->param), &this_lnb, &scr_config))
++                                   return -2;
++                                intermediate_freq = (scr_config.user_frequency + scr_config.offset) * 1000UL; // tune dvb card to users freq. NOTE: MHz -> kHz.
+                                 }
+ 
+                         else if (this_lnb.high_val) {
+@@ -1727,9 +1762,10 @@
+                                         if (t->param.frequency >= this_lnb.switch_val)
+                                                 switch_to_high_band++;
+ 
+-                                        setup_switch (frontend_fd, committed_switch,
+-                                                t->param.u.sat.polarization == POLARIZATION_VERTICAL ? 0 : 1,
+-                                                switch_to_high_band, uncommitted_switch);
++                                        if (setup_switch (frontend_fd, committed_switch,
++                                                  t->param.u.sat.polarization == POLARIZATION_VERTICAL ? 0 : 1,
++                                                  switch_to_high_band, uncommitted_switch) != 0)
++                                                return -2; //error
+ 
+                                         usleep(50000);
+ 
+@@ -1799,7 +1835,7 @@
+ 
+         switch (flags.api_version) {
+                 case 0x0500 ... 0x05FF:
+-                        debug("%s: using DVB API %x.%x\n",
++                        debug("%s: using DVB API %u.%u\n",
+                           __FUNCTION__,
+                          flags.api_version >> 8,
+                          flags.api_version & 0xFF);
+@@ -1856,7 +1892,7 @@
+                         set_cmd_sequence(DTV_TUNE, DTV_UNDEFINED);
+                                                 
+                         if (ioctl(frontend_fd, FE_SET_PROPERTY, &cmdseq) < 0) {
+-                                errorn("Setting frontend parameters failed (API v5.x)\n");
++                                errorn("Setting frontend parameters failed\n");
+                                 return -1;
+                                 }
+                         break;
+@@ -3481,4 +3517,3 @@
+ 
+         return 0;
+ }
+-
