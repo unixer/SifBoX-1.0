@@ -56,3 +56,15 @@
          return 0;
  }
 -
+--- wscan-20140118/dump-vdr.c	2013-10-31 09:43:05.000000000 +0100
++++ wscan-20140118/dump-vdr.c.ftp21	2014-05-09 09:26:11.277999282 +0200
+@@ -383,6 +383,9 @@
+         if (! flags->ca_select && s->scrambled)
+                 return;
+ 
++	if (s->channel_num>0)
++        	fprintf (f, ":@%d\n", s->channel_num);
++
+         fprintf (f, "%s", s->service_name);
+ 
+         if (flags->dump_provider)
