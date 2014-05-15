@@ -1,11 +1,5 @@
 #!/bin/sh
 
-. /etc/rtorrent.cfg
-
-if [ "$CHECK_USB_DISK" = "no" ] ; then
-  exit 0
-fi
-
 CHECK=`cat /tmp/rtorrent-dir`
 
 udisks --monitor | while read -r line ; do

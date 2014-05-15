@@ -23,10 +23,10 @@ mkdir -p $install_dir $debug_dir
 
 make install \
   DESTDIR=$install_dir \
-  KERNELRELEASE=$(kernel_version) \
+  KERNELRELEASE=$(kernel_version)/updates/s2-liplianin \
 
 mv $install_dir/lib/firmware $install_dir/firmware
 cp $ROOT/$PACKAGES/$1/firmware/* $install_dir/firmware
-rm -f $install_dir/lib/modules/$(kernel_version)/modules.*
+rm -f $install_dir/lib/modules/$(kernel_version)/updates/s2-liplianin/modules.*
 
-strip_kmods "$install_dir/lib/modules/$(kernel_version)" "$debug_dir"
+strip_kmods "$install_dir/lib/modules/$(kernel_version)/updates/s2-liplianin" "$debug_dir"

@@ -37,7 +37,7 @@
   </lookandfeel>
   <audiooutput>
     <ac3passthrough>true</ac3passthrough>
-    <audiodevice>ALSA:hdmi:CARD=imxhdmisoc,DEV=0</audiodevice>
+    <audiodevice>ALSA:sysdefault:CARD=imxhdmisoc</audiodevice>
     <channels>1</channels>
     <config>2</config>
     <dtshdpassthrough>false</dtshdpassthrough>
@@ -46,7 +46,7 @@
     <guisoundmode>1</guisoundmode>
     <normalizelevels>true</normalizelevels>
     <passthrough>false</passthrough>
-    <passthroughdevice>ALSA:hdmi:CARD=imxhdmisoc,DEV=0</passthroughdevice>
+    <passthroughdevice>ALSA:sysdefault:CARD=imxhdmisoc</passthroughdevice>
     <processquality>50</processquality>
     <samplerate>48000</samplerate>
     <stereoupmix>false</stereoupmix>

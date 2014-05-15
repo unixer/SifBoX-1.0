@@ -35,3 +35,5 @@ mkdir -p $INSTALL/etc/vdr/plugins.d
 echo "PLUGIN=${NAME}" > $INSTALL/etc/vdr/plugins.d/50_$NAME
 echo "ENABLED=yes" >> $INSTALL/etc/vdr/plugins.d/50_$NAME
 
+mkdir $INSTALL/usr/local/bin || true
+cp $ROOT/$PACKAGES/$1/scripts/* $INSTALL/usr/local/bin

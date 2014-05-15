@@ -48,3 +48,4 @@ if [ -n "$led_name" ] ; then
          -e "s/!DARK/${led_dark}/g" \
          .install/usr/bin/cubox-led*
 fi
+

@@ -1,0 +1,129 @@
+--- wscan-20140102/scan.c	2014-01-02 16:06:51.000000000 +0100
++++ wscan-20140102/scan.c.lcn	2014-01-30 12:36:15.319094630 +0100
+@@ -107,6 +107,9 @@
+ static unsigned int dvbc_symbolrate_max = 1;    // initialization of symbolrate loop. 6875
+ static unsigned int freq_offset_min = 0;        // initialization of freq offset loop. 0 == offset (0), 1 == offset(+), 2 == offset(-), 3 == offset1(+), 4 == offset2(+)
+ static unsigned int freq_offset_max = 4;        // initialization of freq offset loop.
++static unsigned int lcn_country=0;		// country for lcn
++static unsigned int vdr_output=0;		// set if -o is enabled
++static unsigned int lcn_output=0;		// set if -N is enabled
+ static int this_channellist = DVBT_DE;          // w_scan uses by default DVB-t
+ static unsigned int ATSC_type = ATSC_VSB;       // 20090227: flag type vars shouldnt be signed. 
+ static unsigned int no_ATSC_PSIP = 0;           // 20090227: initialization was missing, signed -> unsigned                
+@@ -554,6 +557,49 @@
+         return 0;
+ }
+ 
++static void parse_lcn(const unsigned char *buf, void *dummy,int c){
++	(void)dummy;
++ 
++	int i, n, channel_num, service_id;
++	struct list_head *p1, *p2;
++	struct transponder *t;
++	struct service *s;
++
++	// 32 bits per record
++	n = buf[1] / 4;
++	debug("LCN Len: %d\n",n);
++	if (n < 1)
++		return;
++	// desc id, desc len, (service id, service number)
++	buf += 2;
++	for (i = 0; i < n; i++) {
++		switch(c){
++			case 1:
++			//UK LCN
++				service_id = (buf[0]<<8)|(buf[1]&0xff);
++				channel_num = ((buf[2]&0x03)<<8)|(buf[3]&0xff);
++				break;
++			case 2:
++			//IT LCN
++				service_id=(buf[0] << 8) | buf[1];	
++				channel_num=((buf[2] & 0x03) << 8) | buf[3];
++				break;
++		}
++		debug("Service ID 0x%x has buffer2 0x%X and buffer3 0x%X and has channel number %d\n", service_id, buf[2],buf[3],channel_num);
++		list_for_each(p1, &scanned_transponders) {
++			t = list_entry(p1, struct transponder, list);
++			list_for_each(p2, &t->services) {
++				s = list_entry(p2, struct service, list);
++				if (s->service_id == service_id)
++					s->channel_num = channel_num;
++			}
++		}
++		buf += 4;
++	}
++
++	
++}
++
+ static void parse_descriptors(enum table_id t, const unsigned char *buf,
+                               int descriptors_loop_len, void *data, scantype_t scantype) {
+         while (descriptors_loop_len > 0) {
+@@ -717,6 +763,9 @@
+                         case aac_descriptor:
+                                 break;                
+                         case 0x83:
++				verbosedebug("0x%x 0%x BUFFER\n",buf[4],buf[5]);
++				if(lcn_country>0)
++				parse_lcn(buf,data,lcn_country);
+                         case 0xF2: // 0xF2 Private DVB Descriptor  Premiere.de, Content Transmission Descriptor
+                                 break;                     
+                         default:
+@@ -2664,6 +2713,7 @@
+         "       -M      mplayer output instead of vdr channels.conf\n"
+         "       -X      tzap/czap/xine output instead of vdr channels.conf\n"
+         "       -x      generate initial tuning data for (dvb-)scan\n"
++        "       -N      add the LCN to a VDR output\n"
+         "       -H      view extended help (experts only)\n";
+ 
+ 
+@@ -2692,6 +2742,7 @@
+         "       -o N    VDR version / channels.conf format\n"
+         "               2  = VDR-2.0.x (default)\n"
+         "               21 = VDR-2.1.x\n"
++        "       -N      add the LCN to a VDR output\n"
+         ".................Device..................\n"
+         "       -a N    use device /dev/dvb/adapterN/ [default: auto detect]\n"
+         "               (also allowed: -a /dev/dvb/adapterN/frontendM)\n"
+@@ -2817,7 +2868,7 @@
+         flags.version = version;
+         start_time = time(NULL);
+ 
+-        while ((opt = getopt(argc, argv, "a:c:e:f:hi:kl:o:p:qr:s:t:u:vxA:C:D:E:FGHI:LMO:PQ:R:S:T:VX")) != -1) {
++	while ((opt = getopt(argc, argv, "a:c:e:f:hi:kl:o:p:qr:s:t:vxA:D:E:FHI:O:PQ:R:S:T:VX:N")) != -1) {
+                 switch (opt) {
+                 case 'a': //adapter
+                         if (sscanf(optarg, "%d", &adapter) < 1)
+@@ -2888,6 +2939,7 @@
+                         break;
+                 case 'o': //vdr Version
+                         flags.vdr_version = strtoul(optarg, NULL, 0);
++			vdr_output=1;
+                         break;
+                 case 'p': //satellite *p*osition file
+                         positionfile=strdup(optarg);
+@@ -3022,6 +3074,23 @@
+                 case 'X': //xine output
+                         output_format = OUTPUT_XINE;
+                         break;
++		case 'N':
++			
++			if(vdr_output==1){
++				if(country[0]=='G' && country[1]=='B'){
++					debug("GB LCN\n");
++					lcn_country=1;
++					lcn_output=1;
++					//parse_lcn(buf,data,1);
++				}else{
++					debug("Other LCN\n");
++					lcn_country=2;
++					lcn_output=1;
++					//parse_lcn(buf,data,2);
++				}
++			}
++			//printf("%s\n",country);
++			break;
+                 default: //undefined
+                         cleanup();
+                         bad_usage(argv[0]);

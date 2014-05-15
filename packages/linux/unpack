@@ -38,22 +38,15 @@ case $TARGET_ARCH in
 esac
 
 # try to guess the appropriate kernel configuration file
-if [ -f $CONFIG_PLATFORM/$1.conf ]; then
+KERNEL_CFG_FILE="$CONFIG_MACHINE/$1.conf"
+
+[ ! -f $KERNEL_CFG_FILE ] && \
   KERNEL_CFG_FILE="$CONFIG_PLATFORM/$1.conf"
-elif [ -f $CONFIG_PLATFORM_GENERIC/$1.conf ]; then
-  echo "found $CONFIG_PLATFORM_GENERIC/$1.conf, using it"
+
+[ ! -f $KERNEL_CFG_FILE ] && \
   KERNEL_CFG_FILE="$CONFIG_PLATFORM_GENERIC/$1.conf"
-fi
 
-[ -f $CONFIG_MACHINE/$1.conf ] && \
-  echo "found $CONFIG_MACHINE/$1.conf, using it"
-  KERNEL_CFG_FILE="$KERNEL_CFG_FILE $CONFIG_MACHINE/$1.conf"
-
-[ -f $CONFIG_FLAVOUR/$1.conf ] && \
-  echo "found $CONFIG_FLAVOUR/$1.conf, usinng it"
-  KERNEL_CFG_FILE="$KERNEL_CFG_FILE $CONFIG_FLAVOUR/$1.conf"
-
-if [ -z "$KERNEL_CFG_FILE" ]; then
+if [ ! -f "$KERNEL_CFG_FILE" ]; then
   echo "Unable to find a matching kernel configuration file !!"
   exit 1
 fi
@@ -74,7 +67,7 @@ fi
 
 echo "Using kernel config from: $KERNEL_CFG_FILE"
 
-$ROOT/$PACKAGES/$1/scripts/merge_config.sh -m -O $LINUX $KERNEL_CFG_FILE
+cp $KERNEL_CFG_FILE $LINUX/.config
 
 #if [ -f "$KERNEL_CFG_FILE.$CONF_VERSION" ]; then
 #  KERNEL_CFG_FILE=$KERNEL_CFG_FILE.$CONF_VERSION

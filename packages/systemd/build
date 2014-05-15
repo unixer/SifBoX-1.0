@@ -7,7 +7,7 @@ MAKEFLAGS=-j1
 
 
 cd $PKG_BUILD_DIR
-do_autoreconf -iv
+do_autoreconf -vi
 # strip out usage from linker plugin
 LDFLAGS=`echo $LDFLAGS | sed -e "s|-fuse-linker-plugin||g"`
 
@@ -90,4 +90,5 @@ sed -i -e 's/, *GROUP=\"[^\"]*\"//g' .install/lib/udev/rules.d/*
 
 #Necessario per System 197 per la gestione delle periferiche di rete
 #ln -s /dev/null $INSTALL/etc/udev/rules.d/80-net-name-slot.rules
-#rm -rf .install/lib/udev/rules.d/80-net-name-slot.rules
+rm -rf .install/lib/udev/rules.d/80-net-name-slot.rules
+rm -rf .install/lib/udev/rules.d/75-net-description.rules
