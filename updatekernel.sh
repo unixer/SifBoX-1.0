@@ -17,4 +17,5 @@ sed -i "s|PKG_REV=$1|PKG_REV=$PKG_REV_LINUX|" packages/xf86-video-nvidia-96xx/me
 sed -i "s|PKG_REV=$1|PKG_REV=$PKG_REV_LINUX|" packages/netceiver/meta
 sed -i "s|PKG_REV=$1|PKG_REV=$PKG_REV_LINUX|" packages/dvbsoftwareca/meta
 sed -i "s|PKG_REV=$1|PKG_REV=$PKG_REV_LINUX|" packages/vtuner-driver/meta
+sed -i "s|PKG_REV=$1|PKG_REV=$PKG_REV_LINUX|" packages/mediabuild/meta
 
