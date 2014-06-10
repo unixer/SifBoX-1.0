@@ -36,7 +36,7 @@ do_configure target \
             --disable-login \
             --enable-sulogin \
             --disable-su \
-		--with-ncurses \
+	    --with-ncurses \
 	    --enable-arch \
 	    --enable-agetty \
 	    --disable-init \

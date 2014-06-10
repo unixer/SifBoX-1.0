@@ -187,6 +187,8 @@ do_configure \
   $EXTRA_CONFIG \
   $XBMC_PLAYER \
 
+# --enable-ffmpeg-libvorbis
+# --disable-external-libraries
 # leaked host includes break the Python components build
 ## sed -i Makefile.include -e "s:-I$ROOT/$TOOLCHAIN/include::"
 

@@ -4,9 +4,11 @@ if [ "$TARGET_MACHINE" = raspberrypi ]; then
    #PKG_VERSION=0.10.7
    PKG_VERSION=1.2.4
 else
+   #PKG_VERSION=2.2.3
    PKG_VERSION=1.2.6
 fi
 PKG_URL="http://ffmpeg.org/releases/${PKG_NAME}-${PKG_VERSION}.tar.bz2"
+#PKG_URL="http://sources.openelec.tv/devel/ffmpeg-xbmc-c7a04ca.tar.xz"
 PKG_REV=1
 PKG_DEPENDS="zlib bzip2"
 PKG_BUILD_DEPENDS="toolchain yasm speex libtheora libvorbis lame"

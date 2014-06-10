@@ -20,8 +20,14 @@ LINUX=`ls -d $ROOT/$BUILD/${PKG_NAME}-${PKG_VERSION}`
 CONF_VERSION=`echo $PKG_VERSION | cut -c 1-3`
 #CONF_VERSION=version_strip_minor [$PKG_VERSION]
   version="$PKG_VERSION"
-  caz=`echo $version | sed 's/^\(.*\)\.[0-9]$/\1/'`
+  FINAL_VERSION=`echo $version | sed 's/^\(.*\)\.[0-9]$/\1/'`
 
+echo $LINUX
+echo $CONF_VERSION
+echo $version
+echo $FINAL_VERSION
+echo "ENTER"
+#read enterKey
 case $TARGET_ARCH in
   i386|x86_64)
     TARGET_LINUX_ARCH=$TARGET_ARCH
@@ -62,11 +68,13 @@ sed -i -e "s|^HOSTCC[[:space:]]*=.*$|HOSTCC = $HOST_CC|" \
 if [ -f "$KERNEL_CFG_FILE.$PKG_VERSION" ]; then
   KERNEL_CFG_FILE=$KERNEL_CFG_FILE.$PKG_VERSION
 else
-   KERNEL_CFG_FILE=$KERNEL_CFG_FILE.$CONF_VERSION
+   #KERNEL_CFG_FILE=$KERNEL_CFG_FILE.$CONF_VERSION
+   KERNEL_CFG_FILE=$KERNEL_CFG_FILE.$FINAL_VERSION
 fi
 
 echo "Using kernel config from: $KERNEL_CFG_FILE"
 
+#read enterKey
 cp $KERNEL_CFG_FILE $LINUX/.config
 
 #if [ -f "$KERNEL_CFG_FILE.$CONF_VERSION" ]; then

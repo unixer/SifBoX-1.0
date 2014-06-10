@@ -1,8 +1,8 @@
 PKG_NAME=linux
-#PKG_VERSION=3.13.6
+#PKG_VERSION=3.10.20
 PKG_VERSION=3.14.4
 PKG_URL="http://www.kernel.org/pub/linux/kernel/v3.x/linux-${PKG_VERSION}.tar.xz"
-PKG_REV=32
+PKG_REV=33
 PKG_BUILD_DEPENDS="toolchain kmod-host pciutils gettext"
 if [ "$TARGET_MACHINE" = raspberrypi ]; then
    PKG_BUILD_DEPENDS="$PKG_BUILD_DEPENDS lzop"

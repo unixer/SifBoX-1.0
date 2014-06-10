@@ -11,18 +11,18 @@ else
   DEVTOOLS_CONFIG="--disable-alsamixer --without-curses"
 fi
 
-#do_configure \
-#  --disable-dependency-tracking \
-#  --disable-xmlto \
-#  $DEVTOOLS_CONFIG \
-
 do_configure \
-	--disable-dependency-tracking \
-	--disable-xmlto \
-	--disable-alsaloop \
-	--enable-alsatest \
-	--disable-nls \
-	$DEVTOOLS_CONFIG \
+  --disable-dependency-tracking \
+  --disable-xmlto \
+  $DEVTOOLS_CONFIG \
+
+#do_configure \
+#	--disable-dependency-tracking \
+#	--disable-xmlto \
+#	--disable-alsaloop \
+#	--enable-alsatest \
+#	--disable-nls \
+#	$DEVTOOLS_CONFIG \
 
 make
 make_install
