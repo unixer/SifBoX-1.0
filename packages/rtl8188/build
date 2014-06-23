@@ -4,9 +4,15 @@
 
 get_meta $1
 
-cd $PKG_BUILD_DIR
-#make KVER=$(kernel_version) KSRC=$(kernel_path)
-LDFLAGS="" make V=1 ARCH=$TARGET_ARCH KSRC=$(kernel_path) CROSS_COMPILE=$TARGET_PREFIX CONFIG_POWER_SAVING=n
+$SCRIPTS/build linux
 
-mkdir -p .install/lib/modules/$(kernel_version)/kernel/drivers/net
-cp 8188eu.ko .install/lib/modules/$(kernel_version)/kernel/drivers/net
+cd $PKG_BUILD_DIR
+
+
+make KVER=$(kernel_version) KSRC=$(kernel_path) ARCH=$TARGET_ARCH CROSS_COMPILE=$TARGET_PREFIX
+
+mkdir -p .install/lib/modules/$(kernel_version)/extra/drivers/net/wireless
+cp 8188eu.ko .install/lib/modules/$(kernel_version)/extra/drivers/net/wireless
+
+mkdir -p .install/firmware/rtlwifi
+cp rtl8188eufw.bin .install/firmware/rtlwifi

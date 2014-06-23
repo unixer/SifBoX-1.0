@@ -4,17 +4,15 @@ if [ "$TARGET_MACHINE" = cubieboard2 ]; then
    PKG_URL_REV=9ed3e580ea7c0
    PKG_VERSION=frodo-12.3
 else 
-   PKG_VERSION=gotham-13.1
-   #PKG_URL_REV=692cfba
-   #PKG_URL_REV=a6a2713
-   PKG_URL_REV=84725b0
-   #PKG_URL_REV=809edc0
+   PKG_VERSION=gotham-13.2
+   #PKG_URL_REV=84725b0
+   PKG_URL_REV=741d614
 fi
 PKG_URL="https://github.com/xbmc/xbmc.git"
 PKG_REV=4
 PKG_DEPENDS="$TARGET_LIBC Python boost zlib bzip2 lzo pcre libssh libass enca curl dbus fontconfig fribidi libjpeg-turbo libpng tiff freetype jasper libmad libsamplerate libogg libvorbis libcdio libmms libmodplug faad2 flac wavpack libmpeg2 sqlite alsa yajl libplist openssl python-simplejson tinyxml systemd taglib libshairplay libxslt"
 PKG_RUN_DEPENDS="libmysqlclient libsmbclient python-lsb-release"
-PKG_BUILD_DEPENDS="toolchain boost mysql samba unzip-host zip swig SDL-image-host"
+PKG_BUILD_DEPENDS="toolchain boost mysql samba unzip-host zip swig SDL-image-host libmpeg2"
 PKG_USE="opengl opengles openmax joystick zeroconf webserver vdpau xvba vaapi crystalhd pulseaudio dvdcss bluray rtmp nonfree externalffmpeg externalffmpeglibav pvr addons libcec libnfs afpclient airplay airtunes screensavers dove gstreamer xorg sdl alsa cedarx imx"
 PKG_DEPENDS_opengl="mesa libglu"
 PKG_USE_DEFAULT_opengl=yes
