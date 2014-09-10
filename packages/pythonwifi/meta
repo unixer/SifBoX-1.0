@@ -4,7 +4,7 @@ PKG_URL_PROTO=git
 PKG_URL="git://git.berlios.de/pythonwifi"
 #PKG_URL="https://pypi.python.org/packages/source/p/python-wifi/python-wifi-0.3.1.tar.gz#md5=0458e32f82900e03c9fd155442242638"
 PKG_VERSION=git20130615
-PKG_REV=3
+PKG_REV=1
 PKG_BUILD_DEPENDS="toolchain Python-host python-distribute"
 PKG_RUN_DEPENDS="python-cheetah"
 PKG_PRIORITY=optional

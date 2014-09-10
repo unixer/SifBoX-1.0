@@ -3,9 +3,9 @@
 . packages/vdr/meta
 VDR_REV=$PKG_REV
 
-VDRDIR="`ls -d packages/vdr-*`"
+VDRDIR="`ls -d packages/*`"
 for dir in $VDRDIR; do
-  DIR="`ls -d packages/vdr-*/meta | tr ' ' '\n'`" 
+  DIR="`ls -d packages/*/meta | tr ' ' '\n'`" 
   . $dir/meta
   PLG_REV=$PKG_REV
   echo $PLG_REV $VDR_REV $PKG_REV

@@ -7,7 +7,7 @@ SWIG_VER=$PKG_VERSION
 
 get_meta $1
 
-export MAKEFLAGS=-j2
+export MAKEFLAGS=-j1
 
 xbmc_set_option() {
   PKG="$1"
@@ -158,6 +158,7 @@ fi
 if [ "$TARGET_MACHINE" != "pandaboard" ] ; then
   make -f codegenerator.mk
 fi
+
 
 sed -i 's%PYTHON_VERSION=$ac_python_version%PYTHON_VERSION=2.7%' configure
 GCC_NO_LTO=1 GCC_NO_GOLD=1 GCC_NO_GRAPHITE=1 GCC_NO_LOOP_TREE=1 \
